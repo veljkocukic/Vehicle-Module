@@ -64,11 +64,10 @@ header h1{
 }
 
 .tg  
-{border-collapse:collapse;
+{
   border-color:#ccc;
   border-spacing:0;
   width:85vw;
-  z-index: 9;
 }
 
 .tg td{
