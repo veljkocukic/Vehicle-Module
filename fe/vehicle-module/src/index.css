@@ -17,6 +17,29 @@ header{
   align-items: center;
   background-color: chocolate;
   color: white;
+  position: relative;
+}
+
+header ul{
+  display: flex;
+  color:white;
+  justify-content: space-between;
+  border-top: 1px solid white;
+  position: absolute;
+  list-style: none;
+  bottom: 0;
+  width: 60vw;
+}
+
+.linkHeader{
+  margin: 5px;
+  font-size: 1.5em;
+  color:white;
+  text-decoration: none;
+}
+
+.linkHeader:hover{
+  background-color: rgb(224, 122, 49);
 }
 
 .editTable{
@@ -58,10 +81,17 @@ header h1{
   overflow:hidden;
   padding:10px 5px;
   word-break:normal;
+  text-align: center;
 }
 
 .editTr{
   border: 1px solid #ccc;;
+}
+
+
+.editTr td input, .editTr td select{
+  width: 40%;
+  height: 2em;
 }
 
 .btn{
@@ -72,6 +102,16 @@ header h1{
   width: 100%;
   min-height: 2.2em;
   font-size: 1.1em;
+}
+
+.saveBtn{
+  background-color: rgb(191, 243, 187);
+  cursor: pointer;
+}
+
+.cancelBtn{
+  background-color: rgb(243, 187, 187);
+  cursor: pointer;
 }
 
 .tg th{

@@ -1,0 +1,118 @@
+.profilPage{
+    width: 65vw;
+    margin: 2em auto;
+}
+
+.profilMain{
+    display: flex;
+}
+
+.profilMain img{
+    height: 100%;
+    width: 50%;
+    object-fit: cover;
+}
+
+.profilDetails{
+    width: 50%;
+}
+
+.profilInfo{
+    height: 50%;
+}
+
+.profilInfo table{
+    width: 100%;
+    height: 90%;
+    background-color: rgb(247, 247, 247);
+}
+
+
+.profilInfo h3{
+    min-width: 100%;
+    background-color: rgb(177, 245, 175);
+    text-align: center;
+}
+
+.profilImages{
+    height: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.profilImages h3{
+    z-index: 5;
+    position: absolute;
+    top:0;
+    min-width: 100%;
+    background-color: rgb(238, 160, 87);
+    text-align: center;
+}
+
+.photoContainer{
+    height: 100%;
+    background-color: rgb(247, 247, 247);
+    position: absolute;
+    bottom:0;
+    left:0;
+    display: flex;
+}
+
+.photoContainer img{
+    height: 150px;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.profilImages p{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 2px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.profilTable{
+    margin-top:2em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profilTable ul{
+    display: flex;
+    list-style:none;
+    margin-bottom:1em;
+}
+
+.docum{
+    height: 10em;
+}
+
+.profilTable ul li{
+    background-color: rgb(108, 180, 184) !important;
+    color:white;
+    font-size: 1.4em;
+    padding:10px;
+}
+
+.profilTable ul li:hover{
+    background-color: rgb(137, 204, 207) !important;
+    cursor: pointer;
+}
+
+
+
+.profilTableTr{
+    background-color: rgb(108, 180, 184) !important;
+    color:white !important;
+    font-size: 1.2em !important;
+    cursor: pointer;
+}
+
+.btn{
+    height: 2em;
+}

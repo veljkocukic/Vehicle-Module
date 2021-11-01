@@ -28,11 +28,12 @@ const Edit = (props) => {
             </thead>
             <tbody>
                 <tr class="editTr"><td>Marka i tip</td><td><input type="text"></input></td></tr>
-                <tr class="editTr"><td>Registracioni broj</td><input type="text"></input></tr>
+                <tr class="editTr"><td>Registracioni broj</td><td><input type="text"></input></td></tr>
                 <tr class="editTr"><td>Tip korisinika</td><td><select onChange={handleChange} ><option value="A">Zaposleni</option><option value="B">Druga lica</option></select></td></tr>
                 <tr class="editTr"><td>Korisnik vozila</td><td>{zaposleni ? "iz baze" : <input type="text"></input>}</td></tr>
-                <tr class="editTr"><td>Isticanje registracije</td><input type="date"></input></tr>
-                <tr class="editTr"><td>Vozilo aktivno od do</td><input type="date"></input></tr>
+                <tr class="editTr"><td>Isticanje registracije</td><td><input type="date"></input></td></tr>
+                <tr class="editTr"><td>Vozilo aktivno od do</td><td><input type="date"></input></td></tr>
+                <tr><td><button className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
             </tbody>
         </table>
     )
@@ -41,6 +42,9 @@ const Edit = (props) => {
 
 export const Main = () => {
     let [editOn,setEditOn] = useState(false)
+
+
+
 
     const Kolona = (props) => {
         return (
@@ -58,7 +62,6 @@ export const Main = () => {
 
     return (
         <div>
-            <header><h1>Pregled svih vozila</h1></header>
             {editOn && <Edit />}
             <div className="tabela">
                 <table class="tg">
