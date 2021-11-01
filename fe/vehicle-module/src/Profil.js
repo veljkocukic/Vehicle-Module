@@ -221,6 +221,19 @@ export const Profil = () => {
         )
     }
 
+    let [imagesArray,setImagesArray] = useState(["https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg","https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg","https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg","https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg"])
+    let [openImgModal,setOpenImgModal] = useState(false)
+
+    const SveSlike = () =>{
+        return(
+            <div className="slikeModal"><h1 onClick={()=>setOpenImgModal(false)}>X</h1>
+                <div className="allImgContainer" >
+                    {imagesArray.map((item)=><img src={item} alt="slika auta" />)}
+                </div>
+            </div>
+        )
+    }
+
     const sectionCheck = () => {
 
         switch (openSec) {
@@ -244,6 +257,7 @@ export const Profil = () => {
 
     return (
         <div className="profilPage">
+            {openImgModal && <SveSlike />}
             <div className="profilMain">
                 <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" alt="slika auta" />
                 <div className="profilDetails">
@@ -260,11 +274,9 @@ export const Profil = () => {
                     <div className="profilImages">
                         <h3>Slike vozila</h3>
                         <div className="photoContainer">,
-                            <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" alt="slika auta" />
-                            <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" alt="slika auta" />
-                            <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" alt="slika auta" />
+                            {imagesArray.map((item)=><img src={item} alt="slika auta" />)}
                         </div>
-                        <p>Pogledaj sve slike</p>
+                        <p onClick={()=>setOpenImgModal(true)}>Pogledaj sve slike</p>
                     </div>
                 </div>
             </div>

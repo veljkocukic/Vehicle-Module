@@ -9,40 +9,41 @@ let vozila = [{ name: "Audi A4", registration: "BG-1009-XP", userType: "Zaposlen
 
 
 
-const Edit = (props) => {
-
-    let [zaposleni,setZaposleni] = useState(true)
-    let handleChange = (e) =>{
-        if(e.target.value === "A"){
-            setZaposleni(true)
-        }else{
-            setZaposleni(false)
-        }
-    }
-
-    return(
-        <table class="tg editTable">
-            <thead>
-                <th class="tg-0pky">Naziv polja</th>
-                <th class="tg-0pky">Izmena</th>
-            </thead>
-            <tbody>
-                <tr class="editTr"><td>Marka i tip</td><td><input type="text"></input></td></tr>
-                <tr class="editTr"><td>Registracioni broj</td><td><input type="text"></input></td></tr>
-                <tr class="editTr"><td>Tip korisinika</td><td><select onChange={handleChange} ><option value="A">Zaposleni</option><option value="B">Druga lica</option></select></td></tr>
-                <tr class="editTr"><td>Korisnik vozila</td><td>{zaposleni ? "iz baze" : <input type="text"></input>}</td></tr>
-                <tr class="editTr"><td>Isticanje registracije</td><td><input type="date"></input></td></tr>
-                <tr class="editTr"><td>Vozilo aktivno od do</td><td><input type="date"></input></td></tr>
-                <tr><td><button className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
-            </tbody>
-        </table>
-    )
-}
 
 
 export const Main = () => {
     let [editOn,setEditOn] = useState(false)
 
+    const Edit = (props) => {
+
+        let [zaposleni,setZaposleni] = useState(true)
+        let handleChange = (e) =>{
+            if(e.target.value === "A"){
+                setZaposleni(true)
+            }else{
+                setZaposleni(false)
+            }
+        }
+    
+        return(
+            <table class="tg editTable">
+                <thead>
+                    <th class="tg-0pky">Naziv polja</th>
+                    <th class="tg-0pky">Izmena</th>
+                </thead>
+                <tbody>
+                    <tr class="editTr"><td>Marka i tip</td><td><input type="text"></input></td></tr>
+                    <tr class="editTr"><td>Registracioni broj</td><td><input type="text"></input></td></tr>
+                    <tr class="editTr"><td>Tip korisinika</td><td><select onChange={handleChange} ><option value="A">Zaposleni</option><option value="B">Druga lica</option></select></td></tr>
+                    <tr class="editTr"><td>Korisnik vozila</td><td>{zaposleni ? "iz baze" : <input type="text"></input>}</td></tr>
+                    <tr class="editTr"><td>Isticanje registracije</td><td><input type="date"></input></td></tr>
+                    <tr class="editTr"><td>Vozilo aktivno od do</td><td><input type="date"></input></td></tr>
+                    <tr><td><button onClick={()=>setEditOn(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
+                </tbody>
+            </table>
+        )
+    }
+    
 
 
 
