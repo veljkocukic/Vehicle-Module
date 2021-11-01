@@ -10,8 +10,28 @@ import "./Profil.css"
 
 export const Profil = () => {
 
+    const [openRegEdit, setOpenRegEdit] = useState(false)
     const [openSec, setOpenSec] = useState("reg")
     const Registracija = () => {
+
+
+        const EditRegistracija = () => {
+            return (<table className="tg editTable">
+                <thead>
+                    <th class="tg-0pky">Naziv polja</th>
+                    <th class="tg-0pky">Izmena</th>
+                </thead>
+                <tbody>
+                    <tr><td>Datum registracije </td><td><input type="date" /></td></tr>
+                    <tr><td>Dokumentacija </td><td><input type="text" /></td></tr>
+                    <tr><td>Troškovi registracije </td><td><input type="text" /></td></tr>
+                    <tr><td>Registrovao zaposleni</td><td><input type="text" /></td></tr>
+                    <tr><td>Vreme zaposlenog</td><td><input type="text" /></td></tr>
+                    <tr><td>Registrovan do</td><td><input type="date" /></td></tr>
+                    <tr><td><button onClick={() => setOpenRegEdit(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
+                </tbody>
+            </table>)
+        }
 
         let dataReg = [{ date: "25.02.2018.", doc: "Ovlašćenje, APR, Potvrda iz banke", reg: "26542 din.", user: "Nenad Kljajić", time: "3h 45min", expire: "20.11.2020" },
         { date: "22.02.2017", doc: "Ovlašćenje, APR, Potvrda iz banke", reg: "27343 din.", user: "Nenad Kljajić", time: "3h 15min", expire: "20.11.2019" }]
@@ -26,13 +46,14 @@ export const Profil = () => {
                     <td>{props.user}</td>
                     <td>{props.time}</td>
                     <td>{props.expire}</td>
-                    <td><button>Izmeni</button><button>Obriši</button></td>
+                    <td><button onClick={()=>setOpenRegEdit(true)}>Izmeni</button><button>Obriši</button></td>
                 </tr>
             )
         }
 
         return (
             <table className="tg">
+                            {openRegEdit && <EditRegistracija />}
                 <thead>
                     <tr>
                         <th>Datum registracije</th>
@@ -191,11 +212,11 @@ export const Profil = () => {
     }
 
     const Istorija = () => {
-        	
-        let dataIst=[{name:"Nenad Kljajić",chan:"Dodata nova registracija", time:"26.09.2020 10:12:33"}, {name:"Nenad Kljajić",chan:"Izmena tekućeg troška gorivo iz 27,650 din. u 28,360 din.", time:"27.09.2020 11:22:33"}]
-        
-        const KoloneIst = (props) =>{
-            return(
+
+        let dataIst = [{ name: "Nenad Kljajić", chan: "Dodata nova registracija", time: "26.09.2020 10:12:33" }, { name: "Nenad Kljajić", chan: "Izmena tekućeg troška gorivo iz 27,650 din. u 28,360 din.", time: "27.09.2020 11:22:33" }]
+
+        const KoloneIst = (props) => {
+            return (
                 <tr>
                     <td>{props.name}</td>
                     <td>{props.time}</td>
@@ -211,24 +232,24 @@ export const Profil = () => {
                     <tr>
                         <th>Operater</th>
                         <th>Izmena</th>
-                        <th>Promena kreirana</th>                        
+                        <th>Promena kreirana</th>
                     </tr>
                 </thead>
                 <tbody>
-                {dataIst.map((item,key)=><KoloneIst name={item.name} time={item.time} chan={item.chan} key={key} />)}
+                    {dataIst.map((item, key) => <KoloneIst name={item.name} time={item.time} chan={item.chan} key={key} />)}
                 </tbody>
             </table>
         )
     }
 
-    let [imagesArray,setImagesArray] = useState(["https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg","https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg","https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg","https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg"])
-    let [openImgModal,setOpenImgModal] = useState(false)
+    let [imagesArray, setImagesArray] = useState(["https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg"])
+    let [openImgModal, setOpenImgModal] = useState(false)
 
-    const SveSlike = () =>{
-        return(
-            <div className="slikeModal"><h1 onClick={()=>setOpenImgModal(false)}>X</h1>
+    const SveSlike = () => {
+        return (
+            <div className="slikeModal"><h1 onClick={() => setOpenImgModal(false)}>X</h1>
                 <div className="allImgContainer" >
-                    {imagesArray.map((item)=><img src={item} alt="slika auta" />)}
+                    {imagesArray.map((item) => <img src={item} alt="slika auta" />)}
                 </div>
             </div>
         )
@@ -274,9 +295,9 @@ export const Profil = () => {
                     <div className="profilImages">
                         <h3>Slike vozila</h3>
                         <div className="photoContainer">,
-                            {imagesArray.map((item)=><img src={item} alt="slika auta" />)}
+                            {imagesArray.map((item) => <img src={item} alt="slika auta" />)}
                         </div>
-                        <p onClick={()=>setOpenImgModal(true)}>Pogledaj sve slike</p>
+                        <p onClick={() => setOpenImgModal(true)}>Pogledaj sve slike</p>
                     </div>
                 </div>
             </div>
