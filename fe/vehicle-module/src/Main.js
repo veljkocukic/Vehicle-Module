@@ -25,7 +25,7 @@ export const Main = () => {
         let [zaposleni,setZaposleni] = useState(true)
 
         let [marka,setMarka] = useState("")
-        let [regBr,setRegBr] = useState("")
+        let [regBr,setRegBr] = useState(0)
         let [typeMn,setTypeMn] = useState("Zaposleni")
         let [korisnikMn,setKorisnikMn] = useState("")
         let [isticanje,setIsticanje] = useState(0)
@@ -49,13 +49,18 @@ export const Main = () => {
 
 
 
-        let verReg = () =>{
-            return true
+        let verReg = (inp) =>{
+            const regex = /.{2}-[0-9]{3,5}-[A-Z]{2}/gm;
+            try {
+                return inp.match(regex)[0]===inp 
+            } catch (error) {
+                return false
+            }
         }
 
         let handleSubmit = () => {
             let verifyMarka = marka.length>2
-            let verifyReg = verReg()
+            let verifyReg = verReg(regBr)
             let verifyKorisnik = korisnikMn.length>2
             let verifyIsticanje = verDate(isticanje)
             let verifyActive = verDate(aktivnoDo)
@@ -88,7 +93,7 @@ export const Main = () => {
                 </thead>
                 <tbody>
                     <tr class="editTr"><td>Marka i tip</td><td><input type="text" onChange={(e)=>{setMarka(e.target.value)}} /></td></tr>
-                    <tr class="editTr"><td>Registracioni broj</td><td><input type="text" onChange={(e)=>{setRegBr(e.target.value)}} /></td></tr>
+                    <tr class="editTr"><td>Registracioni broj</td><td><input placeholder={"Format: \"BG-123-EF \""} type="text" onChange={(e)=>{setRegBr(e.target.value)}} /></td></tr>
                     <tr class="editTr"><td>Tip korisinika</td><td><select onChange={(handleChange)} ><option>Zaposleni</option><option>Druga lica</option></select></td></tr>
                     <tr class="editTr"><td>Korisnik vozila</td><td>{zaposleni ? "iz baze" : <input type="text" onChange={(e)=>{setKorisnikMn(e.target.value)}}/>}</td></tr>
                     <tr class="editTr"><td>Isticanje registracije</td><td><input type="date" onChange={(e)=>{setIsticanje(e.target.value)}}/></td></tr>
