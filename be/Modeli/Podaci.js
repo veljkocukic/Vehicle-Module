@@ -107,6 +107,10 @@ const MainSchema = new mongoose.Schema({
     comments:[CommentsSchema]
 })
 
-const Podaci = mongoose.model("Podaci",MainSchema)
 
+const CarsModel = mongoose.model("Cars",CarsSchema)
+const ServiseriModel = mongoose.model("Serviseri",ServiseriSchema)
+const CommentsModel = mongoose.model("Comments",CommentsSchema)
+
+module.exports={CarsModel,ServiseriModel,CommentsModel}
 
