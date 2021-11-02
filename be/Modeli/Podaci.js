@@ -95,9 +95,9 @@ const ServiseriSchema = new mongoose.Schema({
 
 const CommentsSchema = new mongoose.Schema({
     zaposleni:{type:String,required:true},
-    datum:{type:Date, required:true},
+    //datum:{type:Date, required:true},
     predlog:{type:String, required:true},
-    komntar:{type:String, default:"/"},
+    komentar:{type:String, default:"/"},
     status:{type:String, required:true}
 })
 
