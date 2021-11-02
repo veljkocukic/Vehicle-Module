@@ -1,5 +1,6 @@
 import React,{ useRef } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom"
+import { Izvestaj } from "./Izvestaj.js";
 import { Komentari } from "./Komentari.js";
 import { Main } from "./Main.js"
 import {Profil} from "./Profil.js"
@@ -22,14 +23,15 @@ export const Sadrzaj = () => {
           <li><Link onClick={handleClick} to="/" className="linkHeader">PREGLED SVIH VOZILA</Link></li>
           <li><Link onClick={handleClick} to="/profil" className="linkHeader">PROFIL VOZILA</Link></li>
           <li><Link onClick={handleClick} to="/serviseri" className="linkHeader">SERVISERI I EKSTERNI SARADNICI</Link></li>
-          <li><Link onClick={handleClick} className="linkHeader">IZVEŠTAJI</Link></li>
-          <li><Link onClick={handleClick} Link to="/komentari" className="linkHeader">KOMENTARI</Link></li>
+          <li><Link onClick={handleClick} to="/izvestaj" className="linkHeader">IZVEŠTAJI</Link></li>
+          <li><Link onClick={handleClick} to="/komentari" className="linkHeader">KOMENTARI</Link></li>
         </ul>
       </header>
       <Switch>
         <Route path="/" exact><Main /></Route>
         <Route path="/profil" exact><Profil /></Route>
         <Route path="/serviseri" exact><Serviseri /></Route>
+        <Route path="/izvestaj" exact><Izvestaj /></Route>
         <Route path="/komentari" exact><Komentari /></Route>
       </Switch>
     </Router>

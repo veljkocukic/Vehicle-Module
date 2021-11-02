@@ -48,6 +48,7 @@ header ul{
   left: 50%;
   transform: translate(-50%,-50%);
   width: 50vw !important;
+  z-index: 7;
 }
 
 header h1{
@@ -89,7 +90,8 @@ header h1{
 }
 
 
-.editTr td input, .editTr td select{
+
+.editTr td input, select{
   width: 40%;
   height: 2em;
 }
@@ -134,4 +136,13 @@ header h1{
 
 .servt{
   margin:2em auto;
+}
+
+.nonValid{
+  width: 100%;
+  text-align: center;
+  color:rgb(155, 44, 44);
+  position: absolute;
+  bottom:-1em;
+  background-color: wheat
 }

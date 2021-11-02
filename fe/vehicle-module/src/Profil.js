@@ -12,24 +12,61 @@ export const Profil = () => {
 
     const [openRegEdit, setOpenRegEdit] = useState(false)
     const [openSec, setOpenSec] = useState("reg")
+
+
     const Registracija = () => {
 
-
         const EditRegistracija = () => {
+            let [valid,setValid] = useState(true)
+
+
+            let [dateReg,setDateReg] = useState(0)
+            let [docReg,setDocReg] = useState("")
+            let [troskovi,setTroskovi] = useState(0)
+            let [registrovao,setRegistrovao] = useState("")
+            let [timeZaposleni,setTimeZaposleni] = useState(0)
+            let [regDo,setRegDo] = useState(0)
+
+            const handleSubmit = () =>{
+                let verifyDate = dateReg !==0
+                let verifyDoc = docReg.length>2
+                let verifyTroskovi = troskovi>2
+                let verifyReg = registrovao.length>2
+                let verifyTime = timeZaposleni>2
+                let verifyDo = regDo!==0
+
+                if(verifyDate&&verifyDoc&&verifyTroskovi&&verifyReg&&verifyTime&&verifyDo){
+                    setValid(true)
+                    setOpenRegEdit(false)
+                    console.log(dateReg,docReg,troskovi,registrovao,timeZaposleni,regDo)
+                }else{
+                    setValid(false)
+                }
+            }
+
+
+
+
+
+
+
+
+
             return (<table className="tg editTable">
                 <thead>
                     <th class="tg-0pky">Naziv polja</th>
                     <th class="tg-0pky">Izmena</th>
                 </thead>
                 <tbody>
-                    <tr><td>Datum registracije </td><td><input type="date" /></td></tr>
-                    <tr><td>Dokumentacija </td><td><input type="text" /></td></tr>
-                    <tr><td>Troškovi registracije </td><td><input type="text" /></td></tr>
-                    <tr><td>Registrovao zaposleni</td><td><input type="text" /></td></tr>
-                    <tr><td>Vreme zaposlenog</td><td><input type="text" /></td></tr>
-                    <tr><td>Registrovan do</td><td><input type="date" /></td></tr>
-                    <tr><td><button onClick={() => setOpenRegEdit(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
+                    <tr><td>Datum registracije </td><td><input type="date" onChange={(e)=>setDateReg(e.target.value)}/></td></tr>
+                    <tr><td>Dokumentacija </td><td><input type="text" onChange={(e)=>setDocReg(e.target.value)} /></td></tr>
+                    <tr><td>Troškovi registracije </td><td><input type="number" onChange={(e)=>setTroskovi(e.target.value)} /></td></tr>
+                    <tr><td>Registrovao zaposleni</td><td><input type="text" onChange={(e)=>setRegistrovao(e.target.value)}/></td></tr>
+                    <tr><td>Vreme zaposlenog</td><td><input type="text" onChange={(e)=>setTimeZaposleni(e.target.value)}/></td></tr>
+                    <tr><td>Registrovan do</td><td><input type="date" onChange={(e)=>setRegDo(e.target.value)}/></td></tr>
+                    <tr><td><button onClick={() => setOpenRegEdit(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn" onClick={handleSubmit}>Sačuvaj</button></td></tr>
                 </tbody>
+                {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
             </table>)
         }
 
@@ -46,14 +83,14 @@ export const Profil = () => {
                     <td>{props.user}</td>
                     <td>{props.time}</td>
                     <td>{props.expire}</td>
-                    <td><button onClick={()=>setOpenRegEdit(true)}>Izmeni</button><button>Obriši</button></td>
+                    <td><button onClick={() => setOpenRegEdit(true)}>Izmeni</button><button>Obriši</button></td>
                 </tr>
             )
         }
 
         return (
             <table className="tg">
-                            {openRegEdit && <EditRegistracija />}
+                {openRegEdit && <EditRegistracija />}
                 <thead>
                     <tr>
                         <th>Datum registracije</th>
@@ -72,14 +109,39 @@ export const Profil = () => {
     }
 
     const Specifikacija = (props) => {
+
+        const [openSpecEdit, setOpenSpecEdit] = useState(false)
+
+        const EditSpecifikacija = () => {
+            return (
+                <table className="tg editTable">
+                    <thead>
+                        <th class="tg-0pky">Naziv polja</th>
+                        <th class="tg-0pky">Izmena</th>
+                    </thead>
+                    <tbody>
+                        <tr><td>Broj šasije </td><td><input type="text" /></td></tr>
+                        <tr><td>Broj motora </td><td><input type="text" /></td></tr>
+                        <tr><td>Godište </td><td><input type="text" /></td></tr>
+                        <tr><td>Boja</td><td><input type="text" /></td></tr>
+                        <tr><td>Datum kupovine</td><td><input type="date" /></td></tr>
+                        <tr><td>Cena vozila</td><td><input type="text" /></td></tr>
+                        <tr><td>Dokumentacija</td><td><textarea></textarea></td></tr>
+                        <tr><td><button onClick={() => setOpenSpecEdit(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
+                    </tbody>
+                </table>)
+        }
+
+
         return (
             <table className="tg">
+                {openSpecEdit && <EditSpecifikacija />}
                 <tbody>
                     <tr><th>Br. šasija</th><td>WAUZZZ8K9A035589</td><th>Br. motora</th><td>28103373N</td></tr>
                     <tr><th>Godište</th><td>2012</td><th>Boja</th><td>7D SIVA MET.</td></tr>
                     <tr><th>Datum kupovine</th><td>01.02.2017</td><th>Cena vozila</th><td>1.201.544</td></tr>
                     <tr className="docum"><th>Dokumentacija</th><td>- Kupoprodajni ugovor</td></tr>
-                    <tr><td><button className="changeSpec">Izmeni</button></td></tr>
+                    <tr><td><button className="changeSpec" onClick={() => setOpenSpecEdit(true)}>Izmeni</button></td></tr>
                 </tbody>
             </table>
         )
@@ -89,6 +151,29 @@ export const Profil = () => {
 
         let fuelData = [{ type: "Gorivo", date: "14.08.2020", km: "143.000", pot: "33,13", cena: "142.53", usluga: "/", time: "/" },
         { type: "Tag", date: "30.08.2020", km: "145.443", pot: "/", cena: "2.500,00", usluga: "Nenad Kljajić", time: "60" }]
+
+        let [openFuelEdit, setOpenFuelEdit] = useState(false)
+
+
+        const EditGorivo = () => {
+            return (
+                <table className="tg editTable">
+                    <thead>
+                        <th class="tg-0pky">Naziv polja</th>
+                        <th class="tg-0pky">Izmena</th>
+                    </thead>
+                    <tbody>
+                        <tr><td>Tip </td><td><input type="text" /></td></tr>
+                        <tr><td>Datum </td><td><input type="date" /></td></tr>
+                        <tr><td>Kilometraža </td><td><input type="text" /></td></tr>
+                        <tr><td>Potrošnja</td><td><input type="text" /></td></tr>
+                        <tr><td>Cena</td><td><input type="text" /></td></tr>
+                        <tr><td>Usluga zaposlenog</td><td><input type="text" /></td></tr>
+                        <tr><td>Vreme zaposlenog</td><td><input type="text" /></td></tr>
+                        <tr><td><button onClick={() => setOpenFuelEdit(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
+                    </tbody>
+                </table>)
+        }
 
 
 
@@ -103,12 +188,13 @@ export const Profil = () => {
                 <td>{props.cena}</td>
                 <td>{props.usluga}</td>
                 <td>{props.time}</td>
-                <td><button>IZMENI</button> <button>OBRIŠI</button></td>
+                <td><button onClick={() => setOpenFuelEdit(true)}>IZMENI</button> <button>OBRIŠI</button></td>
             </tr>)
 
         }
         return (
             <table className="tg">
+                {openFuelEdit && <EditGorivo />}
                 <thead>
                     <tr>
                         <th>Tip</th>
@@ -133,6 +219,31 @@ export const Profil = () => {
         let dataOdrz = [{ type: "Redovno", date: "14.08.2019", km: "143.000", part: "Ulje, filteri, pločice, akumulator", total: "18.343,00", user: "Nenad Kljajić", time: "160" },
         { type: "Vanredno", date: "16.08.2020", km: "156.343", part: "Zamena klime", total: "56.232,00", user: "Nenad Kljajić", time: "320" }]
 
+        let [openOdrEdit, setOpenOdrEdit] = useState(false)
+
+
+        const EditOdrzavanje = () => {
+            return (
+                <table className="tg editTable">
+                    <thead>
+                        <th class="tg-0pky">Naziv polja</th>
+                        <th class="tg-0pky">Izmena</th>
+                    </thead>
+                    <tbody>
+                        <tr><td>Tip </td><td><input type="text" /></td></tr>
+                        <tr><td>Datum </td><td><input type="date" /></td></tr>
+                        <tr><td>Kilometraža </td><td><input type="number" /></td></tr>
+                        <tr><td>Delovi/Usluga</td><td><input type="text" /></td></tr>
+                        <tr><td>Ukupan trošak</td><td><input type="text" /></td></tr>
+                        <tr><td>Usluga zaposlenog</td><td><input type="text" /></td></tr>
+                        <tr><td>Vreme zaposlenog</td><td><input type="text" /></td></tr>
+                        <tr><td><button onClick={() => setOpenOdrEdit(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
+                    </tbody>
+                </table>)
+        }
+
+
+
         const KoloneOdrz = (props) => {
 
             return (
@@ -144,7 +255,7 @@ export const Profil = () => {
                     <td>{props.total}</td>
                     <td>{props.user}</td>
                     <td>{props.time}</td>
-                    <td><button>IZEMNI</button><button>OBRIŠI</button></td>
+                    <td><button onClick={() => setOpenOdrEdit(true)}>IZEMNI</button><button>OBRIŠI</button></td>
                 </tr>
             )
 
@@ -152,6 +263,7 @@ export const Profil = () => {
 
         return (
             <table className="tg">
+                {openOdrEdit && <EditOdrzavanje />}
                 <thead>
                     <tr>
                         <th>Tip</th>
@@ -173,6 +285,52 @@ export const Profil = () => {
     const Steta = () => {
 
         let dataSteta = [{ desc: "Oštećeno levo krilo i branik", cover: "Zaposleni", date: "26.09.2020.", part: "Zamena delova i farbanje", total: "72.546,00", user: "Nenad Kljajić", time: "160" }]
+        let [openDmgEdit, setOpenDmgEdit] = useState(false)
+
+
+        const EditSteta = () => {
+
+            let [desc, setDesc] = useState("")
+            let [pokriva, setPokriva] = useState("Zaposleni")
+            let [date, setDate] = useState(0)
+            let [total, setTotal] = useState(0)
+            let [usluga, setUsluga] = useState("/")
+            let [time, setTime] = useState("/")
+            let [parts, setParts] = useState("")
+            let [valid, setValid] = useState(true)
+
+            const handleSubmit = () => {
+                let verifyDesc = desc.length > 2
+                let verifyDate = date !== 0
+                let verifyParts = parts.length > 2
+                let verifyTotal = total > 1
+
+                if (verifyDesc && verifyDate && verifyParts && verifyTotal) {
+                    setValid(true)
+                } else {
+                    setValid(false)
+                }
+            }
+
+            return (
+                <table className="tg editTable">
+                    <thead>
+                        <th class="tg-0pky">Naziv polja</th>
+                        <th class="tg-0pky">Izmena</th>
+                    </thead>
+                    <tbody>
+                        <tr><td>Opis štete </td><td><input type="text" onChange={(e) => setDesc(e.target.value)} /></td></tr>
+                        <tr><td>Štetu pokriva </td><td><select onChange={(e) => setPokriva(e.target.value)}><option>Zaposleni</option><option>Firma</option><option>Osiguranje</option><option>Drugo lice</option></select></td></tr>
+                        <tr><td>Datum </td><td><input type="date" onChange={(e) => setDate(e.target.value)} /></td></tr>
+                        <tr><td>Delovi/Usluga</td><td><input type="text" onChange={(e) => setParts(e.target.value)} /></td></tr>
+                        <tr><td>Ukupan trošak</td><td><input type="number" onChange={(e) => setTotal(e.target.value)} /></td></tr>
+                        <tr><td>Usluga zaposlenog</td><td><input type="text" onChange={(e) => setUsluga(e.target.value)} /></td></tr>
+                        <tr><td>Vreme zaposlenog</td><td><input type="number" onChange={(e) => setTime(e.target.value)} /></td></tr>
+                        <tr><td><button onClick={() => setOpenDmgEdit(false)} className="cancelBtn">Otkaži</button></td><td><button type="submit" className="saveBtn" onClick={handleSubmit}>Sačuvaj</button></td></tr>
+                    </tbody>
+                    {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+                </table>)
+        }
 
 
         const KoloneSteta = (props) => {
@@ -185,7 +343,7 @@ export const Profil = () => {
                     <td>{props.total}</td>
                     <td>{props.user}</td>
                     <td>{props.time}</td>
-                    <td><button>IZEMNI</button><button>OBRIŠI</button></td>
+                    <td><button onClick={() => setOpenDmgEdit(true)}>IZEMNI</button><button>OBRIŠI</button></td>
                 </tr>
             )
         }
@@ -193,6 +351,7 @@ export const Profil = () => {
 
         return (
             <table className="tg">
+                {openDmgEdit && <EditSteta />}
                 <thead>
                     <tr>
                         <th>Opis štete</th>

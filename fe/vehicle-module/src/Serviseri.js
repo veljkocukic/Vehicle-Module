@@ -1,7 +1,32 @@
-import React from "react"
+import React, { useState } from "react"
+
+
 export const Serviseri = () =>{
 
+    let [openServEdit,setOpenServEdit] = useState(false)
     let dataServ = [{code:"CLIDOM2020243232232", name:"SZR BOKI LIMAR",type:"Farbanje, Limarija", contact:"Bojan Mirković", adr:"Abebe Bikile 4b", tel:"065 2 51 51 60",mail:"info@autolimar.rs",site:"info@autolimar.rs"}]
+
+
+
+    const EditServis = () =>{
+        return (
+        <table className="tg editTable">
+                <thead>
+                    <th class="tg-0pky">Naziv polja</th>
+                    <th class="tg-0pky">Izmena</th>
+                </thead>
+                <tbody>
+                    <tr><td>Šifra klijenta </td><td><input type="text" /></td></tr>
+                    <tr><td>Naziv firme </td><td><input type="text" /></td></tr>
+                    <tr><td>Tip usluge</td><td><input type="text" /></td></tr>
+                    <tr><td>Kontakt</td><td><input type="text" /></td></tr>
+                    <tr><td>Broj telefona</td><td><input type="text" /></td></tr>
+                    <tr><td>E-mail</td><td><input type="text" /></td></tr>
+                    <tr><td>Website</td><td><input type="text" /></td></tr>
+                    <tr><td><button onClick={() => setOpenServEdit(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
+                </tbody>
+            </table>)
+    }
 
 
     const KoloneServiseri = (props) =>{
@@ -15,13 +40,14 @@ export const Serviseri = () =>{
             <td>{props.tel}</td>
             <td>{props.mail}</td>
             <td>{props.site}</td>
-            <td><button>IZMENI</button><button>OBRIŠI</button></td>
+            <td><button onClick={()=>setOpenServEdit(true)} >IZMENI</button><button>OBRIŠI</button></td>
             </tr>
         )
 
     }
     return(
         <table className="tg servt">
+            {openServEdit && <EditServis />}
             <thead>
                 <tr>
                     <th>Šifra klijenta</th>
