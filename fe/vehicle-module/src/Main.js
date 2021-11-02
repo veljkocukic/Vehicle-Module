@@ -14,17 +14,72 @@ let vozila = [{ name: "Audi A4", registration: "BG-1009-XP", userType: "Zaposlen
 export const Main = () => {
     let [editOn,setEditOn] = useState(false)
 
-    const Edit = (props) => {
 
+
+
+
+
+    const Edit = (props) => {
+        
+        let [valid,setValid] = useState(true)
         let [zaposleni,setZaposleni] = useState(true)
+
+        let [marka,setMarka] = useState("")
+        let [regBr,setRegBr] = useState("")
+        let [typeMn,setTypeMn] = useState("Zaposleni")
+        let [korisnikMn,setKorisnikMn] = useState("")
+        let [isticanje,setIsticanje] = useState(0)
+        let [aktivnoDo,setAktivnoDo] = useState(0)
+
         let handleChange = (e) =>{
-            if(e.target.value === "A"){
+            if(e.target.value === "Zaposleni"){
                 setZaposleni(true)
             }else{
                 setZaposleni(false)
             }
         }
+
+
+
+
+    let verDate = (dt) =>{
+        return ((new Date(dt) > new Date()) && dt!==0)
+    }
+
+
+
+
+        let verReg = () =>{
+            return true
+        }
+
+        let handleSubmit = () => {
+            let verifyMarka = marka.length>2
+            let verifyReg = verReg()
+            let verifyKorisnik = korisnikMn.length>2
+            let verifyIsticanje = verDate(isticanje)
+            let verifyActive = verDate(aktivnoDo)
+            if(verifyMarka&&verifyReg&&verifyKorisnik&&verifyIsticanje&&verifyActive){
+
+                setValid(true)
+                setEditOn(false)
+            }else{
+                setValid(false)
+            }
+        }
     
+        let handleCancel = () =>{
+            setMarka("")
+            setRegBr("")
+            setTypeMn("Zaposleni")
+            setKorisnikMn("")
+            setIsticanje(0)
+            setAktivnoDo(0)
+            setEditOn(false)
+        }
+
+
+
         return(
             <table class="tg editTable">
                 <thead>
@@ -32,13 +87,14 @@ export const Main = () => {
                     <th class="tg-0pky">Izmena</th>
                 </thead>
                 <tbody>
-                    <tr class="editTr"><td>Marka i tip</td><td><input type="text"></input></td></tr>
-                    <tr class="editTr"><td>Registracioni broj</td><td><input type="text"></input></td></tr>
-                    <tr class="editTr"><td>Tip korisinika</td><td><select onChange={handleChange} ><option value="A">Zaposleni</option><option value="B">Druga lica</option></select></td></tr>
-                    <tr class="editTr"><td>Korisnik vozila</td><td>{zaposleni ? "iz baze" : <input type="text"></input>}</td></tr>
-                    <tr class="editTr"><td>Isticanje registracije</td><td><input type="date"></input></td></tr>
-                    <tr class="editTr"><td>Vozilo aktivno od do</td><td><input type="date"></input></td></tr>
-                    <tr><td><button onClick={()=>setEditOn(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
+                    <tr class="editTr"><td>Marka i tip</td><td><input type="text" onChange={(e)=>{setMarka(e.target.value)}} /></td></tr>
+                    <tr class="editTr"><td>Registracioni broj</td><td><input type="text" onChange={(e)=>{setRegBr(e.target.value)}} /></td></tr>
+                    <tr class="editTr"><td>Tip korisinika</td><td><select onChange={(handleChange)} ><option>Zaposleni</option><option>Druga lica</option></select></td></tr>
+                    <tr class="editTr"><td>Korisnik vozila</td><td>{zaposleni ? "iz baze" : <input type="text" onChange={(e)=>{setKorisnikMn(e.target.value)}}/>}</td></tr>
+                    <tr class="editTr"><td>Isticanje registracije</td><td><input type="date" onChange={(e)=>{setIsticanje(e.target.value)}}/></td></tr>
+                    <tr class="editTr"><td>Vozilo aktivno od do</td><td><input type="date" onChange={(e)=>{setAktivnoDo(e.target.value)}}/></td></tr>
+                    <tr><td><button onClick={handleCancel} className="cancelBtn">Otkaži</button></td><td><button type="submit" className="saveBtn" onClick={handleSubmit}>Sačuvaj</button></td></tr>
+                    {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
                 </tbody>
             </table>
         )

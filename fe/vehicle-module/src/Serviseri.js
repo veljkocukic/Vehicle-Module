@@ -9,6 +9,18 @@ export const Serviseri = () =>{
 
 
     const EditServis = () =>{
+
+        let [valid,setValid] = useState("")
+        let [sifra,setSifra] = useState("")
+        let [naziv,setNaziv] = useState("")
+        let [typeServ,setTypeServ] = useState("Pumpa")
+
+
+
+
+
+
+
         return (
         <table className="tg editTable">
                 <thead>
@@ -18,7 +30,7 @@ export const Serviseri = () =>{
                 <tbody>
                     <tr><td>Šifra klijenta </td><td><input type="text" /></td></tr>
                     <tr><td>Naziv firme </td><td><input type="text" /></td></tr>
-                    <tr><td>Tip usluge</td><td><input type="text" /></td></tr>
+                    <tr><td>Tip usluge</td><td><select><option>Pumpa</option><option>Delovi</option><option>Mehanika</option><option>Elektrika</option><option>Farbanje</option><option>Limarija</option></select></td></tr>
                     <tr><td>Kontakt</td><td><input type="text" /></td></tr>
                     <tr><td>Broj telefona</td><td><input type="text" /></td></tr>
                     <tr><td>E-mail</td><td><input type="text" /></td></tr>
