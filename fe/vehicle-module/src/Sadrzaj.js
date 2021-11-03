@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom"
-import { MainProvider, ProfileProvider } from "./Context.js";
+import { DataProvider } from "./Context.js";
 import { Izvestaj } from "./Izvestaj.js";
 import { Komentari } from "./Komentari.js";
 import { Main } from "./Main.js"
@@ -29,16 +29,14 @@ export const Sadrzaj = () => {
         </ul>
       </header>
       <Switch>
-        <MainProvider>
-          <ProfileProvider>
+        <DataProvider>
             <Route path="/" exact><Main /></Route>
             <Route path="/profil" exact><Profil /></Route>
             <Route path="/profil/:carId" exact><Profil /></Route>
             <Route path="/serviseri" exact><Serviseri /></Route>
             <Route path="/izvestaj" exact><Izvestaj /></Route>
             <Route path="/komentari" exact><Komentari /></Route>
-          </ProfileProvider>
-        </MainProvider>
+        </DataProvider>
       </Switch>
     </Router>
   );
