@@ -1,12 +1,5 @@
 let mongoose = require("mongoose")
 
-
-
-
-
-
-
-
 const RegistracijaSchema = new mongoose.Schema({
     datumRegistracije:{type:Date,required:true},
     dokumentacija:{type:String,required:true},
@@ -43,7 +36,7 @@ const OdrzavanjeSchema = new mongoose.Schema({
     kilometraza:{type:Number,required:true},
     deloviUsluga:{type:String, required:true},
     ukupanTrosak:{type:Number,required:true},
-    uslugaZaposlenog:{type:Number, required:true},
+    uslugaZaposlenog:{type:String, required:true},
     vremeZaposlenog:{type:Number,required:true}
 })
 
@@ -71,6 +64,7 @@ const CarsSchema = new mongoose.Schema({
     registrovanDo:{type:Date,required: true},
     registracioniBroj:{type:String,required:true},
     korisnikVoz:{type:String,required:true},
+    tipKorisnika:{type:String,required:true},
     activeFrom:{type:Date,required:true},
     activeTo:{type:Date},
     registracijaPolje:[RegistracijaSchema],
@@ -95,7 +89,7 @@ const ServiseriSchema = new mongoose.Schema({
 
 const CommentsSchema = new mongoose.Schema({
     zaposleni:{type:String,required:true},
-    //datum:{type:Date, required:true},
+    datum:{type:Date, required:true},
     predlog:{type:String, required:true},
     komentar:{type:String, default:"/"},
     status:{type:String, required:true}
