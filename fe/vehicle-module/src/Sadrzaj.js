@@ -1,10 +1,10 @@
-import React,{ useRef } from "react";
+import React, { useRef } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom"
-import { DataProvider } from "./Context.js";
+import { MainProvider, ProfileProvider } from "./Context.js";
 import { Izvestaj } from "./Izvestaj.js";
 import { Komentari } from "./Komentari.js";
 import { Main } from "./Main.js"
-import {Profil} from "./Profil.js"
+import { Profil } from "./Profil.js"
 import { Serviseri } from "./Serviseri.js";
 
 export const Sadrzaj = () => {
@@ -12,8 +12,8 @@ export const Sadrzaj = () => {
 
   let text = useRef(null)
 
-  const handleClick=(e)=>{
-    text.current.innerText=e.target.innerText
+  const handleClick = (e) => {
+    text.current.innerText = e.target.innerText
   }
 
   return (
@@ -29,13 +29,16 @@ export const Sadrzaj = () => {
         </ul>
       </header>
       <Switch>
-        <DataProvider>
-        <Route path="/" exact><Main /></Route>
-        <Route path="/profil" exact><Profil /></Route>
-        <Route path="/serviseri" exact><Serviseri /></Route>
-        <Route path="/izvestaj" exact><Izvestaj /></Route>
-        <Route path="/komentari" exact><Komentari /></Route>
-        </DataProvider>
+        <MainProvider>
+          <ProfileProvider>
+            <Route path="/" exact><Main /></Route>
+            <Route path="/profil" exact><Profil /></Route>
+            <Route path="/profil/:carId" exact><Profil /></Route>
+            <Route path="/serviseri" exact><Serviseri /></Route>
+            <Route path="/izvestaj" exact><Izvestaj /></Route>
+            <Route path="/komentari" exact><Komentari /></Route>
+          </ProfileProvider>
+        </MainProvider>
       </Switch>
     </Router>
   );

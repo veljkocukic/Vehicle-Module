@@ -1,4 +1,5 @@
 import React, { useState,useEffect,useContext, useRef } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios"
 import {DataContext} from "./Context"
 
@@ -182,7 +183,7 @@ export const Main = () => {
     const Kolona = (props) => {
         return (
             <tr>
-                <td class="tg-0pky">{props.name}</td>
+                <td class="tg-0pky"><Link to={`/profil/${props.id}`}>{props.name}</Link></td>
                 <td class="tg-0pky">{props.reg}</td>
                 <td class="tg-0pky">{props.utype}</td>
                 <td class="tg-0pky">{props.uname}</td>

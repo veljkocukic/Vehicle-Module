@@ -2,7 +2,6 @@ let {CarsModel,ServiseriModel,CommentsModel,ZaposleniModel} = require("../Modeli
 
 
 
-
 function form(e){ 
     let arr=[]
     arr.push(e.toString())
@@ -12,7 +11,7 @@ function form(e){
 }
 
 
-let formatDate = (dt)=>{ /////////////Vreme za tabele
+let formatDate = (dt)=>{ ///////////// Vreme za tabele
     let date =  new Date(dt).toLocaleDateString().replaceAll("/",".")
     return date+"."
 }
@@ -61,7 +60,7 @@ const Zaposleni = async(req,res)=>{
 
 const EditZaposleni = async(req,res)=>{
     try {
-        
+
         const car = await CarsModel.findById(req.body.id)
         car.markaTip=req.body.marka
         car.registracioniBroj=req.body.regBr
