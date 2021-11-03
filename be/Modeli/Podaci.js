@@ -23,10 +23,10 @@ const GorivoSchema = new mongoose.Schema({
     tip:{type:String,required:true},
     datum:{type:Date,required:true},
     kilometraza:{type:Number,required:true},
-    potrosnja:{type:Number, default:"/"},
+    potrosnja:{type:Number, default:0},
     cena:{type:Number,required:true},
     uslugaZaposlenog:{type:String,default:"/"},
-    vremeZaposlenog:{type:Number, default:"/"}
+    vremeZaposlenog:{type:Number, default:0}
 })
 
 
@@ -55,7 +55,7 @@ const StetaSchema = new mongoose.Schema({
 const IstorijaSchema = new mongoose.Schema({
     operater:{type:String,required:true},
     izmena:{type:String,required:true},
-    promenaKreirana: {type:Date,required:true}
+    promenaKreirana: {type:Date}
 })
 
 
@@ -95,16 +95,15 @@ const CommentsSchema = new mongoose.Schema({
     status:{type:String, required:true}
 })
 
-const MainSchema = new mongoose.Schema({
-    cars: [CarsSchema],
-    serviseri:[ServiseriSchema],
-    comments:[CommentsSchema]
+const ZaposleniSchema = new mongoose.Schema({
+    ime:{type:String, required:true}
 })
 
 
 const CarsModel = mongoose.model("Cars",CarsSchema)
 const ServiseriModel = mongoose.model("Serviseri",ServiseriSchema)
 const CommentsModel = mongoose.model("Comments",CommentsSchema)
+const ZaposleniModel = mongoose.model("Zaposleni",CommentsSchema)
 
-module.exports={CarsModel,ServiseriModel,CommentsModel}
+module.exports={CarsModel,ServiseriModel,CommentsModel,ZaposleniModel}
 

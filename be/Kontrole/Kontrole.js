@@ -1,17 +1,31 @@
-let {CarsModel,ServiseriModel,CommentsModel} = require("../Modeli/Podaci")
+let {CarsModel,ServiseriModel,CommentsModel,ZaposleniModel} = require("../Modeli/Podaci")
 
 
 
 
-
-let formatDate = (dt)=>{
-    let date =  new Date(dt).toLocaleDateString().replaceAll("/",".")
-
-    return date+"."
-
+function form(e){ 
+    let arr=[]
+    arr.push(e.toString())
+    arr.unshift(0)
+    arr=arr.join("")
+    return arr
 }
-const Main = async(req,res)=>{
 
+
+let formatDate = (dt)=>{ /////////////Vreme za tabele
+    let date =  new Date(dt).toLocaleDateString().replaceAll("/",".")
+    return date+"."
+}
+let formatDateEdit = (dt) =>{ ////////////////////// Vreme za unos
+    let t = new Date(dt)
+
+    let month = form(t.getMonth()+1)
+    let day = form(t.getDate())
+
+    return `${t.getFullYear()}-${month}-${day}`
+}
+
+const Main = async(req,res)=>{ ////Podaci za listu automobila na glavnoj strani
     try {
         const vozila = await CarsModel.find({})
         let arr = []
@@ -23,16 +37,46 @@ const Main = async(req,res)=>{
                 korisnikVozila:a.korisnikVoz,
                 isticanje:formatDate(a.registrovanDo),
                 activeFrom:formatDate(a.activeFrom),
+                isticanjeEdit:formatDateEdit(a.registrovanDo),
+                activeFromEdit:formatDateEdit(a.activeFrom),
                 tipKorisnika:a.tipKorisnika
             })
         }
         res.json(arr)
-        console.log(arr)
         
     } catch (error) {
         console.log(error)
     }
-
 }
 
-module.exports = {Main}
+
+const Zaposleni = async(req,res)=>{
+    try {
+        const zaposleni = await ZaposleniModel.find({})
+        res.send(zaposleni)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const EditZaposleni = async(req,res)=>{
+    try {
+        
+        const car = await CarsModel.findById(req.body.id)
+        car.markaTip=req.body.marka
+        car.registracioniBroj=req.body.regBr
+        car.tipKorisnika = req.body.typeMn
+        car.korisnikVoz = req.body.korisnikMn
+        car.registrovanDo = req.body.isticanje
+        car.activeFrom = req.body.aktivnoOd
+        car.save()
+        res.send("success")
+        
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+module.exports = {Main,Zaposleni,EditZaposleni}

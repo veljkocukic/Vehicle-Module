@@ -1,32 +1,33 @@
-import React, { useState,useEffect,useRef,useContext } from "react";
+import React, { useState,useEffect,useContext, useRef } from "react";
 import axios from "axios"
 import {DataContext} from "./Context"
 
 
 
 
-let vozilaa = [{ name: "Audi A4", registration: "BG-1009-XP", userType: "Zaposleni", userName: "Tanja Milinkovic", expire: "19.07.2021.", active: "15.07.2016." },
-{ name: "Audi A4", registration: "BG-1793-GK", userType: "Zaposleni", userName: "Marko Jovanovic", expire: "20.01.2020.", active: "22.10.2019." }]
-
-
-
-
-
 
 export const Main = () => {
-    let { marka,setMarka,regBr,setRegBr,typeMn,setTypeMn,korisnikMn,setKorisnikMn,isticanje,setIsticanje,aktivnoOd,setAktivnoOd,markaRef,regBrRef,tipKorRef,korVozRef,isticRef,activeRef } = useContext(DataContext)
+    let { id,setId, marka,setMarka,regBr,setRegBr,typeMn,setTypeMn,korisnikMn,setKorisnikMn,isticanje,setIsticanje,aktivnoOd,setAktivnoOd,markaRef,regBrRef,tipKorRef,korVozRef,isticRef,activeRef } = useContext(DataContext)
     let [vozila,setVozila] = useState([])
+    let [zaposleniLista,setZaposleniLista] = useState([])
+    let zaposleniSelect = useRef(null)
+
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData1 = async () => {
             await axios.get("http://localhost:5000/api/v1/main").then(e=>{ 
                 setVozila(e.data)
-                console.log(e.data)
              })
         }
-        fetchData()
-    }, [])
 
+        const fetchData2 = async()=>{
+            await axios.get("http://localhost:5000/api/v1/zaposleni").then(e=>{ 
+                setZaposleniLista(e.data)
+             })
+        }
+        fetchData1()
+        fetchData2()
+    }, [])
 
 
 
@@ -35,6 +36,14 @@ export const Main = () => {
 
     const Edit = (props) => {
         
+    const ZaposleniLista = () =>{
+
+        return(
+            <select ref={zaposleniSelect}>
+                {zaposleniLista.map(item=><option value={item.ime}>{item.ime}</option>)}
+            </select>
+        )
+    }
         let [valid,setValid] = useState(true)
         let [zaposleni,setZaposleni] = useState(true)
 
@@ -47,13 +56,52 @@ export const Main = () => {
         let [aktivnoOd,setAktivnoOd] = useState(0)
 
 
+        useEffect(()=>{
+            let vozilo = vozila.find(item=>item.id===id)
+            setMarka(vozilo.markaTip)
+            setRegBr(vozilo.regBroj)
+            setTypeMn("Zaposleni")
+            setKorisnikMn(vozilo.korisnikVozila)
+            setIsticanje(vozilo.isticanje)
+            setAktivnoOd(vozilo.activeFrom)
+            markaRef.current.value=vozilo.markaTip 
+            regBrRef.current.value=vozilo.regBroj 
+            if(vozilo.tipKorisnika!=="Zaposleni"){
+                tipKorRef.current.value="Druga lica"
+                setZaposleni(false)
+            }else{
+                zaposleniSelect.current.value=vozilo.korisnikVozila
+            }
+            try {
+                isticRef.current.value=vozilo.isticanjeEdit
+                activeRef.current.value=vozilo.activeFromEdit
+                
+            } catch (error) {
+                return
+            }   
+        },[])
+
+        useEffect(()=>{
+            let vozilo = vozila.find(item=>item.id===id)
+            try {
+                korVozRef.current.value=vozilo.korisnikVozila
+                
+            } catch (error) {
+                console.log(error)
+            }
+        },[zaposleni])
+
+
         let handleChange = (e) =>{
-            if(e.target.value === "Zaposleni"){
+        
+            if(e.target.value !== "Druga lica"){
                 setZaposleni(true)
             }else{
                 setZaposleni(false)
             }
         }
+
+
 
         let verDate = (dt) =>{
           return ((new Date(dt) > new Date()) && dt!==0)
@@ -69,19 +117,27 @@ export const Main = () => {
             }
         }
 
-        let handleSubmit = () => {
+        let handleSubmit = async() => {
             let verifyMarka = marka.length>2
             let verifyReg = verReg(regBr)
             let verifyKorisnik = korisnikMn.length>2
             let verifyIsticanje = verDate(isticanje)
             let verifyActive = verDate(aktivnoOd)
             if(verifyMarka&&verifyReg&&verifyKorisnik&&verifyIsticanje&&verifyActive){
-
                 setValid(true)
-                setEditOn(false)
             }else{
                 setValid(false)
             }
+
+            await axios.patch("http://localhost:5000/api/v1/izmena",{
+                id,marka,regBr,typeMn,korisnikMn,isticanje,aktivnoOd
+            
+            }).then(res=>{
+                console.log(res.data)
+            }).catch(er=>console.log(er))
+
+            setEditOn(false)
+
         }
     
         let handleCancel = () =>{
@@ -94,6 +150,8 @@ export const Main = () => {
             setEditOn(false)
         }
 
+
+
         return(
             <table class="tg editTable">
                 <thead>
@@ -103,8 +161,8 @@ export const Main = () => {
                 <tbody>
                     <tr class="editTr"><td>Marka i tip</td><td><input type="text" onChange={(e)=>{setMarka(e.target.value)}} ref={markaRef}/></td></tr>
                     <tr class="editTr"><td>Registracioni broj</td><td><input placeholder={"Format: \"BG-123-EF \""} type="text" onChange={(e)=>{setRegBr(e.target.value)}} ref={regBrRef}/></td></tr>
-                    <tr class="editTr"><td>Tip korisinika</td><td><select onChange={(handleChange)} ><option ref={tipKorRef}>Zaposleni</option><option>Druga lica</option></select></td></tr>
-                    <tr class="editTr"><td>Korisnik vozila</td><td>{zaposleni ? "iz baze" : <input type="text" onChange={(e)=>{setKorisnikMn(e.target.value)}} ref={korVozRef}/>}</td></tr>
+                    <tr class="editTr"><td>Tip korisinika</td><td><select onChange={handleChange} ref={tipKorRef}><option >Zaposleni</option><option>Druga lica</option></select></td></tr>
+                    <tr class="editTr"><td>Korisnik vozila</td><td>{zaposleni ? <ZaposleniLista /> : <input type="text" onChange={(e)=>{setKorisnikMn(e.target.value)}} ref={korVozRef}/>}</td></tr>
                     <tr class="editTr"><td>Isticanje registracije</td><td><input type="date" onChange={(e)=>{setIsticanje(e.target.value)}} ref={isticRef}/></td></tr>
                     <tr class="editTr"><td>Vozilo aktivno od do</td><td><input type="date" onChange={(e)=>{setAktivnoOd(e.target.value)}} ref={activeRef}/></td></tr>
                     <tr><td><button onClick={handleCancel} className="cancelBtn">Otkaži</button></td><td><button type="submit" className="saveBtn" onClick={handleSubmit}>Sačuvaj</button></td></tr>
@@ -116,27 +174,12 @@ export const Main = () => {
     
 
     const handleEditOn = (id) =>{
-        let vozilo = vozila.find(item=>item.id===id)
-        console.log(vozilo)
-        setMarka(vozilo.markaTip)
-        setRegBr(vozilo.regBroj)
-        setTypeMn("Zaposleni")
-        setKorisnikMn(vozilo.korisnikVozila)
-        setIsticanje(vozilo.isticanje)
-        setAktivnoOd(vozilo.activeFrom)
-        //markaRef.current.value=vozilo.markaTip 
-        //regBrRef.current.value=vozilo.regBr 
-        //tipKorRef
-        //korVozRef.current.value=vozilo.korisnikVozila
-        //isticRef.current.value=vozilo.isticanje
-        ///activeRef.current.value=vozilo.activeFrom
+        setId(id)
         setEditOn(true)
     }
 
 
     const Kolona = (props) => {
-
-        let id = props.id
         return (
             <tr>
                 <td class="tg-0pky">{props.name}</td>
@@ -145,7 +188,7 @@ export const Main = () => {
                 <td class="tg-0pky">{props.uname}</td>
                 <td class="tg-0pky">{props.expire}</td>
                 <td class="tg-0pky">{props.active}</td>
-                <td class="tg-0pky btn"><button onClick={()=>handleEditOn(id)}>Izmeni</button></td>
+                <td class="tg-0pky btn"><button onClick={()=>handleEditOn(props.id)}>Izmeni</button></td>
             </tr>
         )
     }

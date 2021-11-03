@@ -10,7 +10,8 @@ export let DataProvider = (props) => {
     let [isticanje,setIsticanje] = useState(0)
     let [aktivnoOd,setAktivnoOd] = useState(0)
 
-    
+    let [id,setId] = useState("")
+
     let markaRef = useRef(null)
     let regBrRef = useRef(null)
     let tipKorRef = useRef(null)
@@ -20,7 +21,7 @@ export let DataProvider = (props) => {
 
   return (
     <DataContext.Provider
-      value={{marka,setMarka,regBr,setRegBr,typeMn,setTypeMn,korisnikMn,setKorisnikMn,isticanje,setIsticanje,aktivnoOd,setAktivnoOd,markaRef,regBrRef,tipKorRef,korVozRef,isticRef,activeRef }}
+      value={{id,setId,marka,setMarka,regBr,setRegBr,typeMn,setTypeMn,korisnikMn,setKorisnikMn,isticanje,setIsticanje,aktivnoOd,setAktivnoOd,markaRef,regBrRef,tipKorRef,korVozRef,isticRef,activeRef }}
     >
       {props.children}
     </DataContext.Provider>
