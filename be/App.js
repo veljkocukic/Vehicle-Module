@@ -42,7 +42,7 @@ const connectDB = (pass) => {
 const PORT = 5000
 const start = async () => {
     try {
-      await connectDB(process.env.MONGO_PASS);
+      await connectDB("12345678997"); ////ne koristim za sada .env da bi baza radila na drugim racunarima
       app.listen(PORT, () =>
         console.log(`Server is listening on port ${PORT}...`)
       );
