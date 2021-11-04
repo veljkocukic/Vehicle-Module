@@ -1,6 +1,9 @@
 let mongoose = require("mongoose")
+let Schema = mongoose.Schema
+
 
 const RegistracijaSchema = new mongoose.Schema({
+    _id:{type:String,required:true},
     datumRegistracije:{type:Date,required:true},
     dokumentacija:{type:String,required:true},
     troskoviRegistracije:{type:Number,required:true},
@@ -20,6 +23,7 @@ const SpecifikacijaSchema = new mongoose.Schema({
 })
 
 const GorivoSchema = new mongoose.Schema({
+    _id:{type:String,required:true},
     tip:{type:String,required:true},
     datum:{type:Date,required:true},
     kilometraza:{type:Number,required:true},
@@ -31,6 +35,7 @@ const GorivoSchema = new mongoose.Schema({
 
 
 const OdrzavanjeSchema = new mongoose.Schema({
+    _id:{type:String,required:true},
     tip:{type:String,required:true},
     datum:{type:Date, required:true},
     uslugaDelovi:{type:Number,required:true},
@@ -43,6 +48,7 @@ const OdrzavanjeSchema = new mongoose.Schema({
 
 
 const StetaSchema = new mongoose.Schema({
+    _id:{type:String,required:true},
     opisStete:{type:String,required:true},
     stetuPokriva:{type:String,required:true},
     datum:{type:Date,required:true},
@@ -69,7 +75,7 @@ const CarsSchema = new mongoose.Schema({
     activeFrom:{type:Date,required:true},
     activeTo:{type:Date},
     registracijaPolje:[RegistracijaSchema],
-    specifikacijaPolje:[SpecifikacijaSchema],
+    specifikacijaPolje:SpecifikacijaSchema,
     gorivoPolje:[GorivoSchema],
     odrzavanjaPolje:[OdrzavanjeSchema],
     stetaPolje:[StetaSchema],
