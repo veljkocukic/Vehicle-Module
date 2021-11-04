@@ -40,6 +40,7 @@ const connectDB = (pass) => {
   }
 
 const PORT = 5000
+
 const start = async () => {
     try {
       await connectDB("12345678997"); ////ne koristim za sada .env da bi baza radila na drugim racunarima

@@ -64,7 +64,6 @@ const EditCars = async(req,res)=>{
     try {
 
         const car = await CarsModel.findById(req.body.id)
-        console.log(req.body)
         car.markaTip=req.body.marka
         car.registracioniBroj=req.body.regBr
         car.tipKorisnika = req.body.typeMn
@@ -80,5 +79,22 @@ const EditCars = async(req,res)=>{
     }
 }
 
+const SingleCar = async(req,res) =>{
 
-module.exports = {Main,Zaposleni,EditCars}
+    console.log(req.params)
+
+    try {
+        const car = await CarsModel.findById(req.params.carId)
+        res.json({
+            markaTip:car.markaTip,
+            korisnikVoz:car.korisnikVoz,
+            activeFrom:car.activeFrom
+        })
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
+
+module.exports = {Main,Zaposleni,EditCars,SingleCar}

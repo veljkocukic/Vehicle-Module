@@ -1,5 +1,9 @@
-import React, { useState } from "react"
+import React, { useContext, useState,useEffect } from "react"
+import { DataContext } from "./Context"
+import axios from "axios"
 import "./Profil.css"
+import { useParams } from "react-router"
+
 
 
 export const Profil = () => {
@@ -7,21 +11,72 @@ export const Profil = () => {
     const [openRegEdit, setOpenRegEdit] = useState(false)
     const [openSec, setOpenSec] = useState("reg")
 
+    ///Linija ispod treba da se sredi
+    let {korisnikMn,setKorisnikMn,aktivnoOd,setAktivnoOd,typeOdr,setTypeOdr,dateOdr,setDateOdr,kmOdr,setKmOdr,partsOdr,setPartsOdr,totalOdr,setTotalOdr,uslugaOdr,setUslugaOdr,timeOdr,setTimeOdr,desc,setDesc,pokriva,setPokriva,date,setDate,total,setTotal,usluga,setUsluga,time,setTime,parts,setParts,type,setType,dateFuel,setDateFuel,kmFuel,setKmFuel,potrosnja,setPotrosnja,priceFuel,setPriceFuel,uslugaFuel,setUslugaFuel,timeFuel,setTimeFuel,sasija,setSasija,motor,setMotor,godiste,setGodiste,boja,setBoja,dateKup,setDateKup,cenaVoz,setCenaVoz,docume,setDocume,valid,setValid,dateReg,setDateReg,docReg,setDocReg,troskovi,setTroskovi,registrovao,setRegistrovao,timeZaposleni,setTimeZaposleni,regDo,setRegDo} = useContext(DataContext)
     let verDate = (dt) =>{
         return ((new Date(dt) > new Date()) && dt!==0)
     }
+    const [marka,setMarka] = useState()
+    let {carId} = useParams()
+    useEffect(()=>{
+
+        const fetchData = () =>{
+            axios.get("http://localhost:5000/api/v1/profil/"+carId).then(res=>{
+                setMarka(res.data.markaTip)
+                setKorisnikMn(res.data.korisnikVoz)
+                setAktivnoOd(res.data.activeFrom)
+
+                setDateReg(res.datumRegistracije)
+                setDocReg(res.dokumentacijaReg) /////<-----------------
+                setTroskovi(res.troskoviRegistracije)
+                setTimeZaposleni(res.vremeZaposlenogReg) /////<-----------------
+                setRegDo(res.registrovanDo)
+
+                setSasija(res.brSasija)
+                setMotor(res.brMotora)
+                setGodiste(res.godiste)
+                setBoja(res.setBoja)
+                setDateKup(res.datumKupovine)
+                setCenaVoz(res.cenaVozila)
+                setDocume(res.dokumentacijaSpec)  /////<-----------------
+
+                setType(res.tipFuel) /////<-----------------
+                setDateFuel(res.datumFuel) /////<-----------------
+                setKmFuel(res.kilometrazaFuel) /////<-----------------
+                setPotrosnja(res.potrosnja)
+                setPriceFuel(res.cena)
+                setUslugaFuel(res.uslugaZaposlenog)
+                setTimeFuel(res.vremeZaposlenogFuel) /////<-----------------
+
+                setTypeOdr(res.tipOdr) /////<-----------------
+                setDateOdr(res.datumOdr) /////<-----------------
+                setKmOdr(res.kilometrazaOdr) /////<-----------------
+                setPartsOdr(res.deloviUsluga)
+                setTotalOdr(res.ukupanTrosak)
+                setUslugaOdr(res.deloviUslugaOdr) /////<-----------------
+                setTimeOdr(res.vremeZaposlenogOdr) /////<-----------------
+
+                setDesc(res.opisStete) /////<-----------------
+                setPokriva(res.stetuPokriva)
+                setDate(res.datumSteta) /////<-----------------
+                setTotal(res.ukupanTrosakSteta) /////<-----------------
+                setUsluga(res.uslugaZaposlenogSteta) /////<-----------------
+                setTime(res.vremeZaposlenogSteta) /////<-----------------
+                setParts(res.deloviUslugaStetaSteta)/////<-----------------
+                console.log(res.data)
+                
+            })
+        }
+
+        fetchData()
+
+    },[])
 
 
     const Registracija = () => {
 
         const EditRegistracija = () => {
             let [valid,setValid] = useState(true)
-            let [dateReg,setDateReg] = useState(0)
-            let [docReg,setDocReg] = useState("")
-            let [troskovi,setTroskovi] = useState(0)
-            let [registrovao,setRegistrovao] = useState("")
-            let [timeZaposleni,setTimeZaposleni] = useState(0)
-            let [regDo,setRegDo] = useState(0)
 
             const handleSubmit = () =>{
                 let verifyDate = !verDate(dateReg)
@@ -103,16 +158,6 @@ export const Profil = () => {
             
             let [valid,setValid] = useState(true)
 
-
-
-            let [sasija,setSasija] = useState("")
-            let [motor,setMotor] = useState("")
-            let [godiste,setGodiste] = useState(0)
-            let [boja,setBoja] = useState("")
-            let [dateKup,setDateKup] = useState(0)
-            let [cenaVoz,setCenaVoz] = useState(0)
-            let [docume,setDocume] = useState("")
-
             let handleSubmit = () =>{
                 let verifySasija = sasija.length > 10
                 let verifyMotor = motor.length>4
@@ -188,13 +233,7 @@ export const Profil = () => {
 
 
             let [valid,setValid] = useState(true)
-            let [type,setType] = useState("Gorivo")
-            let [dateFuel,setDateFuel] = useState(0)
-            let [kmFuel,setKmFuel] = useState("")
-            let [potrosnja,setPotrosnja] = useState("")
-            let [priceFuel,setPriceFuel] = useState("")
-            let [uslugaFuel,setUslugaFuel] = useState("")
-            let [timeFuel,setTimeFuel] = useState("")
+ 
 
             const handleSubmit = () => {
                 let verifyDateFuel = !verDate(dateFuel)
@@ -294,13 +333,6 @@ export const Profil = () => {
 
 
             let [valid,setValid] = useState(true)
-            let [typeOdr,setTypeOdr] = useState("Redovno")
-            let [dateOdr,setDateOdr] = useState(0)
-            let [kmOdr,setKmOdr] = useState(0)
-            let [partsOdr,setPartsOdr] = useState("")
-            let [totalOdr,setTotalOdr] = useState(0)
-            let [uslugaOdr,setUslugaOdr] = useState("")
-            let [timeOdr,setTimeOdr] = useState(0)
 
 
             const handleSubmit = () =>{
@@ -398,14 +430,6 @@ export const Profil = () => {
 
 
         const EditSteta = () => {
-
-            let [desc, setDesc] = useState("")
-            let [pokriva, setPokriva] = useState("Zaposleni")
-            let [date, setDate] = useState(0)
-            let [total, setTotal] = useState(0)
-            let [usluga, setUsluga] = useState("/")
-            let [time, setTime] = useState("/")
-            let [parts, setParts] = useState("")
             let [valid, setValid] = useState(true)
 
             const handleSubmit = () => {
@@ -564,10 +588,10 @@ export const Profil = () => {
                     <div className="profilInfo">
                         <h3>Informacije o vozilu</h3>
                         <table>
-                            <tr className="detailsTr"><td>MARKA I TIP</td> <td>Audi A4</td></tr>
-                            <tr className="detailsTr"><td>REGISTROVAN DO</td> <td>20.11.2020.</td></tr>
-                            <tr className="detailsTr"><td>KORISNIK VOZILA </td> <td>Marko Jovanovic</td></tr>
-                            <tr className="detailsTr"><td>AKTIVNO OD</td> <td>15.07.2016</td></tr>
+                            <tr className="detailsTr"><td>MARKA I TIP</td> <td>{marka}</td></tr>
+                            <tr className="detailsTr"><td>REGISTROVAN DO</td> <td>{regDo}</td></tr>
+                            <tr className="detailsTr"><td>KORISNIK VOZILA </td> <td>{korisnikMn}</td></tr>
+                            <tr className="detailsTr"><td>AKTIVNO OD</td> <td>{aktivnoOd}</td></tr>
                             <tr className="detailsTr"><td>DO</td> <td>/</td></tr>
                         </table>
                     </div>
