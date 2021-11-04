@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect } from "react"
+import React, { useContext, useState,useEffect,useRef } from "react"
 import { DataContext } from "./Context"
 import axios from "axios"
 import "./Profil.css"
@@ -7,63 +7,71 @@ import { useParams } from "react-router"
 
 
 export const Profil = () => {
-
+    
     const [openRegEdit, setOpenRegEdit] = useState(false)
     const [openSec, setOpenSec] = useState("reg")
+    let formatDate = (dt)=>{ ///////////// Vreme za tabele
+        let date =  new Date(dt).toLocaleDateString().replaceAll("/",".")   ///<------------------------------------- Ne prikazuje nas format
+        return date+"."
+    }
+    
+    
+    
+    const [registracijaAr,setRegistracijaAr] = useState([])
+    const [specifikacijaAr,setSpecifikacijaAr] = useState({})
+    const [gorivoAr,setGorivoAr] = useState([])
+    const [odrzavanjeAr,setOdrzavanjeAr] = useState([])
+    const [stetaAr,setStetaAr] = useState([])
+    
 
     ///Linija ispod treba da se sredi
-    let {korisnikMn,setKorisnikMn,aktivnoOd,setAktivnoOd,typeOdr,setTypeOdr,dateOdr,setDateOdr,kmOdr,setKmOdr,partsOdr,setPartsOdr,totalOdr,setTotalOdr,uslugaOdr,setUslugaOdr,timeOdr,setTimeOdr,desc,setDesc,pokriva,setPokriva,date,setDate,total,setTotal,usluga,setUsluga,time,setTime,parts,setParts,type,setType,dateFuel,setDateFuel,kmFuel,setKmFuel,potrosnja,setPotrosnja,priceFuel,setPriceFuel,uslugaFuel,setUslugaFuel,timeFuel,setTimeFuel,sasija,setSasija,motor,setMotor,godiste,setGodiste,boja,setBoja,dateKup,setDateKup,cenaVoz,setCenaVoz,docume,setDocume,valid,setValid,dateReg,setDateReg,docReg,setDocReg,troskovi,setTroskovi,registrovao,setRegistrovao,timeZaposleni,setTimeZaposleni,regDo,setRegDo} = useContext(DataContext)
+    let {id,setId,korisnikMn,setKorisnikMn,aktivnoOd,setAktivnoOd,typeOdr,setTypeOdr,dateOdr,setDateOdr,kmOdr,setKmOdr,partsOdr,setPartsOdr,totalOdr,setTotalOdr,uslugaOdr,setUslugaOdr,timeOdr,setTimeOdr,desc,setDesc,pokriva,setPokriva,date,setDate,total,setTotal,usluga,setUsluga,time,setTime,parts,setParts,type,setType,dateFuel,setDateFuel,kmFuel,setKmFuel,potrosnja,setPotrosnja,priceFuel,setPriceFuel,uslugaFuel,setUslugaFuel,timeFuel,setTimeFuel,sasija,setSasija,motor,setMotor,godiste,setGodiste,boja,setBoja,dateKup,setDateKup,cenaVoz,setCenaVoz,docume,setDocume,valid,setValid,dateReg,setDateReg,docReg,setDocReg,troskovi,setTroskovi,registrovao,setRegistrovao,timeZaposleni,setTimeZaposleni,regDo,setRegDo} = useContext(DataContext)
     let verDate = (dt) =>{
         return ((new Date(dt) > new Date()) && dt!==0)
     }
+
+    function form(e){
+        if(e<10){
+        let arr=[]
+        arr.push(e.toString())
+        arr.unshift(0)
+        arr=arr.join("")
+        return arr} 
+        return e
+    }
+
+    let formatDateEdit = (dt) =>{ ////////////////////// Vreme za unos
+        let t = new Date(dt)
+        let month = form(t.getMonth()+1)
+        let day = form(t.getDate())
+        return `${t.getFullYear()}-${month}-${day}`
+    }
+
     const [marka,setMarka] = useState()
     let {carId} = useParams()
     useEffect(()=>{
 
         const fetchData = () =>{
             axios.get("http://localhost:5000/api/v1/profil/"+carId).then(res=>{
-                setMarka(res.data.markaTip)
-                setKorisnikMn(res.data.korisnikVoz)
-                setAktivnoOd(res.data.activeFrom)
 
-                setDateReg(res.datumRegistracije)
-                setDocReg(res.dokumentacijaReg) /////<-----------------
-                setTroskovi(res.troskoviRegistracije)
-                setTimeZaposleni(res.vremeZaposlenogReg) /////<-----------------
-                setRegDo(res.registrovanDo)
+                setRegistracijaAr(res.data.car.registracijaPolje)
+                setSpecifikacijaAr(res.data.car.specifikacijaPolje)
+                setGorivoAr(res.data.car.gorivoPolje)
+                setOdrzavanjeAr(res.data.car.odrzavanjePolje)
+                setStetaAr(res.data.car.stetaPolje)
 
-                setSasija(res.brSasija)
-                setMotor(res.brMotora)
-                setGodiste(res.godiste)
-                setBoja(res.setBoja)
-                setDateKup(res.datumKupovine)
-                setCenaVoz(res.cenaVozila)
-                setDocume(res.dokumentacijaSpec)  /////<-----------------
+                setMarka(res.data.car.markaTip)
+                setKorisnikMn(res.data.car.korisnikVoz)
+                setAktivnoOd(res.data.car.activeFrom)
 
-                setType(res.tipFuel) /////<-----------------
-                setDateFuel(res.datumFuel) /////<-----------------
-                setKmFuel(res.kilometrazaFuel) /////<-----------------
-                setPotrosnja(res.potrosnja)
-                setPriceFuel(res.cena)
-                setUslugaFuel(res.uslugaZaposlenog)
-                setTimeFuel(res.vremeZaposlenogFuel) /////<-----------------
+                setSasija(res.data.car.specifikacijaPolje.brSasija)
+                setMotor(res.data.car.specifikacijaPolje.brMotora)
+                setGodiste(res.data.car.specifikacijaPolje.godiste)
+                setBoja(res.data.car.specifikacijaPolje.setBoja)
+                setDateKup(res.data.car.specifikacijaPolje.datumKupovine)
+                setCenaVoz(res.data.car.specifikacijaPolje.cenaVozila)
+                setDocume(res.data.car.specifikacijaPolje.dokumentacija)  
 
-                setTypeOdr(res.tipOdr) /////<-----------------
-                setDateOdr(res.datumOdr) /////<-----------------
-                setKmOdr(res.kilometrazaOdr) /////<-----------------
-                setPartsOdr(res.deloviUsluga)
-                setTotalOdr(res.ukupanTrosak)
-                setUslugaOdr(res.deloviUslugaOdr) /////<-----------------
-                setTimeOdr(res.vremeZaposlenogOdr) /////<-----------------
-
-                setDesc(res.opisStete) /////<-----------------
-                setPokriva(res.stetuPokriva)
-                setDate(res.datumSteta) /////<-----------------
-                setTotal(res.ukupanTrosakSteta) /////<-----------------
-                setUsluga(res.uslugaZaposlenogSteta) /////<-----------------
-                setTime(res.vremeZaposlenogSteta) /////<-----------------
-                setParts(res.deloviUslugaStetaSteta)/////<-----------------
-                console.log(res.data)
                 
             })
         }
@@ -78,6 +86,38 @@ export const Profil = () => {
         const EditRegistracija = () => {
             let [valid,setValid] = useState(true)
 
+            let regDateRef = useRef(null)
+            let regDocRef = useRef(null)
+            let regTrosRef = useRef(null)
+            let regZapRef = useRef(null)
+            let regTimeRef = useRef(null)
+            let regRegDoRef = useRef(null)
+
+            useEffect(()=>{
+                
+                let reg = registracijaAr.find(item=> item._id===id)
+                setDateReg(reg.datumRegistracije)
+                regDateRef.current.value=formatDateEdit(reg.datumRegistracije)
+
+                setDocReg(reg.dokumentacija)
+                regDocRef.current.value=reg.dokumentacija
+
+                setTroskovi(reg.troskoviRegistracije)
+                regTrosRef.current.value=reg.troskoviRegistracije
+
+                setRegistrovao(reg.registrovaoZaposleni)
+                regZapRef.current.value=reg.registrovaoZaposleni
+
+                setTimeZaposleni(reg.vremeZaposlenog)
+                regTimeRef.current.value=reg.vremeZaposlenog
+
+                setRegDo(reg.registrovanDo)
+                regRegDoRef.current.value=formatDateEdit(reg.registrovanDo)
+                console.log("s")
+
+
+            })
+
             const handleSubmit = () =>{
                 let verifyDate = !verDate(dateReg)
                 let verifyDoc = docReg.length>2
@@ -85,47 +125,51 @@ export const Profil = () => {
                 let verifyReg = registrovao.length>2
                 let verifyTime = timeZaposleni>2
                 let verifyDo = verDate(regDo)
-
                 if(verifyDate&&verifyDoc&&verifyTroskovi&&verifyReg&&verifyTime&&verifyDo){
+                    axios.patch("http://localhost:5000/api/v1/registracija"+carId,{id,dateReg,docReg,troskovi,registrovao,timeZaposleni,regDo}).then(res=>console.log(res))
+
                     setValid(true)
                     setOpenRegEdit(false)
-                    console.log(dateReg,docReg,troskovi,registrovao,timeZaposleni,regDo)
                 }else{
                     setValid(false)
                 }
             }
-            return (<table className="tg editTable">
+
+            
+            return (< table className="tg editTable">
                 <thead>
                     <th class="tg-0pky">Naziv polja</th>
                     <th class="tg-0pky">Izmena</th>
                 </thead>
                 <tbody>
-                    <tr><td>Datum registracije </td><td><input type="date" onChange={(e)=>setDateReg(e.target.value)}/></td></tr>
-                    <tr><td>Dokumentacija </td><td><input type="text" onChange={(e)=>setDocReg(e.target.value)} /></td></tr>
-                    <tr><td>Troškovi registracije </td><td><input type="number" onChange={(e)=>setTroskovi(e.target.value)} /></td></tr>
-                    <tr><td>Registrovao zaposleni</td><td><input type="text" onChange={(e)=>setRegistrovao(e.target.value)}/></td></tr>
-                    <tr><td>Vreme zaposlenog</td><td><input type="text" onChange={(e)=>setTimeZaposleni(e.target.value)}/></td></tr>
-                    <tr><td>Registrovan do</td><td><input type="date" onChange={(e)=>setRegDo(e.target.value)}/></td></tr>
+                    <tr><td>Datum registracije </td><td><input ref={regDateRef} type="date" onChange={(e)=>setDateReg(e.target.value)}/></td></tr>
+                    <tr><td>Dokumentacija </td><td><input ref={regDocRef} type="text" onChange={(e)=>setDocReg(e.target.value)} /></td></tr>
+                    <tr><td>Troškovi registracije </td><td><input ref={regTrosRef} type="number" onChange={(e)=>setTroskovi(e.target.value)} /></td></tr>
+                    <tr><td>Registrovao zaposleni</td><td><input ref={regZapRef} type="text" onChange={(e)=>setRegistrovao(e.target.value)}/></td></tr>
+                    <tr><td>Vreme zaposlenog</td><td><input ref={regTimeRef} type="text" onChange={(e)=>setTimeZaposleni(e.target.value)}/></td></tr>
+                    <tr><td>Registrovan do</td><td><input ref={regRegDoRef} type="date" onChange={(e)=>setRegDo(e.target.value)}/></td></tr>
                     <tr><td><button onClick={() => setOpenRegEdit(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn" onClick={handleSubmit}>Sačuvaj</button></td></tr>
                 </tbody>
                 {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
             </table>)
         }
 
-        let dataReg = [{ date: "25.02.2018.", doc: "Ovlašćenje, APR, Potvrda iz banke", reg: "26542 din.", user: "Nenad Kljajić", time: "3h 45min", expire: "20.11.2020" },
-        { date: "22.02.2017", doc: "Ovlašćenje, APR, Potvrda iz banke", reg: "27343 din.", user: "Nenad Kljajić", time: "3h 15min", expire: "20.11.2019" }]
+        const handleRegEditOpen = (_id) =>{
+            setId(_id)
+            setOpenRegEdit(true)
+        }
 
 
         const Kolone = (props) => {
             return (
                 <tr>
-                    <td>{props.date}</td>
+                    <td>{formatDate(props.date)}</td>
                     <td>{props.doc}</td>
                     <td>{props.reg}</td>
                     <td>{props.user}</td>
                     <td>{props.time}</td>
-                    <td>{props.expire}</td>
-                    <td><button onClick={() => setOpenRegEdit(true)}>Izmeni</button><button>Obriši</button></td>
+                    <td>{formatDate(props.expire)}</td>
+                    <td><button onClick={() => handleRegEditOpen(props._id)}>Izmeni</button><button>Obriši</button></td>
                 </tr>
             )
         }
@@ -144,19 +188,25 @@ export const Profil = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {dataReg.map((item, key) => <Kolone date={item.date} doc={item.doc} reg={item.reg} user={item.user} time={item.time} expire={item.expire} key={key} />)}
+                    {registracijaAr.map((item, key) => <Kolone _id={item._id} date={item.datumRegistracije} doc={item.dokumentacija} reg={item.troskoviRegistracije} user={item.registrovaoZaposleni} time={item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
                 </tbody>
             </table>
         )
     }
 
-    const Specifikacija = (props) => {
+    const Specifikacija = () => {
 
         const [openSpecEdit, setOpenSpecEdit] = useState(false)
-
         const EditSpecifikacija = () => {
             
             let [valid,setValid] = useState(true)
+            let sasijaRef = useRef(null)
+            let brMotRef = useRef(null)
+            let godisteRef = useRef(null)
+            let bojaRef = useRef(null)
+            let datumRef = useRef(null)
+            let cenaRef = useRef(null)
+            let documRef = useRef(null)
 
             let handleSubmit = () =>{
                 let verifySasija = sasija.length > 10
@@ -184,7 +234,7 @@ export const Profil = () => {
                 setDocume("")
                 setOpenSpecEdit(false)
             }
-
+            let [d,s]=useState("")
             return (
                 <table className="tg editTable">
                     <thead>
@@ -192,13 +242,13 @@ export const Profil = () => {
                         <th class="tg-0pky">Izmena</th>
                     </thead>
                     <tbody>
-                        <tr><td>Broj šasije </td><td><input type="text" onClick={(e)=>setSasija(e.target.value)}/></td></tr>
-                        <tr><td>Broj motora </td><td><input type="text" onClick={(e)=>setMotor(e.target.value)} /></td></tr>
-                        <tr><td>Godište </td><td><input type="text" onClick={(e)=>setGodiste(e.target.value)}/></td></tr>
-                        <tr><td>Boja</td><td><input type="text" onClick={(e)=>setBoja(e.target.value)}/></td></tr>
-                        <tr><td>Datum kupovine</td><td><input type="date" onClick={(e)=>setDateKup(e.target.value)}/></td></tr>
-                        <tr><td>Cena vozila</td><td><input type="text" onClick={(e)=>setCenaVoz(e.target.value)}/></td></tr>
-                        <tr><td>Dokumentacija</td><td><textarea onClick={(e)=>setDocume(e.target.value)} ></textarea></td></tr>
+                        <tr><td>Broj šasije </td><td>< input ref={sasijaRef} type="text" onChange={(e)=>s(e.target.value)}/></td></tr>
+                        <tr><td>Broj motora </td><td><input ref={brMotRef} type="text" onChange={(e)=>setMotor(e.target.value)} /></td></tr>
+                        <tr><td>Godište </td><td><input ref={godisteRef} type="text" onChange={(e)=>setGodiste(e.target.value)}/></td></tr>
+                        <tr><td>Boja</td><td><input ref={bojaRef} type="text" onChange={(e)=>setBoja(e.target.value)}/></td></tr>
+                        <tr><td>Datum kupovine</td><td><input ref={datumRef} type="date" onChange={(e)=>setDateKup(e.target.value)}/></td></tr>
+                        <tr><td>Cena vozila</td><td><input ref={cenaRef} type="text" onChange={(e)=>setCenaVoz(e.target.value)}/></td></tr>
+                        <tr><td>Dokumentacija</td><td><textarea ref={documRef} onChange={(e)=>setDocume(e.target.value)} ></textarea></td></tr>
                         <tr><td><button onClick={handleCancel} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn" onClick={handleSubmit} >Sačuvaj</button></td></tr>
                         {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
                     </tbody>
@@ -210,11 +260,12 @@ export const Profil = () => {
             <table className="tg">
                 {openSpecEdit && <EditSpecifikacija />}
                 <tbody>
-                    <tr><th>Br. šasija</th><td>WAUZZZ8K9A035589</td><th>Br. motora</th><td>28103373N</td></tr>
-                    <tr><th>Godište</th><td>2012</td><th>Boja</th><td>7D SIVA MET.</td></tr>
-                    <tr><th>Datum kupovine</th><td>01.02.2017</td><th>Cena vozila</th><td>1.201.544</td></tr>
-                    <tr className="docum"><th>Dokumentacija</th><td>- Kupoprodajni ugovor</td></tr>
+                    <tr><th>Br. šasija</th><td>{specifikacijaAr.brSasije}</td><th>Br. motora</th><td>{specifikacijaAr.brMotora}</td></tr>
+                    <tr><th>Godište</th><td>{specifikacijaAr.godiste}</td><th>Boja</th><td>{specifikacijaAr.boja}</td></tr>
+                    <tr><th>Datum kupovine</th><td>{formatDate(specifikacijaAr.datumKupovine)}</td><th>Cena vozila</th><td>{specifikacijaAr.cenaVozila}</td></tr>
+                    <tr className="docum"><th>Dokumentacija</th><td>{specifikacijaAr.dokumentacija}</td></tr>
                     <tr><td><button className="changeSpec" onClick={() => setOpenSpecEdit(true)}>Izmeni</button></td></tr>
+                    
                 </tbody>
             </table>
         )
@@ -314,7 +365,7 @@ export const Profil = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {fuelData.map((item, key) => <KoloneGorivo type={item.type} date={item.date} km={item.km} pot={item.pot} cena={item.cena} usluga={item.usluga} time={item.time} key={key} />)}
+                    {gorivoAr.map((item, key) => <KoloneGorivo type={item.tip} date={item.datum} km={item.kilometraza} pot={item.potrosnja} cena={item.cena} usluga={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
                 </tbody>
             </table>
         )
@@ -417,7 +468,7 @@ export const Profil = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {dataOdrz.map((item, key) => <KoloneOdrz type={item.type} date={item.type} km={item.km} part={item.part} total={item.total} user={item.user} time={item.time} key={key} />)}
+                    {odrzavanjeAr.map((item, key) => <KoloneOdrz type={item.tip} date={item.datum} km={item.kilometraza} part={item.deloviUsluga} total={item.ukupanTrosak} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
                 </tbody>
             </table>
         )
@@ -508,7 +559,7 @@ export const Profil = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {dataSteta.map((item, key) => <KoloneSteta desc={item.desc} cover={item.cover} date={item.date} part={item.part} total={item.total} user={item.user} time={item.time} key={key} />)}
+                    {stetaAr.map((item, key) => <KoloneSteta desc={item.opisStete} cover={item.stetuPokriva} date={item.datum} part={item.deloviUsluga} total={item.ukupanTrosak} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
                 </tbody>
             </table>
         )
@@ -589,9 +640,9 @@ export const Profil = () => {
                         <h3>Informacije o vozilu</h3>
                         <table>
                             <tr className="detailsTr"><td>MARKA I TIP</td> <td>{marka}</td></tr>
-                            <tr className="detailsTr"><td>REGISTROVAN DO</td> <td>{regDo}</td></tr>
+                            <tr className="detailsTr"><td>REGISTROVAN DO</td> <td>{formatDate(regDo)}</td></tr>
                             <tr className="detailsTr"><td>KORISNIK VOZILA </td> <td>{korisnikMn}</td></tr>
-                            <tr className="detailsTr"><td>AKTIVNO OD</td> <td>{aktivnoOd}</td></tr>
+                            <tr className="detailsTr"><td>AKTIVNO OD</td> <td>{formatDate(aktivnoOd)}</td></tr>
                             <tr className="detailsTr"><td>DO</td> <td>/</td></tr>
                         </table>
                     </div>
@@ -616,7 +667,7 @@ export const Profil = () => {
                     <li onClick={() => setOpenSec("ist")}>Istorija promena</li>
                 </ul>
                 {sectionCheck()}
-
+                
 
             </div>
         </div>

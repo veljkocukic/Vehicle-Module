@@ -16,6 +16,11 @@ export const Sadrzaj = () => {
     text.current.innerText = e.target.innerText
   }
 
+
+
+
+
+
   return (
     <Router>
       <header>
@@ -31,7 +36,6 @@ export const Sadrzaj = () => {
       <Switch>
         <MainProvider>
             <Route path="/" exact><Main /></Route>
-            <Route path="/profil" exact><Profil /></Route>
             <Route path="/profil/:carId" exact><Profil /></Route>
             <Route path="/serviseri" exact><Serviseri /></Route>
             <Route path="/izvestaj" exact><Izvestaj /></Route>

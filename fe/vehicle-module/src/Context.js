@@ -66,8 +66,6 @@ export let MainProvider = (props) => {
     let [usluga, setUsluga] = useState("/")
     let [time, setTime] = useState("/")
     let [parts, setParts] = useState("")
-
-    
   return (
     <DataContext.Provider
       value={{typeOdr,setTypeOdr,dateOdr,setDateOdr,kmOdr,setKmOdr,partsOdr,setPartsOdr,totalOdr,setTotalOdr,uslugaOdr,setUslugaOdr,timeOdr,setTimeOdr,desc,setDesc,pokriva,setPokriva,date,setDate,total,setTotal,usluga,setUsluga,time,setTime,parts,setParts,type,setType,dateFuel,setDateFuel,kmFuel,setKmFuel,potrosnja,setPotrosnja,priceFuel,setPriceFuel,uslugaFuel,setUslugaFuel,timeFuel,setTimeFuel,sasija,setSasija,motor,setMotor,godiste,setGodiste,boja,setBoja,dateKup,setDateKup,cenaVoz,setCenaVoz,docume,setDocume,valid,setValid,dateReg,setDateReg,docReg,setDocReg,troskovi,setTroskovi,registrovao,setRegistrovao,timeZaposleni,setTimeZaposleni,regDo,setRegDo,id,setId,marka,setMarka,regBr,setRegBr,typeMn,setTypeMn,korisnikMn,setKorisnikMn,isticanje,setIsticanje,aktivnoOd,setAktivnoOd,markaRef,regBrRef,tipKorRef,korVozRef,isticRef,activeRef }}
