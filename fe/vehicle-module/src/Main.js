@@ -40,7 +40,7 @@ export const Main = () => {
     const ZaposleniLista = () =>{
 
         return(
-            <select ref={zaposleniSelect}>
+            <select ref={zaposleniSelect} onChange={(e)=>setKorisnikMn(e.target.value)}>
                 {zaposleniLista.map(item=><option value={item.ime}>{item.ime}</option>)}
             </select>
         )
@@ -82,7 +82,7 @@ export const Main = () => {
             }   
         },[])
 
-        useEffect(()=>{
+        useEffect(()=>{    ////Sprečava grešku jer se padajući meni za zaposlene i unos drugih lica uslovno prikazuju
             let vozilo = vozila.find(item=>item.id===id)
             try {
                 korVozRef.current.value=vozilo.korisnikVozila
@@ -125,19 +125,19 @@ export const Main = () => {
             let verifyIsticanje = verDate(isticanje)
             let verifyActive = verDate(aktivnoOd)
             if(verifyMarka&&verifyReg&&verifyKorisnik&&verifyIsticanje&&verifyActive){
+                await axios.patch("http://localhost:5000/api/v1/izmena",{
+                    id,marka,regBr,typeMn,korisnikMn,isticanje,aktivnoOd
+                
+                }).then(res=>{
+                    console.log(res.data)
+                }).catch(er=>console.log(er))
+                setEditOn(false)
                 setValid(true)
             }else{
                 setValid(false)
             }
 
-            await axios.patch("http://localhost:5000/api/v1/izmena",{
-                id,marka,regBr,typeMn,korisnikMn,isticanje,aktivnoOd
-            
-            }).then(res=>{
-                console.log(res.data)
-            }).catch(er=>console.log(er))
 
-            setEditOn(false)
 
         }
     
