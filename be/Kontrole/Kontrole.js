@@ -138,4 +138,28 @@ const SpecifikacijaEdit = async (req, res) => {
 }
 
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit }
+const GorivoEdit = async (req, res) => {
+    try {
+        const gorivo = await CarsModel.findById(req.params.carId)
+        let gor = gorivo.gorivoPolje.find(item => item._id === req.body.id)
+
+        gor.tip = req.body.type
+        gor.datum = req.body.dateReg
+        gor.kilometraza = req.body.kmFuel
+        gor.potrosnja = req.body.potrosnja
+        gor.cena = req.body.priceFuel
+        gor.uslugaZaposlenog = req.body.uslugaFuel
+        gor.vremeZaposlenog = req.body.timeFuel
+        console.log(req.body.dateReg)
+        gorivo.save()
+        res.send("success")
+
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit }
