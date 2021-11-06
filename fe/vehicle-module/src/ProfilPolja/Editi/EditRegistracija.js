@@ -1,51 +1,10 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, useContext } from "react"
 import axios from "axios"
+import { DataContext } from "../../Context"
 
+export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
+    let { setOpenRegEdit, verDate, formatDateEdit, id, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
 
-export const EditRegistracija = (
-
-    { setDateReg,
-        setDocReg,
-        setTroskovi,
-        setRegistrovao,
-        setRegDo,
-        setTimeZaposleni,
-        setOpenRegEdit,
-        setId,
-        id,
-        registracijaAr,
-        dateReg,
-        docReg,
-        troskovi,
-        registrovao,
-        timeZaposleni,
-        regDo,
-        carId,
-        regId
-    }) => {
-
-
-    let formatDateEdit = (dt) => { ////////////////////// Vreme za unos
-        let t = new Date(dt)
-        let month = form(t.getMonth() + 1)
-        let day = form(t.getDate())
-        return `${t.getFullYear()}-${month}-${day}`
-    }
-
-    let verDate = (dt) => {
-        return ((new Date(dt) > new Date()) && dt !== 0)
-    }
-
-    function form(e) {
-        if (e < 10) {
-            let arr = []
-            arr.push(e.toString())
-            arr.unshift(0)
-            arr = arr.join("")
-            return arr
-        }
-        return e
-    }
 
     let [valid, setValid] = useState(true)
     let regDateRef = useRef(null)
@@ -56,8 +15,6 @@ export const EditRegistracija = (
     let regRegDoRef = useRef(null)
 
     useEffect(() => {
-
-        console.log(id)
         let reg = registracijaAr.find(item => item._id === regId)
         setDateReg(reg.datumRegistracije)
         regDateRef.current.value = formatDateEdit(reg.datumRegistracije)
@@ -77,23 +34,26 @@ export const EditRegistracija = (
         setRegDo(reg.registrovanDo)
         regRegDoRef.current.value = formatDateEdit(reg.registrovanDo)
 
-
     }, [])
 
     const handleSubmit = () => {
-        let verifyDate = !verDate(dateReg)
+        let verifyDate = verDate(dateReg)
         let verifyDoc = docReg.length > 2
         let verifyTroskovi = troskovi > 2
         let verifyReg = registrovao.length > 2
         let verifyTime = timeZaposleni > 2
         let verifyDo = verDate(regDo)
         if (verifyDate && verifyDoc && verifyTroskovi && verifyReg && verifyTime && verifyDo) {
-            axios.patch("http://localhost:5000/api/v1/registracija" + carId, { id, dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => console.log(res))
-
-            setValid(true)
-            setOpenRegEdit(false)
+            axios.patch("http://localhost:5000/api/v1/registracija/" + carId, { id, dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
+                console.log(res)
+                setValid(true)
+                setOpenRegEdit(false)
+            }).catch(er => {
+                console.log(carId)
+            })
         } else {
             setValid(false)
+            console.log(verifyDate, verifyDo, dateReg, regDo)
         }
     }
 

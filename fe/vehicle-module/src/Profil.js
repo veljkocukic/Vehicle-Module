@@ -14,7 +14,6 @@ import { Istorija } from "./ProfilPolja/Istorija"
 
 export const Profil = () => {
 
-    const [openRegEdit, setOpenRegEdit] = useState(false)
     const [openSec, setOpenSec] = useState("reg")
 
     const [registracijaAr, setRegistracijaAr] = useState([])
@@ -25,7 +24,7 @@ export const Profil = () => {
     const [istorijaAr, setIstorijaAr] = useState([])
 
     ///Linija ispod treba da se sredi
-    let { formatDate, verDate, form, formaDateEdit, id, setId, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, typeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, uslugaOdr, setUslugaOdr, timeOdr, setTimeOdr, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume, valid, setValid, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
+    let { setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
 
 
@@ -36,7 +35,8 @@ export const Profil = () => {
         const fetchData = () => {
             axios.get("http://localhost:5000/api/v1/profil/" + carId).then(res => {
 
-                setRegistracijaAr(res.data.car.registracijaPolje)
+                let regPo = res.data.car.registracijaPolje
+                setRegistracijaAr(regPo)
                 setSpecifikacijaAr(res.data.car.specifikacijaPolje)
                 setGorivoAr(res.data.car.gorivoPolje)
                 setOdrzavanjeAr(res.data.car.odrzavanjePolje)
@@ -45,6 +45,7 @@ export const Profil = () => {
                 setMarka(res.data.car.markaTip)
                 setKorisnikMn(res.data.car.korisnikVoz)
                 setAktivnoOd(res.data.car.activeFrom)
+                setRegDo(regPo[regPo.length - 1].registrovanDo)
 
                 setSasija(res.data.car.specifikacijaPolje.brSasija)
                 setMotor(res.data.car.specifikacijaPolje.brMotora)
@@ -80,23 +81,7 @@ export const Profil = () => {
 
         switch (openSec) {
             case "reg":
-                return <Registracija setDateReg={setDateReg}
-                    setDocReg={setDocReg}
-                    setTroskovi={setTroskovi}
-                    setRegistrovao={setRegistrovao}
-                    setRegDo={setRegDo}
-                    setTimeZaposleni={setTimeZaposleni}
-                    setOpenRegEdit={setOpenRegEdit}
-                    setId={setId}
-                    registracijaAr={registracijaAr}
-                    docReg={docReg}
-                    troskovi={troskovi}
-                    registrovao={registrovao}
-                    timeZaposleni={timeZaposleni}
-                    regDo={regDo}
-                    carId={carId}
-                    dateReg={dateReg}
-                    openRegEdit={openRegEdit} />
+                return <Registracija registracijaAr={registracijaAr} carId={carId} />
             case "spec":
                 return <Specifikacija specifikacijaAr={specifikacijaAr} />
             case "fuel":

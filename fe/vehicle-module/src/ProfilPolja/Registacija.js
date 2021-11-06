@@ -1,42 +1,17 @@
-import React, { useState, useEffect, useRef } from "react"
-import axios from "axios"
+import React, { useState, useContext } from "react"
 import { EditRegistracija } from "./Editi/EditRegistracija"
+import { DataContext } from "../Context"
 
 
 
-export const Registracija = (
-    { setDateReg,
-        setDocReg,
-        setTroskovi,
-        setRegistrovao,
-        setRegDo,
-        setTimeZaposleni,
-        setOpenRegEdit,
-        setId,
-        id,
-        registracijaAr,
-        dateReg,
-        docReg,
-        troskovi,
-        registrovao,
-        timeZaposleni,
-        regDo,
-        carId,
-        openRegEdit, }) => {
-
-
-
-
-    let formatDate = (dt) => { ///////////// Vreme za tabele
-        let date = new Date(dt).toLocaleDateString().replaceAll("/", ".")   ///<------------------------------------- Ne prikazuje nas format
-        return date + "."
-    }
-
+export const Registracija = ({ registracijaAr, carId }) => {
+    let { setId, formatDate, setOpenRegEdit, openRegEdit } = useContext(DataContext)
     let [regId, setRegId] = useState("")
 
 
     const handleRegEditOpen = (_id) => {
         setRegId(_id)
+        setId(_id)
         setOpenRegEdit(true)
     }
 
@@ -57,25 +32,7 @@ export const Registracija = (
 
     return (
         <table className="tg">
-            {openRegEdit && <EditRegistracija
-                setDateReg={setDateReg}
-                setDocReg={setDocReg}
-                setTroskovi={setTroskovi}
-                setRegistrovao={setRegistrovao}
-                setRegDo={setRegDo}
-                setTimeZaposleni={setTimeZaposleni}
-                setOpenRegEdit={setOpenRegEdit}
-                setId={setId}
-                registracijaAr={registracijaAr}
-                docReg={docReg}
-                troskovi={troskovi}
-                registrovao={registrovao}
-                timeZaposleni={timeZaposleni}
-                regDo={regDo}
-                carId={carId}
-                dateReg={dateReg}
-                id={id}
-                regId={regId} />}
+            {openRegEdit && <EditRegistracija registracijaAr={registracijaAr} regId={regId} carId={carId} />}
 
             <thead>
                 <tr>

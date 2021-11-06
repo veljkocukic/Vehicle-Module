@@ -95,27 +95,23 @@ const SingleCar = async (req, res) => {
 
 
 const RegistracijaEdit = async (req, res) => {
-
-
-
-
-
     try {
 
         const registracija = await CarsModel.findById(req.params.carId)
         let reg = registracija.registracijaPolje.find(item => item._id === req.body.id)
-        registracija.reg.datumRegistracije = req.body.dateReg
-        registracija.reg.dokumentacija = req.body.docReg
-        registracija.reg.troskoviRegistracije = req.body.troskovi
-        registracija.reg.registrovaoZaposleni = req.body.registrovao
-        registracija.reg.vremeZaposlenog = req.body.timeZaposleni
-        registracija.reg.registrovanDo = req.body.regDo
+        reg.datumRegistracije = req.body.dateReg
+        reg.dokumentacija = req.body.docReg
+        reg.troskoviRegistracije = req.body.troskovi
+        reg.registrovaoZaposleni = req.body.registrovao
+        reg.vremeZaposlenog = req.body.timeZaposleni
+        reg.registrovanDo = req.body.regDo
 
         registracija.save()
         res.send("success")
 
     } catch (error) {
         console.log(error)
+        res.send(error)
     }
 }
 
