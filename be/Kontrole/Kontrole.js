@@ -115,5 +115,27 @@ const RegistracijaEdit = async (req, res) => {
     }
 }
 
+const SpecifikacijaEdit = async (req, res) => {
+    try {
+        const specifikacija = await CarsModel.findById(req.params.carId)
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit }
+        specifikacija.specifikacijaPolje.brSasije = req.body.sasija
+        specifikacija.specifikacijaPolje.brMotora = req.body.motor
+        specifikacija.specifikacijaPolje.godiste = req.body.godiste
+        specifikacija.specifikacijaPolje.boja = req.body.boja
+        specifikacija.specifikacijaPolje.datumKupovine = req.body.dateKup
+        specifikacija.specifikacijaPolje.cenaVozila = req.body.cenaVoz
+        specifikacija.specifikacijaPolje.dokumentacija = req.body.docume
+
+        specifikacija.save()
+        res.send("success")
+
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit }

@@ -47,10 +47,10 @@ export const Profil = () => {
                 setAktivnoOd(res.data.car.activeFrom)
                 setRegDo(regPo[regPo.length - 1].registrovanDo)
 
-                setSasija(res.data.car.specifikacijaPolje.brSasija)
+                setSasija(res.data.car.specifikacijaPolje.brSasije)
                 setMotor(res.data.car.specifikacijaPolje.brMotora)
                 setGodiste(res.data.car.specifikacijaPolje.godiste)
-                setBoja(res.data.car.specifikacijaPolje.setBoja)
+                setBoja(res.data.car.specifikacijaPolje.boja)
                 setDateKup(res.data.car.specifikacijaPolje.datumKupovine)
                 setCenaVoz(res.data.car.specifikacijaPolje.cenaVozila)
                 setDocume(res.data.car.specifikacijaPolje.dokumentacija)

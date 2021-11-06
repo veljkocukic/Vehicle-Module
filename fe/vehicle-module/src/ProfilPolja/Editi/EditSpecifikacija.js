@@ -1,14 +1,11 @@
 import React, { useState, useRef, useEffect, useContext } from "react"
 import { DataContext } from "../../Context"
+import { useParams } from "react-router"
 import axios from "axios"
 
 
 export const EditSpecifikacija = () => {
-    let { setOpenSpecEdit, id, setId, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, typeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, uslugaOdr, setUslugaOdr, timeOdr, setTimeOdr, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
-
-    let verDate = (dt) => {
-        return ((new Date(dt) > new Date()) && dt !== 0)
-    }
+    let { formatDateEdit, verDate, setOpenSpecEdit, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume } = useContext(DataContext)
 
     let [valid, setValid] = useState(true)
     let sasijaRef = useRef(null)
@@ -18,6 +15,21 @@ export const EditSpecifikacija = () => {
     let datumRef = useRef(null)
     let cenaRef = useRef(null)
     let documRef = useRef(null)
+    let { carId } = useParams()
+
+    useEffect(() => {
+
+        sasijaRef.current.value = sasija
+        brMotRef.current.value = motor
+        godisteRef.current.value = godiste
+        bojaRef.current.value = boja
+        datumRef.current.value = formatDateEdit(dateKup)
+        cenaRef.current.value = cenaVoz
+        documRef.current.value = docume
+
+    }, [])
+
+
 
     let handleSubmit = () => {
         let verifySasija = sasija.length > 10
@@ -28,21 +40,27 @@ export const EditSpecifikacija = () => {
         let verifyCenaVoz = cenaVoz > 0
         let verifyDocume = docume.length > 5
         if (verifySasija && verifyMotor && verifyGodiste && verifyBoja && verifyDateKup && verifyCenaVoz && verifyDocume) {
-            setValid(true)
-            setOpenSpecEdit(false)
+            axios.patch("http://localhost:5000/api/v1/specifikacija/" + carId, { sasija, motor, godiste, boja, dateKup, cenaVoz, docume }).then(res => {
+                console.log(res)
+                setValid(true)
+                setOpenSpecEdit(false)
+            }).catch(er => console.log(er))
+
         } else {
             setValid(false)
+            console.log(
+                verifySasija,
+                verifyMotor,
+                verifyGodiste,
+                verifyBoja,
+                verifyDateKup,
+                verifyCenaVoz,
+                verifyDocume
+            )
         }
     }
 
     let handleCancel = () => {
-        setSasija("")
-        setMotor("")
-        setGodiste(0)
-        setBoja("")
-        setDateKup(0)
-        setCenaVoz(0)
-        setDocume("")
         setOpenSpecEdit(false)
     }
     return (
