@@ -1,41 +1,37 @@
-import React, { useState, useEffect, useRef, useContext } from "react"
-import axios from "axios"
+import React, { useContext } from "react"
 import { DataContext } from "../Context"
 import { EditGorivo } from "./Editi/EditGorivo"
 
 
 
 export const Gorivo = ({ gorivoAr }) => {
-    let { formatDate, verDate, form, formaDateEdit, openFuelEdit, setOpenFuelEdit, openSpecEdit, setOpenSpecEdit, id, setId, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, typeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, uslugaOdr, setUslugaOdr, timeOdr, setTimeOdr, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume, valid, setValid, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
-
-
-
-
-    let fuelData = [{ type: "Gorivo", date: "14.08.2020", km: "143.000", pot: "33,13", cena: "142.53", usluga: "/", time: "/" },
-    { type: "Tag", date: "30.08.2020", km: "145.443", pot: "/", cena: "2.500,00", usluga: "Nenad Kljajić", time: "60" }]
-
-
+    let { formatDate, openFuelEdit, setOpenFuelEdit, setId } = useContext(DataContext)
 
 
 
     const KoloneGorivo = (props) => {
+        const handleOpen = (_id) => {
+            setId(_id)
+            setOpenFuelEdit(true)
+        }
 
 
-        return (<tr>
-            <td>{props.type}</td>
-            <td>{props.date}</td>
-            <td>{props.km}</td>
-            <td>{props.pot}</td>
-            <td>{props.cena}</td>
-            <td>{props.usluga}</td>
-            <td>{props.time}</td>
-            <td><button onClick={() => setOpenFuelEdit(true)}>IZMENI</button> <button>OBRIŠI</button></td>
-        </tr>)
+        return (
+            <tr>
+                <td>{props.type}</td>
+                <td>{formatDate(props.date)}</td>
+                <td>{props.km}</td>
+                <td>{props.pot}</td>
+                <td>{props.cena}</td>
+                <td>{props.usluga}</td>
+                <td>{props.time}</td>
+                <td><button onClick={() => handleOpen(props._id)}>IZMENI</button> <button>OBRIŠI</button></td>
+            </tr>)
 
     }
     return (
         <table className="tg">
-            {openFuelEdit && <EditGorivo />}
+            {openFuelEdit && <EditGorivo gorivoAr={gorivoAr} />}
             <thead>
                 <tr>
                     <th>Tip</th>
@@ -48,7 +44,7 @@ export const Gorivo = ({ gorivoAr }) => {
                 </tr>
             </thead>
             <tbody>
-                {gorivoAr.map((item, key) => <KoloneGorivo type={item.tip} date={item.datum} km={item.kilometraza} pot={item.potrosnja} cena={item.cena} usluga={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
+                {gorivoAr.map((item, key) => <KoloneGorivo _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} pot={item.potrosnja} cena={item.cena} usluga={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
     )

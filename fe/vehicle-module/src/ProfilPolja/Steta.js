@@ -1,5 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from "react"
-import axios from "axios"
+import React, { useContext } from "react"
 import { DataContext } from "../Context"
 import { EditSteta } from "./Editi/EditSteta"
 
@@ -7,22 +6,27 @@ import { EditSteta } from "./Editi/EditSteta"
 
 export const Steta = ({ stetaAr }) => {
 
-    let dataSteta = [{ desc: "Oštećeno levo krilo i branik", cover: "Zaposleni", date: "26.09.2020.", part: "Zamena delova i farbanje", total: "72.546,00", user: "Nenad Kljajić", time: "160" }]
-    let { openDmgEdit, setOpenDmgEdit, openOdrEdit, setOpenOdrEdit, formatDate, verDate, form, formaDateEdit, openFuelEdit, setOpenFuelEdit, openSpecEdit, setOpenSpecEdit, id, setId, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, typeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, uslugaOdr, setUslugaOdr, timeOdr, setTimeOdr, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
+    let { openDmgEdit, setOpenDmgEdit, setId, formatDate } = useContext(DataContext)
 
 
 
     const KoloneSteta = (props) => {
+
+        const handleOpen = (id) => {
+            setId(id)
+            setOpenDmgEdit(true)
+        }
+
         return (
             <tr>
                 <td>{props.desc}</td>
                 <td>{props.cover}</td>
-                <td>{props.date}</td>
+                <td>{formatDate(props.date)}</td>
                 <td>{props.part}</td>
                 <td>{props.total}</td>
                 <td>{props.user}</td>
                 <td>{props.time}</td>
-                <td><button onClick={() => setOpenDmgEdit(true)}>IZEMNI</button><button>OBRIŠI</button></td>
+                <td><button onClick={() => handleOpen(props._id)}>IZEMNI</button><button>OBRIŠI</button></td>
             </tr>
         )
     }
@@ -30,7 +34,7 @@ export const Steta = ({ stetaAr }) => {
 
     return (
         <table className="tg">
-            {openDmgEdit && <EditSteta />}
+            {openDmgEdit && <EditSteta stetaAr={stetaAr} />}
             <thead>
                 <tr>
                     <th>Opis štete</th>
@@ -43,7 +47,7 @@ export const Steta = ({ stetaAr }) => {
                 </tr>
             </thead>
             <tbody>
-                {stetaAr.map((item, key) => <KoloneSteta desc={item.opisStete} cover={item.stetuPokriva} date={item.datum} part={item.deloviUsluga} total={item.ukupanTrosak} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
+                {stetaAr.map((item, key) => <KoloneSteta _id={item._id} desc={item.opisStete} cover={item.stetuPokriva} date={item.datum} part={item.deloviUsluga} total={item.ukupanTrosak} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
     )

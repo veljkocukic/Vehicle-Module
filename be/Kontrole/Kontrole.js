@@ -45,6 +45,8 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
 
     } catch (error) {
         console.log(error)
+        res.send(error)
+
     }
 }
 
@@ -55,6 +57,8 @@ const Zaposleni = async (req, res) => { //////////////////Lista svih zaposlenih 
         res.send(zaposleni)
     } catch (error) {
         console.log(error)
+        res.send(error)
+
     }
 }
 
@@ -76,6 +80,8 @@ const EditCars = async (req, res) => {
 
     } catch (error) {
         console.log(error)
+        res.send(error)
+
     }
 }
 
@@ -87,8 +93,10 @@ const SingleCar = async (req, res) => {
         res.json({
             car
         })
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+
     }
 
 }
@@ -115,5 +123,121 @@ const RegistracijaEdit = async (req, res) => {
     }
 }
 
+const SpecifikacijaEdit = async (req, res) => {
+    try {
+        const specifikacija = await CarsModel.findById(req.params.carId)
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit }
+        specifikacija.specifikacijaPolje.brSasije = req.body.sasija
+        specifikacija.specifikacijaPolje.brMotora = req.body.motor
+        specifikacija.specifikacijaPolje.godiste = req.body.godiste
+        specifikacija.specifikacijaPolje.boja = req.body.boja
+        specifikacija.specifikacijaPolje.datumKupovine = req.body.dateKup
+        specifikacija.specifikacijaPolje.cenaVozila = req.body.cenaVoz
+        specifikacija.specifikacijaPolje.dokumentacija = req.body.docume
+
+        specifikacija.save()
+        res.send("success")
+
+
+
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+
+    }
+}
+
+
+const GorivoEdit = async (req, res) => {
+    try {
+        const gorivo = await CarsModel.findById(req.params.carId)
+        let gor = gorivo.gorivoPolje.find(item => item._id === req.body.id)
+
+        gor.tip = req.body.type
+        gor.datum = req.body.dateReg
+        gor.kilometraza = req.body.kmFuel
+        gor.potrosnja = req.body.potrosnja
+        gor.cena = req.body.priceFuel
+        gor.uslugaZaposlenog = req.body.uslugaFuel
+        gor.vremeZaposlenog = req.body.timeFuel
+        console.log(req.body.dateReg)
+        gorivo.save()
+        res.send("success")
+
+
+
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+
+    }
+}
+
+
+const OdrzavanjeEdit = async (req, res) => {
+
+    try {
+        let odrzavanje = await CarsModel.findById(req.params.carId)
+        let odr = odrzavanje.odrzavanjePolje.find(item => item._id === req.body.id)
+
+        odr.tip = req.body.typeOdr
+        odr.datum = req.body.dateOdr
+        odr.kilometraza = req.body.kmOdr
+        odr.deloviUsluga = req.body.partsOdr
+        odr.ukupanTrosak = req.body.totalOdr
+        odr.uslugaZaposlenog = req.body.uslugaOdr
+        odr.vremeZaposlenog = req.body.timeOdr
+
+        odrzavanje.save()
+        res.send("success")
+
+
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+
+    }
+
+}
+
+
+const StetaEdit = async (req, res) => {
+
+    try {
+
+        let steta = await CarsModel.findById(req.params.carId)
+        let ste = steta.stetaPolje.find(item => item._id === req.body.id)
+
+        ste.opisStete = req.body.desc
+        ste.stetuPokriva = req.body.pokriva
+        ste.datum = req.body.date
+        ste.deloviUsluga = req.body.parts
+        ste.ukupanTrosak = req.body.total
+        ste.uslugaZaposlenog = req.body.usluga
+        ste.vremeZaposlenog = req.body.time
+
+        steta.save()
+        res.send(req.body)
+
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+
+const Serviseri = async (req, res) => {
+
+    try {
+
+        let serviseri = await ServiseriModel.find({})
+        res.send(serviseri)
+
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+
+module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri }

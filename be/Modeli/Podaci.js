@@ -36,7 +36,6 @@ const OdrzavanjeSchema = new mongoose.Schema({
     _id: { type: String, required: true },
     tip: { type: String, required: true },
     datum: { type: Date, required: true },
-    uslugaDelovi: { type: Number, required: true },
     ukupanTrosak: { type: Number, required: true },
     deloviUsluga: { type: String, required: true },
     ukupanTrosak: { type: Number, required: true },
@@ -74,7 +73,7 @@ const CarsSchema = new mongoose.Schema({
     registracijaPolje: [RegistracijaSchema],
     specifikacijaPolje: SpecifikacijaSchema,
     gorivoPolje: [GorivoSchema],
-    odrzavanjaPolje: [OdrzavanjeSchema],
+    odrzavanjePolje: [OdrzavanjeSchema],
     stetaPolje: [StetaSchema],
     istorijaPolje: [IstorijaSchema]
 })
