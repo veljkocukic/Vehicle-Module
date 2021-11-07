@@ -226,4 +226,18 @@ const StetaEdit = async (req, res) => {
 }
 
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit }
+const Serviseri = async (req, res) => {
+
+    try {
+
+        let serviseri = await ServiseriModel.find({})
+        res.send(serviseri)
+
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+
+module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri }
