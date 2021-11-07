@@ -45,6 +45,8 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
 
     } catch (error) {
         console.log(error)
+        res.send(error)
+
     }
 }
 
@@ -55,6 +57,8 @@ const Zaposleni = async (req, res) => { //////////////////Lista svih zaposlenih 
         res.send(zaposleni)
     } catch (error) {
         console.log(error)
+        res.send(error)
+
     }
 }
 
@@ -76,6 +80,8 @@ const EditCars = async (req, res) => {
 
     } catch (error) {
         console.log(error)
+        res.send(error)
+
     }
 }
 
@@ -87,8 +93,10 @@ const SingleCar = async (req, res) => {
         res.json({
             car
         })
-    } catch (err) {
-        console.log(err)
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+
     }
 
 }
@@ -134,6 +142,8 @@ const SpecifikacijaEdit = async (req, res) => {
 
     } catch (error) {
         console.log(error)
+        res.send(error)
+
     }
 }
 
@@ -158,6 +168,8 @@ const GorivoEdit = async (req, res) => {
 
     } catch (error) {
         console.log(error)
+        res.send(error)
+
     }
 }
 
@@ -180,8 +192,32 @@ const OdrzavanjeEdit = async (req, res) => {
         res.send("success")
 
 
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+
+    }
+
+}
 
 
+const StetaEdit = async (req, res) => {
+
+    try {
+
+        let steta = await CarsModel.findById(req.params.carId)
+        let ste = steta.stetaPolje.find(item => item._id === req.body.id)
+
+        ste.opisStete = req.body.desc
+        ste.stetuPokriva = req.body.pokriva
+        ste.datum = req.body.date
+        ste.deloviUsluga = req.body.parts
+        ste.ukupanTrosak = req.body.total
+        ste.uslugaZaposlenog = req.body.usluga
+        ste.vremeZaposlenog = req.body.time
+
+        steta.save()
+        res.send(req.body)
 
     } catch (error) {
         console.log(error)
@@ -190,4 +226,4 @@ const OdrzavanjeEdit = async (req, res) => {
 }
 
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit }
+module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit }
