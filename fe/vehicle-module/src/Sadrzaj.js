@@ -27,7 +27,6 @@ export const Sadrzaj = () => {
         <h1 ref={text}>Pregled svih vozila</h1>
         <ul>
           <li><Link onClick={handleClick} to="/" className="linkHeader">PREGLED SVIH VOZILA</Link></li>
-          <li><Link onClick={handleClick} to="/profil" className="linkHeader">PROFIL VOZILA</Link></li>
           <li><Link onClick={handleClick} to="/serviseri" className="linkHeader">SERVISERI I EKSTERNI SARADNICI</Link></li>
           <li><Link onClick={handleClick} to="/izvestaj" className="linkHeader">IZVEŠTAJI</Link></li>
           <li><Link onClick={handleClick} to="/komentari" className="linkHeader">KOMENTARI</Link></li>

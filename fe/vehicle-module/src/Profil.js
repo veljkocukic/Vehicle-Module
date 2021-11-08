@@ -9,6 +9,7 @@ import { Gorivo } from "./ProfilPolja/Gorivo"
 import { Odrzavanje } from "./ProfilPolja/Odrzavanje"
 import { Steta } from "./ProfilPolja/Steta"
 import { Istorija } from "./ProfilPolja/Istorija"
+import { Spiner } from "./ProfilPolja/Editi/Spiner"
 
 
 
@@ -22,6 +23,7 @@ export const Profil = () => {
     const [odrzavanjeAr, setOdrzavanjeAr] = useState([])
     const [stetaAr, setStetaAr] = useState([])
     const [istorijaAr, setIstorijaAr] = useState([])
+    const [spinerProfile,setSpinerProfile] = useState(true)
 
     ///Linija ispod treba da se sredi
     let { setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
@@ -32,8 +34,8 @@ export const Profil = () => {
     let { carId } = useParams()
     useEffect(() => {
 
-        const fetchData = () => {
-            axios.get("http://localhost:5000/api/v1/profil/" + carId).then(res => {
+        const fetchData = async() => {
+            await axios.get("http://localhost:5000/api/v1/profil/" + carId).then(res => {
 
                 let regPo = res.data.car.registracijaPolje
                 setRegistracijaAr(regPo)
@@ -58,8 +60,11 @@ export const Profil = () => {
 
             })
         }
-
-        fetchData()
+        fetchData().then(()=>setSpinerProfile(false)).catch(er=>{
+            console.log(er)
+            setSpinerProfile(false)
+        })
+        
 
     }, [])
 
@@ -100,6 +105,7 @@ export const Profil = () => {
 
     return (
         <div className="profilPage">
+            {spinerProfile && <Spiner />}
             {openImgModal && <SveSlike />}
             <div className="profilMain">
                 <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" alt="slika auta" />

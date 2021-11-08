@@ -55,8 +55,6 @@ export const EditServis = ({ serviseriAr }) => {
         setSiteS("")
         setOpenServEdit(false)
 
-
-
     }
 
     return (
@@ -73,7 +71,7 @@ export const EditServis = ({ serviseriAr }) => {
                 <tr><td>Broj telefona</td><td><input type="text" onChange={e => setTelS(e.target.value)} ref={telRef} /></td></tr>
                 <tr><td>E-mail</td><td><input type="text" onChange={e => setEmailS(e.target.value)} ref={emailRef} /></td></tr>
                 <tr><td>Website</td><td><input type="text" onChange={e => setSiteS(e.target.value)} ref={siteRef} /></td></tr>
-                <tr><td><button onClick={handleCancel} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn">Sačuvaj</button></td></tr>
+                <tr><td><button onClick={handleCancel} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn" >Sačuvaj</button></td></tr>
             </tbody>
         </table>)
 }

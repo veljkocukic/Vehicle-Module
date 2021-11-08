@@ -34,11 +34,11 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
                 markaTip: a.markaTip,
                 regBroj: a.registracioniBroj,
                 korisnikVozila: a.korisnikVoz,
-                isticanje: formatDate(a.registrovanDo),
+                isticanje: formatDate(a.registracijaPolje[a.registracijaPolje.length-1].registrovanDo),
                 activeFrom: formatDate(a.activeFrom),
-                isticanjeEdit: formatDateEdit(a.registrovanDo),
+                isticanjeEdit: formatDateEdit(a.registracijaPolje[a.registracijaPolje.length-1].registrovanDo),
                 activeFromEdit: formatDateEdit(a.activeFrom),
-                tipKorisnika: a.tipKorisnika
+                tipKorisnika: a.tipKorisnika,
             })
         }
         res.json(arr)

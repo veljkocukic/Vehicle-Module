@@ -2,16 +2,16 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"
 import { DataContext } from "./Context"
-
-
+import { Spiner } from "./ProfilPolja/Editi/Spiner";
 
 
 
 export const Main = () => {
-    let { id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeRef } = useContext(DataContext)
+    let { spinerOn,setSpinerOn, id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeRef,formatDate,verDate } = useContext(DataContext)
     let [vozila, setVozila] = useState([])
     let [zaposleniLista, setZaposleniLista] = useState([])
     let zaposleniSelect = useRef(null)
+    let [spinerMain,setSpimerMain] = useState(true)
 
 
     useEffect(() => {
@@ -24,6 +24,7 @@ export const Main = () => {
         const fetchData2 = async () => {
             await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
                 setZaposleniLista(e.data)
+                setSpimerMain(false)
             })
         }
         fetchData1()
@@ -102,12 +103,6 @@ export const Main = () => {
         }
 
 
-
-        let verDate = (dt) => {
-            return ((new Date(dt) > new Date()) && dt !== 0)
-        }
-
-
         let verReg = (inp) => {
             const regex = /.{2}-[0-9]{3,5}-[A-Z]{2}/gm;
             try {
@@ -118,6 +113,7 @@ export const Main = () => {
         }
 
         let handleSubmit = async () => {
+            setSpinerOn(true)
             let verifyMarka = marka.length > 2
             let verifyReg = verReg(regBr)
             let verifyKorisnik = korisnikMn.length > 2
@@ -127,13 +123,15 @@ export const Main = () => {
                 await axios.patch("http://localhost:5000/api/v1/izmena", {
                     id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd
 
-                }).then(res => {
-                    console.log(res.data)
-                }).catch(er => console.log(er))
+                })
+                .then(()=>setSpinerOn(false))
+                .catch(er => console.log(er))
+                setSpinerOn(false)
                 setEditOn(false)
                 setValid(true)
             } else {
                 setValid(false)
+                setSpinerOn(false)
             }
 
 
@@ -154,6 +152,7 @@ export const Main = () => {
 
         return (
             <table class="tg editTable">
+                {spinerOn && <Spiner/>}
                 <thead>
                     <th class="tg-0pky">Naziv polja</th>
                     <th class="tg-0pky">Izmena</th>
@@ -186,7 +185,7 @@ export const Main = () => {
                 <td class="tg-0pky">{props.reg}</td>
                 <td class="tg-0pky">{props.utype}</td>
                 <td class="tg-0pky">{props.uname}</td>
-                <td class="tg-0pky">{props.expire}</td>
+                <td class="tg-0pky">{formatDate(props.expire)}</td>
                 <td class="tg-0pky">{props.active}</td>
                 <td class="tg-0pky btn"><button onClick={() => handleEditOn(props.id)}>Izmeni</button></td>
             </tr>
@@ -195,6 +194,7 @@ export const Main = () => {
 
     return (
         <div>
+            {spinerMain && <Spiner />}
             {editOn && <Edit />}
             <div className="tabela">
                 <table class="tg">

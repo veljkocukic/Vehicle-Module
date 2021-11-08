@@ -2,17 +2,22 @@ import React, { useState, useEffect, useRef, useContext } from "react"
 import axios from "axios"
 import { DataContext } from "../Context"
 import { EditServis } from "./EditServis"
+import { Spiner } from "../ProfilPolja/Editi/Spiner"
 
 
 export const Serviseri = () => {
     const [serviseriAr, setServiseriAr] = useState([])
     let { openServEdit, setOpenServEdit, setId } = useContext(DataContext)
+    let [spinerServ,setSpinerServ] = useState(true)
 
     useEffect(() => {
-        const fetchData = () => {
-            axios.get("http://localhost:5000/api/v1/serviseri").then(res => setServiseriAr(res.data)).catch(err => console.log(err))
+        const fetchData = async() => {
+            await axios.get("http://localhost:5000/api/v1/serviseri").then(res => setServiseriAr(res.data)).catch(err => console.log(err))
         }
-        fetchData()
+        fetchData().then(()=>setSpinerServ(false)).catch(er=>{
+            console.log(er)
+            setSpinerServ(false)
+        })
     }, [])
 
     const KoloneServiseri = (props) => {
@@ -41,6 +46,7 @@ export const Serviseri = () => {
     }
     return (
         <table className="tg servt">
+            {spinerServ && <Spiner />}
             {openServEdit && <EditServis serviseriAr={serviseriAr} />}
             <thead>
                 <tr>

@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef, useContext } from "react"
 import { DataContext } from "../../Context"
 import axios from "axios"
 import { useParams } from "react-router-dom"
+import { Spiner } from "./Spiner"
 
 export const EditOdrzavanje = ({ odrzavanjeAr }) => {
     let [valid, setValid] = useState(true)
-    let { id, formatDateEdit, setOpenOdrEdit, typeOdr, uslugaOdr, timeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, setUslugaOdr, setTimeOdr } = useContext(DataContext)
+    let { spinerOn, setSpinerOn, id, formatDateEdit, setOpenOdrEdit, typeOdr, uslugaOdr, timeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, setUslugaOdr, setTimeOdr } = useContext(DataContext)
 
     let tipRef = useRef(null)
     let dateRef = useRef(null)
@@ -40,7 +41,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
     }, [])
 
     const handleSubmit = () => {
-
+        setSpinerOn(true)
         let verifyDateOdr = dateOdr !== 0
         let verifyKmOdr = kmOdr > 10
         let verifyPartsOdr = partsOdr.length > 2
@@ -49,10 +50,14 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
         if (verifyDateOdr && verifyKmOdr && verifyPartsOdr && verifyTotalOdr) {
             axios.patch("http://localhost:5000/api/v1/odrzavanje/" + carId, { id, typeOdr, dateOdr, kmOdr, partsOdr, totalOdr, uslugaOdr, timeOdr }).then(res => {
                 setValid(true)
+                setSpinerOn(false)
                 setOpenOdrEdit(false)
                 console.log(res)
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                setSpinerOn(false)
+                console.log(err)})
         } else {
+            setSpinerOn(false)
             setValid(false)
         }
     }
@@ -72,6 +77,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
 
     return (
         <table className="tg editTable">
+            {spinerOn && <Spiner />}
             <thead>
                 <th class="tg-0pky">Naziv polja</th>
                 <th class="tg-0pky">Izmena</th>
