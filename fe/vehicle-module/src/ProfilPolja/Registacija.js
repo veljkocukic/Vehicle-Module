@@ -1,13 +1,13 @@
 import React, { useState, useContext } from "react"
 import { EditRegistracija } from "./Editi/EditRegistracija"
 import { DataContext } from "../Context"
-import {Dialog} from "./Editi/Dialog.js"
-import {useParams} from "react-router-dom"
+import { Dialog } from "./Editi/Dialog.js"
+import { useParams } from "react-router-dom"
 
-export const Registracija = ({ registracijaAr}) => {
-    let { setId, formatDate, setOpenRegEdit, openRegEdit,openDialog,setOpenDialog } = useContext(DataContext)
+export const Registracija = ({ registracijaAr }) => {
+    let { setId, formatDate, setOpenRegEdit, openRegEdit, openDialog, setOpenDialog } = useContext(DataContext)
     let [regId, setRegId] = useState("")
-    let {carId} = useParams()
+    let { carId } = useParams()
 
 
     const handleRegEditOpen = (_id) => {
@@ -43,17 +43,18 @@ export const Registracija = ({ registracijaAr}) => {
 
             <thead>
                 <tr>
-                    
+
                     <th>Datum registracije</th>
                     <th>Dokumentacija</th>
                     <th>Troškovi registracije</th>
                     <th>Registrovao zaposleni</th>
                     <th>Vreme zaposlenog</th>
                     <th>Registrovan do</th>
+                    <th className="tg-0pky"><button className="new newp">Novo +</button></th>
                 </tr>
             </thead>
             <tbody>
-                {openDialog && <Dialog par={carId} polje="reg"/>}
+                {openDialog && <Dialog par={carId} polje="reg" />}
                 {registracijaAr.map((item, key) => <Kolone kid={item._id} date={item.datumRegistracije} doc={item.dokumentacija} reg={item.troskoviRegistracije} user={item.registrovaoZaposleni} time={item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
             </tbody>
         </table>

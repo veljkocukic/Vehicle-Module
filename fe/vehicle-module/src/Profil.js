@@ -23,7 +23,7 @@ export const Profil = () => {
     const [odrzavanjeAr, setOdrzavanjeAr] = useState([])
     const [stetaAr, setStetaAr] = useState([])
     const [istorijaAr, setIstorijaAr] = useState([])
-    const [spinerProfile,setSpinerProfile] = useState(true)
+    const [spinerProfile, setSpinerProfile] = useState(true)
 
     ///Linija ispod treba da se sredi
     let { setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
@@ -34,7 +34,7 @@ export const Profil = () => {
     let { carId } = useParams()
     useEffect(() => {
 
-        const fetchData = async() => {
+        const fetchData = async () => {
             await axios.get("http://localhost:5000/api/v1/profil/" + carId).then(res => {
 
                 let regPo = res.data.car.registracijaPolje
@@ -60,11 +60,11 @@ export const Profil = () => {
 
             })
         }
-        fetchData().then(()=>setSpinerProfile(false)).catch(er=>{
+        fetchData().then(() => setSpinerProfile(false)).catch(er => {
             console.log(er)
             setSpinerProfile(false)
         })
-        
+
 
     }, [])
 
@@ -113,16 +113,17 @@ export const Profil = () => {
                     <div className="profilInfo">
                         <h3>Informacije o vozilu</h3>
                         <table>
-                            <tr className="detailsTr"><td>MARKA I TIP</td> <td>{marka}</td></tr>
-                            <tr className="detailsTr"><td>REGISTROVAN DO</td> <td>{formatDate(regDo)}</td></tr>
-                            <tr className="detailsTr"><td>KORISNIK VOZILA </td> <td>{korisnikMn}</td></tr>
-                            <tr className="detailsTr"><td>AKTIVNO OD</td> <td>{formatDate(aktivnoOd)}</td></tr>
-                            <tr className="detailsTr"><td>DO</td> <td>/</td></tr>
+                            <tr className="detailsTr"><td><strong>Marka i tip </strong></td> <td>{marka}</td></tr>
+                            <tr className="detailsTr"><td><strong>Registrovan do </strong></td> <td>{formatDate(regDo)}</td></tr>
+                            <tr className="detailsTr"><td><strong>Korisnik vozila </strong> </td> <td>{korisnikMn}</td></tr>
+                            <tr className="detailsTr"><td><strong>Aktivno od </strong></td> <td>{formatDate(aktivnoOd)}</td></tr>
+                            <tr className="detailsTr"><td><strong>Do </strong></td> <td>/</td></tr>
+
                         </table>
                     </div>
                     <div className="profilImages">
                         <h3>Slike vozila</h3>
-                        <div className="photoContainer">,
+                        <div className="photoContainer">
                             {imagesArray.map((item) => <img src={item} alt="slika auta" />)}
                         </div>
                         <p onClick={() => setOpenImgModal(true)}>Pogledaj sve slike</p>
