@@ -90,7 +90,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
                 <tr><td>Ukupan trošak</td><td><input type="text" onChange={(e) => setTotalOdr(e.target.value)} ref={totalRef} /></td></tr>
                 <tr><td>Usluga zaposlenog</td><td><input type="text" onChange={(e) => setUslugaOdr(e.target.value)} ref={uslugaRef} /></td></tr>
                 <tr><td>Vreme zaposlenog</td><td><input type="text" onChange={(e) => setTimeOdr(e.target.value)} ref={timeRef} /></td></tr>
-                <tr><td><button onClick={handleCancel} className="cancelBtn">Otkaži</button></td><td><button type="submit" className="saveBtn" onClick={handleSubmit}>Sačuvaj</button></td></tr>
+                <tr><td><button onClick={handleCancel} className="btn no">OTKAŽI</button></td><td><button type="submit" className="btn yes" onClick={handleSubmit}>SAČUVAJ</button></td></tr>
             </tbody>
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
         </table>)

@@ -10,26 +10,15 @@ import { Serviseri } from "./Serviseri/Serviseri";
 export const Sadrzaj = () => {
 
 
-  let text = useRef(null)
-
-  const handleClick = (e) => {
-    text.current.innerText = e.target.innerText
-  }
-
-
-
-
-
-
   return (
     <Router>
       <header>
-        <h1 ref={text}>Pregled svih vozila</h1>
+        <img src="http://cdn.mikroe.com/img/mega-menu/mikroe-timesaving-white.png" alt="logo"/>
         <ul>
-          <li><Link onClick={handleClick} to="/" className="linkHeader">PREGLED SVIH VOZILA</Link></li>
-          <li><Link onClick={handleClick} to="/serviseri" className="linkHeader">SERVISERI I EKSTERNI SARADNICI</Link></li>
-          <li><Link onClick={handleClick} to="/izvestaj" className="linkHeader">IZVEŠTAJI</Link></li>
-          <li><Link onClick={handleClick} to="/komentari" className="linkHeader">KOMENTARI</Link></li>
+          <li><Link to="/" className="linkHeader">PREGLED SVIH VOZILA</Link></li>
+          <li><Link to="/serviseri" className="linkHeader">SERVISERI I EKSTERNI SARADNICI</Link></li>
+          <li><Link to="/izvestaj" className="linkHeader">IZVEŠTAJI</Link></li>
+          <li><Link to="/komentari" className="linkHeader">KOMENTARI</Link></li>
         </ul>
       </header>
       <Switch>

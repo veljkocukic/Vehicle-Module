@@ -26,7 +26,7 @@ export const Steta = ({ stetaAr }) => {
                 <td>{props.total}</td>
                 <td>{props.user}</td>
                 <td>{props.time}</td>
-                <td><button onClick={() => handleOpen(props._id)}>IZEMNI</button><button>OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleOpen(props._id)}>IZEMNI</button><button className="btn del">OBRIŠI</button></td>
             </tr>
         )
     }

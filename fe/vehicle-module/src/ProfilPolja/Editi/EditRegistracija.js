@@ -74,7 +74,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
             <tr><td>Registrovao zaposleni</td><td><input ref={regZapRef} type="text" onChange={(e) => setRegistrovao(e.target.value)} /></td></tr>
             <tr><td>Vreme zaposlenog</td><td><input ref={regTimeRef} type="text" onChange={(e) => setTimeZaposleni(e.target.value)} /></td></tr>
             <tr><td>Registrovan do</td><td><input ref={regRegDoRef} type="date" onChange={(e) => setRegDo(e.target.value)} /></td></tr>
-            <tr><td><button onClick={() => setOpenRegEdit(false)} className="cancelBtn">Otkaži</button></td><td><button className="saveBtn" onClick={handleSubmit}>Sačuvaj</button></td></tr>
+            <tr><td><button onClick={() => setOpenRegEdit(false)} className="btn no">OTKAŽI</button></td><td><button className="btn yes" onClick={handleSubmit}>SAČUVAJ</button></td></tr>
         </tbody>
         {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
     </table>)

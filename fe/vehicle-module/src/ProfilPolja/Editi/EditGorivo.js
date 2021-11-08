@@ -91,7 +91,7 @@ export const EditGorivo = ({ gorivoAr }) => {
                 <tr><td>Cena</td><td><input type="number" onChange={(e) => setPriceFuel(e.target.value)} ref={cenaRef} /></td></tr>
                 <tr><td>Usluga zaposlenog</td><td><input type="text" onChange={(e) => setUslugaFuel(e.target.value)} ref={uslugaRef} /></td></tr>
                 <tr><td>Vreme zaposlenog</td><td><input type="number" onChange={(e) => setTimeFuel(e.target.value)} ref={timeRef} /></td></tr>
-                <tr><td><button onClick={handleCancel} className="cancelBtn">Otkaži</button></td><td><button type="submit" className="saveBtn" onClick={handleSubmit}>Sačuvaj</button></td></tr>
+                <tr><td><button onClick={handleCancel} className="btn no">OTKAŽI</button></td><td><button type="submit" className="btn yes" onClick={handleSubmit}>SAČUVAJ</button></td></tr>
             </tbody>
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
         </table>)

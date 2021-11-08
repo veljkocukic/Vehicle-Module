@@ -25,7 +25,7 @@ export const Gorivo = ({ gorivoAr }) => {
                 <td>{props.cena}</td>
                 <td>{props.usluga}</td>
                 <td>{props.time}</td>
-                <td><button onClick={() => handleOpen(props._id)}>IZMENI</button> <button>OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleOpen(props._id)}>IZMENI</button> <button className="btn del">OBRIŠI</button></td>
             </tr>)
 
     }

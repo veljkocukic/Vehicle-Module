@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios"
 import { DataContext } from "./Context"
 import { Spiner } from "./ProfilPolja/Editi/Spiner";
+import "../src/style/main.css"
 
 
 
@@ -149,25 +150,37 @@ export const Main = () => {
         }
 
 
-
+        // let red = [{ime:"Marka i tip",tip:"text",fn:setMarka,ref={markaRef},cls:"markaTip",to:"main"} ,
+        // {ime:"Registracioni broj",tip:"text",fn:setRegBr,ref={regBrRef}, cls:"rebBr"},
+        // {ime:"Tip korisnika",tip:"select",options:["Zaposleni","Druga lica"],ref={tipKorRef}},
+        // {ime: "Korisnik vozila"},
+        // {ime: "Isticanje registracije",tip:"date",fn:setIsticanje,ref={isticRef},cls="istic"},
+        // {ime: "Vozilo aktivno od do",tip:"date",fn:setAktivnoOd,ref={activeRef}}]
+        
         return (
-            <table class="tg editTable">
-                {spinerOn && <Spiner/>}
-                <thead>
-                    <th class="tg-0pky">Naziv polja</th>
-                    <th class="tg-0pky">Izmena</th>
-                </thead>
-                <tbody>
-                    <tr class="editTr"><td>Marka i tip</td><td><input type="text" onChange={(e) => { setMarka(e.target.value) }} ref={markaRef} /></td></tr>
-                    <tr class="editTr"><td>Registracioni broj</td><td><input placeholder={"Format: \"BG-123-EF \""} type="text" onChange={(e) => { setRegBr(e.target.value) }} ref={regBrRef} /></td></tr>
-                    <tr class="editTr"><td>Tip korisinika</td><td><select onChange={handleChange} ref={tipKorRef}><option >Zaposleni</option><option>Druga lica</option></select></td></tr>
+             <table class="tg editTable">
+                 {spinerOn && <Spiner/>}
+                 <thead>
+                 <th class="tg-0pky">Naziv polja</th>
+                     <th class="tg-0pky">Izmena</th>
+                 </thead>
+                 <tbody>
+                     <tr class="editTr"><td>Marka i tip</td><td><input type="text" onChange={(e) => { setMarka(e.target.value) }} ref={markaRef} /></td></tr>
+                     <tr class="editTr"><td>Registracioni broj</td><td><input placeholder={"Format: \"BG-123-EF \""} type="text" onChange={(e) => { setRegBr(e.target.value) }} ref={regBrRef} /></td></tr>
+                     <tr class="editTr"><td>Tip korisinika</td><td><select onChange={handleChange} ref={tipKorRef}><option >Zaposleni</option><option>Druga lica</option></select></td></tr>
                     <tr class="editTr"><td>Korisnik vozila</td><td>{zaposleni ? <ZaposleniLista /> : <input type="text" onChange={(e) => { setKorisnikMn(e.target.value) }} ref={korVozRef} />}</td></tr>
-                    <tr class="editTr"><td>Isticanje registracije</td><td><input type="date" onChange={(e) => { setIsticanje(e.target.value) }} ref={isticRef} /></td></tr>
-                    <tr class="editTr"><td>Vozilo aktivno od do</td><td><input type="date" onChange={(e) => { setAktivnoOd(e.target.value) }} ref={activeRef} /></td></tr>
-                    <tr><td><button onClick={handleCancel} className="cancelBtn">Otkaži</button></td><td><button type="submit" className="saveBtn" onClick={handleSubmit}>Sačuvaj</button></td></tr>
-                    {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
-                </tbody>
-            </table>
+                     <tr class="editTr"><td>Isticanje registracije</td><td><input type="date" onChange={(e) => { setIsticanje(e.target.value) }} ref={isticRef} /></td></tr>
+                     <tr class="editTr"><td>Vozilo aktivno od do</td><td><input type="date" onChange={(e) => { setAktivnoOd(e.target.value) }} ref={activeRef} /></td></tr>
+                     <tr><td><button onClick={handleCancel} className="btn no">OTKAŽI</button></td><td><button type="submit" className="btn yes" onClick={handleSubmit}>SAČUVAJ</button></td></tr>
+                     {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+                 </tbody>
+             </table>
+            
+
+
+                           
+
+
         )
     }
 
@@ -181,13 +194,13 @@ export const Main = () => {
     const Kolona = (props) => {
         return (
             <tr>
-                <td class="tg-0pky"><Link to={`/profil/${props.id}`}>{props.name}</Link></td>
+                <th class="tg-0pky"><Link to={`/profil/${props.id}`}>{props.name}</Link></th>
                 <td class="tg-0pky">{props.reg}</td>
                 <td class="tg-0pky">{props.utype}</td>
                 <td class="tg-0pky">{props.uname}</td>
                 <td class="tg-0pky">{formatDate(props.expire)}</td>
                 <td class="tg-0pky">{props.active}</td>
-                <td class="tg-0pky btn"><button onClick={() => handleEditOn(props.id)}>Izmeni</button></td>
+                <td class="tg-0pky btn"><button className="editBtn" onClick={() => handleEditOn(props.id)}>  <i class="fa-solid fa-pen-to-square"></i> IZMENI</button></td>
             </tr>
         )
     }
@@ -199,13 +212,17 @@ export const Main = () => {
             <div className="tabela">
                 <table class="tg">
                     <thead>
-                        <tr>
-                            <th class="tg-0pky">Marka i tip</th>
-                            <th class="tg-0pky">Registracioni broj</th>
-                            <th class="tg-0pky">Tip korisinika</th>
-                            <th class="tg-0pky">Korisnik vozila</th>
-                            <th class="tg-0pky">Isticanje registracije</th>
-                            <th class="tg-0pky">Vozilo aktivno od do</th>
+                        <tr >
+                            <th  colSpan="7" >Prikaz svih vozila</th>
+                        </tr>
+                        <tr  className="head-table">
+                            <th className="tg-0pky">Marka i tip</th>
+                            <th className="tg-0pky">Registracioni broj</th>
+                            <th className="tg-0pky">Tip korisinika</th>
+                            <th className="tg-0pky">Korisnik vozila</th>
+                            <th className="tg-0pky">Isticanje registracije</th>
+                            <th className="tg-0pky">Vozilo aktivno od do</th>
+                            <th className="tg-0pky"><button className="new">Novo +</button></th>
                         </tr>
                     </thead>
                     <tbody>
