@@ -2,10 +2,10 @@ import React, { useState, useRef, useEffect, useContext } from "react"
 import { DataContext } from "../../Context"
 import { useParams } from "react-router"
 import axios from "axios"
-
+import { Spiner } from "./Spiner"
 
 export const EditSpecifikacija = () => {
-    let { formatDateEdit, verDate, setOpenSpecEdit, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume } = useContext(DataContext)
+    let { spinerOn,setSpinerOn,formatDateEdit, verDate, setOpenSpecEdit, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume } = useContext(DataContext)
 
     let [valid, setValid] = useState(true)
     let sasijaRef = useRef(null)
@@ -32,22 +32,27 @@ export const EditSpecifikacija = () => {
 
 
     let handleSubmit = () => {
+        setSpinerOn(true)
         let verifySasija = sasija.length > 10
         let verifyMotor = motor.length > 4
         let verifyGodiste = godiste > 1950
         let verifyBoja = boja.length > 2
-        let verifyDateKup = !verDate(dateKup)
+        let verifyDateKup = verDate(dateKup)
         let verifyCenaVoz = cenaVoz > 0
         let verifyDocume = docume.length > 5
         if (verifySasija && verifyMotor && verifyGodiste && verifyBoja && verifyDateKup && verifyCenaVoz && verifyDocume) {
             axios.patch("http://localhost:5000/api/v1/specifikacija/" + carId, { sasija, motor, godiste, boja, dateKup, cenaVoz, docume }).then(res => {
                 console.log(res)
                 setValid(true)
+                setSpinerOn(false)
                 setOpenSpecEdit(false)
-            }).catch(er => console.log(er))
+            }).catch(er =>{
+                setSpinerOn(false)
+                console.log(er)})
 
         } else {
             setValid(false)
+            setSpinerOn(false)
             console.log(
                 verifySasija,
                 verifyMotor,
@@ -65,6 +70,7 @@ export const EditSpecifikacija = () => {
     }
     return (
         <table className="tg editTable">
+            {spinerOn && <Spiner />}
             <thead>
                 <th class="tg-0pky">Naziv polja</th>
                 <th class="tg-0pky">Izmena</th>

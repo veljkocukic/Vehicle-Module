@@ -2,14 +2,16 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"
 import { DataContext } from "./Context"
+import { Spiner } from "./ProfilPolja/Editi/Spiner";
 
 
 
 export const Main = () => {
-    let { id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeRef,formatDate,verDate } = useContext(DataContext)
+    let { spinerOn,setSpinerOn, id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeRef,formatDate,verDate } = useContext(DataContext)
     let [vozila, setVozila] = useState([])
     let [zaposleniLista, setZaposleniLista] = useState([])
     let zaposleniSelect = useRef(null)
+    let [spinerMain,setSpimerMain] = useState(true)
 
 
     useEffect(() => {
@@ -22,6 +24,7 @@ export const Main = () => {
         const fetchData2 = async () => {
             await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
                 setZaposleniLista(e.data)
+                setSpimerMain(false)
             })
         }
         fetchData1()
@@ -110,6 +113,7 @@ export const Main = () => {
         }
 
         let handleSubmit = async () => {
+            setSpinerOn(true)
             let verifyMarka = marka.length > 2
             let verifyReg = verReg(regBr)
             let verifyKorisnik = korisnikMn.length > 2
@@ -119,11 +123,15 @@ export const Main = () => {
                 await axios.patch("http://localhost:5000/api/v1/izmena", {
                     id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd
 
-                }).catch(er => console.log(er))
+                })
+                .then(()=>setSpinerOn(false))
+                .catch(er => console.log(er))
+                setSpinerOn(false)
                 setEditOn(false)
                 setValid(true)
             } else {
                 setValid(false)
+                setSpinerOn(false)
             }
 
 
@@ -144,6 +152,7 @@ export const Main = () => {
 
         return (
             <table class="tg editTable">
+                {spinerOn && <Spiner/>}
                 <thead>
                     <th class="tg-0pky">Naziv polja</th>
                     <th class="tg-0pky">Izmena</th>
@@ -185,6 +194,7 @@ export const Main = () => {
 
     return (
         <div>
+            {spinerMain && <Spiner />}
             {editOn && <Edit />}
             <div className="tabela">
                 <table class="tg">

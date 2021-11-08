@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef, useContext } from "react"
 import axios from "axios"
 import { DataContext } from "../../Context"
 import { useParams } from "react-router"
+import { Spiner } from "./Spiner"
 export const EditSteta = ({ stetaAr }) => {
 
-    let { formatDateEdit, setOpenDmgEdit, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, id } = useContext(DataContext)
+    let { spinerOn,setSpinerOn,formatDateEdit, setOpenDmgEdit, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, id } = useContext(DataContext)
     let [valid, setValid] = useState(true)
 
 
@@ -19,7 +20,6 @@ export const EditSteta = ({ stetaAr }) => {
 
 
     useEffect(() => {
-
         let steta = stetaAr.find(item => item._id === id)
 
         setDesc(steta.opisStete)
@@ -37,6 +37,7 @@ export const EditSteta = ({ stetaAr }) => {
         totalRef.current.value = steta.ukupanTrosak
         uslugaRef.current.value = steta.uslugaZaposlenog
         timeRef.current.value = steta.vremeZaposlenog
+        setSpinerOn(false)
     }, [])
 
     const handleSubmit = () => {
@@ -49,11 +50,14 @@ export const EditSteta = ({ stetaAr }) => {
             axios.patch("http://localhost:5000/api/v1/steta/" + carId, { id, desc, pokriva, date, parts, total, usluga, time }).then(res => {
                 setOpenDmgEdit(false)
                 setValid(true)
+                setSpinerOn(false)
                 console.log(res.data)
             }).catch(err => {
+                setSpinerOn(false)
                 console.log(err)
             })
         } else {
+            setSpinerOn(false)
             setValid(false)
         }
     }
@@ -71,6 +75,7 @@ export const EditSteta = ({ stetaAr }) => {
 
     return (
         <table className="tg editTable">
+            {spinerOn && <Spiner />}
             <thead>
                 <th class="tg-0pky">Naziv polja</th>
                 <th class="tg-0pky">Izmena</th>

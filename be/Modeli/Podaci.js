@@ -37,6 +37,7 @@ const OdrzavanjeSchema = new mongoose.Schema({
     tip: { type: String, required: true },
     datum: { type: Date, required: true },
     ukupanTrosak: { type: Number, required: true },
+    kilometraza: { type: Number, required: true },
     deloviUsluga: { type: String, required: true },
     ukupanTrosak: { type: Number, required: true },
     uslugaZaposlenog: { type: String, required: true },

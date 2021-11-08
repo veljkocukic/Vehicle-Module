@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from "react"
 import axios from "axios"
 import { DataContext } from "../../Context"
+import {Spiner} from "../Editi/Spiner"
 
 export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
-    let { setOpenRegEdit, verDate, formatDateEdit, id, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
-
+    let { spinerOn,setSpinerOn, setOpenRegEdit, verDate, formatDateEdit, id, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
 
     let [valid, setValid] = useState(true)
     let regDateRef = useRef(null)
@@ -37,6 +37,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
     }, [])
 
     const handleSubmit = () => {
+        setSpinerOn(true)
         let verifyDate = verDate(dateReg)
         let verifyDoc = docReg.length > 2
         let verifyTroskovi = troskovi > 2
@@ -45,20 +46,23 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
         let verifyDo = verDate(regDo)
         if (verifyDate && verifyDoc && verifyTroskovi && verifyReg && verifyTime && verifyDo) {
             axios.patch("http://localhost:5000/api/v1/registracija/" + carId, { id, dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
-                console.log(res)
-                setValid(true)
+            setSpinerOn(false)
+            setValid(true)
                 setOpenRegEdit(false)
             }).catch(er => {
+                setSpinerOn(false)
                 console.log(carId)
             })
         } else {
             setValid(false)
-            console.log(verifyDate, verifyDo, dateReg, regDo)
+            setSpinerOn(false)
         }
     }
 
 
-    return (< table className="tg editTable">
+    return (
+        < table className="tg editTable">
+            {spinerOn && <Spiner />}
         <thead>
             <th class="tg-0pky">Naziv polja</th>
             <th class="tg-0pky">Izmena</th>

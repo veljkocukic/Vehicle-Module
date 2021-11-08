@@ -2,11 +2,11 @@ import axios from "axios"
 import React, { useState, useRef, useContext, useEffect } from "react"
 import { DataContext } from "../../Context"
 import { useParams } from "react-router"
-
+import { Spiner } from "./Spiner"
 
 
 export const EditGorivo = ({ gorivoAr }) => {
-    let { formatDateEdit, setDateReg, dateReg, verDate, setOpenFuelEdit, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, id } = useContext(DataContext)
+    let { spinerOn, setSpinerOn, formatDateEdit, setDateReg, dateReg, verDate, setOpenFuelEdit, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, id } = useContext(DataContext)
 
     let [valid, setValid] = useState(true)
     let tipRef = useRef(null)
@@ -39,10 +39,10 @@ export const EditGorivo = ({ gorivoAr }) => {
         uslugaRef.current.value = fuel.uslugaZaposlenog
         timeRef.current.value = fuel.vremeZaposlenog
 
-
     }, [])
 
     const handleSubmit = () => {
+        setSpinerOn(true)
         let verifyDateFuel = !verDate(dateFuel)
         let verifyKmFuel = kmFuel > 0
         let verifyPotrosnja = (type === "Gorivo" && potrosnja > 5) || type !== "Gorivo"
@@ -51,10 +51,14 @@ export const EditGorivo = ({ gorivoAr }) => {
         if (verifyDateFuel && verifyKmFuel && verifyPotrosnja && verifyPriceFuel) {
             axios.patch("http://localhost:5000/api/v1/gorivo/" + carId, { id, type, dateReg, kmFuel, potrosnja, priceFuel, uslugaFuel, timeFuel }).then(res => {
                 setValid(true)
+                setSpinerOn(false)
                 setOpenFuelEdit(false)
-            }).catch(er => console.log(er))
+            }).catch(er => {
+                setSpinerOn(false)
+                console.log(er)})
         } else {
             setValid(false)
+            setSpinerOn(false)
         }
     }
 
@@ -74,6 +78,7 @@ export const EditGorivo = ({ gorivoAr }) => {
 
     return (
         <table className="tg editTable">
+            {spinerOn && <Spiner />}
             <thead>
                 <th class="tg-0pky">Naziv polja</th>
                 <th class="tg-0pky">Izmena</th>
