@@ -5,10 +5,8 @@ import { DataContext } from "./Context"
 
 
 
-
-
 export const Main = () => {
-    let { id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeRef } = useContext(DataContext)
+    let { id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeRef,formatDate,verDate } = useContext(DataContext)
     let [vozila, setVozila] = useState([])
     let [zaposleniLista, setZaposleniLista] = useState([])
     let zaposleniSelect = useRef(null)
@@ -102,12 +100,6 @@ export const Main = () => {
         }
 
 
-
-        let verDate = (dt) => {
-            return ((new Date(dt) > new Date()) && dt !== 0)
-        }
-
-
         let verReg = (inp) => {
             const regex = /.{2}-[0-9]{3,5}-[A-Z]{2}/gm;
             try {
@@ -127,8 +119,6 @@ export const Main = () => {
                 await axios.patch("http://localhost:5000/api/v1/izmena", {
                     id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd
 
-                }).then(res => {
-                    console.log(res.data)
                 }).catch(er => console.log(er))
                 setEditOn(false)
                 setValid(true)
@@ -186,7 +176,7 @@ export const Main = () => {
                 <td class="tg-0pky">{props.reg}</td>
                 <td class="tg-0pky">{props.utype}</td>
                 <td class="tg-0pky">{props.uname}</td>
-                <td class="tg-0pky">{props.expire}</td>
+                <td class="tg-0pky">{formatDate(props.expire)}</td>
                 <td class="tg-0pky">{props.active}</td>
                 <td class="tg-0pky btn"><button onClick={() => handleEditOn(props.id)}>Izmeni</button></td>
             </tr>

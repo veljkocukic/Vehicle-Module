@@ -12,7 +12,6 @@ router.route("/specifikacija/:carId").patch(SpecifikacijaEdit)
 router.route("/gorivo/:carId").patch(GorivoEdit)
 router.route("/odrzavanje/:carId").patch(OdrzavanjeEdit)
 router.route("/steta/:carId").patch(StetaEdit)
-router.route("/serviseri").get(Serviseri)
 
 
 
