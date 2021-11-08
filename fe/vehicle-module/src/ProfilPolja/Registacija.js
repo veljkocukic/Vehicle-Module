@@ -32,7 +32,7 @@ export const Registracija = ({ registracijaAr}) => {
                 <td>{props.user}</td>
                 <td>{props.time}</td>
                 <td>{formatDate(props.expire)}</td>
-                <td><button onClick={() => handleRegEditOpen(props.kid)}>Izmeni</button><button onClick={() => handleDelete(props.kid)}>Obriši</button></td>
+                <td><button className="btn" onClick={() => handleRegEditOpen(props.kid)}>IZMENI</button><button className="btn del" onClick={() => handleDelete(props.kid)}>OBRIŠI</button></td>
             </tr>
         )
     }

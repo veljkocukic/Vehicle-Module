@@ -39,7 +39,7 @@ export const Serviseri = () => {
                 <td>{props.brTelefona}</td>
                 <td>{props.email}</td>
                 <td>{props.website}</td>
-                <td><button onClick={() => handleOpen(props.id)} >IZMENI</button><button>OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleOpen(props.id)} >IZMENI</button><button className="btn del">OBRIŠI</button></td>
             </tr>
         )
 

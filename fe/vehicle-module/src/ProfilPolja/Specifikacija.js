@@ -10,11 +10,11 @@ export const Specifikacija = ({ specifikacijaAr }) => {
         <table className="tg">
             {openSpecEdit && <EditSpecifikacija />}
             <tbody>
-                <tr><th>Br. šasija</th><td>{specifikacijaAr.brSasije}</td><th>Br. motora</th><td>{specifikacijaAr.brMotora}</td></tr>
-                <tr><th>Godište</th><td>{specifikacijaAr.godiste}</td><th>Boja</th><td>{specifikacijaAr.boja}</td></tr>
-                <tr><th>Datum kupovine</th><td>{formatDate(specifikacijaAr.datumKupovine)}</td><th>Cena vozila</th><td>{specifikacijaAr.cenaVozila}</td></tr>
-                <tr className="docum"><th>Dokumentacija</th><td>{specifikacijaAr.dokumentacija}</td></tr>
-                <tr><td><button className="changeSpec" onClick={setOpenSpecEdit}>Izmeni</button></td></tr>
+                <tr><td className="specTd" >Br. šasija</td><td>{specifikacijaAr.brSasije}</td><td className="specTd" >Br. motora</td><td>{specifikacijaAr.brMotora}</td></tr>
+                <tr><td className="specTd" >Godište</td><td>{specifikacijaAr.godiste}</td><td className="specTd" >Boja</td><td>{specifikacijaAr.boja}</td></tr>
+                <tr><td className="specTd" >Datum kupovine</td><td >{formatDate(specifikacijaAr.datumKupovine)}</td><td className="specTd">Cena vozila</td><td>{specifikacijaAr.cenaVozila}</td></tr>
+                <tr className="docum"><td className="specTd" >Dokumentacija</td><td>{specifikacijaAr.dokumentacija}</td></tr>
+                <tr><td><button className="btn spec" onClick={setOpenSpecEdit}>IZMENI</button></td></tr>
 
             </tbody>
         </table>
