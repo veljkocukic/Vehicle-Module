@@ -1,74 +1,89 @@
 .profilPage{
     width: 65vw;
-    margin: 2em auto;
+    margin: 0 auto;
+    margin-top:2em;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .profilMain{
     display: flex;
+    height:60vh;
+    width: 80vw;
+    justify-content: space-between;
+
 }
 
 .profilMain img{
     height: 100%;
     width: 50%;
     object-fit: cover;
+    border-radius: 15px;
 }
 
 .profilDetails{
-    width: 50%;
+    width: 45%;
 }
 
 .profilInfo{
     height: 50%;
+    border: 1px solid rgb(184, 182, 182);
+    border-radius: 10px;
+    overflow-x: hidden;
+    
 }
 
 .profilInfo table{
     width: 100%;
-    height: 90%;
-    background-color: rgb(247, 247, 247);
+    height: 80%;
 }
 
 
 .profilInfo h3{
     min-width: 100%;
-    background-color: rgb(177, 245, 175);
     text-align: center;
+    background-color:#5562d6;;
+    padding: 5px;
+    color:white;
 }
 
 .profilImages{
+    margin-top:1em;
     height: 50%;
     position: relative;
     overflow: hidden;
+    border: 1px solid rgb(184, 182, 182);
+    border-radius: 10px;
+    overflow: hidden;
+
 }
 
 .profilImages h3{
-    z-index: 5;
-    position: absolute;
-    top:0;
+    background-color:#5562d6;;
     min-width: 100%;
-    background-color: rgb(238, 160, 87);
     text-align: center;
+    color:white;
+
 }
 
 .photoContainer{
-    height: 100%;
+    height: 70%;
     background-color: rgb(247, 247, 247);
-    position: absolute;
-    bottom:0;
-    left:0;
     display: flex;
+    align-items: center;
 }
 
 .photoContainer img{
-    height: 150px;
+    height: 100px;
+    width:100px !important;
     margin-left: 1em;
     margin-right: 1em;
 }
 
 .profilImages p{
-    position: absolute;
     width: 100%;
     text-align: center;
-    bottom: 2px;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -80,12 +95,16 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 3em;
 }
 
 .profilTable ul{
     display: flex;
     list-style:none;
-    margin-bottom:1em;
+    width: 95%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
 }
 
 .docum{
@@ -93,14 +112,16 @@
 }
 
 .profilTable ul li{
-    background-color: rgb(108, 180, 184) !important;
+    background-color: #5562d6 !important;
     color:white;
-    font-size: 1.4em;
+    font-size: 1.2em;
     padding:10px;
+    text-align: center;    
 }
 
 .profilTable ul li:hover{
-    background-color: rgb(137, 204, 207) !important;
+    background-color: #0079c0 !important; 
+    color:white;
     cursor: pointer;
 }
 
@@ -157,3 +178,14 @@
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px 5px;
 }
+.newp{
+
+    color: #0079c0;
+    background-color:white;
+    height:1.8em;
+    
+}
+
+.newp:hover{
+    
+    background-color: #bbbbbb;}
