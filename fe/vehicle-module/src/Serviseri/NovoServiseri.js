@@ -1,115 +1,134 @@
-// import React, { useState, useRef, useEffect, useContext } from "react"
-// import axios from "axios"
-// import "../../style/new.css"
-// import { DataContext } from "../../Context"
-// import { Spiner } from "../Editi/Spiner"
-// import {useParams} from "react-router-dom"
+import React, { useState, useRef, useEffect, useContext } from "react"
+import axios from "axios"
+import "../style/new.css"
+import { DataContext } from "../Context"
+import { Spiner } from "../ProfilPolja/Editi/Spiner"
+import { useParams } from "react-router-dom"
 
 
-// export const NovoRegistracija = () => {
-// let { valid,setValid,newOn,setNewOn,setOpenDialog,openDialog,openServEdit, setOpenServEdit, setId } = useContext(DataContext)
+export const NovoServiseri = () => {
+    let { valid, setValid, spinerOn, setSpinerOn, setNewOn, newOn, setOpenDialog, openDialog, openServEdit, setOpenServEdit, setId, setAdresaS, adresaS, id, kontaktS, setKontaktS, telS, setTelS, emailS, setEmailS, siteS, setSiteS, sifraS, setSifraS, nazivFirme, setNazivFirme, tipUslugeS, setTipUslugeS, } = useContext(DataContext)
 
 
-//     let dateNewReg=useRef(null)
-//     let docNewReg = useRef(null)
-//     let trsokoviNewReg = useRef(null)
-//     let registrovaoNewReg=useRef(null)
-//     let timeNewReg = useRef(null)
-//     let regDoNewReg = useRef(null)
-//     let {carId} = useParams()
 
-//     const handleSubmit = () => {
-//         setSpinerOn(true)
-//         let verifyDate = verDate(dateReg)
-//         let verifyDoc = docReg.length > 2
-//         let verifyTroskovi = troskovi > 2
-//         let verifyReg = registrovao.length > 2
-//         let verifyTime = timeZaposleni.length > 2
-//         let verifyDo = verDate(regDo)
-//         if (verifyDate && verifyDoc && verifyTroskovi && verifyReg && verifyTime && verifyDo) {
-//             axios.post("http://localhost:5000/api/v1/registracija/new/"+carId, { dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
-//             setSpinerOn(false)
-//             setValid(true)
-//                 setOpenRegEdit(false)
-//                 setNewOn(false)
-//             }).catch(er => {
-//                 setSpinerOn(false)
-//                 alert(er)
-//             })
-//         } else {
-//             setValid(false)
-//             setSpinerOn(false)
-//             console.log(verifyDate,verifyDoc,verifyTroskovi,verifyReg,verifyTime,verifyDo)
-//         }
-//     }
+    const handleSubmit = async () => {
+        setSpinerOn(true)
+        let verifySifra = sifraS.length > 10
+        let verifyNaziv = nazivFirme.length > 5
+        let verifyTip = tipUslugeS.length > 1
 
-//     const handleCancel = () => {
-//         setSifraS("")
-//         setNazivFirme("")
-//         setTipUslugeS("")
-//         setKontaktS("")
-//         setTelS("")
-//         setEmailS("")
-//         setSiteS("")
-//         setOpenServEdit(false)
-//     }
-    
-//     return (
-//         <div className="editCont">
-//             {spinerOn && <Spiner/>}
-//             <h3 className="editTitle">Unos nove stavke</h3>
-//                 <div className="containerInput">
+        if (verifySifra && verifyNaziv && verifyTip) {
+            await axios.post("http://localhost:5000/api/v1/serviseri", { id, sifraS, adresaS, nazivFirme, tipUslugeS, kontaktS, telS, emailS, siteS }).then(res => {
+                if (res.data !== "success") {
+                    alert("error")
+                    console.log(res.data)
+                    return
+                }
+                setValid(true)
+                setSpinerOn(false)
+                setOpenServEdit(false)
 
-//                     <div className="kontejner">
-//                         <input type="date" name="ime" className="inp" autocomplete="off" required  ref={dateNewReg} onChange={(e)=>setDateReg(e.target.value)}/>
-//                         <label for="ime" class="labela">
-//                             <p className="sp">Datum registracije</p>
-//                         </label>
-//                     </div>
+            }).catch(er => {
+                setSpinerOn(false)
+                alert(er)
+                console.log(er)
+            })
+        } else {
+            setValid(false)
+            setSpinerOn(false)
+            console.log(verifySifra, verifyNaziv, verifyTip)
+        }
 
-//                     <div className="kontejner txtc">
-//                         <textarea nameName="ime" className="inp" autocomplete="off" required ref={docNewReg} onChange={(e)=>setDocReg(e.target.value)}></textarea>
-//                         <label for="ime" class="labela">
-//                             <p className="sp txts">Dokumentacija</p>
-//                         </label>
-//                     </div>
+    }
 
-//                     <div className="kontejner">
-//                     <input type="number" name="ime" className="inp" autocomplete="off" required  ref={trsokoviNewReg} onChange={(e)=>setTroskovi(e.target.value)}/>
-//                         <label for="ime" class="labela">
-//                             <p className="sp">Troškovi registracije</p>
-//                         </label>
-//                     </div>
 
-//                     <div className="kontejner">
-//                     <input type="text" name="text" className="inp" autocomplete="off" required  ref={registrovaoNewReg} onChange={(e)=>setRegistrovao(e.target.value)}/>
-//                         <label for="ime" class="labela">
-//                             <p className="sp">Registrovao zaposleni</p>
-//                         </label>
-//                     </div>
+    const handleCancel = () => {
+        setSifraS("")
+        setNazivFirme("")
+        setTipUslugeS("Pumpa")
+        setKontaktS("")
+        setTelS("")
+        setEmailS("")
+        setSiteS("")
+        setAdresaS("")
+        setNewOn(false)
+    }
 
-//                     <div className="kontejner">
-//                     <input type="text" name="text" className="inp" autocomplete="off" required ref={timeNewReg} onChange={(e)=>setTimeZaposleni(e.target.value)} />
-//                         <label for="ime" class="labela">
-//                             <p className="sp">Vreme zaposlenog</p>
-//                         </label>
-//                     </div>
 
-//                     <div className="kontejner">
-//                         <input type="date" name="ime" className="inp" autocomplete="off" required ref={regDoNewReg} onChange={(e)=>setRegDo(e.target.value)}/>
-//                         <label for="ime" class="labela">
-//                             <p className="sp">Registrovan do</p>
-//                         </label>
-//                     </div>
-                    
 
-//                 </div>
-//                 <div className="btnsContainer">
-//                     <button className="btn yes " onClick={handleSubmit}>SAČUVAJ</button>
-//                     <button className="btn no " onClick={()=>setNewOn(false)}>OTKAŽI</button>
-//                 </div>
-//                 {!valid && <h3 className="nonValid-new">Uneti podaci nisu validni</h3>}
-//             </div>
-//             )
 
-// }
+    return (
+        <div className="editCont">
+            {spinerOn && <Spiner />}
+            <h3 className="editTitle">Unos nove stavke</h3>
+            <div className="containerInput">
+
+                <div className="kontejner txtc">
+                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setSifraS(e.target.value)} />
+                    <label for="ime" class="labela">
+                        <p className="sp">Šifra klijenta</p>
+                    </label>
+                </div>
+
+                <div className="kontejner txtc">
+                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setNazivFirme(e.target.value)} />
+                    <label for="ime" class="labela">
+                        <p className="sp">Naziv firme</p>
+                    </label>
+                </div>
+
+                <div className="kontejner">
+                    <select name="ime" className="inp" autocomplete="off" required onChange={(e) => setTipUslugeS(e.target.value)}>
+                        <option>Pumpa</option>
+                        <option>Delovi</option>
+                        <option>Mehanika</option>
+                        <option>Elektrika</option>
+                        <option>Farbanje</option>
+                        <option>Limarija</option>
+
+                    </select>
+                    <label for="ime" class="labela">
+                        <p className="sp">Tip usluge</p>
+                    </label>
+                </div>
+
+
+
+                <div className="kontejner">
+                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setKontaktS(e.target.value)} />
+                    <label for="ime" class="labela">
+                        <p className="sp">Kontakt</p>
+                    </label>
+                </div>
+
+                <div className="kontejner">
+                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setAdresaS(e.target.value)} />
+                    <label for="ime" class="labela">
+                        <p className="sp">Adresa</p>
+                    </label>
+                </div>
+
+                <div className="kontejner">
+                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setEmailS(e.target.value)} />
+                    <label for="ime" class="labela">
+                        <p className="sp">E-mail</p>
+                    </label>
+                </div>
+
+                <div className="kontejner">
+                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setSiteS(e.target.value)} />
+                    <label for="ime" class="labela">
+                        <p className="sp">Website</p>
+                    </label>
+                </div>
+
+            </div>
+            <div className="btnsContainer">
+                <button className="btn yes " onClick={handleSubmit}>SAČUVAJ</button>
+                <button className="btn no " onClick={handleCancel}>OTKAŽI</button>
+            </div>
+            {!valid && <h3 className="nonValid-new">Uneti podaci nisu validni</h3>}
+        </div>
+    )
+
+}

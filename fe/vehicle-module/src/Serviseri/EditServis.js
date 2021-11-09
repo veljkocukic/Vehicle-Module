@@ -5,7 +5,7 @@ import { Spiner } from "../ProfilPolja/Editi/Spiner"
 
 export const EditServis = ({ serviseriAr }) => {
 
-    let {setAdresaS,adresaS, valid, setValid, spinerOn, setSpinerOn, id, setOpenServEdit, kontaktS, setKontaktS, telS, setTelS, emailS, setEmailS, siteS, setSiteS, sifraS, setSifraS, nazivFirme, setNazivFirme, tipUslugeS, setTipUslugeS, } = useContext(DataContext)
+    let { setAdresaS, adresaS, valid, setValid, spinerOn, setSpinerOn, id, setOpenServEdit, kontaktS, setKontaktS, telS, setTelS, emailS, setEmailS, siteS, setSiteS, sifraS, setSifraS, nazivFirme, setNazivFirme, tipUslugeS, setTipUslugeS } = useContext(DataContext)
 
     let sifraRef = useRef(null)
     let nazivRef = useRef(null)
@@ -38,7 +38,7 @@ export const EditServis = ({ serviseriAr }) => {
         telRef.current.value = serv.brTelefona
         emailRef.current.value = serv.email
         siteRef.current.value = serv.website
-        adresaRef.current.value=serv.adresa
+        adresaRef.current.value = serv.adresa
 
     }, [])
 
@@ -63,7 +63,7 @@ export const EditServis = ({ serviseriAr }) => {
         let verifyTip = tipUslugeS.length > 1
 
         if (verifySifra && verifyNaziv && verifyTip) {
-            axios.patch("http://localhost:5000/api/v1/serviseri", { id, sifraS, adresaS,nazivFirme, tipUslugeS, kontaktS, telS, emailS, siteS }).then(res => {
+            axios.patch("http://localhost:5000/api/v1/serviseri", { id, sifraS, adresaS, nazivFirme, tipUslugeS, kontaktS, telS, emailS, siteS }).then(res => {
                 console.log(res.data)
                 setValid(true)
                 setSpinerOn(false)
@@ -77,7 +77,7 @@ export const EditServis = ({ serviseriAr }) => {
         } else {
             setValid(false)
             setSpinerOn(false)
-            console.log(verifySifra,verifyNaziv,verifyTip)
+            console.log(verifySifra, verifyNaziv, verifyTip)
         }
 
     }

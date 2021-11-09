@@ -24,22 +24,23 @@ let formatDateEdit = (dt) => { ////////////////////// Vreme za unos
 }
 
 
-const NovoRegistracija = async(req,res)=>{
+const NovoRegistracija = async (req, res) => {
     try {
         const registracija = await CarsModel.findById(req.params.carId)
-        
-        
-        let newR =  {       
-            datumRegistracije :req.body.dateReg,
+
+
+        let newR = {
+            datumRegistracije: req.body.dateReg,
             dokumentacija: req.body.docReg,
-            troskoviRegistracije :req.body.troskovi,
+            troskoviRegistracije: req.body.troskovi,
             registrovaoZaposleni: req.body.registrovao,
             vremeZaposlenog: req.body.timeZaposleni,
-            registrovanDo :req.body.regDo}
-            registracija.registracijaPolje.push(newR)
-            registracija.save()
-            res.send("success")
-            
+            registrovanDo: req.body.regDo
+        }
+        registracija.registracijaPolje.push(newR)
+        registracija.save()
+        res.send("success")
+
 
 
     } catch (error) {
@@ -48,19 +49,19 @@ const NovoRegistracija = async(req,res)=>{
     }
 }
 
-const NovoGorivo = async(req,res)=>{
+const NovoGorivo = async (req, res) => {
 
     try {
         const gorivo = await CarsModel.findById(req.params.carId)
 
         let newR = {
-            tip : req.body.type,
-            datum : req.body.dateFuel,
-            kilometraza : req.body.kmFuel,
-            potrosnja : req.body.potrosnja,
-            cena : req.body.priceFuel,
-            uslugaZaposlenog : req.body.uslugaFuel,
-            vremeZaposlenog : req.body.timeFuel,
+            tip: req.body.type,
+            datum: req.body.dateFuel,
+            kilometraza: req.body.kmFuel,
+            potrosnja: req.body.potrosnja,
+            cena: req.body.priceFuel,
+            uslugaZaposlenog: req.body.uslugaFuel,
+            vremeZaposlenog: req.body.timeFuel,
         }
         gorivo.gorivoPolje.push(newR)
         gorivo.save()
@@ -73,19 +74,19 @@ const NovoGorivo = async(req,res)=>{
 
 }
 
-const NovoOdrzavanje = async(req,res)=>{
+const NovoOdrzavanje = async (req, res) => {
     try {
-        
+
         const odrzavanje = await CarsModel.findById(req.params.carId)
 
         let newR = {
-        tip : req.body.typeOdr,
-        datum : req.body.dateOdr,
-        kilometraza : req.body.kmOdr,
-        deloviUsluga : req.body.partsOdr,
-        ukupanTrosak : req.body.totalOdr,
-        uslugaZaposlenog : req.body.uslugaOdr,
-        vremeZaposlenog : req.body.timeOdr
+            tip: req.body.typeOdr,
+            datum: req.body.dateOdr,
+            kilometraza: req.body.kmOdr,
+            deloviUsluga: req.body.partsOdr,
+            ukupanTrosak: req.body.totalOdr,
+            uslugaZaposlenog: req.body.uslugaOdr,
+            vremeZaposlenog: req.body.timeOdr
         }
 
         odrzavanje.odrzavanjePolje.push(newR)
@@ -98,19 +99,20 @@ const NovoOdrzavanje = async(req,res)=>{
     }
 }
 
-const NovoSteta = async() =>{
+const NovoSteta = async () => {
     try {
 
         const steta = await CarsModel.findById(req.params.carId)
 
         let newR = {
-        opisStete : req.body.desc,
-        stetuPokriva : req.body.pokriva,
-        datum : req.body.date,
-        deloviUsluga : req.body.parts,
-        ukupanTrosak : req.body.total,
-        uslugaZaposlenog : req.body.usluga,
-        vremeZaposlenog : req.body.time}
+            opisStete: req.body.desc,
+            stetuPokriva: req.body.pokriva,
+            datum: req.body.date,
+            deloviUsluga: req.body.parts,
+            ukupanTrosak: req.body.total,
+            uslugaZaposlenog: req.body.usluga,
+            vremeZaposlenog: req.body.time
+        }
         steta.stetaPolje.push(newR)
         res.send("success")
 
@@ -119,4 +121,30 @@ const NovoSteta = async() =>{
         console.log(error)
     }
 }
-module.exports={NovoRegistracija,NovoGorivo,NovoOdrzavanje,NovoSteta}
+
+const NovoServiseri = async (req, res) => {
+
+    try {
+        let newAr = {
+            sifraKlijenta: req.body.sifraS,
+            nazivFirme: req.body.nazivFirme,
+            tipUsluge: req.body.tipUslugeS,
+            kontakt: req.body.kontaktS,
+            adresa: req.body.adresaS,
+            brTelefona: req.body.telS,
+            email: req.body.mailS,
+            website: req.body.siteS
+        }
+        await ServiseriModel.create(newAr)
+        res.send("success")
+
+
+    } catch (error) {
+        console.log(error)
+        res.send(error
+        )
+
+    }
+
+}
+module.exports = { NovoRegistracija, NovoGorivo, NovoOdrzavanje, NovoSteta, NovoServiseri }

@@ -34,9 +34,9 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
                 markaTip: a.markaTip,
                 regBroj: a.registracioniBroj,
                 korisnikVozila: a.korisnikVoz,
-                isticanje: formatDate(a.registracijaPolje[a.registracijaPolje.length-1].registrovanDo),
+                isticanje: formatDate(a.registracijaPolje[a.registracijaPolje.length - 1].registrovanDo),
                 activeFrom: formatDate(a.activeFrom),
-                isticanjeEdit: formatDateEdit(a.registracijaPolje[a.registracijaPolje.length-1].registrovanDo),
+                isticanjeEdit: formatDateEdit(a.registracijaPolje[a.registracijaPolje.length - 1].registrovanDo),
                 activeFromEdit: formatDateEdit(a.activeFrom),
                 tipKorisnika: a.tipKorisnika,
             })
@@ -243,25 +243,25 @@ const Serviseri = async (req, res) => {
 
 }
 
-const ServiseriEdit = async(req,res)=>{
+const ServiseriEdit = async (req, res) => {
 
     try {
         const serv = await ServiseriModel.findById(req.body.id)
 
-            
-                serv.sifraKlijenta=req.body.sifraS,
-                serv.nazivFirme=req.body.nazivFirme,
-                serv.tipUsluge=req.body.tipUslugeS,
-                serv.kontakt=req.body.kontaktS,
-                serv.adresa=req.body.adresaS,
-                serv.brTelefona=req.body.telS,
-                serv.email=req.body.mailS,
-                serv.website=req.body.siteS
-            
+
+        serv.sifraKlijenta = req.body.sifraS
+        serv.nazivFirme = req.body.nazivFirme
+        serv.tipUsluge = req.body.tipUslugeS
+        serv.kontakt = req.body.kontaktS
+        serv.adresa = req.body.adresaS
+        serv.brTelefona = req.body.telS
+        serv.email = req.body.mailS
+        serv.website = req.body.siteS
+
         serv.save()
         res.send("success")
         console.log(req.body)
-        
+
 
 
     } catch (error) {
@@ -271,4 +271,4 @@ const ServiseriEdit = async(req,res)=>{
 }
 
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit}
+module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit }
