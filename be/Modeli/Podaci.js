@@ -1,7 +1,10 @@
 let mongoose = require("mongoose")
 
+
+
+
 const RegistracijaSchema = new mongoose.Schema({
-    _id: { type: String, required: true },
+    _id: {type:mongoose.Types.ObjectId,auto:true},
     datumRegistracije: { type: Date, required: true },
     dokumentacija: { type: String, required: true },
     troskoviRegistracije: { type: Number, required: true },
@@ -21,7 +24,7 @@ const SpecifikacijaSchema = new mongoose.Schema({
 })
 
 const GorivoSchema = new mongoose.Schema({
-    _id: { type: String, required: true },
+    _id: {type:mongoose.Types.ObjectId,auto:true},
     tip: { type: String, required: true },
     datum: { type: Date, required: true },
     kilometraza: { type: Number, required: true },
@@ -33,7 +36,7 @@ const GorivoSchema = new mongoose.Schema({
 
 
 const OdrzavanjeSchema = new mongoose.Schema({
-    _id: { type: String, required: true },
+    _id: {type:mongoose.Types.ObjectId,auto:true},
     tip: { type: String, required: true },
     datum: { type: Date, required: true },
     ukupanTrosak: { type: Number, required: true },
@@ -46,7 +49,7 @@ const OdrzavanjeSchema = new mongoose.Schema({
 
 
 const StetaSchema = new mongoose.Schema({
-    _id: { type: String, required: true },
+    _id: {type:mongoose.Types.ObjectId,auto:true},
     opisStete: { type: String, required: true },
     stetuPokriva: { type: String, required: true },
     datum: { type: Date, required: true },

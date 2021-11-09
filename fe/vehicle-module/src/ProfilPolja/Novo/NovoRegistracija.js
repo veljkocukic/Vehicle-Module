@@ -31,8 +31,10 @@ let { valid,setValid,newOn,setNewOn,spinerOn,setSpinerOn, setOpenRegEdit, verDat
             setSpinerOn(false)
             setValid(true)
                 setOpenRegEdit(false)
+                setNewOn(false)
             }).catch(er => {
                 setSpinerOn(false)
+                alert(er)
             })
         } else {
             setValid(false)
