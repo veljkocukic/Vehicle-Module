@@ -48,5 +48,75 @@ const NovoRegistracija = async(req,res)=>{
     }
 }
 
+const NovoGorivo = async(req,res)=>{
 
-module.exports={NovoRegistracija}
+    try {
+        const gorivo = await CarsModel.findById(req.params.carId)
+
+        let newR = {
+            tip : req.body.type,
+            datum : req.body.dateFuel,
+            kilometraza : req.body.kmFuel,
+            potrosnja : req.body.potrosnja,
+            cena : req.body.priceFuel,
+            uslugaZaposlenog : req.body.uslugaFuel,
+            vremeZaposlenog : req.body.timeFuel,
+        }
+        gorivo.gorivoPolje.push(newR)
+        gorivo.save()
+        res.send("success")
+
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+    }
+
+}
+
+const NovoOdrzavanje = async(req,res)=>{
+    try {
+        
+        const odrzavanje = await CarsModel.findById(req.params.carId)
+
+        let newR = {
+        tip : req.body.typeOdr,
+        datum : req.body.dateOdr,
+        kilometraza : req.body.kmOdr,
+        deloviUsluga : req.body.partsOdr,
+        ukupanTrosak : req.body.totalOdr,
+        uslugaZaposlenog : req.body.uslugaOdr,
+        vremeZaposlenog : req.body.timeOdr
+        }
+
+        odrzavanje.odrzavanjePolje.push(newR)
+        odrzavanje.save()
+        res.send("success")
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const NovoSteta = async() =>{
+    try {
+
+        const steta = await CarsModel.findById(req.params.carId)
+
+        let newR = {
+        opisStete : req.body.desc,
+        stetuPokriva : req.body.pokriva,
+        datum : req.body.date,
+        deloviUsluga : req.body.parts,
+        ukupanTrosak : req.body.total,
+        uslugaZaposlenog : req.body.usluga,
+        vremeZaposlenog : req.body.time}
+        steta.stetaPolje.push(newR)
+        res.send("success")
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+module.exports={NovoRegistracija,NovoGorivo,NovoOdrzavanje,NovoSteta}

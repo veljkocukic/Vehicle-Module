@@ -41,8 +41,15 @@ export const Main = () => {
         
         const ZaposleniLista = () => {
             
+            const handleC = (e)=>{
+                setKorisnikMn(e.target.value)
+                console.log(e.target.value)
+                console.log(korisnikMn)
+
+            }
+
             return (
-                <select ref={zaposleniSelect} onChange={(e) => setKorisnikMn(e.target.value)}>
+                <select ref={zaposleniSelect} onChange={(e) => handleC(e)}>
                     {zaposleniLista.map(item => <option value={item.ime}>{item.ime}</option>)}
                 </select>
             )
@@ -93,13 +100,17 @@ export const Main = () => {
             }
         }, [zaposleni])
 
+        
+
 
         let handleChange = (e) => {
 
             if (e.target.value !== "Druga lica") {
                 setZaposleni(true)
+                setTypeMn("Zaposleni")
             } else {
                 setZaposleni(false)
+                setTypeMn("Druga lica")
             }
         }
 

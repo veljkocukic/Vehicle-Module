@@ -9,7 +9,7 @@ import { useParams } from "react-router"
 
 export const Serviseri = () => {
     const [serviseriAr, setServiseriAr] = useState([])
-    let { setOpenDialog,openDialog,openServEdit, setOpenServEdit, setId } = useContext(DataContext)
+    let { setNewOn,newOn,setOpenDialog,openDialog,openServEdit, setOpenServEdit, setId } = useContext(DataContext)
     let [spinerServ, setSpinerServ] = useState(true)
     let {carId} = useParams()
 
@@ -50,6 +50,7 @@ export const Serviseri = () => {
         )
 
     }
+
     return (
         <table className="tg servt">
             {spinerServ && <Spiner />}
@@ -64,6 +65,7 @@ export const Serviseri = () => {
                     <th>Br. telefona</th>
                     <th>E-mail</th>
                     <th>Website</th>
+                    <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i class="fas fa-plus"></i> Novo</button></th>
                 </tr>
             </thead>
             <tbody>

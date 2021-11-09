@@ -3,12 +3,13 @@ import { DataContext } from "../Context"
 import { EditSteta } from "./Editi/EditSteta"
 import { Dialog } from "./Editi/Dialog"
 import { useParams } from "react-router"
+import { NovoSteta } from "./Novo/NovoSteta"
 
 
 
 export const Steta = ({ stetaAr }) => {
 
-    let {openDialog,setOpenDialog, openDmgEdit, setOpenDmgEdit, setId, formatDate } = useContext(DataContext)
+    let {newOn,setNewOn,openDialog,setOpenDialog, openDmgEdit, setOpenDmgEdit, setId, formatDate } = useContext(DataContext)
     let {carId} = useParams()
 
 
@@ -51,10 +52,11 @@ export const Steta = ({ stetaAr }) => {
                     <th>Ukupan trošak</th>
                     <th>Usluga zaposlenog</th>
                     <th>Vreme zaposlenog (min.) </th>
-                    <th className="tg-0pky"><button className="editBtn"><i class="fas fa-plus"></i> Novo</button></th>
+                    <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i class="fas fa-plus"></i> Novo</button></th>
                 </tr>
             </thead>
             <tbody>
+            {newOn && <NovoSteta />}
             {openDialog && <Dialog par={carId} polje="dmg" />}
                 {stetaAr.map((item, key) => <KoloneSteta _id={item._id} desc={item.opisStete} cover={item.stetuPokriva} date={item.datum} part={item.deloviUsluga} total={item.ukupanTrosak} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>

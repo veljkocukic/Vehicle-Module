@@ -103,10 +103,11 @@ const SingleCar = async (req, res) => {
 
 
 const RegistracijaEdit = async (req, res) => {
+    const registracija = await CarsModel.findById(req.params.carId)
+    let reg = registracija.registracijaPolje[0]._id
     try {
-
         const registracija = await CarsModel.findById(req.params.carId)
-        let reg = registracija.registracijaPolje.find(item => item._id === req.body.id)
+        let reg = registracija.registracijaPolje.find(item => item._id.toString() === req.body.id)
         reg.datumRegistracije = req.body.dateReg
         reg.dokumentacija = req.body.docReg
         reg.troskoviRegistracije = req.body.troskovi
@@ -119,6 +120,9 @@ const RegistracijaEdit = async (req, res) => {
 
     } catch (error) {
         console.log(error)
+        console.log(req.body)
+
+        console.log(reg)
         res.send(error)
     }
 }
@@ -149,18 +153,18 @@ const SpecifikacijaEdit = async (req, res) => {
 
 
 const GorivoEdit = async (req, res) => {
+
     try {
         const gorivo = await CarsModel.findById(req.params.carId)
-        let gor = gorivo.gorivoPolje.find(item => item._id === req.body.id)
+        let gor = gorivo.gorivoPolje.find(item => item._id.toString() === req.body.id)
 
         gor.tip = req.body.type
-        gor.datum = req.body.dateReg
+        gor.datum = req.body.dateFuel
         gor.kilometraza = req.body.kmFuel
         gor.potrosnja = req.body.potrosnja
         gor.cena = req.body.priceFuel
         gor.uslugaZaposlenog = req.body.uslugaFuel
         gor.vremeZaposlenog = req.body.timeFuel
-        console.log(req.body.dateReg)
         gorivo.save()
         res.send("success")
 
@@ -178,7 +182,7 @@ const OdrzavanjeEdit = async (req, res) => {
 
     try {
         let odrzavanje = await CarsModel.findById(req.params.carId)
-        let odr = odrzavanje.odrzavanjePolje.find(item => item._id === req.body.id)
+        let odr = odrzavanje.odrzavanjePolje.find(item => item._id.toString() === req.body.id)
 
         odr.tip = req.body.typeOdr
         odr.datum = req.body.dateOdr
@@ -206,7 +210,7 @@ const StetaEdit = async (req, res) => {
     try {
 
         let steta = await CarsModel.findById(req.params.carId)
-        let ste = steta.stetaPolje.find(item => item._id === req.body.id)
+        let ste = steta.stetaPolje.find(item => item._id.toString() === req.body.id)
 
         ste.opisStete = req.body.desc
         ste.stetuPokriva = req.body.pokriva
@@ -239,5 +243,32 @@ const Serviseri = async (req, res) => {
 
 }
 
+const ServiseriEdit = async(req,res)=>{
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri }
+    try {
+        const serv = await ServiseriModel.findById(req.body.id)
+
+            
+                serv.sifraKlijenta=req.body.sifraS,
+                serv.nazivFirme=req.body.nazivFirme,
+                serv.tipUsluge=req.body.tipUslugeS,
+                serv.kontakt=req.body.kontaktS,
+                serv.adresa=req.body.adresaS,
+                serv.brTelefona=req.body.telS,
+                serv.email=req.body.mailS,
+                serv.website=req.body.siteS
+            
+        serv.save()
+        res.send("success")
+        console.log(req.body)
+        
+
+
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+    }
+}
+
+
+module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit}

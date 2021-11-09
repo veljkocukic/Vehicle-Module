@@ -6,7 +6,7 @@ import { Spiner } from "./Spiner"
 
 
 export const EditGorivo = ({ gorivoAr }) => {
-    let { spinerOn, setSpinerOn, formatDateEdit, setDateReg, dateReg, verDate, setOpenFuelEdit, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, id } = useContext(DataContext)
+    let { spinerOn, setSpinerOn, formatDateEdit, dateReg, verDate, setOpenFuelEdit, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, id } = useContext(DataContext)
 
     let [valid, setValid] = useState(true)
     let tipRef = useRef(null)
@@ -24,7 +24,7 @@ export const EditGorivo = ({ gorivoAr }) => {
         let fuel = gorivoAr.find(item => item._id === id)
 
         setType(fuel.tip)
-        setDateReg(fuel.datum)
+        setDateFuel(fuel.datum)
         setKmFuel(fuel.kilometraza)
         setPotrosnja(fuel.potrosnja)
         setPriceFuel(fuel.cena)
@@ -43,7 +43,7 @@ export const EditGorivo = ({ gorivoAr }) => {
 
     const handleSubmit = () => {
         setSpinerOn(true)
-        let verifyDateFuel = !verDate(dateFuel)
+        let verifyDateFuel = verDate(dateFuel)
         let verifyKmFuel = kmFuel > 0
         let verifyPotrosnja = (type === "Gorivo" && potrosnja > 5) || type !== "Gorivo"
         let verifyPriceFuel = priceFuel > 100
@@ -85,7 +85,7 @@ export const EditGorivo = ({ gorivoAr }) => {
             </thead>
             <tbody>
                 <tr><td>Tip </td><td><select onChange={(e) => setType(e.target.value)} ref={tipRef} ><option>Gorivo</option><option>Tag</option><option>Pranje</option></select></td></tr>
-                <tr><td>Datum </td><td><input type="date" onChange={(e) => setDateReg(e.target.value)} ref={datumRef} /></td></tr>
+                <tr><td>Datum </td><td><input type="date" onChange={(e) => setDateFuel(e.target.value)} ref={datumRef} /></td></tr>
                 <tr><td>Kilometraža </td><td><input type="number" onChange={(e) => setKmFuel(e.target.value)} ref={kmRef} /></td></tr>
                 <tr><td>Potrošnja</td><td><input type="number" onChange={(e) => setPotrosnja(e.target.value)} ref={potrosnjaRef} /></td></tr>
                 <tr><td>Cena</td><td><input type="number" onChange={(e) => setPriceFuel(e.target.value)} ref={cenaRef} /></td></tr>

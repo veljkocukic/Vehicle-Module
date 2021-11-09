@@ -67,6 +67,7 @@ header ul li:hover{
   transform: translate(-50%,-50%);
   width: 50vw !important;
   z-index: 7;
+  overflow: visible !important;
 }
 
 header h1{
@@ -256,10 +257,10 @@ thead tr{
 .nonValid{
   width: 100%;
   text-align: center;
-  color:rgb(155, 44, 44);
+  color:white;
   position: absolute;
   bottom:-1em;
-  background-color: wheat
+  background-color: crimson
 }
 
 

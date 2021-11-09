@@ -3,11 +3,12 @@ import { DataContext } from "../Context"
 import { EditGorivo } from "./Editi/EditGorivo"
 import { useParams } from "react-router"
 import { Dialog } from "./Editi/Dialog"
+import { NovoGorivo } from "./Novo/NovoGorivo"
 
 
 export const Gorivo = ({ gorivoAr }) => {
-    let { openDialog,setOpenDialog,formatDate, openFuelEdit, setOpenFuelEdit, setId } = useContext(DataContext)
-    let {carId} = useParams()
+    let { setNewOn, newOn, openDialog, setOpenDialog, formatDate, openFuelEdit, setOpenFuelEdit, setId } = useContext(DataContext)
+    let { carId } = useParams()
 
 
 
@@ -32,9 +33,13 @@ export const Gorivo = ({ gorivoAr }) => {
                 <td>{props.cena}</td>
                 <td>{props.usluga}</td>
                 <td>{props.time}</td>
-                <td><button className="btn" onClick={() => handleOpen(props._id)}><i class="fas fa-edit"></i> IZMENI</button> <button className="btn del" onClick={()=>handleDelete(props._id)}> <i class="far fa-trash-alt"></i> OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleOpen(props._id)}><i class="fas fa-edit"></i> IZMENI</button> <button className="btn del" onClick={() => handleDelete(props._id)}> <i class="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>)
 
+    }
+
+    const handleNew = () => {
+        setNewOn(true)
     }
     return (
         <table className="tg">
@@ -48,10 +53,11 @@ export const Gorivo = ({ gorivoAr }) => {
                     <th>Cena</th>
                     <th>Usluga zaposlenog</th>
                     <th>Vreme zaposlenog</th>
-                    <th className="tg-0pky"><button className="editBtn"><i class="fas fa-plus"></i> Novo</button></th>
+                    <th className="tg-0pky"><button className="editBtn" onClick={handleNew}><i class="fas fa-plus"></i> Novo</button></th>
                 </tr>
             </thead>
             <tbody>
+                {newOn && <NovoGorivo />}
                 {openDialog && <Dialog par={carId} polje="fuel" />}
                 {gorivoAr.map((item, key) => <KoloneGorivo _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} pot={item.potrosnja} cena={item.cena} usluga={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>

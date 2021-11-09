@@ -26,12 +26,12 @@ const SpecifikacijaSchema = new mongoose.Schema({
 const GorivoSchema = new mongoose.Schema({
     _id: {type:mongoose.Types.ObjectId,auto:true},
     tip: { type: String, required: true },
-    datum: { type: Date, required: true },
+    datum: { type: Date},
     kilometraza: { type: Number, required: true },
     potrosnja: { type: Number, default: 0 },
     cena: { type: Number, required: true },
     uslugaZaposlenog: { type: String, default: "/" },
-    vremeZaposlenog: { type: Number, default: 0 }
+    vremeZaposlenog: { type: String, required:true }
 })
 
 
@@ -42,9 +42,8 @@ const OdrzavanjeSchema = new mongoose.Schema({
     ukupanTrosak: { type: Number, required: true },
     kilometraza: { type: Number, required: true },
     deloviUsluga: { type: String, required: true },
-    ukupanTrosak: { type: Number, required: true },
     uslugaZaposlenog: { type: String, required: true },
-    vremeZaposlenog: { type: Number, required: true }
+    vremeZaposlenog: { type: String, required: true }
 })
 
 
@@ -56,7 +55,7 @@ const StetaSchema = new mongoose.Schema({
     deloviUsluga: { type: String, required: true },
     ukupanTrosak: { type: Number, required: true },
     uslugaZaposlenog: { type: String, required: true },
-    vremeZaposlenog: { type: Number, required: true }
+    vremeZaposlenog: { type: String, required: true }
 })
 
 
@@ -86,11 +85,11 @@ const ServiseriSchema = new mongoose.Schema({
     sifraKlijenta: { type: String, required: true },
     nazivFirme: { type: String, required: true },
     tipUsluge: { type: String, required: true },
-    kontakt: { type: String, required: true },
-    adresa: { type: String, required: true },
-    brTelefona: { type: String, required: true },
-    email: { type: String, required: true },
-    webiste: { type: String, required: true }
+    kontakt: { type: String},
+    adresa: { type: String},
+    brTelefona: { type: String},
+    email: { type: String},
+    website: { type: String}
 })
 
 

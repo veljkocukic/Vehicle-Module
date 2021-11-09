@@ -18,7 +18,7 @@ let { valid,setValid,newOn,setNewOn,spinerOn,setSpinerOn, setOpenRegEdit, verDat
     let regDoNewReg = useRef(null)
     let {carId} = useParams()
 
-    const handleSubmit = () => {
+    const handleSubmit = async() => {
         setSpinerOn(true)
         let verifyDate = verDate(dateReg)
         let verifyDoc = docReg.length > 2
@@ -27,10 +27,14 @@ let { valid,setValid,newOn,setNewOn,spinerOn,setSpinerOn, setOpenRegEdit, verDat
         let verifyTime = timeZaposleni.length > 2
         let verifyDo = verDate(regDo)
         if (verifyDate && verifyDoc && verifyTroskovi && verifyReg && verifyTime && verifyDo) {
-            axios.post("http://localhost:5000/api/v1/registracija/new/"+carId, { dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
-            setSpinerOn(false)
-            setValid(true)
-                setOpenRegEdit(false)
+            await axios.post("http://localhost:5000/api/v1/registracija/new/"+carId, { dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
+                if(res.data!=="success"){
+                    alert("error")
+                    console.log(res.data)
+                    return
+                }
+                setSpinerOn(false)
+                setValid(true)
                 setNewOn(false)
             }).catch(er => {
                 setSpinerOn(false)
