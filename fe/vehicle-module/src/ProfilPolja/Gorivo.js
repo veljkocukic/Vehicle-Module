@@ -1,20 +1,27 @@
 import React, { useContext } from "react"
 import { DataContext } from "../Context"
 import { EditGorivo } from "./Editi/EditGorivo"
-
+import { useParams } from "react-router"
+import { Dialog } from "./Editi/Dialog"
 
 
 export const Gorivo = ({ gorivoAr }) => {
-    let { formatDate, openFuelEdit, setOpenFuelEdit, setId } = useContext(DataContext)
+    let { openDialog,setOpenDialog,formatDate, openFuelEdit, setOpenFuelEdit, setId } = useContext(DataContext)
+    let {carId} = useParams()
 
 
 
     const KoloneGorivo = (props) => {
-        const handleOpen = (_id) => {
-            setId(_id)
+        const handleOpen = (kid) => {
+            setId(kid)
             setOpenFuelEdit(true)
         }
 
+
+        const handleDelete = (kid) => {
+            setOpenDialog(true)
+            setId(kid)
+        }
 
         return (
             <tr>
@@ -25,7 +32,7 @@ export const Gorivo = ({ gorivoAr }) => {
                 <td>{props.cena}</td>
                 <td>{props.usluga}</td>
                 <td>{props.time}</td>
-                <td><button className="btn" onClick={() => handleOpen(props._id)}>IZMENI</button> <button className="btn del">OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleOpen(props._id)}><i class="fas fa-edit"></i> IZMENI</button> <button className="btn del" onClick={()=>handleDelete(props._id)}> <i class="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>)
 
     }
@@ -41,9 +48,14 @@ export const Gorivo = ({ gorivoAr }) => {
                     <th>Cena</th>
                     <th>Usluga zaposlenog</th>
                     <th>Vreme zaposlenog</th>
+<<<<<<< Updated upstream
+=======
+                    <th className="tg-0pky"><button className="editBtn"><i class="fas fa-plus"></i> Novo</button></th>
+>>>>>>> Stashed changes
                 </tr>
             </thead>
             <tbody>
+                {openDialog && <Dialog par={carId} polje="fuel" />}
                 {gorivoAr.map((item, key) => <KoloneGorivo _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} pot={item.potrosnja} cena={item.cena} usluga={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>

@@ -169,6 +169,7 @@ export const Main = () => {
                      <tr class="editTr"><td>Registracioni broj</td><td><input placeholder={"Format: \"BG-123-EF \""} type="text" onChange={(e) => { setRegBr(e.target.value) }} ref={regBrRef} /></td></tr>
                      <tr class="editTr"><td>Tip korisinika</td><td><select onChange={handleChange} ref={tipKorRef}><option >Zaposleni</option><option>Druga lica</option></select></td></tr>
                     <tr class="editTr"><td>Korisnik vozila</td><td>{zaposleni ? <ZaposleniLista /> : <input type="text" onChange={(e) => { setKorisnikMn(e.target.value) }} ref={korVozRef} />}</td></tr>
+<<<<<<< Updated upstream
                      <tr class="editTr"><td>Isticanje registracije</td><td><input type="date" onChange={(e) => { setIsticanje(e.target.value) }} ref={isticRef} /></td></tr>
                      <tr class="editTr"><td>Vozilo aktivno od do</td><td><input type="date" onChange={(e) => { setAktivnoOd(e.target.value) }} ref={activeRef} /></td></tr>
                      <tr><td><button onClick={handleCancel} className="btn no">OTKAŽI</button></td><td><button type="submit" className="btn yes" onClick={handleSubmit}>SAČUVAJ</button></td></tr>
@@ -176,6 +177,16 @@ export const Main = () => {
                  </tbody>
              </table>
             
+=======
+                    <tr class="editTr"><td>Isticanje registracije</td><td><input type="date" onChange={(e) => { setIsticanje(e.target.value) }} ref={isticRef} /></td></tr>
+                    <tr class="editTr"><td>Vozilo aktivno od do</td><td><input type="date" onChange={(e) => { setAktivnoOd(e.target.value) }} ref={activeRef} /></td></tr>
+                    <tr><td><button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button></td><td><button type="submit" className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button></td></tr>
+                    {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+                </tbody>
+            </table>
+
+
+>>>>>>> Stashed changes
 
 
                            
@@ -200,7 +211,11 @@ export const Main = () => {
                 <td class="tg-0pky">{props.uname}</td>
                 <td class="tg-0pky">{formatDate(props.expire)}</td>
                 <td class="tg-0pky">{props.active}</td>
+<<<<<<< Updated upstream
                 <td class="tg-0pky btn"><button className="editBtn" onClick={() => handleEditOn(props.id)}>  <i class="fa-solid fa-pen-to-square"></i> IZMENI</button></td>
+=======
+                <td class="tg-0pky"><button className="btn" onClick={() => handleEditOn(props.id)}><i class="fas fa-edit"></i>   IZMENI</button></td>
+>>>>>>> Stashed changes
             </tr>
         )
     }
@@ -222,7 +237,11 @@ export const Main = () => {
                             <th className="tg-0pky">Korisnik vozila</th>
                             <th className="tg-0pky">Isticanje registracije</th>
                             <th className="tg-0pky">Vozilo aktivno od do</th>
+<<<<<<< Updated upstream
                             <th className="tg-0pky"><button className="new">Novo +</button></th>
+=======
+                            <th className="tg-0pky"><button className="editBtn"><i class="fas fa-plus"></i> NOVO</button></th>
+>>>>>>> Stashed changes
                         </tr>
                     </thead>
                     <tbody>

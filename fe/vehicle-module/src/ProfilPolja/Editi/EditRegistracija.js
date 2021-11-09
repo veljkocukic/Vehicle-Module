@@ -42,7 +42,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
         let verifyDoc = docReg.length > 2
         let verifyTroskovi = troskovi > 2
         let verifyReg = registrovao.length > 2
-        let verifyTime = timeZaposleni > 2
+        let verifyTime = timeZaposleni.length > 2
         let verifyDo = verDate(regDo)
         if (verifyDate && verifyDoc && verifyTroskovi && verifyReg && verifyTime && verifyDo) {
             axios.patch("http://localhost:5000/api/v1/registracija/" + carId, { id, dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
@@ -74,7 +74,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
             <tr><td>Registrovao zaposleni</td><td><input ref={regZapRef} type="text" onChange={(e) => setRegistrovao(e.target.value)} /></td></tr>
             <tr><td>Vreme zaposlenog</td><td><input ref={regTimeRef} type="text" onChange={(e) => setTimeZaposleni(e.target.value)} /></td></tr>
             <tr><td>Registrovan do</td><td><input ref={regRegDoRef} type="date" onChange={(e) => setRegDo(e.target.value)} /></td></tr>
-            <tr><td><button onClick={() => setOpenRegEdit(false)} className="btn no">OTKAŽI</button></td><td><button className="btn yes" onClick={handleSubmit}>SAČUVAJ</button></td></tr>
+            <tr><td><button onClick={() => setOpenRegEdit(false)} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button></td><td><button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button></td></tr>
         </tbody>
         {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
     </table>)

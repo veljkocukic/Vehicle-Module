@@ -1,20 +1,27 @@
 import React, { useContext } from "react"
 import { DataContext } from "../Context"
 import { EditSteta } from "./Editi/EditSteta"
+import { Dialog } from "./Editi/Dialog"
+import { useParams } from "react-router"
 
 
 
 export const Steta = ({ stetaAr }) => {
 
-    let { openDmgEdit, setOpenDmgEdit, setId, formatDate } = useContext(DataContext)
-
+    let {openDialog,setOpenDialog, openDmgEdit, setOpenDmgEdit, setId, formatDate } = useContext(DataContext)
+    let {carId} = useParams()
 
 
     const KoloneSteta = (props) => {
 
-        const handleOpen = (id) => {
-            setId(id)
+        const handleOpen = (kid) => {
+            setId(kid)
             setOpenDmgEdit(true)
+        }
+
+        const handleDelete = (kid) => {
+            setOpenDialog(true)
+            setId(kid)
         }
 
         return (
@@ -26,7 +33,7 @@ export const Steta = ({ stetaAr }) => {
                 <td>{props.total}</td>
                 <td>{props.user}</td>
                 <td>{props.time}</td>
-                <td><button className="btn" onClick={() => handleOpen(props._id)}>IZEMNI</button><button className="btn del">OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleOpen(props._id)}><i class="fas fa-edit"></i>IZEMNI</button><button className="btn del" onClick={()=>handleDelete(props._id)}><i class="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>
         )
     }
@@ -44,9 +51,14 @@ export const Steta = ({ stetaAr }) => {
                     <th>Ukupan trošak</th>
                     <th>Usluga zaposlenog</th>
                     <th>Vreme zaposlenog (min.) </th>
+<<<<<<< Updated upstream
+=======
+                    <th className="tg-0pky"><button className="editBtn"><i class="fas fa-plus"></i> Novo</button></th>
+>>>>>>> Stashed changes
                 </tr>
             </thead>
             <tbody>
+            {openDialog && <Dialog par={carId} polje="dmg" />}
                 {stetaAr.map((item, key) => <KoloneSteta _id={item._id} desc={item.opisStete} cover={item.stetuPokriva} date={item.datum} part={item.deloviUsluga} total={item.ukupanTrosak} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>

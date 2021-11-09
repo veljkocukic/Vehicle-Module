@@ -124,7 +124,7 @@ export const Profil = () => {
                     <div className="profilImages">
                         <h3>Slike vozila</h3>
                         <div className="photoContainer">
-                            {imagesArray.map((item) => <img src={item} alt="slika auta" />)}
+                            {imagesArray.map((item,key) => <img key={key} src={item} alt="slika auta" />)}
                         </div>
                         <p onClick={() => setOpenImgModal(true)}>Pogledaj sve slike</p>
                     </div>

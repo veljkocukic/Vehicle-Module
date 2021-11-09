@@ -3,12 +3,20 @@ import axios from "axios"
 import { DataContext } from "../Context"
 import { EditServis } from "./EditServis"
 import { Spiner } from "../ProfilPolja/Editi/Spiner"
+import { Dialog } from "../ProfilPolja/Editi/Dialog"
+import { useParams } from "react-router"
 
 
 export const Serviseri = () => {
     const [serviseriAr, setServiseriAr] = useState([])
+<<<<<<< Updated upstream
     let { openServEdit, setOpenServEdit, setId } = useContext(DataContext)
     let [spinerServ,setSpinerServ] = useState(true)
+=======
+    let { setOpenDialog,openDialog,openServEdit, setOpenServEdit, setId } = useContext(DataContext)
+    let [spinerServ, setSpinerServ] = useState(true)
+    let {carId} = useParams()
+>>>>>>> Stashed changes
 
     useEffect(() => {
         const fetchData = async() => {
@@ -23,10 +31,13 @@ export const Serviseri = () => {
     const KoloneServiseri = (props) => {
 
         const handleOpen = (i) => {
-
             setId(i)
             setOpenServEdit(true)
+        }
 
+        const handleDelete = (_id) => {
+            setOpenDialog(true)
+            setId(_id)
         }
 
         return (
@@ -39,7 +50,7 @@ export const Serviseri = () => {
                 <td>{props.brTelefona}</td>
                 <td>{props.email}</td>
                 <td>{props.website}</td>
-                <td><button className="btn" onClick={() => handleOpen(props.id)} >IZMENI</button><button className="btn del">OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleOpen(props.id)} ><i class="fas fa-edit"></i> IZMENI</button><button className="btn del" onClick={()=>handleDelete(props.id)}> <i class="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>
         )
 
@@ -61,6 +72,8 @@ export const Serviseri = () => {
                 </tr>
             </thead>
             <tbody>
+
+                {openDialog && <Dialog par={carId} polje="serv" />}
                 {serviseriAr.map((item, key) => <KoloneServiseri id={item._id} sifraKlijenta={item.sifraKlijenta} nazivFirme={item.nazivFirme} tipUsluge={item.tipUsluge} kontakt={item.kontakt} adresa={item.adresa} brTelefona={item.brTelefona} email={item.email} website={item.website} key={key} />)}
             </tbody>
         </table>

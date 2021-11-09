@@ -83,7 +83,7 @@ export const EditSpecifikacija = () => {
                 <tr><td>Datum kupovine</td><td><input ref={datumRef} type="date" onChange={(e) => setDateKup(e.target.value)} /></td></tr>
                 <tr><td>Cena vozila</td><td><input ref={cenaRef} type="text" onChange={(e) => setCenaVoz(e.target.value)} /></td></tr>
                 <tr><td>Dokumentacija</td><td><textarea ref={documRef} onChange={(e) => setDocume(e.target.value)} ></textarea></td></tr>
-                <tr><td><button onClick={handleCancel} className="btn no">OTKAŽI</button></td><td><button className="btn yes" onClick={handleSubmit} >SAČUVAJ</button></td></tr>
+                <tr><td><button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button></td><td><button className="btn yes" onClick={handleSubmit}> <i class="far fa-save"></i>SAČUVAJ</button></td></tr>
                 {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
             </tbody>
         </table>)

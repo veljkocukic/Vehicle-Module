@@ -6,6 +6,8 @@ export let DataContext = createContext();
 export let MainProvider = (props) => {
 
   const [spinerOn,setSpinerOn] = useState(false)
+  let [newOn,setNewOn] = useState(false)
+
 
   const [openRegEdit, setOpenRegEdit] = useState(false)
   const [openSpecEdit, setOpenSpecEdit] = useState(false)
@@ -118,7 +120,7 @@ export let MainProvider = (props) => {
 
   return (
     <DataContext.Provider
-      value={{ spinerOn,setSpinerOn, openDialog,setOpenDialog, kontaktS, setKontaktS, telS, setTelS, emailS, setEmailS, siteS, setSiteS, sifraS, setSifraS, nazivFirme, setNazivFirme, tipUslugeS, setTipUslugeS, openServEdit, setOpenServEdit, openRegEdit, setOpenRegEdit, openDmgEdit, setOpenDmgEdit, openOdrEdit, setOpenOdrEdit, formatDate, verDate, form, formatDateEdit, openFuelEdit, setOpenFuelEdit, openSpecEdit, setOpenSpecEdit, typeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, uslugaOdr, setUslugaOdr, timeOdr, setTimeOdr, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume, valid, setValid, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo, id, setId, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoOd, setAktivnoOd, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeRef }}
+      value={{ newOn,setNewOn,spinerOn,setSpinerOn, openDialog,setOpenDialog, kontaktS, setKontaktS, telS, setTelS, emailS, setEmailS, siteS, setSiteS, sifraS, setSifraS, nazivFirme, setNazivFirme, tipUslugeS, setTipUslugeS, openServEdit, setOpenServEdit, openRegEdit, setOpenRegEdit, openDmgEdit, setOpenDmgEdit, openOdrEdit, setOpenOdrEdit, formatDate, verDate, form, formatDateEdit, openFuelEdit, setOpenFuelEdit, openSpecEdit, setOpenSpecEdit, typeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, uslugaOdr, setUslugaOdr, timeOdr, setTimeOdr, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume, valid, setValid, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo, id, setId, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoOd, setAktivnoOd, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeRef }}
     >
       {props.children}
     </DataContext.Provider>
