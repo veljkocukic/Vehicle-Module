@@ -51,10 +51,7 @@ export const Steta = ({ stetaAr }) => {
                     <th>Ukupan trošak</th>
                     <th>Usluga zaposlenog</th>
                     <th>Vreme zaposlenog (min.) </th>
-<<<<<<< Updated upstream
-=======
                     <th className="tg-0pky"><button className="editBtn"><i class="fas fa-plus"></i> Novo</button></th>
->>>>>>> Stashed changes
                 </tr>
             </thead>
             <tbody>

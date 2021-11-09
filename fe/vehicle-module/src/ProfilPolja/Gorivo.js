@@ -48,10 +48,7 @@ export const Gorivo = ({ gorivoAr }) => {
                     <th>Cena</th>
                     <th>Usluga zaposlenog</th>
                     <th>Vreme zaposlenog</th>
-<<<<<<< Updated upstream
-=======
                     <th className="tg-0pky"><button className="editBtn"><i class="fas fa-plus"></i> Novo</button></th>
->>>>>>> Stashed changes
                 </tr>
             </thead>
             <tbody>

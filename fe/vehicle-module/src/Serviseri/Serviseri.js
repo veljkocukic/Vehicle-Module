@@ -9,14 +9,9 @@ import { useParams } from "react-router"
 
 export const Serviseri = () => {
     const [serviseriAr, setServiseriAr] = useState([])
-<<<<<<< Updated upstream
-    let { openServEdit, setOpenServEdit, setId } = useContext(DataContext)
-    let [spinerServ,setSpinerServ] = useState(true)
-=======
     let { setOpenDialog,openDialog,openServEdit, setOpenServEdit, setId } = useContext(DataContext)
     let [spinerServ, setSpinerServ] = useState(true)
     let {carId} = useParams()
->>>>>>> Stashed changes
 
     useEffect(() => {
         const fetchData = async() => {

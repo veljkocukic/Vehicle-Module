@@ -50,11 +50,7 @@ export const Registracija = ({ registracijaAr }) => {
                     <th>Registrovao zaposleni</th>
                     <th>Vreme zaposlenog</th>
                     <th>Registrovan do</th>
-<<<<<<< Updated upstream
-                    <th className="tg-0pky"><button className="new newp">Novo +</button></th>
-=======
                     <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i class="fas fa-plus"></i> Novo</button></th>
->>>>>>> Stashed changes
                 </tr>
             </thead>
             <tbody>
