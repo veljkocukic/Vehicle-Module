@@ -132,7 +132,7 @@ const NovoServiseri = async (req, res) => {
             kontakt: req.body.kontaktS,
             adresa: req.body.adresaS,
             brTelefona: req.body.telS,
-            email: req.body.mailS,
+            email: req.body.emailS,
             website: req.body.siteS
         }
         await ServiseriModel.create(newAr)
@@ -148,25 +148,27 @@ const NovoServiseri = async (req, res) => {
 
 }
 
-const NovoMain = async (req,res) =>{
+const NovoMain = async (req, res) => {
     try {
-        
+
         let newAr = {
-            markaTip:req.body.marka,
-            registracioniBroj:req.body.regBr,
-            korisnikVoz:req.body.korisnikMn,
-            tipKorisnika:req.body.typeMn,
-            activeFrom:req.body.aktivnoOd,
-            activeTo:req.body.aktivnoDo,
+            markaTip: req.body.marka,
+            registracioniBroj: req.body.regBr,
+            korisnikVoz: req.body.korisnikMn,
+            tipKorisnika: req.body.typeMn,
+            activeFrom: req.body.aktivnoOd,
+            activeTo: req.body.aktivnoDo,
             specifikacijaPolje:
-                {brSasije:req.body.sasija,
-                brMotora:req.body.motor,
-                godiste:req.body.godiste,
-                boja:req.body.boja,
-                datumKupovine:req.body.dateKup,
-                cenaVozila:req.body.cenaVoz,
-                dokumentacija:req.body.docume}
-            
+            {
+                brSasije: req.body.sasija,
+                brMotora: req.body.motor,
+                godiste: req.body.godiste,
+                boja: req.body.boja,
+                datumKupovine: req.body.dateKup,
+                cenaVozila: req.body.cenaVoz,
+                dokumentacija: req.body.docume
+            }
+
 
         }
 
@@ -177,4 +179,4 @@ const NovoMain = async (req,res) =>{
         console.log(error)
     }
 }
-module.exports = { NovoRegistracija, NovoGorivo, NovoOdrzavanje, NovoSteta, NovoServiseri,NovoMain }
+module.exports = { NovoRegistracija, NovoGorivo, NovoOdrzavanje, NovoSteta, NovoServiseri, NovoMain }
