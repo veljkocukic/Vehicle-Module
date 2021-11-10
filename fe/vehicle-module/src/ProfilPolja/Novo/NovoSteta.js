@@ -49,81 +49,68 @@ let { newOn,setNewOn,valid,setValid, spinerOn, setSpinerOn,formatDateEdit, setOp
         setTime("/")
         setParts("")
         setNewOn(false)
+        setValid(true)
+
     }
 
 
 
     
     return (
-        <div className="editCont">
-            {spinerOn && <Spiner/>}
-            <h3 className="editTitle">Unos nove stavke</h3>
-                <div className="containerInput">
+        <div class="input--container">
+            {spinerOn && <Spiner />}
+            <h3 class="input--container__title">Šteta</h3>
+            <div className="form">
 
-
-                <div className="kontejner txtc">
-                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e)=>setDesc(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Opis štete</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                        <select name="ime" className="inp" autocomplete="off" required  onChange={(e)=>setPokriva(e.target.value)}>
-                            <option>Zaposleni</option>
-                            <option>Firma</option>
-                            <option>Osiguranje</option>
-                            <option>Drugo lice</option>
-                        </select>
-                        <label for="ime" class="labela">
-                            <p className="sp">Štetu pokriva</p>
-                        </label>
-                    </div>
-
-
-                    <div className="kontejner">
-                    <input type="date" name="ime" className="inp" autocomplete="off" required  onChange={(e)=>setDate(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Datum</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="number" name="text" className="inp" autocomplete="off" required  onChange={(e)=>setParts(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Delovi/Usluga</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="number" name="text" className="inp" autocomplete="off" required onChange={(e)=>setTotal(e.target.value)} />
-                        <label for="ime" class="labela">
-                            <p className="sp">Ukupan trošak</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                        <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e)=>setUsluga(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Usluga zaposlenog</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                        <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e)=>setTime(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Vreme zaposlenog</p>
-                        </label>
-                    </div>
-                    
-
+            <div class="single-input-container">
+                    <label for="opis-steta" class="standard--label">Opis štete</label>
+                    <input type="text" onChange={(e) => setDesc(e.target.value)} class="standard--input" id="opis-steta" name="opis-steta" />
                 </div>
-                <div className="btnsContainer">
-                    <button className="btn yes " onClick={handleSubmit}>SAČUVAJ</button>
-                    <button className="btn no " onClick={handleCancel}>OTKAŽI</button>
+
+                <div class="single-input-container">
+                    <label for="steta-pokriva" class="standard--label">Štetu pokriva</label>
+                    <select onChange={e => setPokriva(e.target.value)} class="standard--input" id="steta-pokriva" name="steta-pokriva" >
+                        <option>Zaposleni</option>
+                        <option>Fima</option>
+                        <option>Osiguranje</option>
+                        <option>Drugo lice</option>
+                    </select>
                 </div>
-                {!valid && <h3 className="nonValid-new">Uneti podaci nisu validni</h3>}
+
+                <div class="single-input-container">
+                    <label for="datum-steta" class="standard--label">Datum</label>
+                    <input type="date" onChange={(e) => setDate(e.target.value)} class="standard--input" id="datum-steta" name="datum-steta" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="delovi-steta" class="standard--label"> Delovi/Usluga</label>
+                    <input onChange={(e) => setParts(e.target.value)} type="text" class="standard--input" id="delovi-steta" name="delovi-steta"/>
+  
+                </div>
+
+                <div class="single-input-container">
+                    <label for="trosak-steta" class="standard--label">Ukupan trošak</label>
+                    <input onChange={(e) => setTotal(e.target.value)} type="number" class="standard--input" id="trosak-steta" name="trosak-steta" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="usluga-zaposlenog-steta" class="standard--label">Usluga zaposlenog</label>
+                    <input onChange={(e) => setUsluga(e.target.value)} type="text" class="standard--input" id="usluga-zaposlenog-steta" name="usluga-zaposlenog-steta" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="vreme-zaposlenog-steta" class="standard--label">Vreme zaposlenog</label>
+                    <input onChange={(e) => setTime(e.target.value)} type="text" class="standard--input" id="vreme-zaposlenog-steta" name="vreme-zaposlenog-steta" />
+                </div>
             </div>
+
+            <div className="input--container__btns">
+                <button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
+            </div>
+
+            {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+        </div>
             )
 
 }

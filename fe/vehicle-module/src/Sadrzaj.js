@@ -4,6 +4,7 @@ import { MainProvider } from "./Context.js";
 import { Izvestaj } from "./Izvestaj.js";
 import { Main } from "./Main.js"
 import { Profil } from "./Profil.js"
+import { NovoVozilo } from "./NovoVozilo.js";
 import { Serviseri } from "./Serviseri/Serviseri";
 import "./style/input.css"
 
@@ -29,6 +30,7 @@ export const Sadrzaj = () => {
           <Route path="/profil/:carId" exact><Profil /></Route>
           <Route path="/serviseri" exact><Serviseri /></Route>
           <Route path="/izvestaj" exact><Izvestaj /></Route>
+          <Route path="/novovozilo" exact><NovoVozilo /></Route>
         </MainProvider>
       </Switch>
     </Router>

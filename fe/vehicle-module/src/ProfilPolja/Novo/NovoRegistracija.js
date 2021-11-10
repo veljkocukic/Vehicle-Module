@@ -6,16 +6,10 @@ import { Spiner } from "../Editi/Spiner"
 import {useParams} from "react-router-dom"
 
 
-export const NovoRegistracija = () => {
+export const NovoRegistracija = ({newC}) => {
 let { valid,setValid,newOn,setNewOn,spinerOn,setSpinerOn, setOpenRegEdit, verDate, formatDateEdit, id, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
 
 
-    let dateNewReg=useRef(null)
-    let docNewReg = useRef(null)
-    let trsokoviNewReg = useRef(null)
-    let registrovaoNewReg=useRef(null)
-    let timeNewReg = useRef(null)
-    let regDoNewReg = useRef(null)
     let {carId} = useParams()
 
     const handleSubmit = async() => {
@@ -46,64 +40,52 @@ let { valid,setValid,newOn,setNewOn,spinerOn,setSpinerOn, setOpenRegEdit, verDat
             console.log(verifyDate,verifyDoc,verifyTroskovi,verifyReg,verifyTime,verifyDo)
         }
     }
-
     
     return (
-        <div className="editCont">
-            {spinerOn && <Spiner/>}
-            <h3 className="editTitle">Unos nove stavke</h3>
-                <div className="containerInput">
+        <div class={newC ? "input-contaier newC":"input--container"}>
+            {spinerOn && <Spiner />}
+            <h3 class="input--container__title">Registracija</h3>
+            <div class="form">
 
-                    <div className="kontejner">
-                        <input type="date" name="ime" className="inp" autocomplete="off" required  ref={dateNewReg} onChange={(e)=>setDateReg(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Datum registracije</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner txtc">
-                        <textarea nameName="ime" className="inp" autocomplete="off" required ref={docNewReg} onChange={(e)=>setDocReg(e.target.value)}></textarea>
-                        <label for="ime" class="labela">
-                            <p className="sp txts">Dokumentacija</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="number" name="ime" className="inp" autocomplete="off" required  ref={trsokoviNewReg} onChange={(e)=>setTroskovi(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Troškovi registracije</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="text" name="text" className="inp" autocomplete="off" required  ref={registrovaoNewReg} onChange={(e)=>setRegistrovao(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Registrovao zaposleni</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="text" name="text" className="inp" autocomplete="off" required ref={timeNewReg} onChange={(e)=>setTimeZaposleni(e.target.value)} />
-                        <label for="ime" class="labela">
-                            <p className="sp">Vreme zaposlenog</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                        <input type="date" name="ime" className="inp" autocomplete="off" required ref={regDoNewReg} onChange={(e)=>setRegDo(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Registrovan do</p>
-                        </label>
-                    </div>
-                    
-
+                <div class="single-input-container">
+                    <label for="datum-registracije" class="standard--label">Datum registracije</label>
+                    <input onChange={e => setDateReg(e.target.value)} type="date" class="standard--input" id="datum-registracije" name="datum-registracije" />
                 </div>
-                <div className="btnsContainer">
-                    <button className="btn yes " onClick={handleSubmit}>SAČUVAJ</button>
-                    <button className="btn no " onClick={()=>setNewOn(false)}>OTKAŽI</button>
+
+                <div class="single-input-container">
+                    <label for="dokumentacija" class="standard--label">Dokumentacija</label>
+                    <input type="text" onChange={(e) => setDocReg(e.target.value)} class="standard--input" id="dokumentacije" name="dokumentacija" />
                 </div>
-                {!valid && <h3 className="nonValid-new">Uneti podaci nisu validni</h3>}
+
+                <div class="single-input-container">
+                    <label for="troskovi-registracije" class="standard--label">Troškovi registracije</label>
+                    <input type="number" onChange={(e) => setTroskovi(e.target.value)} class="standard--input" id="troskovi-registracije" name="troskovi-registracije" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="registrovao-zaposleni" class="standard--label">Registrovao zaposleni</label>
+                    <input onChange={(e) => setRegistrovao(e.target.value)} type="text" class="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni"/>
+  
+                </div>
+
+                <div class="single-input-container">
+                    <label for="vreme-zaposlenog" class="standard--label">Vreme zaposlenog</label>
+                    <input onChange={(e) => setTimeZaposleni(e.target.value)} type="text" class="standard--input" id="vreme-zaposlenog" name="vreme-zaposlenog" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="registrovan-do" class="standard--label">Registrovan do</label>
+                    <input onChange={(e) => setRegDo(e.target.value)} type="date" class="standard--input" id="registrovan-do" name="registrovan-do" />
+                </div>
             </div>
+
+           <div className="input--container__btns">
+                <button onClick={() => setNewOn(false)} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
+            </div>
+
+            {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+        </div>
             )
 
 }

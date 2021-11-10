@@ -6,7 +6,7 @@ import { Spiner } from "./Spiner"
 
 
 export const EditGorivo = ({ gorivoAr }) => {
-    let { spinerOn, setSpinerOn, formatDateEdit, dateReg, verDate, setOpenFuelEdit, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, id } = useContext(DataContext)
+    let { setNewOn,spinerOn, setSpinerOn, formatDateEdit, dateReg, verDate, setOpenFuelEdit, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, id } = useContext(DataContext)
 
     let [valid, setValid] = useState(true)
     let tipRef = useRef(null)
@@ -71,28 +71,67 @@ export const EditGorivo = ({ gorivoAr }) => {
         setUslugaFuel("")
         setTimeFuel("")
         setOpenFuelEdit(false)
+        setNewOn(false)
+        setValid(true)
+
     }
 
 
 
 
     return (
-        <table className="tg editTable">
+        <div class="input--container">
             {spinerOn && <Spiner />}
-            <thead>
-                <th class="tg-0pky">Naziv polja</th>
-                <th class="tg-0pky">Izmena</th>
-            </thead>
-            <tbody>
-                <tr><td>Tip </td><td><select onChange={(e) => setType(e.target.value)} ref={tipRef} ><option>Gorivo</option><option>Tag</option><option>Pranje</option></select></td></tr>
-                <tr><td>Datum </td><td><input type="date" onChange={(e) => setDateFuel(e.target.value)} ref={datumRef} /></td></tr>
-                <tr><td>Kilometraža </td><td><input type="number" onChange={(e) => setKmFuel(e.target.value)} ref={kmRef} /></td></tr>
-                <tr><td>Potrošnja</td><td><input type="number" onChange={(e) => setPotrosnja(e.target.value)} ref={potrosnjaRef} /></td></tr>
-                <tr><td>Cena</td><td><input type="number" onChange={(e) => setPriceFuel(e.target.value)} ref={cenaRef} /></td></tr>
-                <tr><td>Usluga zaposlenog</td><td><input type="text" onChange={(e) => setUslugaFuel(e.target.value)} ref={uslugaRef} /></td></tr>
-                <tr><td>Vreme zaposlenog</td><td><input type="number" onChange={(e) => setTimeFuel(e.target.value)} ref={timeRef} /></td></tr>
-                <tr><td><button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button></td><td><button type="submit" className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button></td></tr>
-            </tbody>
+            <h3 class="input--container__title">Gorivo i tekući troškovi</h3>
+            <div class="form">
+
+                <div class="single-input-container">
+                    <label for="tip-gorivo" class="standard--label">Tip</label>
+                    <select ref={tipRef} onChange={e => setType(e.target.value)} class="standard--input" id="tip-gorivo" name="tip-gorivo" >
+                        <option>Gorivo</option>
+                        <option>Tag</option>
+                        <option>Pranje</option>
+                    </select>
+                </div>
+
+                <div class="single-input-container">
+                    <label for="datum-gorivo" class="standard--label">Datum</label>
+                    <input ref={datumRef} type="date" onChange={(e) => setDateFuel(e.target.value)} class="standard--input" id="datum-gorivo" name="datum-gorivo" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="kilometraza-gorivo" class="standard--label">Kilometraža</label>
+                    <input ref={kmRef} type="number" onChange={(e) => setKmFuel(e.target.value)} class="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="potrosnja-gorivo" class="standard--label"> Potrošnja</label>
+                    <input ref={potrosnjaRef} onChange={(e) => setPotrosnja(e.target.value)} type="number" class="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo"/>
+  
+                </div>
+
+                <div class="single-input-container">
+                    <label for="cena-gorivo" class="standard--label">Cena</label>
+                    <input ref={cenaRef} onChange={(e) => setPriceFuel(e.target.value)} type="number" class="standard--input" id="cena-gorivo" name="cena-gorivo" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="usluga-zaposlenog-gorivo" class="standard--label">Usluga zaposlenog</label>
+                    <input ref={uslugaRef} onChange={(e) => setUslugaFuel(e.target.value)} type="text" class="standard--input" id="usluga-zaposlenog-gorivo" name="usluga-zaposlenog-gorivo" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="vreme-zaposlenog-gorivo" class="standard--label">Vreme zaposlenog</label>
+                    <input ref={timeRef} onChange={(e) => setTimeFuel(e.target.value)} type="text" class="standard--input" id="vreme-zaposlenog-gorivo" name="vreme-zaposlenog-gorivo" />
+                </div>
+            </div>
+
+            <div className="input--container__btns">
+                <button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
+            </div>
+
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
-        </table>)
+        </div>
+        )
 }

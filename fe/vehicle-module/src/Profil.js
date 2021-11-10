@@ -26,7 +26,7 @@ export const Profil = () => {
     const [spinerProfile, setSpinerProfile] = useState(true)
 
     ///Linija ispod treba da se sredi
-    let { setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
+    let { setNewOn,setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
 
 
@@ -81,6 +81,10 @@ export const Profil = () => {
             </div>
         )
     }
+
+
+    useEffect(()=>setNewOn(false),[openSec])
+
 
     const sectionCheck = () => {
 

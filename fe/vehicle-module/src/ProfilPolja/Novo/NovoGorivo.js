@@ -6,7 +6,7 @@ import { Spiner } from "../Editi/Spiner"
 import {useParams} from "react-router-dom"
 
 
-export const NovoGorivo = () => {
+export const NovoGorivo = ({newC}) => {
 let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, formatDateEdit, setDateReg, dateReg, verDate, setOpenFuelEdit, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, id} = useContext(DataContext)
 
 
@@ -52,78 +52,67 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, formatDateEdit, setD
         setTimeFuel("")
         setOpenFuelEdit(false)
         setNewOn(false)
+        setValid(true)
+
     }
 
 
 
     
     return (
-        <div className="editCont">
-            {spinerOn && <Spiner/>}
-            <h3 className="editTitle">Unos nove stavke</h3>
-                <div className="containerInput">
+        <div class={newC ? "input-contaier newC":"input--container"}>
+            {spinerOn && <Spiner />}
+            <h3 class="input--container__title">Gorivo i tekući troškovi</h3>
+            <div class={newC ? "from newF":"form"}>
 
-                    <div className="kontejner">
-                        <select name="ime" className="inp" autocomplete="off" required  onChange={(e)=>setType(e.target.value)}>
-                            <option>Gorivo</option>
-                            <option>Tag</option>
-                            <option>Pranje</option>
-                        </select>
-                        <label for="ime" class="labela">
-                            <p className="sp">Tip</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner txtc">
-                    <input type="date" name="ime" className="inp" autocomplete="off" required onChange={(e)=>setDateFuel(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Datum</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="number" name="ime" className="inp" autocomplete="off" required  onChange={(e)=>setKmFuel(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Kilometraža</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="number" name="text" className="inp" autocomplete="off" required  onChange={(e)=>setPotrosnja(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Potrošnja</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="number" name="text" className="inp" autocomplete="off" required onChange={(e)=>setPriceFuel(e.target.value)} />
-                        <label for="ime" class="labela">
-                            <p className="sp">Cena</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                        <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e)=>setUslugaFuel(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Usluga zaposlenog</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                        <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e)=>setTimeFuel(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Vreme zaposlenog</p>
-                        </label>
-                    </div>
-                    
-
+                <div class="single-input-container">
+                    <label for="tip-gorivo" class="standard--label">Tip</label>
+                    <select onChange={e => setType(e.target.value)} class="standard--input" id="tip-gorivo" name="tip-gorivo" >
+                        <option>Gorivo</option>
+                        <option>Tag</option>
+                        <option>Pranje</option>
+                    </select>
                 </div>
-                <div className="btnsContainer">
-                    <button className="btn yes " onClick={handleSubmit}>SAČUVAJ</button>
-                    <button className="btn no " onClick={handleCancel}>OTKAŽI</button>
+
+                <div class="single-input-container">
+                    <label for="datum-gorivo" class="standard--label">Datum</label>
+                    <input type="date" onChange={(e) => setDateFuel(e.target.value)} class="standard--input" id="datum-gorivo" name="datum-gorivo" />
                 </div>
-                {!valid && <h3 className="nonValid-new">Uneti podaci nisu validni</h3>}
+
+                <div class="single-input-container">
+                    <label for="kilometraza-gorivo" class="standard--label">Kilometraža</label>
+                    <input type="number" onChange={(e) => setKmFuel(e.target.value)} class="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="potrosnja-gorivo" class="standard--label"> Potrošnja</label>
+                    <input onChange={(e) => setPotrosnja(e.target.value)} type="number" class="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo"/>
+  
+                </div>
+
+                <div class="single-input-container">
+                    <label for="cena-gorivo" class="standard--label">Cena</label>
+                    <input onChange={(e) => setPriceFuel(e.target.value)} type="number" class="standard--input" id="cena-gorivo" name="cena-gorivo" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="usluga-zaposlenog-gorivo" class="standard--label">Usluga zaposlenog</label>
+                    <input onChange={(e) => setUslugaFuel(e.target.value)} type="text" class="standard--input" id="usluga-zaposlenog-gorivo" name="usluga-zaposlenog-gorivo" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="vreme-zaposlenog-gorivo" class="standard--label">Vreme zaposlenog</label>
+                    <input onChange={(e) => setTimeFuel(e.target.value)} type="text" class="standard--input" id="vreme-zaposlenog-gorivo" name="vreme-zaposlenog-gorivo" />
+                </div>
             </div>
+
+            {!newC && <div className="input--container__btns">
+                <button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
+            </div>}
+
+            {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+        </div>
             )
 
 }

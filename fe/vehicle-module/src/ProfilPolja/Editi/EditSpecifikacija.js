@@ -5,7 +5,7 @@ import axios from "axios"
 import { Spiner } from "./Spiner"
 
 export const EditSpecifikacija = () => {
-    let { spinerOn,setSpinerOn,formatDateEdit, verDate, setOpenSpecEdit, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume } = useContext(DataContext)
+    let { setNewOn,spinerOn,setSpinerOn,formatDateEdit, verDate, setOpenSpecEdit, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume } = useContext(DataContext)
 
     let [valid, setValid] = useState(true)
     let sasijaRef = useRef(null)
@@ -53,38 +53,63 @@ export const EditSpecifikacija = () => {
         } else {
             setValid(false)
             setSpinerOn(false)
-            console.log(
-                verifySasija,
-                verifyMotor,
-                verifyGodiste,
-                verifyBoja,
-                verifyDateKup,
-                verifyCenaVoz,
-                verifyDocume
-            )
         }
     }
 
     let handleCancel = () => {
         setOpenSpecEdit(false)
+        setNewOn(false)
+        setValid(true)
+
     }
     return (
-        <table className="tg editTable">
+        <div class="input--container">
             {spinerOn && <Spiner />}
-            <thead>
-                <th class="tg-0pky">Naziv polja</th>
-                <th class="tg-0pky">Izmena</th>
-            </thead>
-            <tbody>
-                <tr><td>Broj šasije </td><td>< input ref={sasijaRef} type="text" onChange={(e) => setSasija(e.target.value)} /></td></tr>
-                <tr><td>Broj motora </td><td><input ref={brMotRef} type="text" onChange={(e) => setMotor(e.target.value)} /></td></tr>
-                <tr><td>Godište </td><td><input ref={godisteRef} type="text" onChange={(e) => setGodiste(e.target.value)} /></td></tr>
-                <tr><td>Boja</td><td><input ref={bojaRef} type="text" onChange={(e) => setBoja(e.target.value)} /></td></tr>
-                <tr><td>Datum kupovine</td><td><input ref={datumRef} type="date" onChange={(e) => setDateKup(e.target.value)} /></td></tr>
-                <tr><td>Cena vozila</td><td><input ref={cenaRef} type="text" onChange={(e) => setCenaVoz(e.target.value)} /></td></tr>
-                <tr><td>Dokumentacija</td><td><textarea ref={documRef} onChange={(e) => setDocume(e.target.value)} ></textarea></td></tr>
-                <tr><td><button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button></td><td><button className="btn yes" onClick={handleSubmit}> <i class="far fa-save"></i>SAČUVAJ</button></td></tr>
-                {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
-            </tbody>
-        </table>)
+            <h3 class="input--container__title">Specifikacija</h3>
+            <div class="form">
+
+                <div class="single-input-container">
+                    <label for="broj-sasije" class="standard--label">Broj šasije</label>
+                    <input ref={sasijaRef} type="text" onChange={(e) => setSasija(e.target.value)} class="standard--input" id="broj-sasije" name="broj-sasije" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="broj-motora" class="standard--label">Broj motora</label>
+                    <input ref={brMotRef} type="text" onChange={e => setMotor(e.target.value)} class="standard--input" id="broj-motora" name="broj-motora" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="godiste" class="standard--label">Godište</label>
+                    <input ref={godisteRef} type="number" onChange={(e) => setGodiste(e.target.value)} class="standard--input" id="godiste" name="godiste" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="boja" class="standard--label">Boja</label>
+                    <input ref={bojaRef} onChange={(e) => setBoja(e.target.value)} type="text" class="standard--input" id="boja" name="boja"/>
+                </div>
+
+                <div class="single-input-container">
+                    <label for="datum-kupovine" class="standard--label">Datum kupovine</label>
+                    <input ref={datumRef} onChange={(e) => setDateKup(e.target.value)} type="date" class="standard--input" id="datum-kupovine" name="datum-kupovine" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="cena-vozila" class="standard--label">Cena vozila</label>
+                    <input ref={cenaRef} onChange={(e) => setCenaVoz(e.target.value)} type="number" class="standard--input" id="cena-vozila" name="cena-vozila" />
+                </div>
+
+                <div class="single-input-container">
+                    <label for="dokumentacija" class="standard--label">Dokumentacija</label>
+                    <textarea ref={documRef} onChange={(e) => setDocume(e.target.value)} class="standard--input" id="dokumentacija" name="dokumentacija"/>
+                </div>
+            </div>
+            
+           <div className="input--container__btns">
+                <button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
+            </div>
+
+            {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+        </div>
+        )
 }

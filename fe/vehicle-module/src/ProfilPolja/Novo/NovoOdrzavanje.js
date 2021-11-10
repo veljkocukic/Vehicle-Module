@@ -6,7 +6,7 @@ import { Spiner } from "../Editi/Spiner"
 import {useParams} from "react-router-dom"
 
 
-export const NovoOdrzavanje = () => {
+export const NovoOdrzavanje = ({newC}) => {
 let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, setOpenOdrEdit, typeOdr, uslugaOdr, timeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, setUslugaOdr, setTimeOdr} = useContext(DataContext)
 
 
@@ -49,79 +49,68 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, 
         setUslugaOdr(0)
         setTimeOdr(0)
         setNewOn(false)
+        setValid(true)
+
     }
 
 
 
     
     return (
-        <div className="editCont">
-            {spinerOn && <Spiner/>}
-            <h3 className="editTitle">Unos nove stavke</h3>
-                <div className="containerInput">
+        <div className="input--container">
+            {spinerOn && <Spiner />}
+            <h3 className="input--container__title">Održavanje</h3>
+            <div className={newC ? "from newF":"form"}>
 
-                    <div className="kontejner">
-                        <select name="ime" className="inp" autocomplete="off" required  onChange={(e)=>setTypeOdr(e.target.value)}>
-                            <option>Redovno</option>
-                            <option>Vanredno</option>
-                            <option>Higijena</option>
-                            <option>Gume</option>
-                        </select>
-                        <label for="ime" class="labela">
-                            <p className="sp">Tip</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner txtc">
-                    <input type="date" name="ime" className="inp" autocomplete="off" required onChange={(e)=>setDateOdr(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Datum</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="number" name="ime" className="inp" autocomplete="off" required  onChange={(e)=>setKmOdr(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Kilometraža</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="text" name="text" className="inp" autocomplete="off" required  onChange={(e)=>setPartsOdr(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Delovi / Usluga</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                    <input type="number" name="text" className="inp" autocomplete="off" required onChange={(e)=>setTotalOdr(e.target.value)} />
-                        <label for="ime" class="labela">
-                            <p className="sp">Ukupan trošak</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                        <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e)=>setUslugaOdr(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Usluga zaposlenog</p>
-                        </label>
-                    </div>
-
-                    <div className="kontejner">
-                        <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e)=>setTimeOdr(e.target.value)}/>
-                        <label for="ime" class="labela">
-                            <p className="sp">Vreme zaposlenog</p>
-                        </label>
-                    </div>
-                    
-
+                <div className="single-input-container">
+                    <label for="tip-odrzavanje" className="standard--label">Tip</label>
+                    <select onChange={e => setTypeOdr(e.target.value)} className="standard--input" id="tip-odrzavanje" name="tip-odrzavanje" >
+                        <option>Redovno</option>
+                        <option>Vanredno</option>
+                        <option>Higijena</option>
+                        <option>Gume</option>
+                    </select>
                 </div>
-                <div className="btnsContainer">
-                    <button className="btn yes " onClick={handleSubmit}>SAČUVAJ</button>
-                    <button className="btn no " onClick={handleCancel}>OTKAŽI</button>
+
+                <div className="single-input-container">
+                    <label for="datum-odrzavanje" className="standard--label">Datum</label>
+                    <input type="date" onChange={(e) => setDateOdr(e.target.value)} className="standard--input" id="datum-odrzavanje" name="datum-odrzavanje" />
                 </div>
-                {!valid && <h3 className="nonValid-new">Uneti podaci nisu validni</h3>}
+
+                <div className="single-input-container">
+                    <label for="kilometraza-odrzavanje" className="standard--label">Kilometraža</label>
+                    <input type="number" onChange={(e) => setKmOdr(e.target.value)} className="standard--input" id="kilometraza-odrzavanje" name="kilometraza-odrzavanje" />
+                </div>
+
+                <div className="single-input-container">
+                    <label for="delovi-odrzavanje" className="standard--label"> Delovi/Usluga</label>
+                    <input onChange={(e) => setPartsOdr(e.target.value)} type="text" className="standard--input" id="delovi-odrzavanje" name="delovi-odrzavanje"/>
+  
+                </div>
+
+                <div className="single-input-container">
+                    <label for="trosak-odrzavanje" className="standard--label">Ukupan trošak</label>
+                    <input onChange={(e) => setTotalOdr(e.target.value)} type="number" className="standard--input" id="trosak-odrzavanje" name="trosak-odrzavanje" />
+                </div>
+
+                <div className="single-input-container">
+                    <label for="usluga-zaposlenog-odrzavanje" className="standard--label">Usluga zaposlenog</label>
+                    <input onChange={(e) => setUslugaOdr(e.target.value)} type="text" className="standard--input" id="usluga-zaposlenog-gorivo" name="usluga-zaposlenog-gorivo" />
+                </div>
+
+                <div className="single-input-container">
+                    <label for="vreme-zaposlenog-odrzavanje" className="standard--label">Vreme zaposlenog</label>
+                    <input onChange={(e) => setTimeOdr(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog-odrzavanje" name="vreme-zaposlenog-odrzavanje" />
+                </div>
             </div>
+
+            <div className="input--container__btns">
+                <button onClick={handleCancel} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
+            </div>
+
+            {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+        </div>
             )
 
 }

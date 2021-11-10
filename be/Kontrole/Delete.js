@@ -8,8 +8,6 @@ const RegistracijaDelete = async (req, res) => {
         car.registracijaPolje = car.registracijaPolje.filter(item => item._id.toString() !== req.body.id)
         car.save()
         res.send("success")
-        console.log(req.body.id)
-        console.log(car.registracijaPolje)
     } catch (error) {
         console.log(error)
     }

@@ -29,16 +29,30 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
         const vozila = await CarsModel.find({})
         let arr = []
         for (let a of vozila) {
+            let isticanje
+            let isticanjeEdit
+            try {
+                 isticanje= formatDate(a.registracijaPolje[a.registracijaPolje.length - 1].registrovanDo)
+                 isticanjeEdit =  formatDateEdit(a.registracijaPolje[a.registracijaPolje.length - 1].registrovanDo)
+            } catch (error) {
+             isticanje=""
+             isticanjeEdit=""   
+            }
+
+
             arr.push({
                 id: a._id,
                 markaTip: a.markaTip,
                 regBroj: a.registracioniBroj,
                 korisnikVozila: a.korisnikVoz,
-                isticanje: formatDate(a.registracijaPolje[a.registracijaPolje.length - 1].registrovanDo),
                 activeFrom: formatDate(a.activeFrom),
-                isticanjeEdit: formatDateEdit(a.registracijaPolje[a.registracijaPolje.length - 1].registrovanDo),
                 activeFromEdit: formatDateEdit(a.activeFrom),
                 tipKorisnika: a.tipKorisnika,
+                activeTo:formatDate(a.activeTo),
+                activeToEdit: formatDateEdit(a.activeTo),
+                isticanje,
+                isticanjeEdit
+
             })
         }
         res.json(arr)
@@ -74,6 +88,7 @@ const EditCars = async (req, res) => {
         car.korisnikVoz = req.body.korisnikMn
         car.registrovanDo = req.body.isticanje
         car.activeFrom = req.body.aktivnoOd
+        car.activeTo = req.body.aktivnoDo
         car.save()
         res.send("success")
 
