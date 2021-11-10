@@ -58,83 +58,70 @@ export const NovoServiseri = () => {
 
 
     return (
-        <div className="editCont">
+        <div className="input--container">
             {spinerOn && <Spiner />}
-            <h3 className="editTitle">Unos nove stavke</h3>
-            <div className="containerInput">
+            <h3 className="input--container__title">Održavanje</h3>
+            <div className="form">
 
-                <div className="kontejner txtc">
-                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setSifraS(e.target.value)} />
-                    <label for="ime" class="labela">
-                        <p className="sp">Šifra klijenta</p>
-                    </label>
+
+                <div className="single-input-container">
+                    <label for="sifra-klijenta" className="standard--label">Šifra klijenta</label>
+                    <input type="text" onChange={(e) => setSifraS(e.target.value)} className="standard--input" id="sifra-klijenta" name="sifra-klijenta" />
                 </div>
 
-                <div className="kontejner txtc">
-                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setNazivFirme(e.target.value)} />
-                    <label for="ime" class="labela">
-                        <p className="sp">Naziv firme</p>
-                    </label>
+                <div className="single-input-container">
+                    <label for="naziv-firme" className="standard--label">Naziv firme</label>
+                    <input type="text" onChange={(e) => setNazivFirme(e.target.value)} className="standard--input" id="naziv-firme" name="naziv-fitme" />
                 </div>
 
-                <div className="kontejner">
-                    <select name="ime" className="inp" autocomplete="off" required onChange={(e) => setTipUslugeS(e.target.value)}>
+
+                <div className="single-input-container">
+                    <label for="tip-usluge" className="standard--label">Tip usluge</label>
+                    <select onChange={e => setTipUslugeS(e.target.value)} className="standard--input" id="tip-usluge" name="tip-usluge" >
                         <option>Pumpa</option>
                         <option>Delovi</option>
                         <option>Mehanika</option>
                         <option>Elektrika</option>
                         <option>Farbanje</option>
                         <option>Limarija</option>
-
                     </select>
-                    <label for="ime" class="labela">
-                        <p className="sp">Tip usluge</p>
-                    </label>
+                </div>
+
+                <div className="single-input-container">
+                    <label for="kontakt-serviseri" className="standard--label">Kontakt</label>
+                    <input type="text" onChange={(e) => setKontaktS(e.target.value)} className="standard--input" id="kontakt-serviseri" name="kontakt-serviseri" />
                 </div>
 
 
-
-                <div className="kontejner">
-                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setKontaktS(e.target.value)} />
-                    <label for="ime" class="labela">
-                        <p className="sp">Kontakt</p>
-                    </label>
+                <div className="single-input-container">
+                    <label for="adresa-serviseri" className="standard--label">Adresa</label>
+                    <input type="text" onChange={(e) => setAdresaS(e.target.value)} className="standard--input" id="adresa-serviseri" name="adresa-serviseri" />
                 </div>
 
-                <div className="kontejner">
-                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setAdresaS(e.target.value)} />
-                    <label for="ime" class="labela">
-                        <p className="sp">Adresa</p>
-                    </label>
+                <div className="single-input-container">
+                    <label for="broj-telefona" className="standard--label">Broj telefona</label>
+                    <input type="text" onChange={(e) => setTelS(e.target.value)} className="standard--input" id="broj-telefona" name="broj-telefona" />
                 </div>
 
-                <div className="kontejner">
-                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setTelS(e.target.value)} />
-                    <label for="ime" class="labela">
-                        <p className="sp">Broj telefona</p>
-                    </label>
+                <div className="single-input-container">
+                    <label for="mail-serviseri" className="standard--label">E-mail</label>
+                    <input onChange={(e) => setEmailS(e.target.value)} type="text" className="standard--input" id="mail-serviseri" name="mail-serviseri" />
+
                 </div>
 
-                <div className="kontejner">
-                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setEmailS(e.target.value)} />
-                    <label for="ime" class="labela">
-                        <p className="sp">E-mail</p>
-                    </label>
-                </div>
-
-                <div className="kontejner">
-                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setSiteS(e.target.value)} />
-                    <label for="ime" class="labela">
-                        <p className="sp">Website</p>
-                    </label>
+                <div className="single-input-container">
+                    <label for="sajt-servisi" className="standard--label">Website</label>
+                    <input onChange={(e) => setSiteS(e.target.value)} type="text" className="standard--input" id="sajt-servisi" name="sajt-servisi" />
                 </div>
 
             </div>
-            <div className="btnsContainer">
-                <button className="btn yes " onClick={handleSubmit}>SAČUVAJ</button>
-                <button className="btn no " onClick={handleCancel}>OTKAŽI</button>
+
+            <div className="input--container__btns">
+                <button onClick={handleCancel} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>
-            {!valid && <h3 className="nonValid-new">Uneti podaci nisu validni</h3>}
+
+            {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
         </div>
     )
 

@@ -5,7 +5,7 @@ import axios from "axios"
 import { Spiner } from "./Spiner"
 
 export const EditSpecifikacija = () => {
-    let { setNewOn,spinerOn,setSpinerOn,formatDateEdit, verDate, setOpenSpecEdit, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume } = useContext(DataContext)
+    let { setNewOn, spinerOn, setSpinerOn, formatDateEdit, verDate, setOpenSpecEdit, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume } = useContext(DataContext)
 
     let [valid, setValid] = useState(true)
     let sasijaRef = useRef(null)
@@ -46,9 +46,10 @@ export const EditSpecifikacija = () => {
                 setValid(true)
                 setSpinerOn(false)
                 setOpenSpecEdit(false)
-            }).catch(er =>{
+            }).catch(er => {
                 setSpinerOn(false)
-                console.log(er)})
+                console.log(er)
+            })
 
         } else {
             setValid(false)
@@ -85,7 +86,7 @@ export const EditSpecifikacija = () => {
 
                 <div class="single-input-container">
                     <label for="boja" class="standard--label">Boja</label>
-                    <input ref={bojaRef} onChange={(e) => setBoja(e.target.value)} type="text" class="standard--input" id="boja" name="boja"/>
+                    <input ref={bojaRef} onChange={(e) => setBoja(e.target.value)} type="text" class="standard--input" id="boja" name="boja" />
                 </div>
 
                 <div class="single-input-container">
@@ -98,18 +99,18 @@ export const EditSpecifikacija = () => {
                     <input ref={cenaRef} onChange={(e) => setCenaVoz(e.target.value)} type="number" class="standard--input" id="cena-vozila" name="cena-vozila" />
                 </div>
 
-                <div class="single-input-container">
+                <div class="single-input-container textarea-specifikacija">
                     <label for="dokumentacija" class="standard--label">Dokumentacija</label>
-                    <textarea ref={documRef} onChange={(e) => setDocume(e.target.value)} class="standard--input" id="dokumentacija" name="dokumentacija"/>
+                    <textarea ref={documRef} onChange={(e) => setDocume(e.target.value)} class="standard--input" id="dokumentacija" name="dokumentacija" />
                 </div>
             </div>
-            
-           <div className="input--container__btns">
+
+            <div className="input--container__btns">
                 <button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
                 <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
             </div>
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
-        </div>
-        )
+        </div >
+    )
 }

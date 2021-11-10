@@ -84,23 +84,70 @@ export const EditServis = ({ serviseriAr }) => {
 
 
     return (
-        <table className="tg editTable">
+        <div className="input--container">
             {spinerOn && <Spiner />}
-            <thead>
-                <th class="tg-0pky">Naziv polja</th>
-                <th class="tg-0pky">Izmena</th>
-            </thead>
-            <tbody>
-                <tr><td>Šifra klijenta </td><td><input type="text" onChange={e => setSifraS(e.target.value)} ref={sifraRef} /></td></tr>
-                <tr><td>Naziv firme </td><td><input type="text" onChange={e => setNazivFirme(e.target.value)} ref={nazivRef} /></td></tr>
-                <tr><td>Tip usluge</td><td><select onChange={e => setTipUslugeS(e.target.value)} ref={tipRef}><option>Pumpa</option><option>Delovi</option><option>Mehanika</option><option>Elektrika</option><option>Farbanje</option><option>Limarija</option></select></td></tr>
-                <tr><td>Kontakt</td><td><input type="text" onChange={e => setKontaktS(e.target.value)} ref={kontaktRef} /></td></tr>
-                <tr><td>Broj telefona</td><td><input type="text" onChange={e => setTelS(e.target.value)} ref={telRef} /></td></tr>
-                <tr><td>Adresa</td><td><input type="text" onChange={e => setAdresaS(e.target.value)} ref={adresaRef} /></td></tr>
-                <tr><td>E-mail</td><td><input type="text" onChange={e => setEmailS(e.target.value)} ref={emailRef} /></td></tr>
-                <tr><td>Website</td><td><input type="text" onChange={e => setSiteS(e.target.value)} ref={siteRef} /></td></tr>
-                <tr><td><button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button></td><td><button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button></td></tr>
-            </tbody>
+            <h3 className="input--container__title">Održavanje</h3>
+            <div className="form">
+
+
+                <div className="single-input-container">
+                    <label for="sifra-klijenta" className="standard--label">Šifra klijenta</label>
+                    <input ref={sifraRef} type="text" onChange={(e) => setSifraS(e.target.value)} className="standard--input" id="sifra-klijenta" name="sifra-klijenta" />
+                </div>
+
+                <div className="single-input-container">
+                    <label for="naziv-firme" className="standard--label">Naziv firme</label>
+                    <input ref={nazivRef} type="text" onChange={(e) => setNazivFirme(e.target.value)} className="standard--input" id="naziv-firme" name="naziv-fitme" />
+                </div>
+
+
+                <div className="single-input-container">
+                    <label for="tip-usluge" className="standard--label">Tip usluge</label>
+                    <select ref={tipRef} onChange={e => setTipUslugeS(e.target.value)} className="standard--input" id="tip-usluge" name="tip-usluge" >
+                        <option>Pumpa</option>
+                        <option>Delovi</option>
+                        <option>Mehanika</option>
+                        <option>Elektrika</option>
+                        <option>Farbanje</option>
+                        <option>Limarija</option>
+                    </select>
+                </div>
+
+                <div className="single-input-container">
+                    <label for="kontakt-serviseri" className="standard--label">Kontakt</label>
+                    <input ref={kontaktRef} type="text" onChange={(e) => setKontaktS(e.target.value)} className="standard--input" id="kontakt-serviseri" name="kontakt-serviseri" />
+                </div>
+
+
+                <div className="single-input-container">
+                    <label for="adresa-serviseri" className="standard--label">Adresa</label>
+                    <input ref={adresaRef} type="text" onChange={(e) => setAdresaS(e.target.value)} className="standard--input" id="adresa-serviseri" name="adresa-serviseri" />
+                </div>
+
+                <div className="single-input-container">
+                    <label for="broj-telefona" className="standard--label">Broj telefona</label>
+                    <input ref={telRef} type="text" onChange={(e) => setTelS(e.target.value)} className="standard--input" id="broj-telefona" name="broj-telefona" />
+                </div>
+
+                <div className="single-input-container">
+                    <label for="mail-serviseri" className="standard--label">E-mail</label>
+                    <input ref={emailRef} onChange={(e) => setEmailS(e.target.value)} type="text" className="standard--input" id="mail-serviseri" name="mail-serviseri" />
+
+                </div>
+
+                <div className="single-input-container">
+                    <label for="sajt-servisi" className="standard--label">Website</label>
+                    <input ref={siteRef} onChange={(e) => setSiteS(e.target.value)} type="text" className="standard--input" id="sajt-servisi" name="sajt-servisi" />
+                </div>
+
+            </div>
+
+            <div className="input--container__btns">
+                <button onClick={handleCancel} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
+            </div>
+
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
-        </table>)
+        </div>
+    )
 }

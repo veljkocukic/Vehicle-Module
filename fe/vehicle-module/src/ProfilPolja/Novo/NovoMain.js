@@ -41,7 +41,7 @@ export const NovoMain = ({ zaposleniLista, setEditOn }) => {
 
 
         let cond = verifySasija && verifyMotor && verifyGodiste && verifyBoja && verifyDateKup && verifyCenaVoz && verifyDocume && verifyMarka && verifyReg && verifyKorisnik && verifyActiveFrom && verifyActiveTo && verifyRazlika
-        
+
         if (cond) {
             await axios.post("http://localhost:5000/api/v1/main", {
                 id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo, sasija, motor, godiste, boja, dateKup, cenaVoz, docume
@@ -93,7 +93,7 @@ export const NovoMain = ({ zaposleniLista, setEditOn }) => {
         <div class="input--container">
             {spinerOn && <Spiner />}
             <h3 class="input--container__title">Šteta</h3>
-            <form class="form">
+            <form class="form mainForm">
                 <div class="single-input-container">
                     <label for="marka-tip" class="standard--label">Marka i tip</label>
                     <input onChange={e => setMarka(e.target.value)} type="text" class="standard--input" id="marka-tip" name="marka-tip" />
@@ -158,7 +158,7 @@ export const NovoMain = ({ zaposleniLista, setEditOn }) => {
                     <input onChange={(e) => setCenaVoz(e.target.value)} type="number" class="standard--input" id="cena-vozila" name="cena-vozila" />
                 </div>
 
-                <div class="single-input-container">
+                <div class="single-input-container textarea-main">
                     <label for="dokumentacija" class="standard--label">Dokumentacija</label>
                     <textarea onChange={(e) => setDocume(e.target.value)} class="standard--input" id="dokumentacija" name="dokumentacija" />
                 </div>
