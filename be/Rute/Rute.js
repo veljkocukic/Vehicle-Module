@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit } = require("../Kontrole/Kontrole")
-const { RegistracijaDelete, SpecifikacijaDelete, GorivoDelete, OdrzavanjeDelete, StetaDelete } = require("../Kontrole/Delete")
+const { RegistracijaDelete, SpecifikacijaDelete, GorivoDelete, OdrzavanjeDelete, StetaDelete, ServiseriDelete } = require("../Kontrole/Delete")
 const { NovoRegistracija, NovoGorivo, NovoOdrzavanje, NovoSteta, NovoServiseri } = require("../Kontrole/Novo")
 
 router.route("/main").get(Main)
@@ -18,6 +18,7 @@ router.route("/odrzavanje/:carId").patch(OdrzavanjeEdit).post(OdrzavanjeDelete)
 router.route("/odrzavanje/new/:carId").post(NovoSteta)
 router.route("/steta/:carId").patch(StetaEdit).post(StetaDelete)
 router.route("/serviseri").get(Serviseri).patch(ServiseriEdit).post(NovoServiseri)
+router.route("/serviseri/delete").post(ServiseriDelete)
 
 
 

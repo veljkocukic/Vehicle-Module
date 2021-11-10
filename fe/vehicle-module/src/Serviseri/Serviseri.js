@@ -71,7 +71,7 @@ export const Serviseri = () => {
             </thead>
             <tbody>
                 {newOn && <NovoServiseri />}
-                {openDialog && <Dialog par={carId} polje="serv" />}
+                {openDialog && <Dialog par="delete" polje="serv" />}
                 {serviseriAr.map((item, key) => <KoloneServiseri id={item._id} sifraKlijenta={item.sifraKlijenta} nazivFirme={item.nazivFirme} tipUsluge={item.tipUsluge} kontakt={item.kontakt} adresa={item.adresa} brTelefona={item.brTelefona} email={item.email} website={item.website} key={key} />)}
             </tbody>
         </table>

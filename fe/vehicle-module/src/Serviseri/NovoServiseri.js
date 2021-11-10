@@ -26,7 +26,7 @@ export const NovoServiseri = () => {
                 }
                 setValid(true)
                 setSpinerOn(false)
-                setOpenServEdit(false)
+                setNewOn(false)
 
             }).catch(er => {
                 setSpinerOn(false)
@@ -105,6 +105,13 @@ export const NovoServiseri = () => {
                     <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setAdresaS(e.target.value)} />
                     <label for="ime" class="labela">
                         <p className="sp">Adresa</p>
+                    </label>
+                </div>
+
+                <div className="kontejner">
+                    <input type="text" name="ime" className="inp" autocomplete="off" required onChange={(e) => setTelS(e.target.value)} />
+                    <label for="ime" class="labela">
+                        <p className="sp">Broj telefona</p>
                     </label>
                 </div>
 

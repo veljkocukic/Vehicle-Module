@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
-  font-family: Roboto,'Helvetica Neue',
+  font-family: "Poppins",'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -103,7 +103,6 @@ header h1{
 .tg td{
   background-color:#fff;
   color:#101010;
-  font-family:Roboto,Arial, sans-serif;
   font-size:14px;
   overflow:hidden;
   padding:10px 5px;
@@ -180,7 +179,6 @@ header h1{
 
 .tg th{
   color:#333;
-  font-family:Roboto,Arial, sans-serif;
   font-size:1em;
   font-weight:bold;
   overflow:hidden;
@@ -258,8 +256,6 @@ thead tr{
   width: 100%;
   text-align: center;
   color:white;
-  position: absolute;
-  bottom:-1em;
   background-color: crimson
 }
 

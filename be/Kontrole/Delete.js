@@ -76,5 +76,18 @@ const StetaDelete = async (req, res) => {
 }
 
 
+const ServiseriDelete = async(req,res)=>{
+    
+    try {
+        
+        const serv = await ServiseriModel.findOneAndRemove({_id:req.body.id})
+        res.send("success")
 
-module.exports = { RegistracijaDelete, SpecifikacijaDelete, GorivoDelete, OdrzavanjeDelete, StetaDelete }
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+
+
+module.exports = { RegistracijaDelete, SpecifikacijaDelete, GorivoDelete, OdrzavanjeDelete, StetaDelete,ServiseriDelete }

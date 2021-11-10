@@ -23,6 +23,9 @@ export const Dialog = ({par,polje}) => {
         case "dmg":
             url = "steta/"
             break;
+        case "serv":
+            url="serviseri/"
+            break;
         default:
             url=""
     }

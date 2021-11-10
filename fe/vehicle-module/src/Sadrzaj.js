@@ -5,6 +5,7 @@ import { Izvestaj } from "./Izvestaj.js";
 import { Main } from "./Main.js"
 import { Profil } from "./Profil.js"
 import { Serviseri } from "./Serviseri/Serviseri";
+import "./style/input.css"
 
 export const Sadrzaj = () => {
 
