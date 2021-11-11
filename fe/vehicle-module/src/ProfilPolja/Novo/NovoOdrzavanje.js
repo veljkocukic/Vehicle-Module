@@ -1,18 +1,17 @@
-import React, { useState, useRef, useEffect, useContext } from "react"
+import React, { useContext } from "react"
 import axios from "axios"
-import "../../style/new.css"
 import { DataContext } from "../../Context"
 import { Spiner } from "../Editi/Spiner"
-import {useParams} from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 
-export const NovoOdrzavanje = ({newC}) => {
-let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, setOpenOdrEdit, typeOdr, uslugaOdr, timeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, setUslugaOdr, setTimeOdr} = useContext(DataContext)
+export const NovoOdrzavanje = ({ newC }) => {
+    let { valid, setValid, newOn, setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, setOpenOdrEdit, typeOdr, uslugaOdr, timeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, setUslugaOdr, setTimeOdr } = useContext(DataContext)
 
 
-    let {carId} = useParams()
+    let { carId } = useParams()
 
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         setSpinerOn(true)
         let verifyDateOdr = dateOdr !== 0
         let verifyKmOdr = kmOdr > 10
@@ -21,7 +20,7 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, 
 
         if (verifyDateOdr && verifyKmOdr && verifyPartsOdr && verifyTotalOdr) {
             await axios.post("http://localhost:5000/api/v1/odrzavanje/new/" + carId, { typeOdr, dateOdr, kmOdr, partsOdr, totalOdr, uslugaOdr, timeOdr }).then(res => {
-                if(res.data!=="success"){
+                if (res.data !== "success") {
                     alert("error")
                     console.log(res.data)
                     return
@@ -31,11 +30,12 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, 
                 setNewOn(false)
             }).catch(err => {
                 setSpinerOn(false)
-                console.log(err)})
+                console.log(err)
+            })
         } else {
             setSpinerOn(false)
             setValid(false)
-            console.log(verifyDateOdr,verifyKmOdr,verifyPartsOdr,verifyTotalOdr)
+            console.log(verifyDateOdr, verifyKmOdr, verifyPartsOdr, verifyTotalOdr)
         }
     }
 
@@ -55,12 +55,12 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, 
 
 
 
-    
+
     return (
         <div className="input--container">
             {spinerOn && <Spiner />}
             <h3 className="input--container__title">Održavanje</h3>
-            <div className={newC ? "from newF":"form"}>
+            <div className={newC ? "from newF" : "form"}>
 
                 <div className="single-input-container">
                     <label for="tip-odrzavanje" className="standard--label">Tip</label>
@@ -84,8 +84,8 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, 
 
                 <div className="single-input-container">
                     <label for="delovi-odrzavanje" className="standard--label"> Delovi/Usluga</label>
-                    <input onChange={(e) => setPartsOdr(e.target.value)} type="text" className="standard--input" id="delovi-odrzavanje" name="delovi-odrzavanje"/>
-  
+                    <input onChange={(e) => setPartsOdr(e.target.value)} type="text" className="standard--input" id="delovi-odrzavanje" name="delovi-odrzavanje" />
+
                 </div>
 
                 <div className="single-input-container">
@@ -111,6 +111,6 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, 
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
         </div>
-            )
+    )
 
 }

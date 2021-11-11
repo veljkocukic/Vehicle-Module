@@ -1,22 +1,20 @@
-import React, { useState, useRef, useEffect, useContext } from "react"
-import axios from "axios"
-import "../../style/new.css"
+import React, { useContext } from "react"
 import { DataContext } from "../../Context"
 import { Spiner } from "../Editi/Spiner"
-import {useParams} from "react-router-dom"
 
-export const NovoSpecifikacija = ({newC}) =>{
 
-    let { spinerOn,setSpinerOn,formatDateEdit, verDate, setOpenSpecEdit, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume } = useContext(DataContext)
-    
+export const NovoSpecifikacija = ({ newC }) => {
 
-    return(
-        <div class={newC ? "input-contaier newC":"input--container"}>
+    let { spinerOn, setSpinerOn, formatDateEdit, verDate, setOpenSpecEdit, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume } = useContext(DataContext)
+
+
+    return (
+        <div class={newC ? "input-contaier newC" : "input--container"}>
             {spinerOn && <Spiner />}
             <h3 class="input--container__title">Specifikacija</h3>
-            <div class={newC ? "from newF":"form"}>
+            <div class={newC ? "from newF" : "form"}>
 
-            <div class="single-input-container">
+                <div class="single-input-container">
                     <label for="broj-sasije" class="standard--label">Broj šasije</label>
                     <input type="text" onChange={(e) => setSasija(e.target.value)} class="standard--input" id="broj-sasije" name="broj-sasije" />
                 </div>
@@ -33,8 +31,8 @@ export const NovoSpecifikacija = ({newC}) =>{
 
                 <div class="single-input-container">
                     <label for="boja" class="standard--label">Boja</label>
-                    <input onChange={(e) => setBoja(e.target.value)} type="text" class="standard--input" id="boja" name="boja"/>
-  
+                    <input onChange={(e) => setBoja(e.target.value)} type="text" class="standard--input" id="boja" name="boja" />
+
                 </div>
 
                 <div class="single-input-container">
@@ -49,7 +47,7 @@ export const NovoSpecifikacija = ({newC}) =>{
 
                 <div class="single-input-container">
                     <label for="dokumentacija" class="standard--label">Dokumentacija</label>
-                    <textarea onChange={(e) => setDocume(e.target.value)} class="standard--input" id="dokumentacija" name="dokumentacija"/>
+                    <textarea onChange={(e) => setDocume(e.target.value)} class="standard--input" id="dokumentacija" name="dokumentacija" />
                 </div>
             </div>
         </div>

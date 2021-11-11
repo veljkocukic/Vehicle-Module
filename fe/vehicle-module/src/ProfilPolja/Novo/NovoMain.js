@@ -92,7 +92,7 @@ export const NovoMain = ({ zaposleniLista, setEditOn }) => {
     return (
         <div class="input--container">
             {spinerOn && <Spiner />}
-            <h3 class="input--container__title">Šteta</h3>
+            <h3 class="input--container__title">Novo vozilo</h3>
             <form class="form mainForm">
                 <div class="single-input-container">
                     <label for="marka-tip" class="standard--label">Marka i tip</label>

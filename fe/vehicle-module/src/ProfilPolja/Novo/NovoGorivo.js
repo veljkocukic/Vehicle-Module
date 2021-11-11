@@ -1,18 +1,17 @@
-import React, { useState, useRef, useEffect, useContext } from "react"
+import React, { useContext } from "react"
 import axios from "axios"
-import "../../style/new.css"
 import { DataContext } from "../../Context"
 import { Spiner } from "../Editi/Spiner"
-import {useParams} from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 
-export const NovoGorivo = ({newC}) => {
-let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, formatDateEdit, setDateReg, dateReg, verDate, setOpenFuelEdit, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, id} = useContext(DataContext)
+export const NovoGorivo = ({ newC }) => {
+    let { valid, setValid, newOn, setNewOn, spinerOn, setSpinerOn, formatDateEdit, setDateReg, dateReg, verDate, setOpenFuelEdit, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, id } = useContext(DataContext)
 
 
-    let {carId} = useParams()
+    let { carId } = useParams()
 
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         setSpinerOn(true)
         let verifyDateFuel = verDate(dateFuel)
         let verifyKmFuel = kmFuel > 0
@@ -20,8 +19,8 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, formatDateEdit, setD
         let verifyPriceFuel = priceFuel > 100
 
         if (verifyDateFuel && verifyKmFuel && verifyPotrosnja && verifyPriceFuel) {
-            await axios.post("http://localhost:5000/api/v1/gorivo/new/" + carId, {  type, dateFuel, kmFuel, potrosnja, priceFuel, uslugaFuel, timeFuel }).then(res => {
-                if(res.data!=="success"){
+            await axios.post("http://localhost:5000/api/v1/gorivo/new/" + carId, { type, dateFuel, kmFuel, potrosnja, priceFuel, uslugaFuel, timeFuel }).then(res => {
+                if (res.data !== "success") {
                     alert("error")
                     console.log(res.data)
                     return
@@ -32,12 +31,13 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, formatDateEdit, setD
             }).catch(er => {
                 setSpinerOn(false)
                 console.log(er)
-                alert(er)})
+                alert(er)
+            })
         } else {
             setValid(false)
             setSpinerOn(false)
-            console.log(verifyDateFuel,verifyKmFuel,verifyPotrosnja,verifyPriceFuel)
-            
+            console.log(verifyDateFuel, verifyKmFuel, verifyPotrosnja, verifyPriceFuel)
+
         }
     }
 
@@ -58,12 +58,12 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, formatDateEdit, setD
 
 
 
-    
+
     return (
-        <div class={newC ? "input-contaier newC":"input--container"}>
+        <div class={newC ? "input-contaier newC" : "input--container"}>
             {spinerOn && <Spiner />}
             <h3 class="input--container__title">Gorivo i tekući troškovi</h3>
-            <div class={newC ? "from newF":"form"}>
+            <div class={newC ? "from newF" : "form"}>
 
                 <div class="single-input-container">
                     <label for="tip-gorivo" class="standard--label">Tip</label>
@@ -86,8 +86,8 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, formatDateEdit, setD
 
                 <div class="single-input-container">
                     <label for="potrosnja-gorivo" class="standard--label"> Potrošnja</label>
-                    <input onChange={(e) => setPotrosnja(e.target.value)} type="number" class="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo"/>
-  
+                    <input onChange={(e) => setPotrosnja(e.target.value)} type="number" class="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo" />
+
                 </div>
 
                 <div class="single-input-container">
@@ -113,6 +113,6 @@ let { valid,setValid,newOn,setNewOn, spinerOn, setSpinerOn, formatDateEdit, setD
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
         </div>
-            )
+    )
 
 }

@@ -1,9 +1,7 @@
-import React, { useState, useRef, useEffect, useContext } from "react"
+import React, { useContext } from "react"
 import axios from "axios"
-import "../style/new.css"
 import { DataContext } from "../Context"
 import { Spiner } from "../ProfilPolja/Editi/Spiner"
-import { useParams } from "react-router-dom"
 
 
 export const NovoServiseri = () => {

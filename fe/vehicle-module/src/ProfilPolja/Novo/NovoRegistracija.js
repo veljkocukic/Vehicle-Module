@@ -1,18 +1,17 @@
-import React, { useState, useRef, useEffect, useContext } from "react"
+import React, { useContext } from "react"
 import axios from "axios"
-import "../../style/new.css"
 import { DataContext } from "../../Context"
 import { Spiner } from "../Editi/Spiner"
-import {useParams} from "react-router-dom"
+import { useParams } from "react-router-dom"
 
 
-export const NovoRegistracija = ({newC}) => {
-let { valid,setValid,newOn,setNewOn,spinerOn,setSpinerOn, setOpenRegEdit, verDate, formatDateEdit, id, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
+export const NovoRegistracija = ({ newC }) => {
+    let { valid, setValid, newOn, setNewOn, spinerOn, setSpinerOn, setOpenRegEdit, verDate, formatDateEdit, id, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
 
 
-    let {carId} = useParams()
+    let { carId } = useParams()
 
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         setSpinerOn(true)
         let verifyDate = verDate(dateReg)
         let verifyDoc = docReg.length > 2
@@ -21,8 +20,8 @@ let { valid,setValid,newOn,setNewOn,spinerOn,setSpinerOn, setOpenRegEdit, verDat
         let verifyTime = timeZaposleni.length > 2
         let verifyDo = verDate(regDo)
         if (verifyDate && verifyDoc && verifyTroskovi && verifyReg && verifyTime && verifyDo) {
-            await axios.post("http://localhost:5000/api/v1/registracija/new/"+carId, { dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
-                if(res.data!=="success"){
+            await axios.post("http://localhost:5000/api/v1/registracija/new/" + carId, { dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
+                if (res.data !== "success") {
                     alert("error")
                     console.log(res.data)
                     return
@@ -37,12 +36,12 @@ let { valid,setValid,newOn,setNewOn,spinerOn,setSpinerOn, setOpenRegEdit, verDat
         } else {
             setValid(false)
             setSpinerOn(false)
-            console.log(verifyDate,verifyDoc,verifyTroskovi,verifyReg,verifyTime,verifyDo)
+            console.log(verifyDate, verifyDoc, verifyTroskovi, verifyReg, verifyTime, verifyDo)
         }
     }
-    
+
     return (
-        <div class={newC ? "input-contaier newC":"input--container"}>
+        <div class={newC ? "input-contaier newC" : "input--container"}>
             {spinerOn && <Spiner />}
             <h3 class="input--container__title">Registracija</h3>
             <div class="form">
@@ -64,8 +63,8 @@ let { valid,setValid,newOn,setNewOn,spinerOn,setSpinerOn, setOpenRegEdit, verDat
 
                 <div class="single-input-container">
                     <label for="registrovao-zaposleni" class="standard--label">Registrovao zaposleni</label>
-                    <input onChange={(e) => setRegistrovao(e.target.value)} type="text" class="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni"/>
-  
+                    <input onChange={(e) => setRegistrovao(e.target.value)} type="text" class="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni" />
+
                 </div>
 
                 <div class="single-input-container">
@@ -79,13 +78,13 @@ let { valid,setValid,newOn,setNewOn,spinerOn,setSpinerOn, setOpenRegEdit, verDat
                 </div>
             </div>
 
-           <div className="input--container__btns">
+            <div className="input--container__btns">
                 <button onClick={() => setNewOn(false)} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
                 <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
             </div>
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
         </div>
-            )
+    )
 
 }

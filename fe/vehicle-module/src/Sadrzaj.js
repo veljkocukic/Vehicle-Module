@@ -4,7 +4,6 @@ import { MainProvider } from "./Context.js";
 import { Izvestaj } from "./Izvestaj.js";
 import { Main } from "./Main.js"
 import { Profil } from "./Profil.js"
-import { NovoVozilo } from "./NovoVozilo.js";
 import { Serviseri } from "./Serviseri/Serviseri";
 import "./style/input.css"
 
@@ -15,11 +14,11 @@ export const Sadrzaj = () => {
     <Router>
       <header>
         <nav>
-          <img src="http://cdn.mikroe.com/img/mega-menu/mikroe-timesaving-white.png" alt="logo"/>
+          <img src="http://cdn.mikroe.com/img/mega-menu/mikroe-timesaving-white.png" alt="logo" />
           <ul>
-          <Link to="/" className="linkHeader"><li><i class="fas fa-car-side hed"></i> <strong>Pregled svih vozila</strong></li></Link>
-          <Link to="/serviseri" className="linkHeader"><li> <i class="fas fa-tools hed "></i> <strong>Serviseri i eksterni saradnici</strong></li></Link>
-          <Link to="/izvestaj" className="linkHeader"><li> <i class="fas fa-file-invoice hed"></i> <strong>Izveštaji</strong></li></Link>
+            <Link to="/" className="linkHeader"><li><i class="fas fa-car-side hed"></i> <strong>Pregled svih vozila</strong></li></Link>
+            <Link to="/serviseri" className="linkHeader"><li> <i class="fas fa-tools hed "></i> <strong>Serviseri i eksterni saradnici</strong></li></Link>
+            <Link to="/izvestaj" className="linkHeader"><li> <i class="fas fa-file-invoice hed"></i> <strong>Izveštaji</strong></li></Link>
           </ul>
         </nav>
       </header>
@@ -30,7 +29,6 @@ export const Sadrzaj = () => {
           <Route path="/profil/:carId" exact><Profil /></Route>
           <Route path="/serviseri" exact><Serviseri /></Route>
           <Route path="/izvestaj" exact><Izvestaj /></Route>
-          <Route path="/novovozilo" exact><NovoVozilo /></Route>
         </MainProvider>
       </Switch>
     </Router>
