@@ -23,6 +23,9 @@ export const Dialog = ({par,polje}) => {
         case "dmg":
             url = "steta/"
             break;
+        case "serv":
+            url="serviseri/"
+            break;
         default:
             url=""
     }
@@ -47,8 +50,8 @@ export const Dialog = ({par,polje}) => {
                 <p>Da li ste sigurni da želite da obrišete izabranu stavku?</p>
             </div>
             <div className="dialog-btns">
-                <button className="dialog-btn dYes" onClick={handleDelete}>Da</button>
-                <button className="dialog-btn dNo" onClick={()=>setOpenDialog(false)}> Ne</button>
+                <button className="dialog-btn dYes" onClick={handleDelete}>Da <i class="fas fa-check"></i></button>
+                <button className="dialog-btn dNo" onClick={()=>setOpenDialog(false)}>Ne <i class="fas fa-times"></i></button>
             </div>
         </div>
     )

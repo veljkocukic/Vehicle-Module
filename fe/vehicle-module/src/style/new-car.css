@@ -1,0 +1,9 @@
+.new-car-container{
+    display: grid; 
+    gap: 2em 1em; 
+    grid-template-areas: 
+      ". . ."
+      ". . .";
+    align-content: center;
+    justify-items: center;
+}

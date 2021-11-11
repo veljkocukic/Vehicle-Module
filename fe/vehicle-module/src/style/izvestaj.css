@@ -1,0 +1,36 @@
+.izvestaj{
+    position: absolute;
+    top:0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgb(0,121,192);
+    background: linear-gradient(125deg, rgba(0,121,192,1) 22%, rgba(192,180,0,1) 100%);
+    background-size: 190em;
+    background-position: -15em;
+    animation: anim 25s ease-in-out infinite;
+    }
+    
+    @keyframes anim {
+        0%,100%{
+            background-position: 0;  
+        }
+
+        50%{
+            background-position: -85em;  
+        }
+    }
+
+.izvestaj img{
+    margin-bottom:10px;
+    height: 9vh;
+}
+
+.izvestaj h1{
+color:white;
+}
+

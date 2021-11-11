@@ -26,7 +26,7 @@ export const Profil = () => {
     const [spinerProfile, setSpinerProfile] = useState(true)
 
     ///Linija ispod treba da se sredi
-    let { setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
+    let { setNewOn,setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
 
 
@@ -82,6 +82,10 @@ export const Profil = () => {
         )
     }
 
+
+    useEffect(()=>setNewOn(false),[openSec])
+
+
     const sectionCheck = () => {
 
         switch (openSec) {
@@ -124,7 +128,7 @@ export const Profil = () => {
                     <div className="profilImages">
                         <h3>Slike vozila</h3>
                         <div className="photoContainer">
-                            {imagesArray.map((item) => <img src={item} alt="slika auta" />)}
+                            {imagesArray.map((item,key) => <img key={key} src={item} alt="slika auta" />)}
                         </div>
                         <p onClick={() => setOpenImgModal(true)}>Pogledaj sve slike</p>
                     </div>

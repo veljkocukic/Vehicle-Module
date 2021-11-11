@@ -1,0 +1,101 @@
+
+
+.input--container {
+  z-index: 9;
+  padding:1.3em;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 30vw;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgb(235, 235, 235);
+  box-shadow: 0px 8px 14px -12px rgba(0, 0, 0, 0.62);
+  -webkit-box-shadow: 0px 8px 14px -12px rgba(0, 0, 0, 0.62);
+}
+
+.btn{
+  width: 90%;
+}
+
+.single-input-container{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:4em;
+  width:100%
+}
+
+
+.standard--input{
+
+  border:none;
+  height:2.5em;
+  outline:none;
+  padding-left:5px;
+  font-size:1.1em;
+  background-color: #fafafa;
+  -webkit-box-shadow: 2px 2px 5px -1px rgba(0,0,0,0.22); 
+  box-shadow: 3px 3px 5px -3px rgba(0,0,0,0.12),
+  inset 2px 2px 2px -1px rgba(0,0,0,0.1);
+}
+.standard--label{
+  color:#454545;
+}
+
+.form{
+  display: grid; 
+  gap: 1.3em 1em; 
+  grid-template-areas: 
+    ". ."
+    ". ."
+    ". .";
+}
+.form textarea{
+  height:6em;
+  grid-row: 1 / 2
+}
+
+.textarea-main{
+  grid-column: 1 / 4;
+}
+.textarea-specifikacija{
+  grid-column: 1 / 3;
+
+}
+.form select{
+  height:2.5em;
+  width:100%;
+  border:none;
+  -webkit-box-shadow: 2px 2px 5px -1px rgba(0,0,0,0.22); 
+  box-shadow: 3px 3px 5px -3px rgba(0,0,0,0.12),
+  inset 2px 2px 2px -1px rgba(0,0,0,0.1);
+  background-color: #fafafa;
+
+
+}
+
+.input--container__title{
+    color:#313131;
+    margin-bottom:10px;
+  }
+
+.input--container__btns{
+    margin-top:1em;
+    width:100%;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    height: 6em;
+}  
+ .mainForm{
+  grid-template-areas: 
+  ". . ."
+  ". . ."
+  ". . .";
+ }
+
+
+ 

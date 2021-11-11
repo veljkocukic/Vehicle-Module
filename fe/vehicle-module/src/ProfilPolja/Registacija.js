@@ -3,9 +3,10 @@ import { EditRegistracija } from "./Editi/EditRegistracija"
 import { DataContext } from "../Context"
 import { Dialog } from "./Editi/Dialog.js"
 import { useParams } from "react-router-dom"
+import { NovoRegistracija } from "./Novo/NovoRegistracija"
 
 export const Registracija = ({ registracijaAr }) => {
-    let { setId, formatDate, setOpenRegEdit, openRegEdit, openDialog, setOpenDialog } = useContext(DataContext)
+    let { newOn,setNewOn,setId, formatDate, setOpenRegEdit, openRegEdit, openDialog, setOpenDialog } = useContext(DataContext)
     let [regId, setRegId] = useState("")
     let { carId } = useParams()
 
@@ -20,7 +21,6 @@ export const Registracija = ({ registracijaAr }) => {
         setOpenDialog(true)
         setRegId(_id)
         setId(_id)
-        console.log("e")
     }
 
     const Kolone = (props) => {
@@ -32,7 +32,7 @@ export const Registracija = ({ registracijaAr }) => {
                 <td>{props.user}</td>
                 <td>{props.time}</td>
                 <td>{formatDate(props.expire)}</td>
-                <td><button className="btn" onClick={() => handleRegEditOpen(props.kid)}>IZMENI</button><button className="btn del" onClick={() => handleDelete(props.kid)}>OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleRegEditOpen(props.kid)}><i class="fas fa-edit"></i> IZMENI</button><button className="btn del" onClick={() => handleDelete(props.kid)}> <i class="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>
         )
     }
@@ -50,10 +50,11 @@ export const Registracija = ({ registracijaAr }) => {
                     <th>Registrovao zaposleni</th>
                     <th>Vreme zaposlenog</th>
                     <th>Registrovan do</th>
-                    <th className="tg-0pky"><button className="new newp">Novo +</button></th>
+                    <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i class="fas fa-plus"></i> Novo</button></th>
                 </tr>
             </thead>
             <tbody>
+                {newOn && <NovoRegistracija />}
                 {openDialog && <Dialog par={carId} polje="reg" />}
                 {registracijaAr.map((item, key) => <Kolone kid={item._id} date={item.datumRegistracije} doc={item.dokumentacija} reg={item.troskoviRegistracije} user={item.registrovaoZaposleni} time={item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
             </tbody>
