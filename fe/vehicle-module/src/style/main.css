@@ -44,7 +44,7 @@
 }
 
 .single-car-container:hover{
-  transform: scale(1.01);
+  transform: scale(1.007);
 }
 
 .single-car-container__image{
@@ -115,7 +115,7 @@
   text-decoration: none;
 }
 
-.cars-list-title{
+.page-title{
   display: flex;
   justify-content: space-between;
   width: 85vw;
@@ -124,7 +124,7 @@
   position: relative;
 }
 
-.cars-list-title::after{
+.page-title::after{
   content: "";
   background-color: #0079c0;
   width: 8em;

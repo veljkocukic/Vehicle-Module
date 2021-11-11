@@ -6,7 +6,7 @@ import { Spiner } from "../ProfilPolja/Editi/Spiner"
 import { Dialog } from "../ProfilPolja/Editi/Dialog"
 import { useParams } from "react-router"
 import { NovoServiseri } from "../Serviseri/NovoServiseri"
-
+import "../style/serviseri.css"
 
 export const Serviseri = () => {
     const [serviseriAr, setServiseriAr] = useState([])
@@ -53,27 +53,33 @@ export const Serviseri = () => {
     }
 
     return (
-        <table className="tg servt">
-            {spinerServ && <Spiner />}
-            {openServEdit && <EditServis serviseriAr={serviseriAr} />}
-            <thead>
-                <tr>
-                    <th>Šifra klijenta</th>
-                    <th>Naziv firme</th>
-                    <th>Tip usluge</th>
-                    <th>Kontakt</th>
-                    <th>Adresa</th>
-                    <th>Br. telefona</th>
-                    <th>E-mail</th>
-                    <th>Website</th>
-                    <th className="tg-0pky"><button className="editBtn" onClick={() => setNewOn(true)}><i class="fas fa-plus"></i> Novo</button></th>
-                </tr>
-            </thead>
-            <tbody>
-                {newOn && <NovoServiseri />}
-                {openDialog && <Dialog par="delete" polje="serv" />}
-                {serviseriAr.map((item, key) => <KoloneServiseri id={item._id} sifraKlijenta={item.sifraKlijenta} nazivFirme={item.nazivFirme} tipUsluge={item.tipUsluge} kontakt={item.kontakt} adresa={item.adresa} brTelefona={item.brTelefona} email={item.email} website={item.website} key={key} />)}
-            </tbody>
-        </table>
+        <div className="serviseri-container">
+            <div className="page-title">
+                <h1>Serviseri i eksterni saradnici</h1>
+            </div>
+
+            <table className="tg servt">
+                {spinerServ && <Spiner />}
+                {openServEdit && <EditServis serviseriAr={serviseriAr} />}
+                <thead>
+                    <tr>
+                        <th>Šifra klijenta</th>
+                        <th>Naziv firme</th>
+                        <th>Tip usluge</th>
+                        <th>Kontakt</th>
+                        <th>Adresa</th>
+                        <th>Br. telefona</th>
+                        <th>E-mail</th>
+                        <th>Website</th>
+                        <th className="tg-0pky"><button className="editBtn" onClick={() => setNewOn(true)}><i class="fas fa-plus"></i> Novo</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {newOn && <NovoServiseri />}
+                    {openDialog && <Dialog par="delete" polje="serv" />}
+                    {serviseriAr.map((item, key) => <KoloneServiseri id={item._id} sifraKlijenta={item.sifraKlijenta} nazivFirme={item.nazivFirme} tipUsluge={item.tipUsluge} kontakt={item.kontakt} adresa={item.adresa} brTelefona={item.brTelefona} email={item.email} website={item.website} key={key} />)}
+                </tbody>
+            </table>
+        </div>
     )
 }

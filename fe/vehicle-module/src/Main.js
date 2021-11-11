@@ -104,7 +104,7 @@ export const Main = () => {
 
     return (
         <div className="all-cars">
-            <div className="cars-list-title">
+            <div className="page-title">
                 <h1>Prikaz svih vozila</h1>
                 <button className="car-button car-title" onClick={() => setNewOn(true)} >+ NOVO VOZILO</button>
             </div>
