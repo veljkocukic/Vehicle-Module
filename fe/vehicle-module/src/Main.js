@@ -10,7 +10,7 @@ import { NovoMain } from "./ProfilPolja/Novo/NovoMain";
 
 
 export const Main = () => {
-    let { newOn,setNewOn,spinerOn, setSpinerOn, id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef,activeToRef, formatDate, verDate } = useContext(DataContext)
+    let { newOn, setNewOn, spinerOn, setSpinerOn, id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef, formatDate, verDate } = useContext(DataContext)
     let [vozila, setVozila] = useState([])
     let [zaposleniLista, setZaposleniLista] = useState([])
     let zaposleniSelect = useRef(null)
@@ -50,46 +50,61 @@ export const Main = () => {
 
     const Kolona = (props) => {
         return (
-            <tr>
-                <th class="tg-0pky"><Link to={`/profil/${props.id}`}>{props.name}</Link></th>
-                <td class="tg-0pky">{props.reg}</td>
-                <td class="tg-0pky">{props.utype}</td>
-                <td class="tg-0pky">{props.uname}</td>
-                <td class="tg-0pky">{formatDate(props.expire)}</td>
-                <td class="tg-0pky">{props.activeFrom}</td>
-                <td class="tg-0pky">{props.activeTo}</td>
-                <td class="tg-0pky"><button className="btn" onClick={() => handleEditOn(props.id)}><i class="fas fa-edit"></i>IZMENI</button></td>
-            </tr>
+            <div class="single-car-container">
+
+                <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" class="single-car-container__image" alt="slika auta" />
+
+                <div class="single-car-container__info">
+
+                    <div class="info-top">
+                        <h1>{props.name}</h1>
+                        <p>{props.reg}</p>
+                        <div>
+                            <div class="info-bottom">
+
+                                <div class="info-bottom__item">
+                                    <h5>Korisnik vozila</h5>
+                                    <p>{props.uname}</p>
+                                </div>
+
+                                <div class="info-bottom__item">
+                                    <h5>Tip korisnika</h5>
+                                    <p>{props.utype}</p>
+                                </div>
+
+                                <div class="info-bottom__item">
+                                    <h5>Isticanje registracije</h5>
+                                    <p>{props.expire}</p>
+                                </div>
+
+                                <div class="info-bottom__item">
+                                    <h5>Vozilo aktivno od</h5>
+                                    <p>{props.activeFrom}</p>
+                                </div>
+
+                                <div class="info-bottom__item">
+                                    <h5>Vozilo aktivno do</h5>
+                                    <p>{props.activeTo}</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         )
     }
 
     return (
-        <div>
+        <div class="all-cars">
             {spinerMain && <Spiner />}
-            {editOn && <EditMain setEditOn={setEditOn} vozila={vozila} zaposleniSelect={zaposleniSelect} markaRef={markaRef} regBrRef={regBrRef} isticRef={isticRef } tipKorRef={tipKorRef} activeToRef={activeToRef} activeFromRef={activeFromRef} zaposleniLista={zaposleniLista}  korVozRef={korVozRef} />}
-            {newOn && <NovoMain zaposleniLista={zaposleniLista} setEditOn={setEditOn}/>}
-            <div className="tabela">
-                <table class="tg">
-                    <thead>
-                        <tr >
-                            <th colSpan="8" >Prikaz svih vozila</th>
-                        </tr>
-                        <tr className="head-table">
-                            <th className="tg-0pky">Marka i tip</th>
-                            <th className="tg-0pky">Registracioni broj</th>
-                            <th className="tg-0pky">Tip korisinika</th>
-                            <th className="tg-0pky">Korisnik vozila</th>
-                            <th className="tg-0pky">Isticanje registracije</th>
-                            <th className="tg-0pky">Vozilo aktivno od</th>
-                            <th className="tg-0pky">Vozilo aktivno do</th>
-                            <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i class="fas fa-plus"></i> NOVO</button></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {vozila.map((item) => <Kolona key={item.id} id={item.id} name={item.markaTip} reg={item.regBroj} utype={item.tipKorisnika} uname={item.korisnikVozila} expire={item.isticanje} activeTo={item.activeTo} activeFrom={item.activeFrom} />)}
-                    </tbody>
-                </table>
-            </div>
+            {editOn && <EditMain setEditOn={setEditOn} vozila={vozila} zaposleniSelect={zaposleniSelect} markaRef={markaRef} regBrRef={regBrRef} isticRef={isticRef} tipKorRef={tipKorRef} activeToRef={activeToRef} activeFromRef={activeFromRef} zaposleniLista={zaposleniLista} korVozRef={korVozRef} />}
+            {newOn && <NovoMain zaposleniLista={zaposleniLista} setEditOn={setEditOn} />}
+
+            {vozila.map((item) => <Kolona key={item.id} id={item.id} name={item.markaTip} reg={item.regBroj} utype={item.tipKorisnika} uname={item.korisnikVozila} expire={item.isticanje} activeTo={item.activeTo} activeFrom={item.activeFrom} />)}
+
         </div>
     )
 }
