@@ -305,3 +305,8 @@ thead tr{
   font-size: 1.3em;
   margin-right: 5px;
 }
+
+.fa-question-circle{
+  color: #0079c0;
+  font-size:3em;
+}

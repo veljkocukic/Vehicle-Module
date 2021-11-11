@@ -1,13 +1,13 @@
-import React,{ useContext, useState} from "react"
-import axios from "axios" 
+import React, { useContext, useState } from "react"
+import axios from "axios"
 import { DataContext } from "../../Context"
-import {Spiner} from "./Spiner"
-export const Dialog = ({par,polje}) => {
+import { Spiner } from "./Spiner"
+export const Dialog = ({ par, polje }) => {
 
-    let {setOpenDialog,id,spinerOn,setSpinerOn} = useContext(DataContext)
+    let { setOpenDialog, id, spinerOn, setSpinerOn } = useContext(DataContext)
     let url = ""
 
-    switch(polje){
+    switch (polje) {
         case "reg":
             url = "registracija/"
             break;
@@ -15,29 +15,29 @@ export const Dialog = ({par,polje}) => {
             url = "specifikacija/"
             break;
         case "fuel":
-           url = "gorivo/"
+            url = "gorivo/"
             break;
         case "odr":
-            url= "odrzavanje/"
+            url = "odrzavanje/"
             break;
         case "dmg":
             url = "steta/"
             break;
         case "serv":
-            url="serviseri/"
+            url = "serviseri/"
             break;
         default:
-            url=""
+            url = ""
     }
-    
-    const handleDelete=()=>{
-        
+
+    const handleDelete = () => {
+
         setSpinerOn(true)
-        axios.post("http://localhost:5000/api/v1/"+url+par,{id}).then(
-            ()=>{
+        axios.post("http://localhost:5000/api/v1/" + url + par, { id }).then(
+            () => {
                 setSpinerOn(false)
                 setOpenDialog(false)
-            }).catch(er=>console.log(er))
+            }).catch(er => console.log(er))
 
 
     }
@@ -47,11 +47,11 @@ export const Dialog = ({par,polje}) => {
             {spinerOn && <Spiner />}
             <h4>Brisanje</h4>
             <div className="dialog-txt">
-                <p>Da li ste sigurni da želite da obrišete izabranu stavku?</p>
+                <i class="far fa-question-circle"></i> <p>Da li ste sigurni da želite da obrišete izabranu stavku?</p>
             </div>
             <div className="dialog-btns">
                 <button className="dialog-btn dYes" onClick={handleDelete}>Da <i class="fas fa-check"></i></button>
-                <button className="dialog-btn dNo" onClick={()=>setOpenDialog(false)}>Ne <i class="fas fa-times"></i></button>
+                <button className="dialog-btn dNo" onClick={() => setOpenDialog(false)}>Ne <i class="fas fa-times"></i></button>
             </div>
         </div>
     )
