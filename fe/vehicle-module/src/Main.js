@@ -92,17 +92,25 @@ export const Main = () => {
                         </div>
 
                     </div>
+
+                    <div className="single-car-container__buttons">
+                        <button className="car-button" onClick={() => handleEditOn(props.id)}><i class="fa-solid fa-pen-to-square"></i> IZMENI</button>
+                        <Link className="car-link" to={`/profil/${props.id}`}><button className="car-button details"> DETALJI</button></Link>
+                    </div>
                 </div>
             </div>
         )
     }
 
     return (
-        <div class="all-cars">
+        <div className="all-cars">
+            <div className="cars-list-title">
+                <h1>Prikaz svih vozila</h1>
+                <button className="car-button car-title" onClick={() => setNewOn(true)} >+ NOVO VOZILO</button>
+            </div>
             {spinerMain && <Spiner />}
             {editOn && <EditMain setEditOn={setEditOn} vozila={vozila} zaposleniSelect={zaposleniSelect} markaRef={markaRef} regBrRef={regBrRef} isticRef={isticRef} tipKorRef={tipKorRef} activeToRef={activeToRef} activeFromRef={activeFromRef} zaposleniLista={zaposleniLista} korVozRef={korVozRef} />}
             {newOn && <NovoMain zaposleniLista={zaposleniLista} setEditOn={setEditOn} />}
-
             {vozila.map((item) => <Kolona key={item.id} id={item.id} name={item.markaTip} reg={item.regBroj} utype={item.tipKorisnika} uname={item.korisnikVozila} expire={item.isticanje} activeTo={item.activeTo} activeFrom={item.activeFrom} />)}
 
         </div>

@@ -1,12 +1,12 @@
-import React,{useState,useEffect,useRef,useContext} from "react"
+import React, { useState, useEffect, useRef, useContext } from "react"
 import axios from "axios"
 import { DataContext } from "../../Context"
 import { Spiner } from "./Spiner"
 
-export const EditMain = ({setEditOn,activeToRef,zaposleniLista, tipKorRef,vozila,zaposleniSelect,markaRef,regBrRef,activeFromRef,korVozRef}) => {
+export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vozila, zaposleniSelect, markaRef, regBrRef, activeFromRef, korVozRef }) => {
 
 
-    let{verReg, valid,setValid,setNewOn,id,spinerOn,setSpinerOn,verDate,marka,setMarka,regBr,setRegBr,typeMn,setTypeMn,korisnikMn,setKorisnikMn,isticanje,setIsticanje,aktivnoDo,setAktivnoDo,aktivnoOd,setAktivnoOd} = useContext(DataContext)
+    let { verReg, valid, setValid, setNewOn, id, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd } = useContext(DataContext)
 
     const ZaposleniLista = () => {
 
@@ -44,12 +44,12 @@ export const EditMain = ({setEditOn,activeToRef,zaposleniLista, tipKorRef,vozila
             tipKorRef.current.value = "Druga lica"
             setZaposleni(false)
         } else {
-            try{
+            try {
                 zaposleniSelect.current.value = vozilo.korisnikVozila
-            } catch(er){
+            } catch (er) {
                 console.log(er)
             }
-            
+
         }
         try {
             activeFromRef.current.value = vozilo.activeFromEdit
@@ -93,10 +93,10 @@ export const EditMain = ({setEditOn,activeToRef,zaposleniLista, tipKorRef,vozila
         let verifyKorisnik = korisnikMn.length > 2
         let verifyActiveFrom = verDate(aktivnoOd)
         let verifyActiveTo = verDate(aktivnoDo)
-        let verifyRazlika = new Date(aktivnoDo)>new Date(aktivnoOd)
-        if (verifyMarka && verifyReg && verifyKorisnik && verifyActiveFrom&&verifyActiveTo&&verifyRazlika) {
+        let verifyRazlika = new Date(aktivnoDo) > new Date(aktivnoOd)
+        if (verifyMarka && verifyReg && verifyKorisnik && verifyActiveFrom && verifyActiveTo && verifyRazlika) {
             await axios.patch("http://localhost:5000/api/v1/main", {
-                id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd,aktivnoDo
+                id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo
 
             })
                 .then(() => setSpinerOn(false))
@@ -107,7 +107,7 @@ export const EditMain = ({setEditOn,activeToRef,zaposleniLista, tipKorRef,vozila
         } else {
             setValid(false)
             setSpinerOn(false)
-            console.log(verifyMarka ,verifyReg , verifyKorisnik , verifyActiveFrom,verifyActiveTo,verifyRazlika)
+            console.log(verifyMarka, verifyReg, verifyKorisnik, verifyActiveFrom, verifyActiveTo, verifyRazlika)
             console.log(aktivnoOd)
             console.log(aktivnoDo)
 
@@ -133,17 +133,17 @@ export const EditMain = ({setEditOn,activeToRef,zaposleniLista, tipKorRef,vozila
 
         <div class="input--container">
             {spinerOn && <Spiner />}
-            <h3 class="input--container__title">Šteta</h3>
+            <h3 class="input--container__title">Izmena vozila</h3>
             <form class="form">
                 <div class="single-input-container">
                     <label for="marka-tip" class="standard--label">Marka i tip</label>
-                    <input ref={markaRef} onChange={e=>setMarka(e.target.value)} type="text" class="standard--input" id="marka-tip" name="marka-tip" />
+                    <input ref={markaRef} onChange={e => setMarka(e.target.value)} type="text" class="standard--input" id="marka-tip" name="marka-tip" />
                 </div>
 
 
                 <div class="single-input-container">
                     <label for="registracioni-broj" class="standard--label">Registracioni broj</label>
-                    <input ref={regBrRef} onChange={e=>setRegBr(e.target.value)} type="text" class="standard--input" id="registracioni-broj" name="registracioni-broj" />
+                    <input ref={regBrRef} onChange={e => setRegBr(e.target.value)} type="text" class="standard--input" id="registracioni-broj" name="registracioni-broj" />
                 </div>
 
                 <div class="single-input-container">
@@ -161,12 +161,12 @@ export const EditMain = ({setEditOn,activeToRef,zaposleniLista, tipKorRef,vozila
 
                 <div class="single-input-container">
                     <label for="aktivno-od" class="standard--label">Vozilo aktivno od</label>
-                    <input ref={activeFromRef} onChange={e=>setAktivnoOd(e.target.value)}type="date" class="standard--input" id="aktivno-od" name="aktivno-od" />
+                    <input ref={activeFromRef} onChange={e => setAktivnoOd(e.target.value)} type="date" class="standard--input" id="aktivno-od" name="aktivno-od" />
                 </div>
 
                 <div class="single-input-container">
                     <label for="aktivno-od" class="standard--label">Vozilo aktivno do </label>
-                    <input ref={activeToRef} onChange={e=>setAktivnoDo(e.target.value)} type="date" class="standard--input" id="aktivno-do" name="aktivno-do" />
+                    <input ref={activeToRef} onChange={e => setAktivnoDo(e.target.value)} type="date" class="standard--input" id="aktivno-do" name="aktivno-do" />
                 </div>
 
 

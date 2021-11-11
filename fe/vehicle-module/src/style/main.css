@@ -26,25 +26,31 @@
 }
 
 .single-car-container{
-  width:65em;
-  max-width: 95vw !important;
+  z-index: 0;
+  width:85vw;
+  max-width: 90vw !important;
   height:13.2em;
   background:white;
-  margin-bottom:5em;
+  margin-bottom:3em;
   padding:15px;
   display:flex;
   align-items:center;
   border-radius:10px;
-    box-shadow: 0px 8px 14px -12px rgba(0, 0, 0, 0.62),
-    4px 6px 6px -7px rgba(0,0,0,0.44) inset;
-  -webkit-box-shadow: 0px 8px 14px -12px rgba(0, 0, 0, 0.62),
-  4px 6px 6px -7px rgba(0,0,0,0.44) inset;
+    box-shadow: 0px 8px 14px -12px rgba(0, 0, 0, 0.62);
+  -webkit-box-shadow: 0px 8px 14px -12px rgba(0, 0, 0, 0.62);
+  border: 1px solid rgb(231, 231, 231);
+  position:relative;
+  transition: .4s ease;
+}
+
+.single-car-container:hover{
+  transform: scale(1.01);
 }
 
 .single-car-container__image{
   width:15em;
   border-radius:10px;
-      box-shadow: 0px 8px 14px -12px rgba(0, 0, 0, 0.62);
+  box-shadow: 0px 8px 14px -12px rgba(0, 0, 0, 0.62);
   -webkit-box-shadow: 0px 8px 14px -12px rgba(0, 0, 0, 0.62);
 }
 
@@ -56,15 +62,78 @@
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  border-left: 1px solid gray;
 }
 
 .info-bottom{
   width:100%;
-  height:6em;
-  border-top:1px solid gray;
+  height:6em;  
   display:flex;
   justify-content:space-between;
   align-items:center;
   
+}
+
+.single-car-container__buttons{
+  position: absolute;
+  top:2em;
+  right: 2em;
+  width:20em;
+  height: 5em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.car-button{
+  height: 2.6em;
+  width: 45%;
+  background-color:#0079c0;
+  color:white;
+  border:none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: .2s ease;
+}
+
+.car-button:hover{
+  background-color: #035a8b;
+}
+
+.details{
+  background-color: rgb(192, 168, 64);
+  width: 100%;
+}
+
+.details:hover{
+  background-color: rgb(128, 112, 42);
+
+}
+
+.car-link{
+  width: 45%;
+  color:white;
+  text-decoration: none;
+}
+
+.cars-list-title{
+  display: flex;
+  justify-content: space-between;
+  width: 85vw;
+  margin-bottom:2em;
+  border-bottom: 1px solid #0079c0;
+  position: relative;
+}
+
+.cars-list-title::after{
+  content: "";
+  background-color: #0079c0;
+  width: 8em;
+  height: .8em;
+  position: absolute;
+  top: 100%;
+}
+
+.car-title{
+  width: 15%;
+  height: 3em;
 }
