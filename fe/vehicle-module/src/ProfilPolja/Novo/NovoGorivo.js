@@ -62,53 +62,53 @@ export const NovoGorivo = ({ newC }) => {
     return (
         <div class={newC ? "input-contaier newC" : "input--container"}>
             {spinerOn && <Spiner />}
-            <h3 class="input--container__title">Gorivo i tekući troškovi</h3>
+            <h3 className="input--container__title">Gorivo i tekući troškovi</h3>
             <div class={newC ? "from newF" : "form"}>
 
-                <div class="single-input-container">
-                    <label for="tip-gorivo" class="standard--label">Tip</label>
-                    <select onChange={e => setType(e.target.value)} class="standard--input" id="tip-gorivo" name="tip-gorivo" >
+                <div className="single-input-container">
+                    <label for="tip-gorivo" className="standard--label">Tip</label>
+                    <select onChange={e => setType(e.target.value)} className="standard--input" id="tip-gorivo" name="tip-gorivo" >
                         <option>Gorivo</option>
                         <option>Tag</option>
                         <option>Pranje</option>
                     </select>
                 </div>
 
-                <div class="single-input-container">
-                    <label for="datum-gorivo" class="standard--label">Datum</label>
-                    <input type="date" onChange={(e) => setDateFuel(e.target.value)} class="standard--input" id="datum-gorivo" name="datum-gorivo" />
+                <div className="single-input-container">
+                    <label for="datum-gorivo" className="standard--label">Datum</label>
+                    <input type="date" onChange={(e) => setDateFuel(e.target.value)} className="standard--input" id="datum-gorivo" name="datum-gorivo" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="kilometraza-gorivo" class="standard--label">Kilometraža</label>
-                    <input type="number" onChange={(e) => setKmFuel(e.target.value)} class="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
+                <div className="single-input-container">
+                    <label for="kilometraza-gorivo" className="standard--label">Kilometraža</label>
+                    <input type="number" onChange={(e) => setKmFuel(e.target.value)} className="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="potrosnja-gorivo" class="standard--label"> Potrošnja</label>
-                    <input onChange={(e) => setPotrosnja(e.target.value)} type="number" class="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo" />
+                <div className="single-input-container">
+                    <label for="potrosnja-gorivo" className="standard--label"> Potrošnja</label>
+                    <input onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo" />
 
                 </div>
 
-                <div class="single-input-container">
-                    <label for="cena-gorivo" class="standard--label">Cena</label>
-                    <input onChange={(e) => setPriceFuel(e.target.value)} type="number" class="standard--input" id="cena-gorivo" name="cena-gorivo" />
+                <div className="single-input-container">
+                    <label for="cena-gorivo" className="standard--label">Cena</label>
+                    <input onChange={(e) => setPriceFuel(e.target.value)} type="number" className="standard--input" id="cena-gorivo" name="cena-gorivo" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="usluga-zaposlenog-gorivo" class="standard--label">Usluga zaposlenog</label>
-                    <input onChange={(e) => setUslugaFuel(e.target.value)} type="text" class="standard--input" id="usluga-zaposlenog-gorivo" name="usluga-zaposlenog-gorivo" />
+                <div className="single-input-container">
+                    <label for="usluga-zaposlenog-gorivo" className="standard--label">Usluga zaposlenog</label>
+                    <input onChange={(e) => setUslugaFuel(e.target.value)} type="text" className="standard--input" id="usluga-zaposlenog-gorivo" name="usluga-zaposlenog-gorivo" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="vreme-zaposlenog-gorivo" class="standard--label">Vreme zaposlenog</label>
-                    <input onChange={(e) => setTimeFuel(e.target.value)} type="text" class="standard--input" id="vreme-zaposlenog-gorivo" name="vreme-zaposlenog-gorivo" />
+                <div className="single-input-container">
+                    <label for="vreme-zaposlenog-gorivo" className="standard--label">Vreme zaposlenog</label>
+                    <input onChange={(e) => setTimeFuel(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog-gorivo" name="vreme-zaposlenog-gorivo" />
                 </div>
             </div>
 
             {!newC && <div className="input--container__btns">
-                <button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
-                <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
+                <button onClick={handleCancel} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>}
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}

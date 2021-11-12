@@ -76,19 +76,19 @@ export const EditSteta = ({ stetaAr }) => {
     }
 
     return (
-        <div class="input--container">
+        <div className="input--container">
             {spinerOn && <Spiner />}
-            <h3 class="input--container__title">Šteta</h3>
+            <h3 className="input--container__title">Šteta</h3>
             <div className="form">
 
-            <div class="single-input-container">
-                    <label for="opis-steta" class="standard--label">Opis štete</label>
-                    <input ref={opisRef} type="text" onChange={(e) => setDesc(e.target.value)} class="standard--input" id="opis-steta" name="opis-steta" />
+            <div className="single-input-container">
+                    <label for="opis-steta" className="standard--label">Opis štete</label>
+                    <input ref={opisRef} type="text" onChange={(e) => setDesc(e.target.value)} className="standard--input" id="opis-steta" name="opis-steta" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="steta-pokriva" class="standard--label">Štetu pokriva</label>
-                    <select ref={pokrivaRef} onChange={e => setPokriva(e.target.value)} class="standard--input" id="steta-pokriva" name="steta-pokriva" >
+                <div className="single-input-container">
+                    <label for="steta-pokriva" className="standard--label">Štetu pokriva</label>
+                    <select ref={pokrivaRef} onChange={e => setPokriva(e.target.value)} className="standard--input" id="steta-pokriva" name="steta-pokriva" >
                         <option>Zaposleni</option>
                         <option>Fima</option>
                         <option>Osiguranje</option>
@@ -96,36 +96,36 @@ export const EditSteta = ({ stetaAr }) => {
                     </select>
                 </div>
 
-                <div class="single-input-container">
-                    <label for="datum-steta" class="standard--label">Datum</label>
-                    <input ref={datumRef} type="date" onChange={(e) => setDate(e.target.value)} class="standard--input" id="datum-steta" name="datum-steta" />
+                <div className="single-input-container">
+                    <label for="datum-steta" className="standard--label">Datum</label>
+                    <input ref={datumRef} type="date" onChange={(e) => setDate(e.target.value)} className="standard--input" id="datum-steta" name="datum-steta" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="delovi-steta" class="standard--label"> Delovi/Usluga</label>
-                    <input ref={deloviRef} onChange={(e) => setParts(e.target.value)} type="text" class="standard--input" id="delovi-steta" name="delovi-steta"/>
+                <div className="single-input-container">
+                    <label for="delovi-steta" className="standard--label"> Delovi/Usluga</label>
+                    <input ref={deloviRef} onChange={(e) => setParts(e.target.value)} type="text" className="standard--input" id="delovi-steta" name="delovi-steta"/>
   
                 </div>
 
-                <div class="single-input-container">
-                    <label for="trosak-steta" class="standard--label">Ukupan trošak</label>
-                    <input ref={totalRef} onChange={(e) => setTotal(e.target.value)} type="number" class="standard--input" id="trosak-steta" name="trosak-steta" />
+                <div className="single-input-container">
+                    <label for="trosak-steta" className="standard--label">Ukupan trošak</label>
+                    <input ref={totalRef} onChange={(e) => setTotal(e.target.value)} type="number" className="standard--input" id="trosak-steta" name="trosak-steta" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="usluga-zaposlenog-steta" class="standard--label">Usluga zaposlenog</label>
-                    <input ref={uslugaRef} onChange={(e) => setUsluga(e.target.value)} type="text" class="standard--input" id="usluga-zaposlenog-steta" name="usluga-zaposlenog-steta" />
+                <div className="single-input-container">
+                    <label for="usluga-zaposlenog-steta" className="standard--label">Usluga zaposlenog</label>
+                    <input ref={uslugaRef} onChange={(e) => setUsluga(e.target.value)} type="text" className="standard--input" id="usluga-zaposlenog-steta" name="usluga-zaposlenog-steta" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="vreme-zaposlenog-steta" class="standard--label">Vreme zaposlenog</label>
-                    <input ref={timeRef} onChange={(e) => setTime(e.target.value)} type="text" class="standard--input" id="vreme-zaposlenog-steta" name="vreme-zaposlenog-steta" />
+                <div className="single-input-container">
+                    <label for="vreme-zaposlenog-steta" className="standard--label">Vreme zaposlenog</label>
+                    <input ref={timeRef} onChange={(e) => setTime(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog-steta" name="vreme-zaposlenog-steta" />
                 </div>
             </div>
 
             <div className="input--container__btns">
-                <button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
-                <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
+                <button onClick={handleCancel} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}

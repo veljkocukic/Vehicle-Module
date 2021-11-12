@@ -64,50 +64,50 @@ export const EditSpecifikacija = () => {
 
     }
     return (
-        <div class="input--container">
+        <div className="input--container">
             {spinerOn && <Spiner />}
-            <h3 class="input--container__title">Specifikacija</h3>
-            <div class="form">
+            <h3 className="input--container__title">Specifikacija</h3>
+            <div className="form">
 
-                <div class="single-input-container">
-                    <label for="broj-sasije" class="standard--label">Broj šasije</label>
-                    <input ref={sasijaRef} type="text" onChange={(e) => setSasija(e.target.value)} class="standard--input" id="broj-sasije" name="broj-sasije" />
+                <div className="single-input-container">
+                    <label for="broj-sasije" className="standard--label">Broj šasije</label>
+                    <input ref={sasijaRef} type="text" onChange={(e) => setSasija(e.target.value)} className="standard--input" id="broj-sasije" name="broj-sasije" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="broj-motora" class="standard--label">Broj motora</label>
-                    <input ref={brMotRef} type="text" onChange={e => setMotor(e.target.value)} class="standard--input" id="broj-motora" name="broj-motora" />
+                <div className="single-input-container">
+                    <label for="broj-motora" className="standard--label">Broj motora</label>
+                    <input ref={brMotRef} type="text" onChange={e => setMotor(e.target.value)} className="standard--input" id="broj-motora" name="broj-motora" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="godiste" class="standard--label">Godište</label>
-                    <input ref={godisteRef} type="number" onChange={(e) => setGodiste(e.target.value)} class="standard--input" id="godiste" name="godiste" />
+                <div className="single-input-container">
+                    <label for="godiste" className="standard--label">Godište</label>
+                    <input ref={godisteRef} type="number" onChange={(e) => setGodiste(e.target.value)} className="standard--input" id="godiste" name="godiste" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="boja" class="standard--label">Boja</label>
-                    <input ref={bojaRef} onChange={(e) => setBoja(e.target.value)} type="text" class="standard--input" id="boja" name="boja" />
+                <div className="single-input-container">
+                    <label for="boja" className="standard--label">Boja</label>
+                    <input ref={bojaRef} onChange={(e) => setBoja(e.target.value)} type="text" className="standard--input" id="boja" name="boja" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="datum-kupovine" class="standard--label">Datum kupovine</label>
-                    <input ref={datumRef} onChange={(e) => setDateKup(e.target.value)} type="date" class="standard--input" id="datum-kupovine" name="datum-kupovine" />
+                <div className="single-input-container">
+                    <label for="datum-kupovine" className="standard--label">Datum kupovine</label>
+                    <input ref={datumRef} onChange={(e) => setDateKup(e.target.value)} type="date" className="standard--input" id="datum-kupovine" name="datum-kupovine" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="cena-vozila" class="standard--label">Cena vozila</label>
-                    <input ref={cenaRef} onChange={(e) => setCenaVoz(e.target.value)} type="number" class="standard--input" id="cena-vozila" name="cena-vozila" />
+                <div className="single-input-container">
+                    <label for="cena-vozila" className="standard--label">Cena vozila</label>
+                    <input ref={cenaRef} onChange={(e) => setCenaVoz(e.target.value)} type="number" className="standard--input" id="cena-vozila" name="cena-vozila" />
                 </div>
 
-                <div class="single-input-container textarea-specifikacija">
-                    <label for="dokumentacija" class="standard--label">Dokumentacija</label>
-                    <textarea ref={documRef} onChange={(e) => setDocume(e.target.value)} class="standard--input" id="dokumentacija" name="dokumentacija" />
+                <div className="single-input-container textarea-specifikacija">
+                    <label for="dokumentacija" className="standard--label">Dokumentacija</label>
+                    <textarea ref={documRef} onChange={(e) => setDocume(e.target.value)} className="standard--input" id="dokumentacija" name="dokumentacija" />
                 </div>
             </div>
 
             <div className="input--container__btns">
-                <button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
-                <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
+                <button onClick={handleCancel} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}

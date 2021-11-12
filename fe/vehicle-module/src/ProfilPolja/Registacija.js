@@ -32,7 +32,7 @@ export const Registracija = ({ registracijaAr }) => {
                 <td>{props.user}</td>
                 <td>{props.time}</td>
                 <td>{formatDate(props.expire)}</td>
-                <td><button className="btn" onClick={() => handleRegEditOpen(props.kid)}><i class="fas fa-edit"></i> IZMENI</button><button className="btn del" onClick={() => handleDelete(props.kid)}> <i class="far fa-trash-alt"></i> OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleRegEditOpen(props.kid)}><i className="fas fa-edit"></i> IZMENI</button><button className="btn del" onClick={() => handleDelete(props.kid)}> <i className="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>
         )
     }
@@ -50,7 +50,7 @@ export const Registracija = ({ registracijaAr }) => {
                     <th>Registrovao zaposleni</th>
                     <th>Vreme zaposlenog</th>
                     <th>Registrovan do</th>
-                    <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i class="fas fa-plus"></i> Novo</button></th>
+                    <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i className="fas fa-plus"></i> Novo</button></th>
                 </tr>
             </thead>
             <tbody>

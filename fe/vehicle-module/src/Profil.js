@@ -16,17 +16,19 @@ import { Spiner } from "./ProfilPolja/Editi/Spiner"
 export const Profil = () => {
 
     const [openSec, setOpenSec] = useState("reg")
-
+    const photoContainer = useRef(null)
     const [registracijaAr, setRegistracijaAr] = useState([])
     const [specifikacijaAr, setSpecifikacijaAr] = useState({})
     const [gorivoAr, setGorivoAr] = useState([])
     const [odrzavanjeAr, setOdrzavanjeAr] = useState([])
     const [stetaAr, setStetaAr] = useState([])
     const [istorijaAr, setIstorijaAr] = useState([])
+    const [openSingleImage, setOpenSigleImage] = useState(false)
     const [spinerProfile, setSpinerProfile] = useState(true)
-
+    const [slikaZaModal, setSlikaZaModal] = useState("")
+    const [imageLeft, setImageLeft] = useState(0)
     ///Linija ispod treba da se sredi
-    let { setNewOn,setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
+    let { setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
 
 
@@ -69,21 +71,45 @@ export const Profil = () => {
     }, [])
 
 
-    let [imagesArray, setImagesArray] = useState(["https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg"])
-    let [openImgModal, setOpenImgModal] = useState(false)
+    let [imagesArray, setImagesArray] = useState(["https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg"])
 
-    const SveSlike = () => {
+    const handleSlikaOpen = (link) => {
+        setSlikaZaModal(link)
+        setOpenSigleImage(true)
+        console.log(link)
+    }
+
+
+    const JednaSlika = () => {
         return (
-            <div className="slikeModal"><h1 onClick={() => setOpenImgModal(false)}>X</h1>
-                <div className="allImgContainer" >
-                    {imagesArray.map((item) => <img src={item} alt="slika auta" />)}
-                </div>
+            <div className="img-modal">
+
+                <img src={slikaZaModal} />
+                <div className="close-img" onClick={() => setOpenSigleImage(false)}><h1>X</h1></div>
+
             </div>
         )
     }
 
+    let num = 150 * imagesArray.length
 
-    useEffect(()=>setNewOn(false),[openSec])
+    const handleLeft = () => {
+        if (imageLeft !== 0)
+            setImageLeft(prev => prev + 150)
+
+
+    }
+
+    const handleRight = () => {
+        if ((imageLeft-imageLeft-imageLeft) !== num - 150) {
+            setImageLeft(prev => prev - 150)
+            console.log("imageLeft: "+imageLeft,"num: "+num)
+            console.log(imageLeft-imageLeft-imageLeft , num - 150)
+        }
+    }
+
+    useEffect(() => setNewOn(false), [openSec])
+    useEffect(() => photoContainer.current.style.left = imageLeft + "px", [imageLeft])
 
 
     const sectionCheck = () => {
@@ -109,10 +135,16 @@ export const Profil = () => {
 
     return (
         <div className="profilPage">
+
+            <div className="page-title">
+                <h1>Profil</h1>
+            </div>
+
+
             {spinerProfile && <Spiner />}
-            {openImgModal && <SveSlike />}
+            {openSingleImage && <JednaSlika />}
             <div className="profilMain">
-                <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" alt="slika auta" />
+                <img className="main-pic" src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" alt="slika auta" />
                 <div className="profilDetails">
                     <div className="profilInfo">
                         <h3>Informacije o vozilu</h3>
@@ -127,10 +159,11 @@ export const Profil = () => {
                     </div>
                     <div className="profilImages">
                         <h3>Slike vozila</h3>
-                        <div className="photoContainer">
-                            {imagesArray.map((item,key) => <img key={key} src={item} alt="slika auta" />)}
+                        <i class="fas fa-chevron-left" onClick={handleLeft}></i>
+                        <i class="fas fa-chevron-right" onClick={handleRight}></i>
+                        <div ref={photoContainer} className="photoContainer">
+                            {imagesArray.map((item, key) => <img className="list-img" key={key} onClick={() => handleSlikaOpen(item)} src={item} alt="slika auta" />)}
                         </div>
-                        <p onClick={() => setOpenImgModal(true)}>Pogledaj sve slike</p>
                     </div>
                 </div>
             </div>

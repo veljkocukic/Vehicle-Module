@@ -46,7 +46,7 @@ export const Serviseri = () => {
                 <td>{props.brTelefona}</td>
                 <td>{props.email}</td>
                 <td>{props.website}</td>
-                <td><button className="btn" onClick={() => handleOpen(props.id)} ><i class="fas fa-edit"></i> IZMENI</button><button className="btn del" onClick={() => handleDelete(props.id)}> <i class="far fa-trash-alt"></i> OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleOpen(props.id)} ><i className="fas fa-edit"></i> IZMENI</button><button className="btn del" onClick={() => handleDelete(props.id)}> <i className="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>
         )
 
@@ -71,7 +71,7 @@ export const Serviseri = () => {
                         <th>Br. telefona</th>
                         <th>E-mail</th>
                         <th>Website</th>
-                        <th className="tg-0pky"><button className="editBtn" onClick={() => setNewOn(true)}><i class="fas fa-plus"></i> Novo</button></th>
+                        <th className="tg-0pky"><button className="editBtn" onClick={() => setNewOn(true)}><i className="fas fa-plus"></i> Novo</button></th>
                     </tr>
                 </thead>
                 <tbody>

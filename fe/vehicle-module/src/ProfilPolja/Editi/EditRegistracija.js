@@ -62,46 +62,50 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
 
 
     return (
-        <div class="input--container">
+        <div className="input--container">
             {spinerOn && <Spiner />}
-            <h3 class="input--container__title">Registracija</h3>
-            <div class="form">
+            <h3 className="input--container__title">Registracija</h3>
+            <div className="form">
 
-                <div class="single-input-container">
-                    <label for="datum-registracije" class="standard--label">Datum registracije</label>
-                    <input ref={regDateRef} onChange={e => setDateReg(e.target.value)} type="date" class="standard--input" id="datum-registracije" name="datum-registracije" />
+                <div className="single-input-container">
+                    <label for="datum-registracije" className="standard--label">Datum registracije</label>
+                    <input ref={regDateRef} onChange={e => setDateReg(e.target.value)} type="date" className="standard--input" id="datum-registracije" name="datum-registracije" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="dokumentacija" class="standard--label">Dokumentacija</label>
-                    <input type="text" ref={regDocRef} onChange={(e) => setDocReg(e.target.value)} class="standard--input" id="dokumentacije" name="dokumentacija" />
+
+                <div className="single-input-container">
+                    <label for="troskovi-registracije" className="standard--label">Troškovi registracije</label>
+                    <input type="number" ref={regTrosRef} onChange={(e) => setTroskovi(e.target.value)} className="standard--input" id="troskovi-registracije" name="troskovi-registracije" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="troskovi-registracije" class="standard--label">Troškovi registracije</label>
-                    <input type="number" ref={regTrosRef} onChange={(e) => setTroskovi(e.target.value)} class="standard--input" id="troskovi-registracije" name="troskovi-registracije" />
-                </div>
-
-                <div class="single-input-container">
-                    <label for="registrovao-zaposleni" class="standard--label">Registrovao zaposleni</label>
-                    <input ref={regZapRef}  onChange={(e) => setRegistrovao(e.target.value)} type="text" class="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni"/>
+                <div className="single-input-container">
+                    <label for="registrovao-zaposleni" className="standard--label">Registrovao zaposleni</label>
+                    <input ref={regZapRef}  onChange={(e) => setRegistrovao(e.target.value)} type="text" className="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni"/>
   
                 </div>
 
-                <div class="single-input-container">
-                    <label for="vreme-zaposlenog" class="standard--label">Vreme zaposlenog</label>
-                    <input ref={regTimeRef} onChange={(e) => setTimeZaposleni(e.target.value)} type="text" class="standard--input" id="vreme-zaposlenog" name="vreme-zaposlenog" />
+                <div className="single-input-container">
+                    <label for="vreme-zaposlenog" className="standard--label">Vreme zaposlenog</label>
+                    <input ref={regTimeRef} onChange={(e) => setTimeZaposleni(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog" name="vreme-zaposlenog" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="registrovan-do" class="standard--label">Registrovan do</label>
-                    <input ref={regRegDoRef} onChange={(e) => setRegDo(e.target.value)} type="date" class="standard--input" id="registrovan-do" name="registrovan-do" />
+                <div className="single-input-container">
+                    <label for="registrovan-do" className="standard--label">Registrovan do</label>
+                    <input ref={regRegDoRef} onChange={(e) => setRegDo(e.target.value)} type="date" className="standard--input" id="registrovan-do" name="registrovan-do" />
+                </div>
+
+                <div className="single-input-container">
+                    <label for="dokumentacija" className="standard--label">Dokumentacija</label>
+                    <textarea ref={regDocRef} onChange={(e) => setDocReg(e.target.value)} className="standard--input" id="dokumentacije" name="dokumentacija" ></textarea>
                 </div>
             </div>
 
+            
+
+
             <div className="input--container__btns">
-                <button onClick={() => setOpenRegEdit(false)} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
-                <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
+                <button onClick={() => setOpenRegEdit(false)} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
         </div>

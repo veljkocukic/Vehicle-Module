@@ -16,9 +16,9 @@ export const Sadrzaj = () => {
         <nav>
           <img src="http://cdn.mikroe.com/img/mega-menu/mikroe-timesaving-white.png" alt="logo" />
           <ul>
-            <Link to="/" className="linkHeader"><li><i class="fas fa-car-side hed"></i> <strong>Pregled svih vozila</strong></li></Link>
-            <Link to="/serviseri" className="linkHeader"><li> <i class="fas fa-tools hed "></i> <strong>Serviseri i eksterni saradnici</strong></li></Link>
-            <Link to="/izvestaj" className="linkHeader"><li> <i class="fas fa-file-invoice hed"></i> <strong>Izveštaji</strong></li></Link>
+            <Link to="/" className="linkHeader"><li><i className="fas fa-car-side hed"></i> <strong>Pregled svih vozila</strong></li></Link>
+            <Link to="/serviseri" className="linkHeader"><li> <i className="fas fa-tools hed "></i> <strong>Serviseri i eksterni saradnici</strong></li></Link>
+            <Link to="/izvestaj" className="linkHeader"><li> <i className="fas fa-file-invoice hed"></i> <strong>Izveštaji</strong></li></Link>
           </ul>
         </nav>
       </header>

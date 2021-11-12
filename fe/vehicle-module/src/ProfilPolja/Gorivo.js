@@ -33,7 +33,7 @@ export const Gorivo = ({ gorivoAr }) => {
                 <td>{props.cena}</td>
                 <td>{props.usluga}</td>
                 <td>{props.time}</td>
-                <td><button className="btn" onClick={() => handleOpen(props._id)}><i class="fas fa-edit"></i> IZMENI</button> <button className="btn del" onClick={() => handleDelete(props._id)}> <i class="far fa-trash-alt"></i> OBRIŠI</button></td>
+                <td><button className="btn" onClick={() => handleOpen(props._id)}><i className="fas fa-edit"></i> IZMENI</button> <button className="btn del" onClick={() => handleDelete(props._id)}> <i className="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>)
 
     }
@@ -53,7 +53,7 @@ export const Gorivo = ({ gorivoAr }) => {
                     <th>Cena</th>
                     <th>Usluga zaposlenog</th>
                     <th>Vreme zaposlenog</th>
-                    <th className="tg-0pky"><button className="editBtn" onClick={handleNew}><i class="fas fa-plus"></i> Novo</button></th>
+                    <th className="tg-0pky"><button className="editBtn" onClick={handleNew}><i className="fas fa-plus"></i> Novo</button></th>
                 </tr>
             </thead>
             <tbody>

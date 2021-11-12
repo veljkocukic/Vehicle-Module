@@ -47,11 +47,11 @@ export const Dialog = ({ par, polje }) => {
             {spinerOn && <Spiner />}
             <h4>Brisanje</h4>
             <div className="dialog-txt">
-                <i class="far fa-question-circle"></i> <p>Da li ste sigurni da želite da obrišete izabranu stavku?</p>
+                <i className="far fa-question-circle"></i> <p>Da li ste sigurni da želite da obrišete izabranu stavku?</p>
             </div>
             <div className="dialog-btns">
-                <button className="dialog-btn dYes" onClick={handleDelete}>Da <i class="fas fa-check"></i></button>
-                <button className="dialog-btn dNo" onClick={() => setOpenDialog(false)}>Ne <i class="fas fa-times"></i></button>
+                <button className="dialog-btn dYes" onClick={handleDelete}>Da <i className="fas fa-check"></i></button>
+                <button className="dialog-btn dNo" onClick={() => setOpenDialog(false)}>Ne <i className="fas fa-times"></i></button>
             </div>
         </div>
     )

@@ -23,7 +23,6 @@
 .single-input-container{
   display:flex;
   flex-direction:column;
-  justify-content:space-between;
   min-height:4em;
   width:100%
 }
@@ -63,7 +62,9 @@
 }
 .textarea-specifikacija{
   grid-column: 1 / 3;
-
+}
+.textarea-registracija{
+  grid-column: 1 / 3;
 }
 .form select{
   height:2.5em;
@@ -92,9 +93,9 @@
 }  
  .mainForm{
   grid-template-areas: 
-  ". . ."
-  ". . ."
-  ". . .";
+  ". . . ."
+  ". . . ."
+  ". . . .";
  }
 
 

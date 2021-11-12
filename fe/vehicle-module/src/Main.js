@@ -50,39 +50,39 @@ export const Main = () => {
 
     const Kolona = (props) => {
         return (
-            <div class="single-car-container">
+            <div className="single-car-container">
 
-                <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" class="single-car-container__image" alt="slika auta" />
+                <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" className="single-car-container__image" alt="slika auta" />
 
-                <div class="single-car-container__info">
+                <div className="single-car-container__info">
 
-                    <div class="info-top">
+                    <div className="info-top">
                         <h1>{props.name}</h1>
                         <p>{props.reg}</p>
                         <div>
-                            <div class="info-bottom">
+                            <div className="info-bottom">
 
-                                <div class="info-bottom__item">
+                                <div className="info-bottom__item">
                                     <h5>Korisnik vozila</h5>
                                     <p>{props.uname}</p>
                                 </div>
 
-                                <div class="info-bottom__item">
+                                <div className="info-bottom__item">
                                     <h5>Tip korisnika</h5>
                                     <p>{props.utype}</p>
                                 </div>
 
-                                <div class="info-bottom__item">
+                                <div className="info-bottom__item">
                                     <h5>Isticanje registracije</h5>
                                     <p>{props.expire}</p>
                                 </div>
 
-                                <div class="info-bottom__item">
+                                <div className="info-bottom__item">
                                     <h5>Vozilo aktivno od</h5>
                                     <p>{props.activeFrom}</p>
                                 </div>
 
-                                <div class="info-bottom__item">
+                                <div className="info-bottom__item">
                                     <h5>Vozilo aktivno do</h5>
                                     <p>{props.activeTo}</p>
                                 </div>
@@ -94,7 +94,7 @@ export const Main = () => {
                     </div>
 
                     <div className="single-car-container__buttons">
-                        <button className="car-button" onClick={() => handleEditOn(props.id)}><i class="fa-solid fa-pen-to-square"></i> IZMENI</button>
+                        <button className="car-button" onClick={() => handleEditOn(props.id)}><i className="fa-solid fa-pen-to-square"></i> IZMENI</button>
                         <Link className="car-link" to={`/profil/${props.id}`}><button className="car-button details"> DETALJI</button></Link>
                     </div>
                 </div>
@@ -105,7 +105,7 @@ export const Main = () => {
     return (
         <div className="all-cars">
             <div className="page-title">
-                <h1>Prikaz svih vozila</h1>
+                <h1>Pregled svih vozila</h1>
                 <button className="car-button car-title" onClick={() => setNewOn(true)} >+ NOVO VOZILO</button>
             </div>
             {spinerMain && <Spiner />}

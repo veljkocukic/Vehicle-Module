@@ -34,7 +34,7 @@ export const Odrzavanje = ({ odrzavanjeAr }) => {
                 <td>{props.total}</td>
                 <td>{props.user}</td>
                 <td>{props.time}</td>
-                <td><button className="btn " onClick={() => handleOpen(props._id)}><i class="fas fa-edit"></i> IZEMNI</button><button className="btn del" onClick={()=>handleDelete(props._id)}><i class="far fa-trash-alt"></i>  OBRIŠI</button></td>
+                <td><button className="btn " onClick={() => handleOpen(props._id)}><i className="fas fa-edit"></i> IZEMNI</button><button className="btn del" onClick={()=>handleDelete(props._id)}><i className="far fa-trash-alt"></i>  OBRIŠI</button></td>
             </tr>
         )
 
@@ -52,7 +52,7 @@ export const Odrzavanje = ({ odrzavanjeAr }) => {
                     <th>Ukupan trošak</th>
                     <th>Usluga zaposlenog</th>
                     <th>Vreme zaposlenog (min.) </th>
-                    <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i class="fas fa-plus"></i> Novo</button></th>
+                    <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i className="fas fa-plus"></i> Novo</button></th>
                 </tr>
             </thead>
             <tbody>

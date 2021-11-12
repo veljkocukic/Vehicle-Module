@@ -131,42 +131,42 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
 
     return (
 
-        <div class="input--container">
+        <div className="input--container">
             {spinerOn && <Spiner />}
-            <h3 class="input--container__title">Izmena vozila</h3>
-            <form class="form">
-                <div class="single-input-container">
-                    <label for="marka-tip" class="standard--label">Marka i tip</label>
-                    <input ref={markaRef} onChange={e => setMarka(e.target.value)} type="text" class="standard--input" id="marka-tip" name="marka-tip" />
+            <h3 className="input--container__title">Izmena vozila</h3>
+            <form className="form">
+                <div className="single-input-container">
+                    <label for="marka-tip" className="standard--label">Marka i tip</label>
+                    <input ref={markaRef} onChange={e => setMarka(e.target.value)} type="text" className="standard--input" id="marka-tip" name="marka-tip" />
                 </div>
 
 
-                <div class="single-input-container">
-                    <label for="registracioni-broj" class="standard--label">Registracioni broj</label>
-                    <input ref={regBrRef} onChange={e => setRegBr(e.target.value)} type="text" class="standard--input" id="registracioni-broj" name="registracioni-broj" />
+                <div className="single-input-container">
+                    <label for="registracioni-broj" className="standard--label">Registracioni broj</label>
+                    <input ref={regBrRef} onChange={e => setRegBr(e.target.value)} type="text" className="standard--input" id="registracioni-broj" name="registracioni-broj" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="tip-korisnika" class="standard--label">Tip korisnika</label>
-                    <select onChange={handleChange} ref={tipKorRef} class="standard--input" id="tip-korisnika" name="tip-korisnika">
+                <div className="single-input-container">
+                    <label for="tip-korisnika" className="standard--label">Tip korisnika</label>
+                    <select onChange={handleChange} ref={tipKorRef} className="standard--input" id="tip-korisnika" name="tip-korisnika">
                         <option>Zaposleni</option>
                         <option>Druga lica</option>
                     </select>
                 </div>
 
-                <div class="single-input-container">
-                    <label for="korisnik-vozila" class="standard--label">Korisnik vozila</label>
-                    {zaposleni ? <ZaposleniLista /> : <input type="text" class="standard--input" id="korisnik-vozila" name="korisnik-vozila" onChange={(e) => { setKorisnikMn(e.target.value) }} ref={korVozRef} />}
+                <div className="single-input-container">
+                    <label for="korisnik-vozila" className="standard--label">Korisnik vozila</label>
+                    {zaposleni ? <ZaposleniLista /> : <input type="text" className="standard--input" id="korisnik-vozila" name="korisnik-vozila" onChange={(e) => { setKorisnikMn(e.target.value) }} ref={korVozRef} />}
                 </div>
 
-                <div class="single-input-container">
-                    <label for="aktivno-od" class="standard--label">Vozilo aktivno od</label>
-                    <input ref={activeFromRef} onChange={e => setAktivnoOd(e.target.value)} type="date" class="standard--input" id="aktivno-od" name="aktivno-od" />
+                <div className="single-input-container">
+                    <label for="aktivno-od" className="standard--label">Vozilo aktivno od</label>
+                    <input ref={activeFromRef} onChange={e => setAktivnoOd(e.target.value)} type="date" className="standard--input" id="aktivno-od" name="aktivno-od" />
                 </div>
 
-                <div class="single-input-container">
-                    <label for="aktivno-od" class="standard--label">Vozilo aktivno do </label>
-                    <input ref={activeToRef} onChange={e => setAktivnoDo(e.target.value)} type="date" class="standard--input" id="aktivno-do" name="aktivno-do" />
+                <div className="single-input-container">
+                    <label for="aktivno-od" className="standard--label">Vozilo aktivno do </label>
+                    <input ref={activeToRef} onChange={e => setAktivnoDo(e.target.value)} type="date" className="standard--input" id="aktivno-do" name="aktivno-do" />
                 </div>
 
 
@@ -174,8 +174,8 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
             </form>
 
             <div className="input--container__btns">
-                <button onClick={handleCancel} className="btn no"><i class="far fa-times-circle"></i> OTKAŽI</button>
-                <button className="btn yes" onClick={handleSubmit}><i class="far fa-save"></i> SAČUVAJ</button>
+                <button onClick={handleCancel} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
+                <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
