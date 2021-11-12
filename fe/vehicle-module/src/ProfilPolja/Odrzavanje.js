@@ -45,6 +45,9 @@ export const Odrzavanje = ({ odrzavanjeAr }) => {
             {openOdrEdit && <EditOdrzavanje odrzavanjeAr={odrzavanjeAr} />}
             <thead>
                 <tr>
+                    <th colSpan="8" >Održavanje</th>
+                </tr>
+                <tr className="head-table">
                     <th>Tip</th>
                     <th>Datum</th>
                     <th>Kilometraža</th>

@@ -28,6 +28,8 @@ export const NovoOdrzavanje = ({ newC }) => {
                 setValid(true)
                 setSpinerOn(false)
                 setNewOn(false)
+                window.location.reload()
+
             }).catch(err => {
                 setSpinerOn(false)
                 console.log(err)

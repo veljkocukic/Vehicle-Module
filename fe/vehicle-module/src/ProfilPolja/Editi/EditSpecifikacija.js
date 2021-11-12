@@ -46,6 +46,7 @@ export const EditSpecifikacija = () => {
                 setValid(true)
                 setSpinerOn(false)
                 setOpenSpecEdit(false)
+                window.location.reload()
             }).catch(er => {
                 setSpinerOn(false)
                 console.log(er)

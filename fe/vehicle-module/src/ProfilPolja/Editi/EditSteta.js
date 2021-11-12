@@ -52,7 +52,7 @@ export const EditSteta = ({ stetaAr }) => {
                 setOpenDmgEdit(false)
                 setValid(true)
                 setSpinerOn(false)
-                console.log(res.data)
+                window.location.reload()
             }).catch(err => {
                 setSpinerOn(false)
                 console.log(err)

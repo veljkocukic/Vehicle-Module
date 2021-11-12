@@ -9,6 +9,11 @@ export const Specifikacija = ({ specifikacijaAr }) => {
     return (
         <table className="tg">
             {openSpecEdit && <EditSpecifikacija />}
+            <thead>
+                <tr>
+                    <th colSpan="4" >Specifikacija</th>
+                </tr>
+            </thead>
             <tbody>
                 <tr><td className="specTd" >Br. šasije</td><td>{specifikacijaAr.brSasije}</td><td className="specTd" >Br. motora</td><td>{specifikacijaAr.brMotora}</td></tr>
                 <tr><td className="specTd" >Godište</td><td>{specifikacijaAr.godiste}</td><td className="specTd" >Boja</td><td>{specifikacijaAr.boja}</td></tr>

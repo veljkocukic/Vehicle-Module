@@ -22,6 +22,9 @@ export const Istorija = () => {
         <table className="tg">
             <thead>
                 <tr>
+                    <th colSpan="3" >Istorija</th>
+                </tr>
+                <tr className="head-table">
                     <th>Operater</th>
                     <th>Izmena</th>
                     <th>Promena kreirana</th>

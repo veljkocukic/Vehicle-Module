@@ -69,6 +69,7 @@ export const EditServis = ({ serviseriAr }) => {
                 setValid(true)
                 setSpinerOn(false)
                 setOpenServEdit(false)
+                window.location.reload()
 
             }).catch(er => {
                 setSpinerOn(false)

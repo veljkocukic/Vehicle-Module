@@ -25,6 +25,7 @@ export const NovoServiseri = () => {
                 setValid(true)
                 setSpinerOn(false)
                 setNewOn(false)
+                window.location.reload()
 
             }).catch(er => {
                 setSpinerOn(false)

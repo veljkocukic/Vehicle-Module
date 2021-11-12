@@ -89,6 +89,7 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
             setSpinerOn(false)
             setEditOn(false)
             setValid(true)
+            window.location.reload()
         } else {
             setValid(false)
             setSpinerOn(false)

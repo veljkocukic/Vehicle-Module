@@ -45,6 +45,9 @@ export const Steta = ({ stetaAr }) => {
             {openDmgEdit && <EditSteta stetaAr={stetaAr} />}
             <thead>
                 <tr>
+                    <th colSpan="8" >Šteta</th>
+                </tr>
+                <tr className="head-table">
                     <th>Opis štete</th>
                     <th>Štetu pokriva</th>
                     <th>Datum</th>

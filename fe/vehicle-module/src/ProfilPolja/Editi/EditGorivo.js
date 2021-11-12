@@ -53,6 +53,7 @@ export const EditGorivo = ({ gorivoAr }) => {
                 setValid(true)
                 setSpinerOn(false)
                 setOpenFuelEdit(false)
+                window.location.reload()
             }).catch(er => {
                 setSpinerOn(false)
                 console.log(er)})

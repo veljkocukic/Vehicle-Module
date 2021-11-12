@@ -46,6 +46,9 @@ export const Gorivo = ({ gorivoAr }) => {
             {openFuelEdit && <EditGorivo gorivoAr={gorivoAr} />}
             <thead>
                 <tr>
+                    <th colSpan="8" >Gorivo i tekući troškovi</th>
+                </tr>
+                <tr className="head-table">
                     <th>Tip</th>
                     <th>Datum</th>
                     <th>Kilometraža</th>

@@ -29,6 +29,7 @@ export const NovoRegistracija = ({ newC }) => {
                 setSpinerOn(false)
                 setValid(true)
                 setNewOn(false)
+                window.location.reload()
             }).catch(er => {
                 setSpinerOn(false)
                 alert(er)

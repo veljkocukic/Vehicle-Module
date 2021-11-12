@@ -52,7 +52,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
                 setValid(true)
                 setSpinerOn(false)
                 setOpenOdrEdit(false)
-                console.log(res)
+                window.location.reload()
             }).catch(err => {
                 setSpinerOn(false)
                 console.log(err)})

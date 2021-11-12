@@ -15,20 +15,15 @@ import { Spiner } from "./ProfilPolja/Editi/Spiner"
 
 export const Profil = () => {
 
-    const [openSec, setOpenSec] = useState("reg")
+
     const photoContainer = useRef(null)
-    const [registracijaAr, setRegistracijaAr] = useState([])
-    const [specifikacijaAr, setSpecifikacijaAr] = useState({})
-    const [gorivoAr, setGorivoAr] = useState([])
-    const [odrzavanjeAr, setOdrzavanjeAr] = useState([])
-    const [stetaAr, setStetaAr] = useState([])
-    const [istorijaAr, setIstorijaAr] = useState([])
+    
     const [openSingleImage, setOpenSigleImage] = useState(false)
     const [spinerProfile, setSpinerProfile] = useState(true)
     const [slikaZaModal, setSlikaZaModal] = useState("")
     const [imageLeft, setImageLeft] = useState(0)
     ///Linija ispod treba da se sredi
-    let { setAktivnoDo,aktivnoDo,setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
+    let {  openSec,setOpenSec,registracijaAr, setRegistracijaAr,specifikacijaAr, setSpecifikacijaAr,gorivoAr, setGorivoAr,odrzavanjeAr, setOdrzavanjeAr,stetaAr, setStetaAr,istorijaAr, setIstorijaAr,setAktivnoDo,aktivnoDo,setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
 
 
@@ -67,7 +62,7 @@ export const Profil = () => {
             console.log(er)
             setSpinerProfile(false)
         })
-
+        setOpenSec(localStorage.getItem("section"))
 
     }, [])
 
@@ -112,7 +107,15 @@ export const Profil = () => {
     useEffect(() => setNewOn(false), [openSec])
     useEffect(() => photoContainer.current.style.left = imageLeft + "px", [imageLeft])
 
+    const handleSec=(sec)=>{
 
+        setOpenSec(sec)
+        localStorage.setItem("section",sec)
+
+    }
+
+
+    
     const sectionCheck = () => {
 
         switch (openSec) {
@@ -129,7 +132,7 @@ export const Profil = () => {
             case "ist":
                 return <Istorija />
             default:
-                return
+                return <Registracija registracijaAr={registracijaAr} carId={carId} />
         }
     }
 
@@ -172,12 +175,12 @@ export const Profil = () => {
             <div className="profilTable">
 
                 <ul>
-                    <li onClick={() => setOpenSec("reg")}>Registracija</li>
-                    <li onClick={() => setOpenSec("spec")} >Specifikacija vozila</li>
-                    <li onClick={() => setOpenSec("fuel")}>Gorivo i tekući troškovi</li>
-                    <li onClick={() => setOpenSec("odr")}>Održavanje</li>
-                    <li onClick={() => setOpenSec("dmg")}>Šteta</li>
-                    <li onClick={() => setOpenSec("ist")}>Istorija promena</li>
+                    <li onClick={() => handleSec("reg")}>Registracija</li>
+                    <li onClick={() => handleSec("spec")} >Specifikacija vozila</li>
+                    <li onClick={() => handleSec("fuel")}>Gorivo i tekući troškovi</li>
+                    <li onClick={() => handleSec("odr")}>Održavanje</li>
+                    <li onClick={() => handleSec("dmg")}>Šteta</li>
+                    <li onClick={() => handleSec("ist")}>Istorija promena</li>
                 </ul>
                 {sectionCheck()}
 

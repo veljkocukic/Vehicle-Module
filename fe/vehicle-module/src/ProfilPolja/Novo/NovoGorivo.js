@@ -28,6 +28,7 @@ export const NovoGorivo = ({ newC }) => {
                 setNewOn(false)
                 setValid(true)
                 setSpinerOn(false)
+                window.location.reload()
             }).catch(er => {
                 setSpinerOn(false)
                 console.log(er)

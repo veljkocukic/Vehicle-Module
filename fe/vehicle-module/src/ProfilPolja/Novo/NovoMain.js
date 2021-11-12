@@ -46,6 +46,8 @@ export const NovoMain = ({  setEditOn }) => {
             setEditOn(false)
             setValid(true)
             setNewOn(false)
+            window.location.reload()
+
         } else {
             setValid(false)
             setSpinerOn(false)

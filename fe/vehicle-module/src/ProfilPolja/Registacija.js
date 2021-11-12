@@ -43,7 +43,9 @@ export const Registracija = ({ registracijaAr }) => {
 
             <thead>
                 <tr>
-
+                    <th colSpan="7" >Registracija</th>
+                </tr>
+                <tr className="head-table" >
                     <th>Datum registracije</th>
                     <th>Dokumentacija</th>
                     <th>Troškovi registracije</th>

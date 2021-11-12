@@ -49,6 +49,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
                 setSpinerOn(false)
                 setValid(true)
                 setOpenRegEdit(false)
+                window.location.reload()
             }).catch(er => {
                 setSpinerOn(false)
                 console.log(carId)
