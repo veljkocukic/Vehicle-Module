@@ -130,7 +130,7 @@ export let MainProvider = (props) => {
     return date + "."
   }
   let verReg = (inp) => {
-    const regex = /.{2}-[0-9]{3,5}-[A-Z]{2}/gm;
+    const regex = /[A-Z ŠĐČĆ]{2}-[0-9]{3,5}-[A-Z]{2}/gm;
     try {
         return inp.match(regex)[0] === inp
     } catch (error) {
