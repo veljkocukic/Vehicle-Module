@@ -50,6 +50,7 @@ export const NovoServiseri = () => {
         setSiteS("")
         setAdresaS("")
         setNewOn(false)
+        setValid(true)
     }
 
 

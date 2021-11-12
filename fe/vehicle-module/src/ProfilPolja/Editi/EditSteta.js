@@ -41,6 +41,7 @@ export const EditSteta = ({ stetaAr }) => {
     }, [])
 
     const handleSubmit = () => {
+        setSpinerOn(true)
         let verifyDesc = desc.length > 2
         let verifyDate = date !== 0
         let verifyParts = parts.length > 2

@@ -60,6 +60,12 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
     }
 
 
+    const handleCancel = () =>{
+
+        setValid(true)
+        setOpenRegEdit(false)
+
+    }
 
     return (
         <div className="input--container">
@@ -104,7 +110,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
 
 
             <div className="input--container__btns">
-                <button onClick={() => setOpenRegEdit(false)} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
+                <button onClick={handleCancel} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
                 <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}

@@ -2,26 +2,13 @@ import React, { useState, useEffect, useRef, useContext } from "react"
 import { DataContext } from "../../Context"
 import axios from "axios"
 import { Spiner } from "../Editi/Spiner"
-export const NovoMain = ({ zaposleniLista, setEditOn }) => {
+import { ZaposleniLista } from "./ZaposleniLista"
+export const NovoMain = ({  setEditOn }) => {
 
 
     let { verReg, sasija, docume, setDocume, cenaVoz, setCenaVoz, dateKup, setDateKup, boja, setBoja, godiste, setGodiste, motor, setMotor, setSasija, sasijaverReg, valid, setValid, setNewOn, id, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd,setOpenRegEdit, formatDateEdit,  dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
     let [zaposleni, setZaposleni] = useState(true)
-    const ZaposleniLista = () => {
 
-        const handleC = (e) => {
-            setKorisnikMn(e.target.value)
-            console.log(e.target.value)
-            console.log(korisnikMn)
-
-        }
-
-        return (
-            <select onChange={(e) => handleC(e)}>
-                {zaposleniLista.map(item => <option value={item.ime}>{item.ime}</option>)}
-            </select>
-        )
-    }
 
     let handleSubmit = async () => {
         setSpinerOn(true)

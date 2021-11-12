@@ -12,6 +12,7 @@ export const NovoSteta = () => {
     let { carId } = useParams()
 
     const handleSubmit = async () => {
+        setSpinerOn(true)
         let verifyDesc = desc.length > 2
         let verifyDate = date !== 0
         let verifyParts = parts.length > 2

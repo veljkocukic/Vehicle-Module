@@ -10,9 +10,8 @@ import { NovoMain } from "./ProfilPolja/Novo/NovoMain";
 
 
 export const Main = () => {
-    let { newOn, setNewOn, spinerOn, setSpinerOn, id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef, formatDate, verDate } = useContext(DataContext)
+    let { zaposleniLista,setZaposleniLista,newOn, setNewOn, spinerOn, setSpinerOn, id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef, formatDate, verDate } = useContext(DataContext)
     let [vozila, setVozila] = useState([])
-    let [zaposleniLista, setZaposleniLista] = useState([])
     let zaposleniSelect = useRef(null)
     let [spinerMain, setSpimerMain] = useState(true)
 

@@ -54,6 +54,7 @@ export const EditSpecifikacija = () => {
         } else {
             setValid(false)
             setSpinerOn(false)
+            console.log(verifySasija, verifyMotor , verifyGodiste , verifyBoja , verifyDateKup , verifyCenaVoz , verifyDocume)
         }
     }
 

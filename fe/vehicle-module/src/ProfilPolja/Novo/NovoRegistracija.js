@@ -40,6 +40,12 @@ export const NovoRegistracija = ({ newC }) => {
         }
     }
 
+    const handleCancel=()=>{
+
+        setValid(true)
+        setNewOn(false)
+    }
+
     return (
         <div class={newC ? "input-contaier newC" : "input--container"}>
             {spinerOn && <Spiner />}
@@ -82,7 +88,7 @@ export const NovoRegistracija = ({ newC }) => {
             </div>
 
             <div className="input--container__btns">
-                <button onClick={() => setNewOn(false)} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
+                <button onClick={handleCancel} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
                 <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>
 

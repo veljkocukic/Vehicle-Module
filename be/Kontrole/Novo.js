@@ -99,7 +99,7 @@ const NovoOdrzavanje = async (req, res) => {
     }
 }
 
-const NovoSteta = async () => {
+const NovoSteta = async (req,res) => {
     try {
 
         const steta = await CarsModel.findById(req.params.carId)
@@ -114,6 +114,7 @@ const NovoSteta = async () => {
             vremeZaposlenog: req.body.time
         }
         steta.stetaPolje.push(newR)
+        steta.save()
         res.send("success")
 
 

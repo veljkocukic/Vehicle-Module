@@ -53,6 +53,7 @@ export const EditServis = ({ serviseriAr }) => {
         setSiteS("")
         setAdresaS("")
         setOpenServEdit(false)
+        setValid(true)
     }
 
 

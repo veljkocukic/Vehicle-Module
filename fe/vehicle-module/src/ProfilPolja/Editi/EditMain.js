@@ -2,27 +2,12 @@ import React, { useState, useEffect, useRef, useContext } from "react"
 import axios from "axios"
 import { DataContext } from "../../Context"
 import { Spiner } from "./Spiner"
-
+import { ZaposleniLista } from "../Novo/ZaposleniLista"
 export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vozila, zaposleniSelect, markaRef, regBrRef, activeFromRef, korVozRef }) => {
 
 
     let { verReg, valid, setValid, setNewOn, id, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd } = useContext(DataContext)
 
-    const ZaposleniLista = () => {
-
-        const handleC = (e) => {
-            setKorisnikMn(e.target.value)
-            console.log(e.target.value)
-            console.log(korisnikMn)
-
-        }
-
-        return (
-            <select ref={zaposleniSelect} onChange={(e) => handleC(e)}>
-                {zaposleniLista.map(item => <option value={item.ime}>{item.ime}</option>)}
-            </select>
-        )
-    }
 
     let [zaposleni, setZaposleni] = useState(true)
 

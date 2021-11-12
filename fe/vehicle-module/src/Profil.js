@@ -28,7 +28,7 @@ export const Profil = () => {
     const [slikaZaModal, setSlikaZaModal] = useState("")
     const [imageLeft, setImageLeft] = useState(0)
     ///Linija ispod treba da se sredi
-    let { setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
+    let { setAktivnoDo,aktivnoDo,setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
 
 
@@ -49,6 +49,7 @@ export const Profil = () => {
                 setMarka(res.data.car.markaTip)
                 setKorisnikMn(res.data.car.korisnikVoz)
                 setAktivnoOd(res.data.car.activeFrom)
+                setAktivnoDo(res.data.car.activeTo)
                 setRegDo(regPo[regPo.length - 1].registrovanDo)
 
                 setSasija(res.data.car.specifikacijaPolje.brSasije)
@@ -149,11 +150,11 @@ export const Profil = () => {
                     <div className="profilInfo">
                         <h3>Informacije o vozilu</h3>
                         <table>
-                            <tr className="detailsTr"><td><strong>Marka i tip </strong></td> <td>{marka}</td></tr>
-                            <tr className="detailsTr"><td><strong>Registrovan do </strong></td> <td>{formatDate(regDo)}</td></tr>
-                            <tr className="detailsTr"><td><strong>Korisnik vozila </strong> </td> <td>{korisnikMn}</td></tr>
-                            <tr className="detailsTr"><td><strong>Aktivno od </strong></td> <td>{formatDate(aktivnoOd)}</td></tr>
-                            <tr className="detailsTr"><td><strong>Do </strong></td> <td>/</td></tr>
+                            <tr className="detailsTr"><td>Marka i tip </td> <td><strong>{marka}</strong></td></tr>
+                            <tr className="detailsTr"><td>Registrovan do </td> <td><strong>{formatDate(regDo)}</strong></td></tr>
+                            <tr className="detailsTr"><td>Korisnik vozila  </td> <td><strong>{korisnikMn}</strong></td></tr>
+                            <tr className="detailsTr"><td>Aktivno od </td> <td><strong>{formatDate(aktivnoOd)}</strong></td></tr>
+                            <tr className="detailsTr"><td>Do </td> <td><strong>{formatDate(aktivnoDo)}</strong></td></tr>
 
                         </table>
                     </div>
