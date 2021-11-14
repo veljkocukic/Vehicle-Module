@@ -152,8 +152,6 @@ const NovoServiseri = async (req, res) => {
 
 const NovoMain = async (req, res) => {
     try {
-
-        console.log(req.body.file)
         let newAr = {
             markaTip: req.body.marka,
             registracioniBroj: req.body.regBr,

@@ -276,7 +276,6 @@ const ServiseriEdit = async (req, res) => {
 
         serv.save()
         res.send("success")
-        console.log(req.body)
 
 
 

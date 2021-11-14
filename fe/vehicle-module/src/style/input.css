@@ -41,7 +41,7 @@
   inset 2px 2px 2px -1px rgba(0,0,0,0.1);
 }
 
-/* .file-input__label::after
+.file-input__label::after{
 height: 2.5em;
 background-color: #0079c0;
 content:"BIRANJE SLIKA";
@@ -54,37 +54,11 @@ cursor: pointer;
 transition: .4s ease;
 -webkit-box-shadow: 2px 2px 5px -1px rgba(0,0,0,0.22); 
 box-shadow: 3px 3px 5px -3px rgba(0,0,0,0.12),
-inset 2px 2px 2px -1px rgba(0,0,0,0.1);
-} */
+inset 2px 2px 2px -1px rgba(0,0,0,0.1);}
+
 
 .file-input__label:hover::after{
   background-color: #015688;
-}
-
-input[type="file"]{
-  position: relative;
-  height: 2.5rem;
-  opacity: 1;
-}
-
-input[type="file"]::after{
-position: absolute;
-width: 100% !important;
-height: 100% !important;
-top:0;
-left:0;
-background-color: #0079c0;
-content:"BIRANJE SLIKA";
-color:white;
-width: auto;
-display: flex;
-justify-content: center;
-align-items: center;
-cursor: pointer;
-transition: .4s ease;
--webkit-box-shadow: 2px 2px 5px -1px rgba(0,0,0,0.22); 
-box-shadow: 3px 3px 5px -3px rgba(0,0,0,0.12),
-inset 2px 2px 2px -1px rgba(0,0,0,0.1);
 }
 
 .file-input{

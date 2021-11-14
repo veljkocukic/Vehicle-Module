@@ -9,7 +9,7 @@ export const NovoMain = ({ setEditOn }) => {
 
     let { verReg, sasija, docume, setDocume, cenaVoz, setCenaVoz, dateKup, setDateKup, boja, setBoja, godiste, setGodiste, motor, setMotor, setSasija, sasijaverReg, valid, setValid, setNewOn, id, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd, setOpenRegEdit, formatDateEdit, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
     let [zaposleni, setZaposleni] = useState(true)
-    let [file, setFile] = useState(null)
+    let [file, setFile] = useState([])
 
 
     let handleSubmit = async () => {
@@ -83,10 +83,22 @@ export const NovoMain = ({ setEditOn }) => {
             setTypeMn("Druga lica")
         }
     }
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
 
     const handleFile = (img) => {
-        console.log(img)
-        setFile(img)
+        for (let a of img) {
+            getBase64(a).then(data => {
+                setFile(prev => [...prev, data])
+            })
+        }
         console.log(file)
     }
 
@@ -202,7 +214,7 @@ export const NovoMain = ({ setEditOn }) => {
 
                 <div className="single-input-container">
                     <label for="slike" className="standard--label file-input__label">Slike vozila</label>
-                    <FileBase multiple={true} onDone={({ base64 }) => handleFile(base64)} />
+                    <input type="file" className="file-input" id="slike" multiple onChange={(e) => handleFile(e.target.files)} />
                 </div>
             </form>
 
