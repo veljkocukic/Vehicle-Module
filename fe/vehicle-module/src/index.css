@@ -236,6 +236,10 @@ thead tr{
   color: #101010 ;
   margin-top:5px;
   }
+
+  .del:hover{
+    background-color: rgb(161, 161, 161) !important;
+    }
   
 .spec{
   width: 100% !important;
