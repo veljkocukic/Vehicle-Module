@@ -3,11 +3,13 @@ import { DataContext } from "../../Context"
 import axios from "axios"
 import { Spiner } from "../Editi/Spiner"
 import { ZaposleniLista } from "./ZaposleniLista"
-export const NovoMain = ({  setEditOn }) => {
+import FileBase from "react-file-base64"
+export const NovoMain = ({ setEditOn }) => {
 
 
-    let { verReg, sasija, docume, setDocume, cenaVoz, setCenaVoz, dateKup, setDateKup, boja, setBoja, godiste, setGodiste, motor, setMotor, setSasija, sasijaverReg, valid, setValid, setNewOn, id, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd,setOpenRegEdit, formatDateEdit,  dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
+    let { verReg, sasija, docume, setDocume, cenaVoz, setCenaVoz, dateKup, setDateKup, boja, setBoja, godiste, setGodiste, motor, setMotor, setSasija, sasijaverReg, valid, setValid, setNewOn, id, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd, setOpenRegEdit, formatDateEdit, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
     let [zaposleni, setZaposleni] = useState(true)
+    let [file, setFile] = useState(null)
 
 
     let handleSubmit = async () => {
@@ -37,7 +39,7 @@ export const NovoMain = ({  setEditOn }) => {
 
         if (cond) {
             await axios.post("http://localhost:5000/api/v1/main", {
-                id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo, sasija, motor, godiste, boja, dateKup, cenaVoz, docume
+                id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo, sasija, motor, godiste, boja, dateKup, cenaVoz, docume, file
 
             })
                 .then(() => setSpinerOn(false))
@@ -46,8 +48,7 @@ export const NovoMain = ({  setEditOn }) => {
             setEditOn(false)
             setValid(true)
             setNewOn(false)
-            window.location.reload()
-
+            console.log(file)
         } else {
             setValid(false)
             setSpinerOn(false)
@@ -83,12 +84,17 @@ export const NovoMain = ({  setEditOn }) => {
         }
     }
 
+    const handleFile = (img) => {
+        console.log(img)
+        setFile(img)
+        console.log(file)
+    }
 
     return (
         <div className="input--container">
             {spinerOn && <Spiner />}
             <h3 className="input--container__title">Novo vozilo</h3>
-            <form className="form mainForm">
+            <form className="form mainForm" enctype="multipart/form-data">
                 <div className="single-input-container">
                     <label for="marka-tip" className="standard--label">Marka i tip</label>
                     <input onChange={e => setMarka(e.target.value)} type="text" className="standard--input" id="marka-tip" name="marka-tip" />
@@ -188,10 +194,15 @@ export const NovoMain = ({  setEditOn }) => {
                     <textarea onChange={(e) => setDocume(e.target.value)} className="standard--input" id="dokumentacija" name="dokumentacija" />
                 </div>
 
-                
+
                 <div className="single-input-container">
                     <label for="dokumentacija" className="standard--label">Dokumentacija registracije</label>
                     <textarea onChange={(e) => setDocReg(e.target.value)} className="standard--input" id="dokumentacije" name="dokumentacija" ></textarea>
+                </div>
+
+                <div className="single-input-container">
+                    <label for="slike" className="standard--label file-input__label">Slike vozila</label>
+                    <FileBase multiple={true} onDone={({ base64 }) => handleFile(base64)} />
                 </div>
             </form>
 
@@ -199,7 +210,6 @@ export const NovoMain = ({  setEditOn }) => {
                 <button onClick={handleCancel} className="btn no"><i className="far fa-times-circle"></i> OTKAŽI</button>
                 <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>
-
 
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}

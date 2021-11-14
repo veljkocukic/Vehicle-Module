@@ -1,5 +1,6 @@
 let { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel } = require("../Modeli/Podaci")
 
+
 function form(e) {
     if (e < 10) {
         let arr = []
@@ -99,7 +100,7 @@ const NovoOdrzavanje = async (req, res) => {
     }
 }
 
-const NovoSteta = async (req,res) => {
+const NovoSteta = async (req, res) => {
     try {
 
         const steta = await CarsModel.findById(req.params.carId)
@@ -152,6 +153,7 @@ const NovoServiseri = async (req, res) => {
 const NovoMain = async (req, res) => {
     try {
 
+        console.log(req.body.file)
         let newAr = {
             markaTip: req.body.marka,
             registracioniBroj: req.body.regBr,
@@ -168,8 +170,8 @@ const NovoMain = async (req, res) => {
                 datumKupovine: req.body.dateKup,
                 cenaVozila: req.body.cenaVoz,
                 dokumentacija: req.body.docume
-            }
-
+            },
+            slike: req.body.file
 
         }
 
@@ -180,4 +182,6 @@ const NovoMain = async (req, res) => {
         console.log(error)
     }
 }
+
+
 module.exports = { NovoRegistracija, NovoGorivo, NovoOdrzavanje, NovoSteta, NovoServiseri, NovoMain }
