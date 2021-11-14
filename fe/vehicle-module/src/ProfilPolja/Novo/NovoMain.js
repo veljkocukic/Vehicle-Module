@@ -202,14 +202,14 @@ export const NovoMain = ({ setEditOn }) => {
 
 
                 <div className="single-input-container">
-                    <label for="dokumentacija" className="standard--label">Dokumentacija vozila</label>
-                    <textarea onChange={(e) => setDocume(e.target.value)} className="standard--input" id="dokumentacija" name="dokumentacija" />
+                    <label for="dokumentacija-vozila" className="standard--label">Dokumentacija vozila</label>
+                    <textarea onChange={(e) => setDocume(e.target.value)} className="standard--input" id="dokumentacija-vozila" name="dokumentacija-vozila" />
                 </div>
 
 
                 <div className="single-input-container">
-                    <label for="dokumentacija" className="standard--label">Dokumentacija registracije</label>
-                    <textarea onChange={(e) => setDocReg(e.target.value)} className="standard--input" id="dokumentacije" name="dokumentacija" ></textarea>
+                    <label for="dokumentacija-registracije" className="standard--label">Dokumentacija registracije</label>
+                    <textarea onChange={(e) => setDocReg(e.target.value)} className="standard--input" id="dokumentacija-registracije" name="dokumentacija-registracije" ></textarea>
                 </div>
 
                 <div className="single-input-container">
