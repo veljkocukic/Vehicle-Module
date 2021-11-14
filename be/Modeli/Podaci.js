@@ -4,7 +4,7 @@ let mongoose = require("mongoose")
 
 
 const RegistracijaSchema = new mongoose.Schema({
-    _id: {type:mongoose.Types.ObjectId,auto:true},
+    _id: { type: mongoose.Types.ObjectId, auto: true },
     datumRegistracije: { type: Date, required: true },
     dokumentacija: { type: String, required: true },
     troskoviRegistracije: { type: Number, required: true },
@@ -24,19 +24,19 @@ const SpecifikacijaSchema = new mongoose.Schema({
 })
 
 const GorivoSchema = new mongoose.Schema({
-    _id: {type:mongoose.Types.ObjectId,auto:true},
+    _id: { type: mongoose.Types.ObjectId, auto: true },
     tip: { type: String, required: true },
-    datum: { type: Date},
+    datum: { type: Date },
     kilometraza: { type: Number, required: true },
     potrosnja: { type: Number, default: 0 },
     cena: { type: Number, required: true },
     uslugaZaposlenog: { type: String, default: "/" },
-    vremeZaposlenog: { type: String, required:true }
+    vremeZaposlenog: { type: String, required: true }
 })
 
 
 const OdrzavanjeSchema = new mongoose.Schema({
-    _id: {type:mongoose.Types.ObjectId,auto:true},
+    _id: { type: mongoose.Types.ObjectId, auto: true },
     tip: { type: String, required: true },
     datum: { type: Date, required: true },
     ukupanTrosak: { type: Number, required: true },
@@ -48,7 +48,7 @@ const OdrzavanjeSchema = new mongoose.Schema({
 
 
 const StetaSchema = new mongoose.Schema({
-    _id: {type:mongoose.Types.ObjectId,auto:true},
+    _id: { type: mongoose.Types.ObjectId, auto: true },
     opisStete: { type: String, required: true },
     stetuPokriva: { type: String, required: true },
     datum: { type: Date, required: true },
@@ -78,18 +78,19 @@ const CarsSchema = new mongoose.Schema({
     gorivoPolje: [GorivoSchema],
     odrzavanjePolje: [OdrzavanjeSchema],
     stetaPolje: [StetaSchema],
-    istorijaPolje: [IstorijaSchema]
+    istorijaPolje: [IstorijaSchema],
+    slike: []
 })
 
 const ServiseriSchema = new mongoose.Schema({
     sifraKlijenta: { type: String, required: true },
     nazivFirme: { type: String, required: true },
     tipUsluge: { type: String, required: true },
-    kontakt: { type: String},
-    adresa: { type: String},
-    brTelefona: { type: String},
-    email: { type: String},
-    website: { type: String}
+    kontakt: { type: String },
+    adresa: { type: String },
+    brTelefona: { type: String },
+    email: { type: String },
+    website: { type: String }
 })
 
 

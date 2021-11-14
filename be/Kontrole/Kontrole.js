@@ -1,5 +1,7 @@
 let { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel } = require("../Modeli/Podaci")
 
+
+
 function form(e) {
     if (e < 10) {
         let arr = []
@@ -32,11 +34,11 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
             let isticanje
             let isticanjeEdit
             try {
-                 isticanje= formatDate(a.registracijaPolje[a.registracijaPolje.length - 1].registrovanDo)
-                 isticanjeEdit =  formatDateEdit(a.registracijaPolje[a.registracijaPolje.length - 1].registrovanDo)
+                isticanje = formatDate(a.registracijaPolje[a.registracijaPolje.length - 1].registrovanDo)
+                isticanjeEdit = formatDateEdit(a.registracijaPolje[a.registracijaPolje.length - 1].registrovanDo)
             } catch (error) {
-             isticanje=""
-             isticanjeEdit=""   
+                isticanje = ""
+                isticanjeEdit = ""
             }
 
 
@@ -48,7 +50,7 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
                 activeFrom: formatDate(a.activeFrom),
                 activeFromEdit: formatDateEdit(a.activeFrom),
                 tipKorisnika: a.tipKorisnika,
-                activeTo:formatDate(a.activeTo),
+                activeTo: formatDate(a.activeTo),
                 activeToEdit: formatDateEdit(a.activeTo),
                 isticanje,
                 isticanjeEdit
@@ -274,7 +276,6 @@ const ServiseriEdit = async (req, res) => {
 
         serv.save()
         res.send("success")
-        console.log(req.body)
 
 
 
