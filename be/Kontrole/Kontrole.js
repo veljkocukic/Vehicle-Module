@@ -16,7 +16,7 @@ function form(e) {
 
 let formatDate = (dt) => { ///////////// Vreme za tabele
     let date = new Date(dt)
-    return  date.getDay()+"."+date.getMonth()+"."+date.getFullYear()+"."
+    return  date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear()+"."
 }
 
 let formatDateEdit = (dt) => { ////////////////////// Vreme za unos

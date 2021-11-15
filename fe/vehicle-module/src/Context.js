@@ -128,7 +128,7 @@ export let MainProvider = (props) => {
   let formatDate = (dt) => { ///////////// Vreme za tabele
     //let date = new Date(dt).toLocaleDateString().replaceAll("/", ".")   ///<------------------------------------- Ne prikazuje nas format
     let date = new Date(dt)
-    return  date.getDay()+"."+date.getMonth()+"."+date.getFullYear()+"."
+    return  date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear()+"."
   }
   let verReg = (inp) => {
     const regex = /[A-Z ŠĐČĆ]{2}-[0-9]{3,5}-[A-Z]{2}/gm;
