@@ -209,7 +209,7 @@ export const NovoMain = ({ setEditOn }) => {
                 
 
                 <div className="single-input-container">
-                    <label for="slike" className="standard--label file-input__label">Slike vozila <span>*</span></label>
+                    <label for="slike" className="standard--label file-input__label">Slike vozila</label>
                     <input type="file" className="file-input" id="slike" multiple onChange={(e) => handleFile(e.target.files)} />
                 </div>
             </form>
