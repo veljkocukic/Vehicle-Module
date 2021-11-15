@@ -87,7 +87,7 @@ export const EditGorivo = ({ gorivoAr }) => {
             <div className="form">
 
                 <div className="single-input-container">
-                    <label for="tip-gorivo" className="standard--label">Tip</label>
+                    <label for="tip-gorivo" className="standard--label">Tip <span>*</span></label>
                     <select ref={tipRef} onChange={e => setType(e.target.value)} className="standard--input" id="tip-gorivo" name="tip-gorivo" >
                         <option>Gorivo</option>
                         <option>Tag</option>
@@ -96,23 +96,23 @@ export const EditGorivo = ({ gorivoAr }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-gorivo" className="standard--label">Datum</label>
+                    <label for="datum-gorivo" className="standard--label">Datum <span>*</span></label>
                     <input ref={datumRef} type="date" onChange={(e) => setDateFuel(e.target.value)} className="standard--input" id="datum-gorivo" name="datum-gorivo" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="kilometraza-gorivo" className="standard--label">Kilometraža</label>
+                    <label for="kilometraza-gorivo" className="standard--label">Kilometraža <span>*</span></label>
                     <input ref={kmRef} type="number" onChange={(e) => setKmFuel(e.target.value)} className="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="potrosnja-gorivo" className="standard--label"> Potrošnja</label>
+                    <label for="potrosnja-gorivo" className="standard--label"> Potrošnja <span color="grey">*</span></label>
                     <input ref={potrosnjaRef} onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo"/>
   
                 </div>
 
                 <div className="single-input-container">
-                    <label for="cena-gorivo" className="standard--label">Cena</label>
+                    <label for="cena-gorivo" className="standard--label">Cena <span>*</span></label>
                     <input ref={cenaRef} onChange={(e) => setPriceFuel(e.target.value)} type="number" className="standard--input" id="cena-gorivo" name="cena-gorivo" />
                 </div>
 

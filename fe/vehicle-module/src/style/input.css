@@ -24,7 +24,7 @@
   display:flex;
   flex-direction:column;
   min-height:4em;
-  width:100%
+  width:102%
 }
 
 
@@ -45,6 +45,7 @@
 height: 2.5em;
 background-color: #0079c0;
 content:"BIRANJE SLIKA";
+font-weight: bold;
 color:white;
 width: auto;
 display: flex;
@@ -120,6 +121,9 @@ inset 2px 2px 2px -1px rgba(0,0,0,0.1);}
 }  
  .mainForm{
   grid-template-areas: 
+  ". . . ."
+  ". . . ."
+  ". . . ."
   ". . . ."
   ". . . ."
   ". . . .";

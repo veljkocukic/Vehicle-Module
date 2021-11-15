@@ -64,12 +64,12 @@ export const NovoSteta = () => {
             <div className="form">
 
                 <div className="single-input-container">
-                    <label for="opis-steta" className="standard--label">Opis štete</label>
+                    <label for="opis-steta" className="standard--label">Opis štete <span>*</span> </label>
                     <input type="text" onChange={(e) => setDesc(e.target.value)} className="standard--input" id="opis-steta" name="opis-steta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="steta-pokriva" className="standard--label">Štetu pokriva</label>
+                    <label for="steta-pokriva" className="standard--label">Štetu pokriva <span>*</span></label>
                     <select onChange={e => setPokriva(e.target.value)} className="standard--input" id="steta-pokriva" name="steta-pokriva" >
                         <option>Zaposleni</option>
                         <option>Fima</option>
@@ -79,18 +79,18 @@ export const NovoSteta = () => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-steta" className="standard--label">Datum</label>
+                    <label for="datum-steta" className="standard--label">Datum <span>*</span></label>
                     <input type="date" onChange={(e) => setDate(e.target.value)} className="standard--input" id="datum-steta" name="datum-steta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="delovi-steta" className="standard--label"> Delovi/Usluga</label>
+                    <label for="delovi-steta" className="standard--label"> Delovi/Usluga <span>*</span></label>
                     <input onChange={(e) => setParts(e.target.value)} type="text" className="standard--input" id="delovi-steta" name="delovi-steta" />
 
                 </div>
 
                 <div className="single-input-container">
-                    <label for="trosak-steta" className="standard--label">Ukupan trošak</label>
+                    <label for="trosak-steta" className="standard--label">Ukupan trošak <span>*</span></label>
                     <input onChange={(e) => setTotal(e.target.value)} type="number" className="standard--input" id="trosak-steta" name="trosak-steta" />
                 </div>
 

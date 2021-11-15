@@ -54,34 +54,34 @@ export const NovoRegistracija = ({ newC }) => {
             <div className="form">
 
                 <div className="single-input-container">
-                    <label for="datum-registracije" className="standard--label">Datum registracije</label>
+                    <label for="datum-registracije" className="standard--label">Datum registracije <span>*</span></label>
                     <input onChange={e => setDateReg(e.target.value)} type="date" className="standard--input" id="datum-registracije" name="datum-registracije" />
                 </div>
 
 
                 <div className="single-input-container">
-                    <label for="troskovi-registracije" className="standard--label">Troškovi registracije</label>
+                    <label for="troskovi-registracije" className="standard--label">Troškovi registracije <span>*</span></label>
                     <input type="number" onChange={(e) => setTroskovi(e.target.value)} className="standard--input" id="troskovi-registracije" name="troskovi-registracije" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="registrovao-zaposleni" className="standard--label">Registrovao zaposleni</label>
+                    <label for="registrovao-zaposleni" className="standard--label">Registrovao zaposleni <span>*</span></label>
                     <input onChange={(e) => setRegistrovao(e.target.value)} type="text" className="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni" />
 
                 </div>
 
                 <div className="single-input-container">
-                    <label for="vreme-zaposlenog" className="standard--label">Vreme zaposlenog</label>
+                    <label for="vreme-zaposlenog" className="standard--label">Vreme zaposlenog <span>*</span></label>
                     <input onChange={(e) => setTimeZaposleni(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog" name="vreme-zaposlenog" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="registrovan-do" className="standard--label">Registrovan do</label>
+                    <label for="registrovan-do" className="standard--label">Registrovan do <span>*</span></label>
                     <input onChange={(e) => setRegDo(e.target.value)} type="date" className="standard--input" id="registrovan-do" name="registrovan-do" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="dokumentacija" className="standard--label">Dokumentacija</label>
+                    <label for="dokumentacija" className="standard--label">Dokumentacija <span>*</span></label>
                     <textarea onChange={(e) => setDocReg(e.target.value)} className="standard--input" id="dokumentacije" name="dokumentacija" ></textarea>
                 </div>
 

@@ -16,7 +16,6 @@ export const NovoMain = ({ setEditOn }) => {
         let verifyMarka = marka.length > 2
         let verifyReg = verReg(regBr)
         let verifyKorisnik = korisnikMn.length > 2
-
         let verifyActiveFrom = verDate(aktivnoOd)
         //let verifyActiveTo = verDate(aktivnoDo)
         let verifyRazlika = aktivnoDo!==0 ? aktivnoDo > aktivnoOd : true
@@ -82,7 +81,7 @@ export const NovoMain = ({ setEditOn }) => {
             setTypeMn("Druga lica")
         }
     }
-    function getBase64(file) {
+    function getBase64(file) {         ///////////PRIVREMENO REŠENJE
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -106,18 +105,18 @@ export const NovoMain = ({ setEditOn }) => {
             <h3 className="input--container__title">Novo vozilo</h3>
             <form className="form mainForm" enctype="multipart/form-data">
                 <div className="single-input-container">
-                    <label for="marka-tip" className="standard--label">Marka i tip</label>
+                    <label for="marka-tip" className="standard--label">Marka i tip <span>*</span></label>
                     <input onChange={e => setMarka(e.target.value)} type="text" className="standard--input" id="marka-tip" name="marka-tip" />
                 </div>
 
 
                 <div className="single-input-container">
-                    <label for="registracioni-broj" className="standard--label">Registracioni broj</label>
+                    <label for="registracioni-broj" className="standard--label">Registracioni broj <span>*</span></label>
                     <input onChange={e => setRegBr(e.target.value)} type="text" className="standard--input" id="registracioni-broj" name="registracioni-broj" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="tip-korisnika" className="standard--label">Tip korisnika</label>
+                    <label for="tip-korisnika" className="standard--label">Tip korisnika <span>*</span></label>
                     <select onChange={handleChange} className="standard--input" id="tip-korisnika" name="tip-korisnika">
                         <option>Zaposleni</option>
                         <option>Druga lica</option>
@@ -125,12 +124,12 @@ export const NovoMain = ({ setEditOn }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="korisnik-vozila" className="standard--label">Korisnik vozila</label>
+                    <label for="korisnik-vozila" className="standard--label">Korisnik vozila <span>*</span></label>
                     {zaposleni ? <ZaposleniLista /> : <input type="text" className="standard--input" id="korisnik-vozila" name="korisnik-vozila" onChange={(e) => { setKorisnikMn(e.target.value) }} />}
                 </div>
 
                 <div className="single-input-container">
-                    <label for="aktivno-od" className="standard--label">Vozilo aktivno od</label>
+                    <label for="aktivno-od" className="standard--label">Vozilo aktivno od <span>*</span></label>
                     <input onChange={e => setAktivnoOd(e.target.value)} type="date" className="standard--input" id="aktivno-od" name="aktivno-od" />
                 </div>
 
@@ -140,63 +139,56 @@ export const NovoMain = ({ setEditOn }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="broj-sasije" className="standard--label">Broj šasije</label>
+                    <label for="broj-sasije" className="standard--label">Broj šasije <span>*</span></label>
                     <input type="text" onChange={(e) => setSasija(e.target.value)} className="standard--input" id="broj-sasije" name="broj-sasije" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="broj-motora" className="standard--label">Broj motora</label>
+                    <label for="broj-motora" className="standard--label">Broj motora <span>*</span></label>
                     <input type="text" onChange={e => setMotor(e.target.value)} className="standard--input" id="broj-motora" name="broj-motora" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="godiste" className="standard--label">Godište</label>
+                    <label for="godiste" className="standard--label">Godište <span>*</span></label>
                     <input type="number" onChange={(e) => setGodiste(e.target.value)} className="standard--input" id="godiste" name="godiste" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="boja" className="standard--label">Boja</label>
+                    <label for="boja" className="standard--label">Boja <span>*</span></label>
                     <input onChange={(e) => setBoja(e.target.value)} type="text" className="standard--input" id="boja" name="boja" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-kupovine" className="standard--label">Datum kupovine</label>
+                    <label for="datum-kupovine" className="standard--label">Datum kupovine <span>*</span></label>
                     <input onChange={(e) => setDateKup(e.target.value)} type="date" className="standard--input" id="datum-kupovine" name="datum-kupovine" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="cena-vozila" className="standard--label">Cena vozila</label>
+                    <label for="cena-vozila" className="standard--label">Cena vozila <span>*</span></label>
                     <input onChange={(e) => setCenaVoz(e.target.value)} type="number" className="standard--input" id="cena-vozila" name="cena-vozila" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-registracije" className="standard--label">Datum registracije</label>
+                    <label for="datum-registracije" className="standard--label">Datum registracije <span>*</span></label>
                     <input onChange={e => setDateReg(e.target.value)} type="date" className="standard--input" id="datum-registracije" name="datum-registracije" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="registrovan-do" className="standard--label">Registrovan do</label>
+                    <label for="registrovan-do" className="standard--label">Registrovan do <span>*</span></label>
                     <input onChange={(e) => setRegDo(e.target.value)} type="date" className="standard--input" id="registrovan-do" name="registrovan-do" />
                 </div>
 
 
                 <div className="single-input-container">
-                    <label for="troskovi-registracije" className="standard--label">Troškovi registracije</label>
+                    <label for="troskovi-registracije" className="standard--label">Troškovi registracije <span>*</span></label>
                     <input type="number" onChange={(e) => setTroskovi(e.target.value)} className="standard--input" id="troskovi-registracije" name="troskovi-registracije" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="registrovao-zaposleni" className="standard--label">Registrovao zaposleni</label>
+                    <label for="registrovao-zaposleni" className="standard--label">Registrovao zaposleni <span>*</span></label>
                     <input onChange={(e) => setRegistrovao(e.target.value)} type="text" className="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni" />
 
                 </div>
-
-                <div className="single-input-container">
-                    <label for="vreme-zaposlenog" className="standard--label">Vreme zaposlenog (reg.)</label>
-                    <input onChange={(e) => setTimeZaposleni(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog" name="vreme-zaposlenog" />
-                </div>
-
-
 
 
                 <div className="single-input-container">
@@ -206,12 +198,18 @@ export const NovoMain = ({ setEditOn }) => {
 
 
                 <div className="single-input-container">
-                    <label for="dokumentacija-registracije" className="standard--label">Dokumentacija registracije</label>
+                    <label for="dokumentacija-registracije" className="standard--label">Dokumentacija registracije<span>*</span></label>
                     <textarea onChange={(e) => setDocReg(e.target.value)} className="standard--input" id="dokumentacija-registracije" name="dokumentacija-registracije" ></textarea>
                 </div>
 
                 <div className="single-input-container">
-                    <label for="slike" className="standard--label file-input__label">Slike vozila</label>
+                    <label for="vreme-zaposlenog" className="standard--label">Vreme zaposlenog (reg.) <span>*</span></label>
+                    <input onChange={(e) => setTimeZaposleni(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog" name="vreme-zaposlenog" />
+                </div>
+                
+
+                <div className="single-input-container">
+                    <label for="slike" className="standard--label file-input__label">Slike vozila <span>*</span></label>
                     <input type="file" className="file-input" id="slike" multiple onChange={(e) => handleFile(e.target.files)} />
                 </div>
             </form>

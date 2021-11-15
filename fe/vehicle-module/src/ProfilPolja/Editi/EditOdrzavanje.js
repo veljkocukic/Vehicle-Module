@@ -83,7 +83,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
             <div className="form">
 
                 <div className="single-input-container">
-                    <label for="tip-odrzavanje" className="standard--label">Tip</label>
+                    <label for="tip-odrzavanje" className="standard--label">Tip <span>*</span></label>
                     <select ref={tipRef}onChange={e => setTypeOdr(e.target.value)} className="standard--input" id="tip-odrzavanje" name="tip-odrzavanje" >
                         <option>Redovno</option>
                         <option>Vanredno</option>
@@ -93,23 +93,23 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-odrzavanje" className="standard--label">Datum</label>
+                    <label for="datum-odrzavanje" className="standard--label">Datum <span>*</span></label>
                     <input ref={dateRef} type="date" onChange={(e) => setDateOdr(e.target.value)} className="standard--input" id="datum-odrzavanje" name="datum-odrzavanje" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="kilometraza-odrzavanje" className="standard--label">Kilometraža</label>
+                    <label for="kilometraza-odrzavanje" className="standard--label">Kilometraža <span>*</span></label>
                     <input ref={kmRef} type="number" onChange={(e) => setKmOdr(e.target.value)} className="standard--input" id="kilometraza-odrzavanje" name="kilometraza-odrzavanje" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="delovi-odrzavanje" className="standard--label"> Delovi/Usluga</label>
+                    <label for="delovi-odrzavanje" className="standard--label"> Delovi/Usluga <span>*</span></label>
                     <input ref={partsRef} onChange={(e) => setPartsOdr(e.target.value)} type="text" className="standard--input" id="delovi-odrzavanje" name="delovi-odrzavanje"/>
   
                 </div>
 
                 <div className="single-input-container">
-                    <label for="trosak-odrzavanje" className="standard--label">Ukupan trošak</label>
+                    <label for="trosak-odrzavanje" className="standard--label">Ukupan trošak <span>*</span></label>
                     <input ref={totalRef} onChange={(e) => setTotalOdr(e.target.value)} type="number" className="standard--input" id="trosak-odrzavanje" name="trosak-odrzavanje" />
                 </div>
 

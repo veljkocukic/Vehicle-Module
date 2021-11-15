@@ -76,23 +76,23 @@ export const NovoGorivo = ({ newC }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-gorivo" className="standard--label">Datum</label>
+                    <label for="datum-gorivo" className="standard--label">Datum <span>*</span> </label>
                     <input type="date" onChange={(e) => setDateFuel(e.target.value)} className="standard--input" id="datum-gorivo" name="datum-gorivo" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="kilometraza-gorivo" className="standard--label">Kilometraža</label>
+                    <label for="kilometraza-gorivo" className="standard--label">Kilometraža <span>*</span></label>
                     <input type="number" onChange={(e) => setKmFuel(e.target.value)} className="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="potrosnja-gorivo" className="standard--label"> Potrošnja</label>
+                    <label for="potrosnja-gorivo" className="standard--label"> Potrošnja <span>*</span></label>
                     <input onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo" />
 
                 </div>
 
                 <div className="single-input-container">
-                    <label for="cena-gorivo" className="standard--label">Cena</label>
+                    <label for="cena-gorivo" className="standard--label">Cena <span>*</span></label>
                     <input onChange={(e) => setPriceFuel(e.target.value)} type="number" className="standard--input" id="cena-gorivo" name="cena-gorivo" />
                 </div>
 

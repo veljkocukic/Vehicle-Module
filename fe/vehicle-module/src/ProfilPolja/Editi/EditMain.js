@@ -77,9 +77,9 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
         let verifyReg = verReg(regBr)
         let verifyKorisnik = korisnikMn.length > 2
         let verifyActiveFrom = verDate(aktivnoOd)
-        let verifyActiveTo = verDate(aktivnoDo)
-        let verifyRazlika = new Date(aktivnoDo) > new Date(aktivnoOd)
-        if (verifyMarka && verifyReg && verifyKorisnik && verifyActiveFrom && verifyActiveTo && verifyRazlika) {
+        //let verifyActiveTo = verDate(aktivnoDo)
+        let verifyRazlika = aktivnoDo!==0 ? aktivnoDo > aktivnoOd : true
+        if (verifyMarka && verifyReg && verifyKorisnik && verifyActiveFrom && verifyRazlika) {
             await axios.patch("http://localhost:5000/api/v1/main", {
                 id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo
 
@@ -93,7 +93,7 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
         } else {
             setValid(false)
             setSpinerOn(false)
-            console.log(verifyMarka, verifyReg, verifyKorisnik, verifyActiveFrom, verifyActiveTo, verifyRazlika)
+            console.log(verifyMarka, verifyReg, verifyKorisnik, verifyActiveFrom, verifyRazlika)
             console.log(aktivnoOd)
             console.log(aktivnoDo)
 
@@ -122,18 +122,18 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
             <h3 className="input--container__title">Izmena vozila</h3>
             <form className="form">
                 <div className="single-input-container">
-                    <label for="marka-tip" className="standard--label">Marka i tip</label>
+                    <label for="marka-tip" className="standard--label">Marka i tip <span>*</span></label>
                     <input ref={markaRef} onChange={e => setMarka(e.target.value)} type="text" className="standard--input" id="marka-tip" name="marka-tip" />
                 </div>
 
 
                 <div className="single-input-container">
-                    <label for="registracioni-broj" className="standard--label">Registracioni broj</label>
+                    <label for="registracioni-broj" className="standard--label">Registracioni broj <span>*</span></label>
                     <input ref={regBrRef} onChange={e => setRegBr(e.target.value)} type="text" className="standard--input" id="registracioni-broj" name="registracioni-broj" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="tip-korisnika" className="standard--label">Tip korisnika</label>
+                    <label for="tip-korisnika" className="standard--label">Tip korisnika <span>*</span></label>
                     <select onChange={handleChange} ref={tipKorRef} className="standard--input" id="tip-korisnika" name="tip-korisnika">
                         <option>Zaposleni</option>
                         <option>Druga lica</option>
@@ -141,12 +141,12 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
                 </div>
 
                 <div className="single-input-container">
-                    <label for="korisnik-vozila" className="standard--label">Korisnik vozila</label>
+                    <label for="korisnik-vozila" className="standard--label">Korisnik vozila <span>*</span></label>
                     {zaposleni ? <ZaposleniLista /> : <input type="text" className="standard--input" id="korisnik-vozila" name="korisnik-vozila" onChange={(e) => { setKorisnikMn(e.target.value) }} ref={korVozRef} />}
                 </div>
 
                 <div className="single-input-container">
-                    <label for="aktivno-od" className="standard--label">Vozilo aktivno od</label>
+                    <label for="aktivno-od" className="standard--label">Vozilo aktivno od <span>*</span></label>
                     <input ref={activeFromRef} onChange={e => setAktivnoOd(e.target.value)} type="date" className="standard--input" id="aktivno-od" name="aktivno-od" />
                 </div>
 

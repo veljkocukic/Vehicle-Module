@@ -65,7 +65,7 @@ export const NovoOdrzavanje = ({ newC }) => {
             <div className={newC ? "from newF" : "form"}>
 
                 <div className="single-input-container">
-                    <label for="tip-odrzavanje" className="standard--label">Tip</label>
+                    <label for="tip-odrzavanje" className="standard--label">Tip <span>*</span></label>
                     <select onChange={e => setTypeOdr(e.target.value)} className="standard--input" id="tip-odrzavanje" name="tip-odrzavanje" >
                         <option>Redovno</option>
                         <option>Vanredno</option>
@@ -75,33 +75,33 @@ export const NovoOdrzavanje = ({ newC }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-odrzavanje" className="standard--label">Datum</label>
+                    <label for="datum-odrzavanje" className="standard--label">Datum <span>*</span></label>
                     <input type="date" onChange={(e) => setDateOdr(e.target.value)} className="standard--input" id="datum-odrzavanje" name="datum-odrzavanje" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="kilometraza-odrzavanje" className="standard--label">Kilometraža</label>
+                    <label for="kilometraza-odrzavanje" className="standard--label">Kilometraža <span>*</span></label>
                     <input type="number" onChange={(e) => setKmOdr(e.target.value)} className="standard--input" id="kilometraza-odrzavanje" name="kilometraza-odrzavanje" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="delovi-odrzavanje" className="standard--label"> Delovi/Usluga</label>
+                    <label for="delovi-odrzavanje" className="standard--label"> Delovi/Usluga <span>*</span></label>
                     <input onChange={(e) => setPartsOdr(e.target.value)} type="text" className="standard--input" id="delovi-odrzavanje" name="delovi-odrzavanje" />
 
                 </div>
 
                 <div className="single-input-container">
-                    <label for="trosak-odrzavanje" className="standard--label">Ukupan trošak</label>
+                    <label for="trosak-odrzavanje" className="standard--label">Ukupan trošak <span>*</span></label>
                     <input onChange={(e) => setTotalOdr(e.target.value)} type="number" className="standard--input" id="trosak-odrzavanje" name="trosak-odrzavanje" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="usluga-zaposlenog-odrzavanje" className="standard--label">Usluga zaposlenog</label>
+                    <label for="usluga-zaposlenog-odrzavanje" className="standard--label">Usluga zaposlenog <span>*</span></label>
                     <input onChange={(e) => setUslugaOdr(e.target.value)} type="text" className="standard--input" id="usluga-zaposlenog-gorivo" name="usluga-zaposlenog-gorivo" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="vreme-zaposlenog-odrzavanje" className="standard--label">Vreme zaposlenog</label>
+                    <label for="vreme-zaposlenog-odrzavanje" className="standard--label">Vreme zaposlenog <span>*</span></label>
                     <input onChange={(e) => setTimeOdr(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog-odrzavanje" name="vreme-zaposlenog-odrzavanje" />
                 </div>
             </div>

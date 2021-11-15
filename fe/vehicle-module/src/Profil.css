@@ -83,6 +83,7 @@
 }
 
 .photoContainer img {
+  max-height: 60% !important;
   width:150px;
   margin-left: 1em;
   margin-right: 1em;
@@ -213,4 +214,8 @@
 
 .fa-chevron-right{
   right: 0em;
+}
+
+span{
+  color:crimson;
 }
