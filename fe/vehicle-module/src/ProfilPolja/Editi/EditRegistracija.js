@@ -57,6 +57,8 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
         } else {
             setValid(false)
             setSpinerOn(false)
+            console.log(regDo)
+            console.log(verifyDate , verifyDoc , verifyTroskovi , verifyReg , verifyTime , verifyDo)
         }
     }
 
