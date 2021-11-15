@@ -50,8 +50,8 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
                 activeFrom: formatDate(a.activeFrom),
                 activeFromEdit: formatDateEdit(a.activeFrom),
                 tipKorisnika: a.tipKorisnika,
-                activeTo: formatDate(a.activeTo),
-                activeToEdit: formatDateEdit(a.activeTo),
+                activeTo: new Date(a.activeTo).getFullYear()!==1970 ? formatDate(a.activeTo) : "",
+                activeToEdit: new Date(a.activeTo).getFullYear()!==1970 ? formatDateEdit(a.activeTo) : "",
                 isticanje,
                 isticanjeEdit,
                 slike: a.slike

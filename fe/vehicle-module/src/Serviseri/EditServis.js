@@ -34,11 +34,11 @@ export const EditServis = ({ serviseriAr }) => {
         sifraRef.current.value = serv.sifraKlijenta
         nazivRef.current.value = serv.nazivFirme
         tipRef.current.value = serv.tipUsluge
-        kontaktRef.current.value = serv.kontakt
-        telRef.current.value = serv.brTelefona
-        emailRef.current.value = serv.email
-        siteRef.current.value = serv.website
-        adresaRef.current.value = serv.adresa
+        kontaktRef.current.value = serv.kontakt || ""
+        telRef.current.value = serv.brTelefona || ""
+        emailRef.current.value = serv.email || ""
+        siteRef.current.value = serv.website || "" 
+        adresaRef.current.value = serv.adresa || ""
 
     }, [])
 
@@ -88,7 +88,7 @@ export const EditServis = ({ serviseriAr }) => {
     return (
         <div className="input--container">
             {spinerOn && <Spiner />}
-            <h3 className="input--container__title">Održavanje</h3>
+            <h3 className="input--container__title">Serviseri i ekstreni saradnici</h3>
             <div className="form">
 
 

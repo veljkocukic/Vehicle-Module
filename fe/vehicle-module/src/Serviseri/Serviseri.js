@@ -41,11 +41,11 @@ export const Serviseri = () => {
                 <td>{props.sifraKlijenta}</td>
                 <td>{props.nazivFirme}</td>
                 <td>{props.tipUsluge}</td>
-                <td>{props.kontakt}</td>
-                <td>{props.adresa}</td>
-                <td>{props.brTelefona}</td>
-                <td>{props.email}</td>
-                <td>{props.website}</td>
+                <td>{props.kontakt || "/"}</td>
+                <td>{props.adresa || "/"}</td>
+                <td>{props.brTelefona || "/"}</td>
+                <td>{props.email || "/"}</td>
+                <td>{props.website || "/"}</td>
                 <td><button className="btn" onClick={() => handleOpen(props.id)} ><i className="fas fa-edit"></i> IZMENI</button><button className="btn del" onClick={() => handleDelete(props.id)}> <i className="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>
         )

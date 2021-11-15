@@ -88,7 +88,7 @@ export const Main = () => {
 
                                 <div className="info-bottom__item">
                                     <h5>Vozilo aktivno do</h5>
-                                    <p>{props.activeTo}</p>
+                                    <p>{props.activeTo || "/" }</p>
                                 </div>
 
                             </div>

@@ -16,16 +16,17 @@ export const NovoMain = ({ setEditOn }) => {
         let verifyMarka = marka.length > 2
         let verifyReg = verReg(regBr)
         let verifyKorisnik = korisnikMn.length > 2
+
         let verifyActiveFrom = verDate(aktivnoOd)
-        let verifyActiveTo = verDate(aktivnoDo)
-        let verifyRazlika = aktivnoDo > aktivnoOd
+        //let verifyActiveTo = verDate(aktivnoDo)
+        let verifyRazlika = aktivnoDo!==0 ? aktivnoDo > aktivnoOd : true
         let verifySasija = sasija.length > 10
         let verifyMotor = motor.length > 4
         let verifyGodiste = godiste > 1950
         let verifyBoja = boja.length > 2
         let verifyDateKup = verDate(dateKup)
         let verifyCenaVoz = cenaVoz > 0
-        let verifyDocume = docume.length > 5
+        // let verifyDocume = docume.length > 5
         let verifyDate = verDate(dateReg)
         let verifyDoc = docReg.length > 2
         let verifyTroskovi = troskovi > 2
@@ -34,7 +35,7 @@ export const NovoMain = ({ setEditOn }) => {
         let verifyDo = verDate(regDo)
 
 
-        let cond = verifySasija && verifyMotor && verifyGodiste && verifyBoja && verifyDateKup && verifyCenaVoz && verifyDocume && verifyMarka && verifyRegistrovao && verifyKorisnik && verifyActiveFrom && verifyActiveTo && verifyRazlika && verifyDate && verifyDoc && verifyTroskovi && verifyReg && verifyTime && verifyDo
+        let cond = verifySasija && verifyMotor && verifyGodiste && verifyBoja && verifyDateKup && verifyCenaVoz && verifyMarka && verifyRegistrovao && verifyKorisnik && verifyActiveFrom && verifyRazlika && verifyDate && verifyDoc && verifyTroskovi && verifyReg && verifyTime && verifyDo
 
         if (cond) {
             await axios.post("http://localhost:5000/api/v1/main", {
@@ -51,8 +52,7 @@ export const NovoMain = ({ setEditOn }) => {
         } else {
             setValid(false)
             setSpinerOn(false)
-            console.log(verifyMarka, verifyReg, verifyKorisnik, verifyActiveFrom, verifyActiveTo, verifyRazlika)
-            console.log(korisnikMn)
+            console.log(verifySasija , verifyMotor , verifyGodiste , verifyBoja , verifyDateKup , verifyCenaVoz , verifyMarka , verifyRegistrovao , verifyKorisnik , verifyActiveFrom , verifyRazlika , verifyDate , verifyDoc , verifyTroskovi , verifyReg , verifyTime , verifyDo)
         }
 
 

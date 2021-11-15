@@ -39,8 +39,8 @@ export const EditSpecifikacija = () => {
         let verifyBoja = boja.length > 2
         let verifyDateKup = verDate(dateKup)
         let verifyCenaVoz = cenaVoz > 0
-        let verifyDocume = docume.length > 5
-        if (verifySasija && verifyMotor && verifyGodiste && verifyBoja && verifyDateKup && verifyCenaVoz && verifyDocume) {
+        //let verifyDocume = docume.length > 5
+        if (verifySasija && verifyMotor && verifyGodiste && verifyBoja && verifyDateKup && verifyCenaVoz) {
             axios.patch("http://localhost:5000/api/v1/specifikacija/" + carId, { sasija, motor, godiste, boja, dateKup, cenaVoz, docume }).then(res => {
                 console.log(res)
                 setValid(true)
@@ -55,7 +55,6 @@ export const EditSpecifikacija = () => {
         } else {
             setValid(false)
             setSpinerOn(false)
-            console.log(verifySasija, verifyMotor , verifyGodiste , verifyBoja , verifyDateKup , verifyCenaVoz , verifyDocume)
         }
     }
 

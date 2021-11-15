@@ -32,8 +32,8 @@ export const Steta = ({ stetaAr }) => {
                 <td>{formatDate(props.date)}</td>
                 <td>{props.part}</td>
                 <td>{props.total}</td>
-                <td>{props.user}</td>
-                <td>{props.time}</td>
+                <td>{props.user || "/"}</td>
+                <td>{props.time || "/"}</td>
                 <td><button className="btn" onClick={() => handleOpen(props._id)}><i className="fas fa-edit"></i>IZEMNI</button><button className="btn del" onClick={()=>handleDelete(props._id)}><i className="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>
         )

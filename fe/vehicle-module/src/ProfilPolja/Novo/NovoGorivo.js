@@ -67,7 +67,7 @@ export const NovoGorivo = ({ newC }) => {
             <div class={newC ? "from newF" : "form"}>
 
                 <div className="single-input-container">
-                    <label for="tip-gorivo" className="standard--label">Tip</label>
+                    <label for="tip-gorivo" className="standard--label">Tip <span>*</span></label>
                     <select onChange={e => setType(e.target.value)} className="standard--input" id="tip-gorivo" name="tip-gorivo" >
                         <option>Gorivo</option>
                         <option>Tag</option>
