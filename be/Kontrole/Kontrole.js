@@ -15,8 +15,8 @@ function form(e) {
 
 
 let formatDate = (dt) => { ///////////// Vreme za tabele
-    let date = new Date(dt).toLocaleDateString().replaceAll("/", ".")   ///<------------------------------------- Ne prikazuje nas format
-    return date + "."
+    let date = new Date(dt)
+    return  date.getDay()+"."+date.getMonth()+"."+date.getFullYear()+"."
 }
 
 let formatDateEdit = (dt) => { ////////////////////// Vreme za unos
