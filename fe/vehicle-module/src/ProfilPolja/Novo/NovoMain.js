@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef, useContext } from "react"
+import React, { useState, useContext } from "react"
 import { DataContext } from "../../Context"
 import axios from "axios"
 import { Spiner } from "../Editi/Spiner"
 import { ZaposleniLista } from "./ZaposleniLista"
-import FileBase from "react-file-base64"
 export const NovoMain = ({ setEditOn }) => {
 
 
@@ -39,7 +38,7 @@ export const NovoMain = ({ setEditOn }) => {
 
         if (cond) {
             await axios.post("http://localhost:5000/api/v1/main", {
-                id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo, sasija, motor, godiste, boja, dateKup, cenaVoz, docume, file
+                id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo, sasija, motor, godiste, boja, dateKup, cenaVoz, docume, file,dateReg,regDo,troskovi,registrovao,timeZaposleni,docReg
 
             })
                 .then(() => setSpinerOn(false))
@@ -48,7 +47,7 @@ export const NovoMain = ({ setEditOn }) => {
             setEditOn(false)
             setValid(true)
             setNewOn(false)
-            console.log(file)
+            window.location.reload()
         } else {
             setValid(false)
             setSpinerOn(false)
@@ -99,7 +98,6 @@ export const NovoMain = ({ setEditOn }) => {
                 setFile(prev => [...prev, data])
             })
         }
-        console.log(file)
     }
 
     return (

@@ -53,7 +53,8 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
                 activeTo: formatDate(a.activeTo),
                 activeToEdit: formatDateEdit(a.activeTo),
                 isticanje,
-                isticanjeEdit
+                isticanjeEdit,
+                slike: a.slike
             })
         }
         res.json(arr)

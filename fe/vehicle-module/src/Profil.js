@@ -10,6 +10,7 @@ import { Odrzavanje } from "./ProfilPolja/Odrzavanje"
 import { Steta } from "./ProfilPolja/Steta"
 import { Istorija } from "./ProfilPolja/Istorija"
 import { Spiner } from "./ProfilPolja/Editi/Spiner"
+import slikanedostupna from '../src/images/slikanedostupna.png'
 
 
 
@@ -22,6 +23,9 @@ export const Profil = () => {
     const [spinerProfile, setSpinerProfile] = useState(true)
     const [slikaZaModal, setSlikaZaModal] = useState("")
     const [imageLeft, setImageLeft] = useState(0)
+    const [imagesArray, setImagesArray] = useState([])
+
+
     ///Linija ispod treba da se sredi
     let {  openSec,setOpenSec,registracijaAr, setRegistracijaAr,specifikacijaAr, setSpecifikacijaAr,gorivoAr, setGorivoAr,odrzavanjeAr, setOdrzavanjeAr,stetaAr, setStetaAr,istorijaAr, setIstorijaAr,setAktivnoDo,aktivnoDo,setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
@@ -54,6 +58,7 @@ export const Profil = () => {
                 setDateKup(res.data.car.specifikacijaPolje.datumKupovine)
                 setCenaVoz(res.data.car.specifikacijaPolje.cenaVozila)
                 setDocume(res.data.car.specifikacijaPolje.dokumentacija)
+                setImagesArray(res.data.car.slike)
 
 
             })
@@ -63,11 +68,9 @@ export const Profil = () => {
             setSpinerProfile(false)
         })
         setOpenSec(localStorage.getItem("section"))
-
     }, [])
 
 
-    let [imagesArray, setImagesArray] = useState(["https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg", "https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg"])
 
     const handleSlikaOpen = (link) => {
         setSlikaZaModal(link)
@@ -99,8 +102,6 @@ export const Profil = () => {
     const handleRight = () => {
         if ((imageLeft-imageLeft-imageLeft) !== num - 150) {
             setImageLeft(prev => prev - 150)
-            console.log("imageLeft: "+imageLeft,"num: "+num)
-            console.log(imageLeft-imageLeft-imageLeft , num - 150)
         }
     }
 
@@ -148,7 +149,7 @@ export const Profil = () => {
             {spinerProfile && <Spiner />}
             {openSingleImage && <JednaSlika />}
             <div className="profilMain">
-                <img className="main-pic" src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" alt="slika auta" />
+                <img className="main-pic" src={imagesArray.length>0 ? imagesArray[0] : slikanedostupna} alt="slika auta" />
                 <div className="profilDetails">
                     <div className="profilInfo">
                         <h3>Informacije o vozilu</h3>

@@ -6,28 +6,30 @@ import { Spiner } from "./ProfilPolja/Editi/Spiner";
 import "../src/style/main.css"
 import { EditMain } from "./ProfilPolja/Editi/EditMain";
 import { NovoMain } from "./ProfilPolja/Novo/NovoMain";
+import slikanedostupna from '../src/images/slikanedostupna.png'
+
 
 
 
 export const Main = () => {
     let { zaposleniLista,setZaposleniLista,newOn, setNewOn, spinerOn, setSpinerOn, id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef, formatDate, verDate } = useContext(DataContext)
+    let [imagesArray,setImagesArray] = useState([])
     let [vozila, setVozila] = useState([])
     let zaposleniSelect = useRef(null)
-    let [spinerMain, setSpimerMain] = useState(true)
+    let [spinerMain, setSpinerMain] = useState(true)
 
 
     useEffect(() => {
         const fetchData1 = async () => {
             await axios.get("http://localhost:5000/api/v1/main").then(e => {
                 setVozila(e.data)
-                console.log(e.data.activeTo)
+               
             })
         }
 
         const fetchData2 = async () => {
             await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
                 setZaposleniLista(e.data)
-                setSpimerMain(false)
             })
         }
         fetchData1()
@@ -48,10 +50,13 @@ export const Main = () => {
 
 
     const Kolona = (props) => {
+
+        useEffect(()=>setSpinerMain(false),[])
+
         return (
             <div className="single-car-container">
 
-                <img src="https://cdn.pixabay.com/photo/2015/09/02/12/25/bmw-918408_960_720.jpg" className="single-car-container__image" alt="slika auta" />
+                <img src={props.img || slikanedostupna} className="single-car-container__image" alt="slika auta" />
 
                 <div className="single-car-container__info">
 
@@ -110,7 +115,7 @@ export const Main = () => {
             {spinerMain && <Spiner />}
             {editOn && <EditMain setEditOn={setEditOn} vozila={vozila} zaposleniSelect={zaposleniSelect} markaRef={markaRef} regBrRef={regBrRef} isticRef={isticRef} tipKorRef={tipKorRef} activeToRef={activeToRef} activeFromRef={activeFromRef} zaposleniLista={zaposleniLista} korVozRef={korVozRef} />}
             {newOn && <NovoMain zaposleniLista={zaposleniLista} setEditOn={setEditOn} />}
-            {vozila.map((item) => <Kolona key={item.id} id={item.id} name={item.markaTip} reg={item.regBroj} utype={item.tipKorisnika} uname={item.korisnikVozila} expire={item.isticanje} activeTo={item.activeTo} activeFrom={item.activeFrom} />)}
+            {vozila.map((item) => <Kolona key={item.id} img={item.slike[0]} id={item.id} name={item.markaTip} reg={item.regBroj} utype={item.tipKorisnika} uname={item.korisnikVozila} expire={item.isticanje} activeTo={item.activeTo} activeFrom={item.activeFrom} />)}
 
         </div>
     )
