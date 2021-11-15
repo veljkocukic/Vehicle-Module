@@ -48,7 +48,7 @@ export const NovoRegistracija = ({ newC }) => {
     }
 
     return (
-        <div class={newC ? "input-contaier newC" : "input--container"}>
+        <div class="input--container">
             {spinerOn && <Spiner />}
             <h3 className="input--container__title">Registracija</h3>
             <div className="form">

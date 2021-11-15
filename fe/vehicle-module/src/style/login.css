@@ -1,0 +1,60 @@
+.login{
+
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 8;
+    background-color: rgb(244, 252, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50%;
+    justify-content: center;
+}
+
+.login-form{
+    height: 70%;
+    width: 90%;
+    margin: 2em auto;
+}
+
+.login-input{
+    display: block;
+}
+
+.login-btn{
+
+    margin: 0 auto;
+
+}
+
+.login-single{
+
+    margin-bottom: 1.5em;
+
+}
+
+.login-top{
+    margin-bottom: 1em;
+}
+
+.login-btns{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-btns p{
+    text-decoration: underline;
+    cursor: pointer;
+    color:rgb(151, 151, 151);
+}

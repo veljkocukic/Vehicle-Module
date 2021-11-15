@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom"
 import { MainProvider } from "./Context.js";
 import { Izvestaj } from "./Izvestaj.js";
+import { Login } from "./Login.js";
 import { Main } from "./Main.js"
 import { Profil } from "./Profil.js"
 import { Serviseri } from "./Serviseri/Serviseri";
@@ -29,6 +30,7 @@ export const Sadrzaj = () => {
           <Route path="/profil/:carId" exact><Profil /></Route>
           <Route path="/serviseri" exact><Serviseri /></Route>
           <Route path="/izvestaj" exact><Izvestaj /></Route>
+          <Route path="/login" exact><Login /></Route>
         </MainProvider>
       </Switch>
     </Router>
