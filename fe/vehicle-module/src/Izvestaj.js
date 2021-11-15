@@ -6,9 +6,10 @@ export const Izvestaj = () => {
         <div className="izvestaj">
             <div className="page-title">
                 <h1>Izveštaji</h1>
-                <div className="input--container menu-container" >
-                    <h2 className="title-menu">Meni za izveštaje</h2>
-                    <form className="form menuForm">
+            </div>
+            <div className="input--container menu-container" >
+                <h2 className="title-menu">Meni za izveštaje</h2>
+                <form className="form menuForm">
                     <div className="single-input-container">
                         <label for="tip-izvestaja" className="standard--label">Tip izveštaja <span>*</span></label>
                         <p class="under-text">(odaberite jedan tip izveštaja) </p>
@@ -20,7 +21,7 @@ export const Izvestaj = () => {
                             <option>Troškovi održavanja </option>
                             <option>Troškovi štete na vozilu </option>
                             <option>Ukupni troškovi</option>
-                            <option>Ukupno vreme zaposlenog</option>                        
+                            <option>Ukupno vreme zaposlenog</option>
                         </select>
                     </div>
 
@@ -30,14 +31,14 @@ export const Izvestaj = () => {
                         <select className="standard--input" id="vrsta-vrednosti" name="vrsta-vrednosti" >
                             <option>Cena (din.)</option>
                             <option>U litrima</option>
-                            <option>Vreme zaposlenog</option>                   
+                            <option>Vreme zaposlenog</option>
                         </select>
                     </div>
 
                     <div className="single-input-container">
                         <label for="rezolucija" className="standard--label">Rezolucija<span>*</span></label>
                         <p class="under-text">(odaberite rezoluciju) </p>
-                        <select  className="standard--input" id="rezolucija" name="rezolucija" >
+                        <select className="standard--input" id="rezolucija" name="rezolucija" >
                             <option>Godina</option>
                             <option>Pola godine</option>
                             <option>Kvartal</option>
@@ -49,7 +50,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="pokrice-stete" className="standard--label">Pokriće štete</label>
                         <p class="under-text">(odaberite ko pokriva štetu) </p>
-                        <select  className="standard--input" id="pokrice-stete" name="pokrice-stete" >
+                        <select className="standard--input" id="pokrice-stete" name="pokrice-stete" >
                             <option>Zaoposleni</option>
                             <option>Firma</option>
                             <option>Drugo lice</option>
@@ -60,7 +61,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="vozila" className="standard--label">Vozila</label>
                         <p class="under-text">(odaberite jedno ili više vozila) </p>
-                        <select  className="standard--input" id="vozila" name="vozila" >
+                        <select className="standard--input" id="vozila" name="vozila" >
                             <option>Zaoposleni</option>
                             <option>Firma</option>
                             <option>Drugo lice</option>
@@ -71,7 +72,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="tekuci-trosak" className="standard--label">Tip tekućeg troška</label>
                         <p class="under-text">(odaberite tip) </p>
-                        <select  className="standard--input" id="tekuci-trosak" name="tekuci-trosak" >
+                        <select className="standard--input" id="tekuci-trosak" name="tekuci-trosak" >
                             <option>Gorivo</option>
                             <option>Tag</option>
                             <option>Pranje</option>
@@ -81,7 +82,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="tip-odrzavanja" className="standard--label">Tip održavanja</label>
                         <p class="under-text">(odaberite tip) </p>
-                        <select  className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
+                        <select className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
                             <option>Redovno</option>
                             <option>Vanredno</option>
                             <option>Higijena</option>
@@ -92,7 +93,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="tip-odrzavanja" className="standard--label">Zaposleni</label>
                         <p class="under-text">(odaberite jednog ili više zaposlenih) </p>
-                        <select  className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
+                        <select className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
                             <option>Redovno</option>
                             <option>Vanredno</option>
                             <option>Higijena</option>
@@ -112,15 +113,15 @@ export const Izvestaj = () => {
                         <input type="date" className="standard--input" id="datum-do" name="datum-do" />
                     </div>
 
-                    </form>
+                </form>
 
-                    <div className="input--container__btns">
-                            <button className="btn no menu-excell"><i class="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button>
-                            <button className="btn yes menu-create" ><i class="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
-                    </div>
-
+                <div className="input--container__btns">
+                    <button className="btn no menu-excell"><i class="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button>
+                    <button className="btn yes menu-create" ><i class="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
                 </div>
+
             </div>
         </div>
+
     )
 }
