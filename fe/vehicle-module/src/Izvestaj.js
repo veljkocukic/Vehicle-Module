@@ -8,7 +8,7 @@ export const Izvestaj = () => {
                 <h1>Izveštaji</h1>
                 <div className="input--container menu-container" >
                     <h2 className="title-menu">Meni za izveštaje</h2>
-                    <form className="form mainForm">
+                    <form className="form menuForm">
                     <div className="single-input-container">
                         <label for="tip-izvestaja" className="standard--label">Tip izveštaja <span>*</span></label>
                         <p class="under-text">(odaberite jedan tip izveštaja) </p>

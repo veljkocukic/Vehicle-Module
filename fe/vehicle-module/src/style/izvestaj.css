@@ -45,3 +45,16 @@
     font-size: 2em;
     margin-right: .5em ;
 }
+
+
+.menuForm{
+    width: max-content;
+    max-width: 90vw;
+    grid-template-areas: 
+". . . ."
+". . . ."
+". . . ."
+". . . ."
+". . . ."
+". . . ." !important;
+}
