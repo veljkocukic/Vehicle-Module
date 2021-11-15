@@ -75,7 +75,6 @@ export const Profil = () => {
     const handleSlikaOpen = (link) => {
         setSlikaZaModal(link)
         setOpenSigleImage(true)
-        console.log(link)
     }
 
 
