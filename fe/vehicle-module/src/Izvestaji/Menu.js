@@ -135,7 +135,7 @@ useEffect(()=>{
                 </form>
 
                 <div className="input--container__btns">
-                    <button className="btn no menu-excell" onClick={()=>console.log(vozilaSelect)}><i class="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button>
+                    <button className="btn no menu-excell" ><i class="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button>
                     <button className="btn yes menu-create" ><i class="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
                 </div>
 
