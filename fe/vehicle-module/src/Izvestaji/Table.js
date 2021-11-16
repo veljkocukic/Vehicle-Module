@@ -14,7 +14,7 @@ const Kolone = ({rb,vozilo,data,th}) =>{
         <tr>
             <td>{rb}</td>
             <td>{vozilo}</td>
-            {data.map(item=><td className="click-tab" id={vozilo+"-"+findName(item)}>{item}</td>)}
+            {data.map(item=><td className="click-tab" id={vozilo+"-"+findName(item)}>{item.toLocaleString()}</td>)}
         </tr>
     )
 }
@@ -55,8 +55,8 @@ export const Table = () =>{
             <tbody>
             {dataTable.map(item=><Kolone rb={item.rb} vozilo={item.vozilo} data={item.data} th={tableHead}/>)} 
             <tr >
-                <td className="total" colSpan="2">Ukupno</td>
-                {ar.map(item=><td className=" total click-tab">{item}</td>)}
+                <td className="head-table" colSpan="2">Ukupno</td>
+                {ar.map(item=><td className="head-table click-tab">{item}</td>)}
 
             </tr>
             </tbody>

@@ -58,7 +58,7 @@ export const Registracija = ({ registracijaAr }) => {
             <tbody>
                 {newOn && <NovoRegistracija />}
                 {openDialog && <Dialog par={carId} polje="reg" />}
-                {registracijaAr.map((item, key) => <Kolone kid={item._id} date={item.datumRegistracije} doc={item.dokumentacija} reg={item.troskoviRegistracije} user={item.registrovaoZaposleni} time={item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
+                {registracijaAr.map((item, key) => <Kolone kid={item._id} date={item.datumRegistracije} doc={item.dokumentacija} reg={item.troskoviRegistracije.toLocaleString()} user={item.registrovaoZaposleni} time={item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
             </tbody>
         </table>
     )

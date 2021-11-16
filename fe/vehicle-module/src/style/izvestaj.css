@@ -45,7 +45,7 @@
 
 
 .menu-icon{
-    font-size: 2em;
+    font-size: 1.6em;
     margin-right: .5em ;
 }
 
@@ -84,4 +84,12 @@
 .click-tab{
     cursor: pointer ;
 
+}
+
+.mala-tabela{
+    width: 40vw;
+    margin:3em auto;
+    box-shadow: none;
+    -webkit-box-shadow:none;
+    filter:drop-shadow(1px 3px 3px rgb(139, 139, 139))
 }

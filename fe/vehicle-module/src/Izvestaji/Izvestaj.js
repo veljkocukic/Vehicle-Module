@@ -2,6 +2,7 @@ import React,{useState,useRef,useEffect, useContext} from "react";
 import "../style/izvestaj.css"
 import { Menu } from "./Menu"
 import { Table } from "./Table";
+import { MalaTabela } from "./MalaTabela";
 export const Izvestaj = () => {
 
     
@@ -12,6 +13,7 @@ export const Izvestaj = () => {
             </div>
             <Menu />
             <Table />
+            <MalaTabela gorivo/>
         </div>
     )
 }
