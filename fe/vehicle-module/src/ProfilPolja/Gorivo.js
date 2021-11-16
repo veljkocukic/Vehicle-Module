@@ -62,7 +62,7 @@ export const Gorivo = ({ gorivoAr }) => {
             <tbody>
                 {newOn && <NovoGorivo />}
                 {openDialog && <Dialog par={carId} polje="fuel" />}
-                {gorivoAr.map((item, key) => <KoloneGorivo _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} pot={item.potrosnja} cena={item.cena} usluga={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
+                {gorivoAr.map((item, key) => <KoloneGorivo _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} pot={item.potrosnja} cena={item.cena.toLocaleString()} usluga={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
     )
