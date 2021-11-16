@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom"
 import { MainProvider } from "./Context.js";
-import { Izvestaj } from "./Izvestaj.js";
+import { Izvestaj } from "../src/Izvestaji/Izvestaj";
 import { Login } from "./Login.js";
 import { Main } from "./Main.js"
 import { Profil } from "./Profil.js"

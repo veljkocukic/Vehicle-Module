@@ -1,47 +1,43 @@
-import React,{useState,useRef,useEffect, useContext} from "react";
-import "./style/izvestaj.css"
-import { DataContext } from "./Context";
-import { ZaposleniLista } from "./ProfilPolja/Novo/ZaposleniLista";
-import { VozilaLista } from "./VozilaLista";
-import axios from "axios";
+import React,{useState,useEffect,useRef,useContext} from "react"
+import axios from "axios"
+import { DataContext } from "../Context";
+import { ZaposleniLista } from "../ProfilPolja/Novo/ZaposleniLista";
+import { VozilaLista } from "../VozilaLista";
 
-export const Izvestaj = () => {
-
-    const [tipIzvestaja,setTipIzvestaja] = useState("")
-    const [vrstaVrednost,setVrstaVrednosti] = useState("")
-    const [rezolucija,setRezolucija] = useState("")
-    const [pokriceStete,setPokriceStete] = useState("")
-    const [tipTekuceg,setTipTekuceg] = useState("")
-    const [tipOdrzavanja,setTipOdrzavanja] = useState("")
-    const [menuDateFrom,setMenuDateFrom] = useState("")
-    const [menuDateTo,setMenuDateTo] = useState("")
+export const Menu = () =>{
+const [tipIzvestaja,setTipIzvestaja] = useState("")
+const [vrstaVrednost,setVrstaVrednosti] = useState("")
+const [rezolucija,setRezolucija] = useState("")
+const [pokriceStete,setPokriceStete] = useState("")
+const [tipTekuceg,setTipTekuceg] = useState("")
+const [tipOdrzavanja,setTipOdrzavanja] = useState("")
+const [menuDateFrom,setMenuDateFrom] = useState("")
+const [menuDateTo,setMenuDateTo] = useState("")
 
 
 
-    let {setZaposleniLista,zaposleniLista,setVozilaLista,vozilaSelect} = useContext(DataContext)
-    const multi = useRef(null)
-    
-    useEffect(()=>{
-        const fetchData1 = async () => {
-            await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
-                setZaposleniLista(e.data)
-            })
-        }
-        const fetchData2 = async () => {
-            await axios.get("http://localhost:5000/api/v1/vozila").then(e => {
-                setVozilaLista(e.data)
-                console.log(e.data)
-            })
-        }
-        fetchData1()
-        fetchData2()
-    },[])
+let {setZaposleniLista,zaposleniLista,setVozilaLista,vozilaSelect,voz} = useContext(DataContext)
+const multi = useRef(null)
 
-    return (
-        <div className="izvestaj">
-            <div className="page-title">
-                <h1>Izveštaji</h1>
-            </div>
+useEffect(()=>{
+    const fetchData1 = async () => {
+        await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
+            setZaposleniLista(e.data)
+        })
+    }
+    const fetchData2 = async () => {
+        await axios.get("http://localhost:5000/api/v1/vozila").then(e => {
+            setVozilaLista(e.data)
+            console.log(e.data)
+        })
+    }
+    fetchData1()
+    fetchData2()
+},[])
+    return(
+
+
+
             <div className="input--container menu-container" >
                 <h2 className="title-menu">Meni za izveštaje</h2>
                 <form className="form menuForm">
@@ -128,13 +124,11 @@ export const Izvestaj = () => {
 
                     <div className="single-input-container">
                         <label for="datum-od" className="standard--label">Datum od<span>*</span></label>
-                        <p class="under-text"> {"\n"} </p>
                         <input onChange={e=>setMenuDateFrom(e.target.value)} type="date" className="standard--input" id="datum-od" name="datum-od" />
                     </div>
 
                     <div className="single-input-container">
                         <label for="datum-do" className="standard--label">Datum do<span>*</span></label>
-                        <p class="under-text"> </p>
                         <input onChange={e=>setMenuDateTo(e.target.value)} type="date" className="standard--input" id="datum-do" name="datum-do" />
                     </div>
 
@@ -146,7 +140,9 @@ export const Izvestaj = () => {
                 </div>
 
             </div>
-        </div>
+
+
+            
 
     )
 }
