@@ -1,6 +1,7 @@
 import React,{useState,useEffect,useRef,useContext} from "react"
 import axios from "axios"
 import { DataContext } from "../Context";
+import {Spiner} from "../ProfilPolja/Editi/Spiner"
 import { ZaposleniLista } from "../ProfilPolja/Novo/ZaposleniLista";
 import { VozilaLista } from "../VozilaLista";
 
@@ -16,29 +17,30 @@ const [menuDateTo,setMenuDateTo] = useState("")
 
 
 
-let {setZaposleniLista,zaposleniLista,setVozilaLista,vozilaSelect,voz} = useContext(DataContext)
+let {setZaposleniLista,zaposleniLista,setVozilaLista,vozilaSelect,voz,spinerOn,setSpinerOn} = useContext(DataContext)
 const multi = useRef(null)
 
-useEffect(()=>{
-    const fetchData1 = async () => {
-        await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
-            setZaposleniLista(e.data)
-        })
-    }
-    const fetchData2 = async () => {
-        await axios.get("http://localhost:5000/api/v1/vozila").then(e => {
-            setVozilaLista(e.data)
-            console.log(e.data)
-        })
-    }
-    fetchData1()
-    fetchData2()
-},[])
+    useEffect(()=>{
+        setSpinerOn(true)
+        const fetchData1 = async () => {
+            await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
+                setZaposleniLista(e.data)
+            })
+        }
+        const fetchData2 = async () => {
+            await axios.get("http://localhost:5000/api/v1/vozila").then(e => {
+                setVozilaLista(e.data)
+                setSpinerOn(false)
+                    })
+        }
+        fetchData1()
+        fetchData2()
+    },[])
+
     return(
 
-
-
             <div className="input--container menu-container" >
+                {spinerOn && <Spiner />}
                 <h2 className="title-menu">Meni za izveštaje</h2>
                 <form className="form menuForm">
                     <div className="single-input-container">
