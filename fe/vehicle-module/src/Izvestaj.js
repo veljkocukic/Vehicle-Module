@@ -1,7 +1,42 @@
-import React from "react";
+import React,{useState,useRef,useEffect, useContext} from "react";
 import "./style/izvestaj.css"
-import { Link } from "react-router-dom";
+import { DataContext } from "./Context";
+import { ZaposleniLista } from "./ProfilPolja/Novo/ZaposleniLista";
+import { VozilaLista } from "./VozilaLista";
+import axios from "axios";
+
 export const Izvestaj = () => {
+
+    const [tipIzvestaja,setTipIzvestaja] = useState("")
+    const [vrstaVrednost,setVrstaVrednosti] = useState("")
+    const [rezolucija,setRezolucija] = useState("")
+    const [pokriceStete,setPokriceStete] = useState("")
+    const [tipTekuceg,setTipTekuceg] = useState("")
+    const [tipOdrzavanja,setTipOdrzavanja] = useState("")
+    const [menuDateFrom,setMenuDateFrom] = useState("")
+    const [menuDateTo,setMenuDateTo] = useState("")
+
+
+
+    let {setZaposleniLista,zaposleniLista,setVozilaLista,vozilaSelect} = useContext(DataContext)
+    const multi = useRef(null)
+    
+    useEffect(()=>{
+        const fetchData1 = async () => {
+            await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
+                setZaposleniLista(e.data)
+            })
+        }
+        const fetchData2 = async () => {
+            await axios.get("http://localhost:5000/api/v1/vozila").then(e => {
+                setVozilaLista(e.data)
+                console.log(e.data)
+            })
+        }
+        fetchData1()
+        fetchData2()
+    },[])
+
     return (
         <div className="izvestaj">
             <div className="page-title">
@@ -13,7 +48,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="tip-izvestaja" className="standard--label">Tip izveštaja <span>*</span></label>
                         <p class="under-text">(odaberite jedan tip izveštaja) </p>
-                        <select className="standard--input" id="tip-izvestaja" name="tip-izvestaja" >
+                        <select onChange={e=>setTipIzvestaja(e.target.value)}className="standard--input" id="tip-izvestaja" name="tip-izvestaja" >
                             <option>Potrošnja goriva</option>
                             <option>Troškovi za tag</option>
                             <option>Troškovi za pranje</option>
@@ -28,7 +63,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="vrsta-vrednosti" className="standard--label">Vrsta vrednosti <span>*</span></label>
                         <p class="under-text">(odaberite jednu vrstu vrednost) </p>
-                        <select className="standard--input" id="vrsta-vrednosti" name="vrsta-vrednosti" >
+                        <select onChange={e=>setVrstaVrednosti(e.target.value)} className="standard--input" id="vrsta-vrednosti" name="vrsta-vrednosti" >
                             <option>Cena (din.)</option>
                             <option>U litrima</option>
                             <option>Vreme zaposlenog</option>
@@ -38,7 +73,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="rezolucija" className="standard--label">Rezolucija<span>*</span></label>
                         <p class="under-text">(odaberite rezoluciju) </p>
-                        <select className="standard--input" id="rezolucija" name="rezolucija" >
+                        <select onChange={setRezolucija} className="standard--input" id="rezolucija" name="rezolucija" >
                             <option>Godina</option>
                             <option>Pola godine</option>
                             <option>Kvartal</option>
@@ -50,18 +85,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="pokrice-stete" className="standard--label">Pokriće štete</label>
                         <p class="under-text">(odaberite ko pokriva štetu) </p>
-                        <select className="standard--input" id="pokrice-stete" name="pokrice-stete" >
-                            <option>Zaoposleni</option>
-                            <option>Firma</option>
-                            <option>Drugo lice</option>
-                            <option>Osiguranje</option>
-                        </select>
-                    </div>
-
-                    <div className="single-input-container">
-                        <label for="vozila" className="standard--label">Vozila</label>
-                        <p class="under-text">(odaberite jedno ili više vozila) </p>
-                        <select className="standard--input" id="vozila" name="vozila" >
+                        <select onChange={e=>setPokriceStete(e.target.value)} className="standard--input" id="pokrice-stete" name="pokrice-stete" >
                             <option>Zaoposleni</option>
                             <option>Firma</option>
                             <option>Drugo lice</option>
@@ -72,7 +96,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="tekuci-trosak" className="standard--label">Tip tekućeg troška</label>
                         <p class="under-text">(odaberite tip) </p>
-                        <select className="standard--input" id="tekuci-trosak" name="tekuci-trosak" >
+                        <select onChange={e=>setTipTekuceg(e.target.value)} className="standard--input" id="tekuci-trosak" name="tekuci-trosak" >
                             <option>Gorivo</option>
                             <option>Tag</option>
                             <option>Pranje</option>
@@ -82,7 +106,7 @@ export const Izvestaj = () => {
                     <div className="single-input-container">
                         <label for="tip-odrzavanja" className="standard--label">Tip održavanja</label>
                         <p class="under-text">(odaberite tip) </p>
-                        <select className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
+                        <select onChange={e=>setTipOdrzavanja(e.target.value)} className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
                             <option>Redovno</option>
                             <option>Vanredno</option>
                             <option>Higijena</option>
@@ -90,33 +114,34 @@ export const Izvestaj = () => {
                         </select>
                     </div>
 
-                    <div className="single-input-container">
+                    <div className="single-input-container multiple-select">
+                        <label for="vozila" className="standard--label">Vozila</label>
+                        <p class="under-text">(odaberite jedno ili više vozila) </p>
+                        <VozilaLista />
+                    </div>
+
+                    <div className="single-input-container multiple-select">
                         <label for="tip-odrzavanja" className="standard--label">Zaposleni</label>
                         <p class="under-text">(odaberite jednog ili više zaposlenih) </p>
-                        <select className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
-                            <option>Redovno</option>
-                            <option>Vanredno</option>
-                            <option>Higijena</option>
-                            <option>Gume</option>
-                        </select>
+                        <ZaposleniLista multiple />
                     </div>
 
                     <div className="single-input-container">
                         <label for="datum-od" className="standard--label">Datum od<span>*</span></label>
                         <p class="under-text"> {"\n"} </p>
-                        <input type="date" className="standard--input" id="datum-od" name="datum-od" />
+                        <input onChange={e=>setMenuDateFrom(e.target.value)} type="date" className="standard--input" id="datum-od" name="datum-od" />
                     </div>
 
                     <div className="single-input-container">
                         <label for="datum-do" className="standard--label">Datum do<span>*</span></label>
                         <p class="under-text"> </p>
-                        <input type="date" className="standard--input" id="datum-do" name="datum-do" />
+                        <input onChange={e=>setMenuDateTo(e.target.value)} type="date" className="standard--input" id="datum-do" name="datum-do" />
                     </div>
 
                 </form>
 
                 <div className="input--container__btns">
-                    <button className="btn no menu-excell"><i class="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button>
+                    <button className="btn no menu-excell" onClick={()=>console.log(vozilaSelect)}><i class="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button>
                     <button className="btn yes menu-create" ><i class="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
                 </div>
 

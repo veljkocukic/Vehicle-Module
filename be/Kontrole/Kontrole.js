@@ -26,6 +26,7 @@ let formatDateEdit = (dt) => { ////////////////////// Vreme za unos
     return `${t.getFullYear()}-${month}-${day}`
 }
 
+
 const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj strani
     try {
         const vozila = await CarsModel.find({})
@@ -286,5 +287,19 @@ const ServiseriEdit = async (req, res) => {
     }
 }
 
+const Vozila = async (req,res) =>{
+    try {
+        const vozila = await CarsModel.find({})
+        let newAr = []
+        for(a of vozila){
+            newAr.push( {name:a.markaTip,_id:a._id})
+        }
+        res.send(newAr)
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit,Vozila }
