@@ -6,18 +6,19 @@ import { ZaposleniLista } from "../ProfilPolja/Novo/ZaposleniLista";
 import { VozilaLista } from "../VozilaLista";
 
 export const Menu = () =>{
-const [tipIzvestaja,setTipIzvestaja] = useState("")
-const [vrstaVrednost,setVrstaVrednosti] = useState("")
-const [rezolucija,setRezolucija] = useState("")
-const [pokriceStete,setPokriceStete] = useState("")
+const [tipIzvestaja,setTipIzvestaja] = useState("Potrošnja goriva")
+const [vrstaVrednosti,setVrstaVrednosti] = useState("Cena (din.)")
+const [rezolucija,setRezolucija] = useState("Godina")
+const [pokriceStete,setPokriceStete] = useState("Zaposleni")
 const [tipTekuceg,setTipTekuceg] = useState("")
-const [tipOdrzavanja,setTipOdrzavanja] = useState("")
+const [tipOdrzavanja,setTipOdrzavanja] = useState("Redovno")
 const [menuDateFrom,setMenuDateFrom] = useState("")
 const [menuDateTo,setMenuDateTo] = useState("")
 
 
 
-let {setZaposleniLista,zaposleniLista,setVozilaLista,vozilaSelect,voz,spinerOn,setSpinerOn} = useContext(DataContext)
+let {setZaposleniLista,zaposleniLista,setVozilaLista,vozilaSelect,voz,spinerOn,setSpinerOn,zaposleniSelect} = useContext(DataContext)
+
 const multi = useRef(null)
 
     useEffect(()=>{
@@ -37,6 +38,19 @@ const multi = useRef(null)
         fetchData2()
     },[])
 
+
+
+    const handleSubmit = async()=>{
+        let pokr = tipIzvestaja==="Troškovi štete na vozilu" ? pokriceStete : null
+        let todr = tipIzvestaja==="Troškovi održavanja" ? tipOdrzavanja : null
+        await axios.post("http://localhost:5000/api/v1/izvestaji",{tipIzvestaja,vrstaVrednosti,rezolucija,tipTekuceg,menuDateFrom,menuDateTo,vozilaSelect,zaposleniSelect,pokr,todr}).then(res=>{
+            console.log(res.data)
+        })
+
+
+    }
+
+
     return(
 
             <div className="input--container menu-container" >
@@ -46,7 +60,7 @@ const multi = useRef(null)
                     <div className="single-input-container">
                         <label for="tip-izvestaja" className="standard--label">Tip izveštaja <span>*</span></label>
                         <p class="under-text">(odaberite jedan tip izveštaja) </p>
-                        <select onChange={e=>setTipIzvestaja(e.target.value)}className="standard--input" id="tip-izvestaja" name="tip-izvestaja" >
+                        <select onChange={e=>setTipIzvestaja(e.target.value) }className="standard--input" id="tip-izvestaja" name="tip-izvestaja" >
                             <option>Potrošnja goriva</option>
                             <option>Troškovi za tag</option>
                             <option>Troškovi za pranje</option>
@@ -71,7 +85,7 @@ const multi = useRef(null)
                     <div className="single-input-container">
                         <label for="rezolucija" className="standard--label">Rezolucija<span>*</span></label>
                         <p class="under-text">(odaberite rezoluciju) </p>
-                        <select onChange={setRezolucija} className="standard--input" id="rezolucija" name="rezolucija" >
+                        <select onChange={e=>setRezolucija(e.target.value)} className="standard--input" id="rezolucija" name="rezolucija" >
                             <option>Godina</option>
                             <option>Pola godine</option>
                             <option>Kvartal</option>
@@ -83,7 +97,7 @@ const multi = useRef(null)
                     <div className="single-input-container">
                         <label for="pokrice-stete" className="standard--label">Pokriće štete</label>
                         <p class="under-text">(odaberite ko pokriva štetu) </p>
-                        <select onChange={e=>setPokriceStete(e.target.value)} className="standard--input" id="pokrice-stete" name="pokrice-stete" >
+                        <select disabled={tipIzvestaja!=="Troškovi štete na vozilu"} onChange={e=>setPokriceStete(e.target.value)} className="standard--input" id="pokrice-stete" name="pokrice-stete" >
                             <option>Zaoposleni</option>
                             <option>Firma</option>
                             <option>Drugo lice</option>
@@ -94,7 +108,7 @@ const multi = useRef(null)
                     <div className="single-input-container">
                         <label for="tekuci-trosak" className="standard--label">Tip tekućeg troška</label>
                         <p class="under-text">(odaberite tip) </p>
-                        <select onChange={e=>setTipTekuceg(e.target.value)} className="standard--input" id="tekuci-trosak" name="tekuci-trosak" >
+                        <select disabled onChange={e=>setTipTekuceg(e.target.value)} className="standard--input" id="tekuci-trosak" name="tekuci-trosak" >
                             <option>Gorivo</option>
                             <option>Tag</option>
                             <option>Pranje</option>
@@ -104,7 +118,7 @@ const multi = useRef(null)
                     <div className="single-input-container">
                         <label for="tip-odrzavanja" className="standard--label">Tip održavanja</label>
                         <p class="under-text">(odaberite tip) </p>
-                        <select onChange={e=>setTipOdrzavanja(e.target.value)} className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
+                        <select disabled={tipIzvestaja!=="Troškovi održavanja"} onChange={e=>setTipOdrzavanja(e.target.value)} className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
                             <option>Redovno</option>
                             <option>Vanredno</option>
                             <option>Higijena</option>
@@ -138,7 +152,7 @@ const multi = useRef(null)
 
                 <div className="input--container__btns">
                     <button className="btn no menu-excell" ><i class="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button>
-                    <button className="btn yes menu-create" ><i class="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
+                    <button className="btn yes menu-create" onClick={handleSubmit} ><i class="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
                 </div>
 
             </div>

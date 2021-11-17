@@ -1,4 +1,5 @@
 let { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel } = require("../Modeli/Podaci")
+let mongoose = require("mongoose")
 
 
 
@@ -301,5 +302,32 @@ const Vozila = async (req,res) =>{
     }
 }
 
+const IzvestajiPost = async(req,res) =>{
+    try {
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit,Vozila }
+            let ar = []
+        
+            for(let a of req.body.vozilaSelect){
+                ar.push(mongoose.Types.ObjectId(a))
+            }
+            let all = await CarsModel.find({_id:ar})
+
+            let results = []
+            let num = 0
+            for(let b of all){
+                let result = b.registracijaPolje.filter(item=>new Date(item.datumRegistracije)<=new Date(req.body.menuDateTo) && new Date(item.datumRegistracije)>= new Date(req.body.menuDateFrom))
+                results.push({rb:++num,vozilo:b.markaTip+" - " +b.registracioniBroj, data:result.reduce((a,b)=>a+b.troskoviRegistracije,0)})
+            }
+        
+        res.send(results)
+
+
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+    }
+
+
+}
+
+module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit,Vozila,IzvestajiPost }
