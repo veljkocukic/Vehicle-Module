@@ -7,7 +7,7 @@ const Kolone = ({rb,vozilo,data,th}) =>{
 
     const findName = (nm) =>{
         let ind = data.indexOf(nm)
-        return th[ind].title
+        return th[ind]
         }
 
     return(

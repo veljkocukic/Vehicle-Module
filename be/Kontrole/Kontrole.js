@@ -401,8 +401,8 @@ const IzvestajiPost = async(req,res) =>{
 
                 let num = firstMonth
                 for (let i = 0; i < nm; i++) {
-                  if (num === 12) {
-                    num = 0
+                  if (num > 12) {
+                    num = 1
                   }
                   ar.push(addAr(num))
                   ++num

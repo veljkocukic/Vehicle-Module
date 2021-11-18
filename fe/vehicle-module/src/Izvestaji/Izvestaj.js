@@ -12,8 +12,8 @@ export const Izvestaj = () => {
                 <h1>Izveštaji</h1>
             </div>
             <Menu />
-            <Table />
-            <MalaTabela gorivo/>
+             <Table />
+            {/*<MalaTabela gorivo/> */}
         </div>
     )
 }
