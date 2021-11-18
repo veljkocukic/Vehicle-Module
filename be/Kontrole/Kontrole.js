@@ -332,7 +332,7 @@ const IzvestajiPost = async(req,res) =>{
                 let resTot = []
 
                 try {
-                    for (let i = 0;i<=months;i++){
+                    for (let i = startMonth;i<=months+startMonth;i++){
                         resTot.push(array.filter(item=>{
               
                           let yr = new Date(item.datumRegistracije).getFullYear()-new Date(array[0].datumRegistracije).getFullYear()
@@ -414,6 +414,7 @@ const IzvestajiPost = async(req,res) =>{
 
             for(let b of all){
                 let result = b.registracijaPolje.filter(item=>new Date(item.datumRegistracije)<=new Date(req.body.menuDateTo) && new Date(item.datumRegistracije)>= new Date(req.body.menuDateFrom))
+                console.log(result)
                 let podaci = totalMonth(result,meseci)
 
                 results.push({rb:++num,vozilo:b.markaTip+" - " +b.registracioniBroj, data:podaci})
