@@ -336,7 +336,7 @@ const IzvestajiPost = async(req,res) =>{
                         resTot.push(array.filter(item=>{
               
                           let yr = new Date(item.datumRegistracije).getFullYear()-new Date(array[0].datumRegistracije).getFullYear()
-                          return  ((new Date(item.datumRegistracije).getMonth()+1))+(yr*12)===i
+                          return  ((new Date(item.datumRegistracije).getMonth()))+(yr*12)===i
               
                         }).reduce((a,b)=>a+b.troskoviRegistracije,0))
                         
