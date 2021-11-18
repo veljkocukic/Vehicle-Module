@@ -335,7 +335,7 @@ const IzvestajiPost = async(req,res) =>{
                     for (let i = startMonth;i<=months+startMonth;i++){
                         resTot.push(array.filter(item=>{
               
-                          let yr = new Date(item.datumRegistracije).getFullYear()-new Date(array[0].datumRegistracije).getFullYear()
+                          let yr = new Date(array[0].datumRegistracije).getFullYear()-new Date(req.body.menuDateFrom).getFullYear()
                           return  ((new Date(item.datumRegistracije).getMonth())+1)+(yr*12)===i
               
                         }).reduce((a,b)=>a+b.troskoviRegistracije,0))
@@ -351,7 +351,7 @@ const IzvestajiPost = async(req,res) =>{
                 }
               }
 
-              function addAr(num) {
+              function addAr(num) { /////////////////Ovo bi trebalo da može da se odradi sa nizom i indexom
                 let month = "";
                 switch (num) {
                   case 1:
