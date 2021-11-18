@@ -314,12 +314,116 @@ const IzvestajiPost = async(req,res) =>{
 
             let results = []
             let num = 0
+            let meseci = razlika(req.body.menuDateFrom,req.body.menuDateTo)
+            let startMonth = new Date(req.body.menuDateFrom).getMonth()+1
+            let headAr = []
+
+            function razlika(datumOd,datumDo){
+                let t2=new Date(datumDo)
+                let t1=new Date(datumOd)
+                
+                let mnt1 = (t1.getMonth()+1)
+                let mnt2 = (t2.getMonth()+1)
+                let year = t2.getFullYear()-t1.getFullYear()
+                return year*12+mnt2-mnt1
+              }
+
+              function totalMonth (array,months){
+                let resTot = []
+
+                try {
+                    for (let i = 1;i<=months;i++){
+                        resTot.push(array.filter(item=>{
+              
+                          let yr = new Date(item.datumRegistracije).getFullYear()-new Date(array[0].datumRegistracije).getFullYear()
+                          return  ((new Date(item.datumRegistracije).getMonth()+1))+(yr*12)===i
+              
+                        }).reduce((a,b)=>a+b.troskoviRegistracije,0))
+                        
+                    }
+                      return resTot
+                } catch (error) {
+                    for(let i = 0;i<=months;i++){
+                        resTot.push(0)
+                        return resTot
+                    }
+                    console.log(error)
+                }
+              }
+
+              function addAr(num) {
+                let month = "";
+                switch (num) {
+                  case 1:
+                    month = "Jan";
+                    break;
+                  case 2:
+                    month = "Feb";
+                    break;
+                  case 3:
+                    month = "Mart";
+                    break;
+                  case 4:
+                    month = "Apr";
+                    break;
+                  case 5:
+                    month = "Maj";
+                    break;
+                  case 6:
+                    month = "Jun";
+                    break;
+                  case 7:
+                    month = "Jul";
+                    break;
+                  case 8:
+                    month = "Avg";
+                    break;
+                  case 9:
+                    month = "Sept";
+                    break;
+                  case 10:
+                    month = "Okt";
+                    break;
+                  case 11:
+                    month = "Nov";
+                    break;
+                  case 12:
+                    month = "Dec";
+                    break;
+                  default:
+                    month = "Jan";
+                }
+              
+                return month;
+              }
+
+              function editAr (nm, ar, firstMonth){
+
+                let num = firstMonth
+                for (let i = 0; i < nm; i++) {
+                  if (num === 12) {
+                    num = 0
+                  }
+                  ar.push(addAr(num))
+                  ++num
+                }
+              }
+            
+
+
+
             for(let b of all){
                 let result = b.registracijaPolje.filter(item=>new Date(item.datumRegistracije)<=new Date(req.body.menuDateTo) && new Date(item.datumRegistracije)>= new Date(req.body.menuDateFrom))
-                results.push({rb:++num,vozilo:b.markaTip+" - " +b.registracioniBroj, data:result.reduce((a,b)=>a+b.troskoviRegistracije,0)})
+                let podaci = totalMonth(result,meseci)
+
+                results.push({rb:++num,vozilo:b.markaTip+" - " +b.registracioniBroj, data:podaci})
             }
         
-        res.send(results)
+            editAr(meseci,headAr,startMonth)
+            let resp = {tableHead:headAr,dataTable:results}
+
+
+        res.send(resp)
 
 
     } catch (error) {

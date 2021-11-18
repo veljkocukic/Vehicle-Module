@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useRef} from "react"
+import React,{useState,useEffect,useRef, useContext} from "react"
 import axios from "axios"
 import { DataContext } from "../Context"
 
@@ -22,14 +22,17 @@ const Kolone = ({rb,vozilo,data,th}) =>{
 
 export const Table = () =>{
 
+    let {dataTable,tableHead} = useContext(DataContext)
 
-
-    let tableHead=[{title:"Jan"},{title:"Feb"},{title:"Mart"},{title:"Apr"},{title:"Maj"},{title:"Jun"},{title:"Jul"},{title:"Avg"},{title:"Sept"},{title:"Okt"},{title:"Nov"},{title:"Dec"}]
-    let dataTable = [{rb:1,vozilo:"Audi A4",data:[1,2,3,4,5,6,7,8,9,10,11,12]},{rb:2,vozilo:"Yugo Coral",data:[2,4,6,8,10,12,14,16,18,20,22,24]}]
 
     let ar = []
-    for(let i=0;i<tableHead.length;i++){
-        ar.push(0)
+    try {
+        for(let i=0;i<tableHead.length;i++){
+            ar.push(0)
+        }
+    
+    } catch (error) {
+        console.log(error)
     }
 
     for(let a of dataTable){
@@ -49,7 +52,7 @@ export const Table = () =>{
                 <tr>
                     <th>Rb</th>
                     <th>Službeno vozilo</th>
-                    {tableHead.map(item=><th>{item.title}</th>)}
+                    {tableHead.map(item=><th>{item}</th>)}
                 </tr>
             </thead>
             <tbody>
