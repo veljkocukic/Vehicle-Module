@@ -332,11 +332,11 @@ const IzvestajiPost = async(req,res) =>{
                 let resTot = []
 
                 try {
-                    for (let i = 1;i<=months;i++){
+                    for (let i = 0;i<=months;i++){
                         resTot.push(array.filter(item=>{
               
                           let yr = new Date(item.datumRegistracije).getFullYear()-new Date(array[0].datumRegistracije).getFullYear()
-                          return  ((new Date(item.datumRegistracije).getMonth()))+(yr*12)===i
+                          return  ((new Date(item.datumRegistracije).getMonth())+1)+(yr*12)===i
               
                         }).reduce((a,b)=>a+b.troskoviRegistracije,0))
                         
@@ -400,7 +400,7 @@ const IzvestajiPost = async(req,res) =>{
               function editAr (nm, ar, firstMonth){
 
                 let num = firstMonth
-                for (let i = 0; i < nm; i++) {
+                for (let i = 0; i <= nm; i++) {
                   if (num > 12) {
                     num = 1
                   }
