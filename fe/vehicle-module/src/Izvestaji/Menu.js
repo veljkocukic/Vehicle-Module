@@ -5,19 +5,20 @@ import {Spiner} from "../ProfilPolja/Editi/Spiner"
 import { ZaposleniLista } from "../ProfilPolja/Novo/ZaposleniLista";
 import { VozilaLista } from "../VozilaLista";
 
-export const Menu = () =>{
+export const Menu = ({sbt}) =>{
 const [tipIzvestaja,setTipIzvestaja] = useState("Potrošnja goriva")
 const [vrstaVrednosti,setVrstaVrednosti] = useState("Cena (din.)")
 const [rezolucija,setRezolucija] = useState("Godina")
 const [pokriceStete,setPokriceStete] = useState("Zaposleni")
 const [tipTekuceg,setTipTekuceg] = useState("")
 const [tipOdrzavanja,setTipOdrzavanja] = useState("Redovno")
-const [menuDateFrom,setMenuDateFrom] = useState("")
-const [menuDateTo,setMenuDateTo] = useState("")
+const [menuDateFrom,setMenuDateFrom] = useState(0)
+const [menuDateTo,setMenuDateTo] = useState(0)
+const [valid,setValid] = useState(true)
 
 
 
-let {setZaposleniLista,zaposleniLista,setVozilaLista,vozilaSelect,voz,spinerOn,setSpinerOn,zaposleniSelect,setDataTable,setTableHead} = useContext(DataContext)
+let {setBigTableOn,setZaposleniLista,zaposleniLista,setVozilaLista,vozilaSelect,voz,spinerOn,setSpinerOn,zaposleniSelect,setDataTable,setTableHead} = useContext(DataContext)
 
 const multi = useRef(null)
 
@@ -41,15 +42,27 @@ const multi = useRef(null)
 
 
     const handleSubmit = async()=>{
-        let pokr = tipIzvestaja==="Troškovi štete na vozilu" ? pokriceStete : null
-        let todr = tipIzvestaja==="Troškovi održavanja" ? tipOdrzavanja : null
-        await axios.post("http://localhost:5000/api/v1/izvestaji",{tipIzvestaja,vrstaVrednosti,rezolucija,tipTekuceg,menuDateFrom,menuDateTo,vozilaSelect,zaposleniSelect,pokr,todr}).then(res=>{
-            
-            setTableHead(res.data.tableHead)
-            setDataTable(res.data.dataTable)
-            console.log(res.data)
-        }).catch(er=>
-            console.log(er))
+        if(menuDateFrom!==0 && menuDateTo!==0 && menuDateTo>menuDateFrom){
+            setSpinerOn(true)
+            let pokr = tipIzvestaja==="Troškovi štete na vozilu" ? pokriceStete : null
+            let todr = tipIzvestaja==="Troškovi održavanja" ? tipOdrzavanja : null
+            await axios.post("http://localhost:5000/api/v1/izvestaji",{tipIzvestaja,vrstaVrednosti,rezolucija,tipTekuceg,menuDateFrom,menuDateTo,vozilaSelect,zaposleniSelect,pokr,todr}).then(res=>{
+                
+                setTableHead(res.data.tableHead)
+                setDataTable(res.data.dataTable)
+    
+                console.log(res.data)
+                sbt(true)
+                setSpinerOn(false)
+                setValid(true)
+            }).catch(er=>
+                console.log("greška: "+er))
+        }else{
+            setValid(false)
+            setSpinerOn(false)
+
+        }
+
 
 
     }
@@ -81,7 +94,7 @@ const multi = useRef(null)
                         <p class="under-text">(odaberite jednu vrstu vrednost) </p>
                         <select onChange={e=>setVrstaVrednosti(e.target.value)} className="standard--input" id="vrsta-vrednosti" name="vrsta-vrednosti" >
                             <option>Cena (din.)</option>
-                            <option>U litrima</option>
+                            {tipIzvestaja==="Potrošnja goriva"&&<option>U litrima</option>}
                             <option>Vreme zaposlenog</option>
                         </select>
                     </div>
@@ -159,6 +172,8 @@ const multi = useRef(null)
                     <button className="btn yes menu-create" onClick={handleSubmit} ><i class="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
                 </div>
 
+
+                {!valid && <h3 className="nonValid">Uneti datumi nisu validni</h3>}
             </div>
 
 

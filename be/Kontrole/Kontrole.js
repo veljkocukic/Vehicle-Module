@@ -305,11 +305,16 @@ const Vozila = async (req,res) =>{
 const IzvestajiPost = async(req,res) =>{
     try {
             let ar = []
+            let all
         
             for(let a of req.body.vozilaSelect){
                 ar.push(mongoose.Types.ObjectId(a))
             }
-            let all = await CarsModel.find({_id:ar})
+            if(ar.length===0){
+                all = await CarsModel.find()
+            }else{
+                all = await CarsModel.find({_id:ar})
+            }
 
             let results = []
             let num = 0
@@ -504,7 +509,6 @@ const IzvestajiPost = async(req,res) =>{
                     
                     
                     podaci = totalMonth(result,meseci)
-                    console.log(podaci)
                 }
 
                 results.push({rb:++num,vozilo:b.markaTip+" - " +b.registracioniBroj, data:podaci})
