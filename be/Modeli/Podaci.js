@@ -107,48 +107,6 @@ const ZaposleniSchema = new mongoose.Schema({
 })
 
 
-const IzvData = new mongoose.Schema({
-    datum:{type:Date,required:true},
-    cena:{type:Number,required:true}
-})
-
-const GorData = new mongoose.Schema({
-    datum:{type:Date,required:true},
-    cena:{type:Number,required:true},
-    potrosnja:{type:Number,required:true},
-    ukupno:{type:Number,required:true}
-})
-
-const RegistracijaIzvestajSc = new mongoose.Schema({
-    carId:String,
-    data:[IzvData]
-})
-
-const GorivoIzvestajSc = new mongoose.Schema({
-    carId:String,
-    data:[GorData]
-})
-
-const TagIzvestajSc = new mongoose.Schema({
-    carId:String,
-    data:[IzvData]
-})
-
-
-const PranjeIzvestajSc = new mongoose.Schema({
-    carId:String,
-    data:[IzvData]
-})
-
-const OdrzavanjeIzvestajSc = new mongoose.Schema({
-    carId:String,
-    data:[IzvData]
-})
-
-const StetaIzvestajSc = new mongoose.Schema({
-    carId:String,
-    data:[IzvData]
-})
 
 
 
@@ -157,15 +115,8 @@ const ServiseriModel = mongoose.model("Serviseri", ServiseriSchema)
 const CommentsModel = mongoose.model("Comments", CommentsSchema)
 const ZaposleniModel = mongoose.model("Zaposleni", CommentsSchema)
 
-const RegistracijaModel = mongoose.model("RegistracijaIzvestaj",RegistracijaIzvestajSc)
-const GorivoModel = mongoose.model("GorivoIzvestaj",GorivoIzvestajSc)
-const TagModel = mongoose.model("TagIzvestaj",TagIzvestajSc)
-const PranjeModel = mongoose.model("PranjeIzvestaj",PranjeIzvestajSc)
-const OdrzavanjeModel = mongoose.model("OdrzavanjeIzvestaj",OdrzavanjeIzvestajSc)
-const StetaModel = mongoose.model("StetaIzvestaj",StetaIzvestajSc)
 
 
 
-
-module.exports = { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel,RegistracijaModel,GorivoModel,TagModel,PranjeModel,OdrzavanjeModel,StetaModel }
+module.exports = { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel }
 
