@@ -60,7 +60,7 @@ export const NovoServiseri = () => {
     return (
         <div className="input--container">
             {spinerOn && <Spiner />}
-            <h3 className="input--container__title">Održavanje</h3>
+            <h3 className="input--container__title">Serviseri i eksterni saradnici</h3>
             <div className="form">
 
 
