@@ -7,7 +7,7 @@ import { NovoGorivo } from "./Novo/NovoGorivo"
 
 
 export const Gorivo = ({ gorivoAr }) => {
-    let { setNewOn, newOn, openDialog, setOpenDialog, formatDate, openFuelEdit, setOpenFuelEdit, setId } = useContext(DataContext)
+    let { minsToTime, setNewOn, newOn, openDialog, setOpenDialog, formatDate, openFuelEdit, setOpenFuelEdit, setId } = useContext(DataContext)
     let { carId } = useParams()
 
 
@@ -32,7 +32,7 @@ export const Gorivo = ({ gorivoAr }) => {
                 <td>{props.pot}</td>
                 <td>{props.cena}</td>
                 <td>{props.usluga || "/"}</td>
-                <td>{props.time || "/"}</td>
+                <td>{minsToTime(props.time) || "/"}</td>
                 <td><button className="btn" onClick={() => handleOpen(props._id)}><i className="fas fa-edit"></i> IZMENI</button> <button className="btn del" onClick={() => handleDelete(props._id)}> <i className="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>)
 

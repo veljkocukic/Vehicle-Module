@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom"
 import { NovoRegistracija } from "./Novo/NovoRegistracija"
 
 export const Registracija = ({ registracijaAr }) => {
-    let { newOn,setNewOn,setId, formatDate, setOpenRegEdit, openRegEdit, openDialog, setOpenDialog } = useContext(DataContext)
+    let { minsToTime, newOn, setNewOn, setId, formatDate, setOpenRegEdit, openRegEdit, openDialog, setOpenDialog } = useContext(DataContext)
     let [regId, setRegId] = useState("")
     let { carId } = useParams()
 
@@ -30,7 +30,7 @@ export const Registracija = ({ registracijaAr }) => {
                 <td>{props.doc}</td>
                 <td>{props.reg}</td>
                 <td>{props.user}</td>
-                <td>{props.time}</td>
+                <td>{minsToTime(props.time)}</td>
                 <td>{formatDate(props.expire)}</td>
                 <td><button className="btn" onClick={() => handleRegEditOpen(props.kid)}><i className="fas fa-edit"></i> IZMENI</button><button className="btn del" onClick={() => handleDelete(props.kid)}> <i className="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>
@@ -52,7 +52,7 @@ export const Registracija = ({ registracijaAr }) => {
                     <th>Registrovao zaposleni</th>
                     <th>Vreme zaposlenog</th>
                     <th>Registrovan do</th>
-                    <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i className="fas fa-plus"></i> Novo</button></th>
+                    <th className="tg-0pky"><button className="editBtn" onClick={() => setNewOn(true)}><i className="fas fa-plus"></i> Novo</button></th>
                 </tr>
             </thead>
             <tbody>

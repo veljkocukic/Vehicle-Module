@@ -9,7 +9,7 @@ const RegistracijaSchema = new mongoose.Schema({
     dokumentacija: { type: String, required: true },
     troskoviRegistracije: { type: Number, required: true },
     registrovaoZaposleni: { type: String, required: true },
-    vremeZaposlenog: { type: String, required: true },
+    vremeZaposlenog: { type: Number, required: true },
     registrovanDo: { type: String, required: true }
 })
 
@@ -31,7 +31,7 @@ const GorivoSchema = new mongoose.Schema({
     potrosnja: { type: Number, default: 0 },
     cena: { type: Number, required: true },
     uslugaZaposlenog: { type: String },
-    vremeZaposlenog: { type: String }
+    vremeZaposlenog: { type: Number }
 })
 
 
@@ -42,8 +42,8 @@ const OdrzavanjeSchema = new mongoose.Schema({
     ukupanTrosak: { type: Number, required: true },
     kilometraza: { type: Number, required: true },
     deloviUsluga: { type: String, required: true },
-    uslugaZaposlenog: { type: String},
-    vremeZaposlenog: { type: String}
+    uslugaZaposlenog: { type: String },
+    vremeZaposlenog: { type: Number }
 })
 
 
@@ -54,8 +54,8 @@ const StetaSchema = new mongoose.Schema({
     datum: { type: Date, required: true },
     deloviUsluga: { type: String, required: true },
     ukupanTrosak: { type: Number, required: true },
-    uslugaZaposlenog: { type: String},
-    vremeZaposlenog: { type: String}
+    uslugaZaposlenog: { type: String },
+    vremeZaposlenog: { type: Number }
 })
 
 
