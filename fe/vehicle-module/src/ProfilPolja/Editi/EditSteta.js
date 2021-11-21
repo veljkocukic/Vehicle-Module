@@ -5,7 +5,7 @@ import { useParams } from "react-router"
 import { Spiner } from "./Spiner"
 export const EditSteta = ({ stetaAr }) => {
 
-    let { spinerOn,setSpinerOn,formatDateEdit, setOpenDmgEdit, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, id } = useContext(DataContext)
+    let { spinerOn, setSpinerOn, formatDateEdit, setOpenDmgEdit, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, id } = useContext(DataContext)
     let [valid, setValid] = useState(true)
 
 
@@ -26,7 +26,7 @@ export const EditSteta = ({ stetaAr }) => {
         setPokriva(steta.stetuPokriva)
         setDate(steta.datum)
         setParts(steta.deloviUsluga)
-        setTotal(steta.ukupanTrosak)
+        setTotal(steta.cena)
         setUsluga(steta.uslugaZaposlenog)
         setTime(steta.vremeZaposlenog)
 
@@ -34,7 +34,7 @@ export const EditSteta = ({ stetaAr }) => {
         pokrivaRef.current.value = steta.stetuPokriva
         datumRef.current.value = formatDateEdit(steta.datum)
         deloviRef.current.value = steta.deloviUsluga
-        totalRef.current.value = steta.ukupanTrosak
+        totalRef.current.value = steta.cena
         uslugaRef.current.value = steta.uslugaZaposlenog
         timeRef.current.value = steta.vremeZaposlenog
         setSpinerOn(false)
@@ -82,7 +82,7 @@ export const EditSteta = ({ stetaAr }) => {
             <h3 className="input--container__title">Šteta</h3>
             <div className="form">
 
-            <div className="single-input-container">
+                <div className="single-input-container">
                     <label for="opis-steta" className="standard--label">Opis štete <span>*</span></label>
                     <input ref={opisRef} type="text" onChange={(e) => setDesc(e.target.value)} className="standard--input" id="opis-steta" name="opis-steta" />
                 </div>
@@ -104,8 +104,8 @@ export const EditSteta = ({ stetaAr }) => {
 
                 <div className="single-input-container">
                     <label for="delovi-steta" className="standard--label"> Delovi/Usluga <span>*</span></label>
-                    <input ref={deloviRef} onChange={(e) => setParts(e.target.value)} type="text" className="standard--input" id="delovi-steta" name="delovi-steta"/>
-  
+                    <input ref={deloviRef} onChange={(e) => setParts(e.target.value)} type="text" className="standard--input" id="delovi-steta" name="delovi-steta" />
+
                 </div>
 
                 <div className="single-input-container">
@@ -131,5 +131,5 @@ export const EditSteta = ({ stetaAr }) => {
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
         </div>
-        )
+    )
 }

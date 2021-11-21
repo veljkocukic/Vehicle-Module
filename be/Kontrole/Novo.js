@@ -33,7 +33,7 @@ const NovoRegistracija = async (req, res) => {
         let newR = {
             datumRegistracije: req.body.dateReg,
             dokumentacija: req.body.docReg,
-            troskoviRegistracije: req.body.troskovi,
+            cena: req.body.troskovi,
             registrovaoZaposleni: req.body.registrovao,
             vremeZaposlenog: req.body.timeZaposleni,
             registrovanDo: req.body.regDo
@@ -85,7 +85,7 @@ const NovoOdrzavanje = async (req, res) => {
             datum: req.body.dateOdr,
             kilometraza: req.body.kmOdr,
             deloviUsluga: req.body.partsOdr,
-            ukupanTrosak: req.body.totalOdr,
+            cena: req.body.totalOdr,
             uslugaZaposlenog: req.body.uslugaOdr,
             vremeZaposlenog: req.body.timeOdr
         }
@@ -110,7 +110,7 @@ const NovoSteta = async (req, res) => {
             stetuPokriva: req.body.pokriva,
             datum: req.body.date,
             deloviUsluga: req.body.parts,
-            ukupanTrosak: req.body.total,
+            cena: req.body.total,
             uslugaZaposlenog: req.body.usluga,
             vremeZaposlenog: req.body.time
         }
@@ -160,12 +160,12 @@ const NovoMain = async (req, res) => {
             activeFrom: req.body.aktivnoOd,
             activeTo: req.body.aktivnoDo,
             registracijaPolje: {
-                datumRegistracije:req.body.dateReg,
-                dokumentacija:req.body.docReg,
-                troskoviRegistracije:req.body.troskovi,
-                registrovaoZaposleni:req.body.registrovao,
-                vremeZaposlenog:req.body.timeZaposleni,
-                registrovanDo:req.body.regDo
+                datumRegistracije: req.body.dateReg,
+                dokumentacija: req.body.docReg,
+                cena: req.body.troskovi,
+                registrovaoZaposleni: req.body.registrovao,
+                vremeZaposlenog: req.body.timeZaposleni,
+                registrovanDo: req.body.regDo
             },
             specifikacijaPolje:
             {

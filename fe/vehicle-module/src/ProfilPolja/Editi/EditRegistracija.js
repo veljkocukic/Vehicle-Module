@@ -22,8 +22,8 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
         setDocReg(reg.dokumentacija)
         regDocRef.current.value = reg.dokumentacija
 
-        setTroskovi(reg.troskoviRegistracije)
-        regTrosRef.current.value = reg.troskoviRegistracije
+        setTroskovi(reg.cena)
+        regTrosRef.current.value = reg.cena
 
         setRegistrovao(reg.registrovaoZaposleni)
         regZapRef.current.value = reg.registrovaoZaposleni
@@ -58,12 +58,12 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
             setValid(false)
             setSpinerOn(false)
             console.log(regDo)
-            console.log(verifyDate , verifyDoc , verifyTroskovi , verifyReg , verifyTime , verifyDo)
+            console.log(verifyDate, verifyDoc, verifyTroskovi, verifyReg, verifyTime, verifyDo)
         }
     }
 
 
-    const handleCancel = () =>{
+    const handleCancel = () => {
 
         setValid(true)
         setOpenRegEdit(false)
@@ -89,8 +89,8 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
 
                 <div className="single-input-container">
                     <label for="registrovao-zaposleni" className="standard--label">Registrovao zaposleni <span>*</span></label>
-                    <input ref={regZapRef}  onChange={(e) => setRegistrovao(e.target.value)} type="text" className="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni"/>
-  
+                    <input ref={regZapRef} onChange={(e) => setRegistrovao(e.target.value)} type="text" className="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni" />
+
                 </div>
 
                 <div className="single-input-container">
@@ -109,7 +109,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
                 </div>
             </div>
 
-            
+
 
 
             <div className="input--container__btns">

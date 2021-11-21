@@ -61,7 +61,7 @@ export const Steta = ({ stetaAr }) => {
             <tbody>
                 {newOn && <NovoSteta />}
                 {openDialog && <Dialog par={carId} polje="dmg" />}
-                {stetaAr.map((item, key) => <KoloneSteta _id={item._id} desc={item.opisStete} cover={item.stetuPokriva} date={item.datum} part={item.deloviUsluga} total={item.ukupanTrosak.toLocaleString()} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
+                {stetaAr.map((item, key) => <KoloneSteta _id={item._id} desc={item.opisStete} cover={item.stetuPokriva} date={item.datum} part={item.deloviUsluga} total={item.cena.toLocaleString()} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
     )

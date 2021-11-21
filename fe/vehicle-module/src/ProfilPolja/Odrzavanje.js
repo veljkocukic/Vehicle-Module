@@ -61,7 +61,7 @@ export const Odrzavanje = ({ odrzavanjeAr }) => {
             <tbody>
                 {newOn && <NovoOdrzavanje />}
                 {openDialog && <Dialog par={carId} polje="odr" />}
-                {odrzavanjeAr.map((item, key) => < KoloneOdrz _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} part={item.deloviUsluga} total={item.ukupanTrosak.toLocaleString()} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
+                {odrzavanjeAr.map((item, key) => < KoloneOdrz _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} part={item.deloviUsluga} total={item.cena.toLocaleString()} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
     )

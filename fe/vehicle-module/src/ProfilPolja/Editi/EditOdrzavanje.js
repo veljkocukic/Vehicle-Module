@@ -25,7 +25,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
         setDateOdr(odr.datum)
         setKmOdr(odr.kilometraza)
         setPartsOdr(odr.deloviUsluga)
-        setTotalOdr(odr.ukupanTrosak)
+        setTotalOdr(odr.cena)
         setUslugaOdr(odr.uslugaZaposlenog)
         setTimeOdr(odr.vremeZaposlenog)
 
@@ -33,7 +33,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
         dateRef.current.value = formatDateEdit(odr.datum)
         kmRef.current.value = odr.kilometraza
         partsRef.current.value = odr.deloviUsluga
-        totalRef.current.value = odr.ukupanTrosak
+        totalRef.current.value = odr.cena
         uslugaRef.current.value = odr.uslugaZaposlenog
         timeRef.current.value = odr.vremeZaposlenog
 
@@ -55,7 +55,8 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
                 window.location.reload()
             }).catch(err => {
                 setSpinerOn(false)
-                console.log(err)})
+                console.log(err)
+            })
         } else {
             setSpinerOn(false)
             setValid(false)
@@ -84,7 +85,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
 
                 <div className="single-input-container">
                     <label for="tip-odrzavanje" className="standard--label">Tip <span>*</span></label>
-                    <select ref={tipRef}onChange={e => setTypeOdr(e.target.value)} className="standard--input" id="tip-odrzavanje" name="tip-odrzavanje" >
+                    <select ref={tipRef} onChange={e => setTypeOdr(e.target.value)} className="standard--input" id="tip-odrzavanje" name="tip-odrzavanje" >
                         <option>Redovno</option>
                         <option>Vanredno</option>
                         <option>Higijena</option>
@@ -104,8 +105,8 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
 
                 <div className="single-input-container">
                     <label for="delovi-odrzavanje" className="standard--label"> Delovi/Usluga <span>*</span></label>
-                    <input ref={partsRef} onChange={(e) => setPartsOdr(e.target.value)} type="text" className="standard--input" id="delovi-odrzavanje" name="delovi-odrzavanje"/>
-  
+                    <input ref={partsRef} onChange={(e) => setPartsOdr(e.target.value)} type="text" className="standard--input" id="delovi-odrzavanje" name="delovi-odrzavanje" />
+
                 </div>
 
                 <div className="single-input-container">

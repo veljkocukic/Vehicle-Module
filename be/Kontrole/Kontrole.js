@@ -17,7 +17,7 @@ function form(e) {
 
 let formatDate = (dt) => { ///////////// Vreme za tabele
     let date = new Date(dt)
-    return  date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear()+"."
+    return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear() + "."
 }
 
 let formatDateEdit = (dt) => { ////////////////////// Vreme za unos
@@ -52,8 +52,8 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
                 activeFrom: formatDate(a.activeFrom),
                 activeFromEdit: formatDateEdit(a.activeFrom),
                 tipKorisnika: a.tipKorisnika,
-                activeTo: new Date(a.activeTo).getFullYear()!==1970 ? formatDate(a.activeTo) : "",
-                activeToEdit: new Date(a.activeTo).getFullYear()!==1970 ? formatDateEdit(a.activeTo) : "",
+                activeTo: new Date(a.activeTo).getFullYear() !== 1970 ? formatDate(a.activeTo) : "",
+                activeToEdit: new Date(a.activeTo).getFullYear() !== 1970 ? formatDateEdit(a.activeTo) : "",
                 isticanje,
                 isticanjeEdit,
                 slike: a.slike
@@ -129,7 +129,7 @@ const RegistracijaEdit = async (req, res) => {
         let reg = registracija.registracijaPolje.find(item => item._id.toString() === req.body.id)
         reg.datumRegistracije = req.body.dateReg
         reg.dokumentacija = req.body.docReg
-        reg.troskoviRegistracije = req.body.troskovi
+        reg.cena = req.body.troskovi
         reg.registrovaoZaposleni = req.body.registrovao
         reg.vremeZaposlenog = req.body.timeZaposleni
         reg.registrovanDo = req.body.regDo
@@ -207,7 +207,7 @@ const OdrzavanjeEdit = async (req, res) => {
         odr.datum = req.body.dateOdr
         odr.kilometraza = req.body.kmOdr
         odr.deloviUsluga = req.body.partsOdr
-        odr.ukupanTrosak = req.body.totalOdr
+        odr.cena = req.body.totalOdr
         odr.uslugaZaposlenog = req.body.uslugaOdr
         odr.vremeZaposlenog = req.body.timeOdr
 
@@ -235,7 +235,7 @@ const StetaEdit = async (req, res) => {
         ste.stetuPokriva = req.body.pokriva
         ste.datum = req.body.date
         ste.deloviUsluga = req.body.parts
-        ste.ukupanTrosak = req.body.total
+        ste.cena = req.body.total
         ste.uslugaZaposlenog = req.body.usluga
         ste.vremeZaposlenog = req.body.time
 
@@ -288,12 +288,12 @@ const ServiseriEdit = async (req, res) => {
     }
 }
 
-const Vozila = async (req,res) =>{
+const Vozila = async (req, res) => {
     try {
         const vozila = await CarsModel.find({})
         let newAr = []
-        for(a of vozila){
-            newAr.push( {name:a.markaTip,_id:a._id})
+        for (a of vozila) {
+            newAr.push({ name: a.markaTip, _id: a._id })
         }
         res.send(newAr)
 
@@ -302,220 +302,244 @@ const Vozila = async (req,res) =>{
     }
 }
 
-const IzvestajiPost = async(req,res) =>{
+const IzvestajiPost = async (req, res) => {
     try {
-            let ar = []
-            let all
-        
-            for(let a of req.body.vozilaSelect){
-                ar.push(mongoose.Types.ObjectId(a))
-            }
-            if(ar.length===0){
-                all = await CarsModel.find()
-            }else{
-                all = await CarsModel.find({_id:ar})
-            }
+        let ar = []
+        let all
 
-            let results = []
-            let num = 0
-            let meseci = razlika(req.body.menuDateFrom,req.body.menuDateTo)
-            let startMonth = new Date(req.body.menuDateFrom).getMonth()+1
-            let headAr = []
+        for (let a of req.body.vozilaSelect) {
+            ar.push(mongoose.Types.ObjectId(a))
+        }
+        if (ar.length === 0) {
+            all = await CarsModel.find()
+        } else {
+            all = await CarsModel.find({ _id: ar })
+        }
 
-            function razlika(datumOd,datumDo){
-                let t2=new Date(datumDo)
-                let t1=new Date(datumOd)
-                
-                let mnt1 = (t1.getMonth()+1)
-                let mnt2 = (t2.getMonth()+1)
-                let year = t2.getFullYear()-t1.getFullYear()
-                return year*12+mnt2-mnt1
-              }
+        let results = []
+        let num = 0
+        let meseci = razlika(req.body.menuDateFrom, req.body.menuDateTo)
+        let startMonth = new Date(req.body.menuDateFrom).getMonth() + 1
+        let headAr = []
+        let finalType;
+        function cena(a, b) {
+            return a + b.cena * (req.body.tipIzvestaja === "Potrošnja goriva " ? b.potrosnja : 1)
+        }
+        function litri(a, b) {
+            return a + b.potrosnja
+        }
+        function vreme(a, b) {
+            return a + b.vremeZaposlenog
+        }
+        switch (req.body.vrstaVrednosti) {
+            case "Cena (din.)":
+                finalType = cena
+                break;
+            case "U litrima":
+                finalType = litri
+                break;
+            case "Vreme zaposlenog":
+                finalType = vreme
+            default:
+                break;
+        }
 
-              function totalMonth (array,months){
-                let resTot = []
+        function razlika(datumOd, datumDo) {
+            let t2 = new Date(datumDo)
+            let t1 = new Date(datumOd)
 
-                try {
-                    for (let i = startMonth;i<=months+startMonth;i++){
-                       if(req.body.tipIzvestaja==="Troškovi registracije"){ 
-                          resTot.push(array.filter(item=>{
-                          let yr = new Date(array[0].datumRegistracije).getFullYear()-new Date(req.body.menuDateFrom).getFullYear()
-                          return  ((new Date(item.datumRegistracije).getMonth())+1)+(yr*12)===i
-              
-                        }).reduce((a,b)=>a+b.troskoviRegistracije,0))
-                        }else if(req.body.tipIzvestaja==="Potrošnja goriva"){
-                            resTot.push(array.filter(item=>{
-                                let yr = new Date(array[0].datum).getFullYear()-new Date(req.body.menuDateFrom).getFullYear()
-                                return  ((new Date(item.datum).getMonth())+1)+(yr*12)===i
-                              }).reduce((a,b)=>a+b.cena*b.potrosnja,0))
-                        }else if(req.body.tipIzvestaja==="Troškovi za tag"){
-                            resTot.push(array.filter(item=>{
-                                let yr = new Date(array[0].datum).getFullYear()-new Date(req.body.menuDateFrom).getFullYear()
-                                return  ((new Date(item.datum).getMonth())+1)+(yr*12)===i
-                              }).reduce((a,b)=>a+b.cena,0))
-                        }else if(req.body.tipIzvestaja==="Troškovi za pranje"){
-                            resTot.push(array.filter(item=>{
-                                let yr = new Date(array[0].datum).getFullYear()-new Date(req.body.menuDateFrom).getFullYear()
-                                return  ((new Date(item.datum).getMonth())+1)+(yr*12)===i
-                              }).reduce((a,b)=>a+b.cena,0))
-                        }else if(req.body.tipIzvestaja==="Troškovi održavanja"){
-                            resTot.push(array.filter(item=>{
-                                let yr = new Date(array[0].datum).getFullYear()-new Date(req.body.menuDateFrom).getFullYear()
-                                return  ((new Date(item.datum).getMonth())+1)+(yr*12)===i
-                              }).reduce((a,b)=>a+b.ukupanTrosak,0))
-                        }else if(req.body.tipIzvestaja==="Troškovi štete na vozilu"){
-                            resTot.push(array.filter(item=>{
-                                let yr = new Date(array[0].datum).getFullYear()-new Date(req.body.menuDateFrom).getFullYear()
-                                return  ((new Date(item.datum).getMonth())+1)+(yr*12)===i
-                              }).reduce((a,b)=>a+b.ukupanTrosak,0))
-                        }else if(req.body.tipIzvestaja==="Ukupni troškovi"){
-                            resTot.push(array.filter(item=>{
-                                let yr = new Date(array[0].datum).getFullYear()-new Date(req.body.menuDateFrom).getFullYear()
-                                return  ((new Date(item.datum).getMonth())+1)+(yr*12)===i
-                              }).reduce((a,b)=>a+b.cena,0))
-                        }
-                        
+            let mnt1 = (t1.getMonth() + 1)
+            let mnt2 = (t2.getMonth() + 1)
+            let year = t2.getFullYear() - t1.getFullYear()
+            return year * 12 + mnt2 - mnt1
+        }
+
+        function totalMonth(array, months) {
+            let resTot = []
+            console.log(finalType)
+            console.log(req.body.vrstaVrednosti)
+            try {
+                for (let i = startMonth; i <= months + startMonth; i++) {
+                    if (req.body.tipIzvestaja === "Troškovi registracije") {
+                        resTot.push(array.filter(item => {
+                            let yr = new Date(array[0].datumRegistracije).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
+                            return ((new Date(item.datumRegistracije).getMonth()) + 1) + (yr * 12) === i
+
+                        }).reduce(finalType, 0))
+                    } else if (req.body.tipIzvestaja === "Potrošnja goriva") {
+                        resTot.push(array.filter(item => {
+                            let yr = new Date(array[0].datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
+                        }).reduce(finalType, 0))
+                    } else if (req.body.tipIzvestaja === "Troškovi za tag") {
+                        resTot.push(array.filter(item => {
+                            let yr = new Date(array[0].datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
+                        }).reduce(finalType, 0))
+                    } else if (req.body.tipIzvestaja === "Troškovi za pranje") {
+                        resTot.push(array.filter(item => {
+                            let yr = new Date(array[0].datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
+                        }).reduce(finalType, 0))
+                    } else if (req.body.tipIzvestaja === "Troškovi održavanja") {
+                        resTot.push(array.filter(item => {
+                            let yr = new Date(array[0].datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
+                        }).reduce(finalType, 0))
+                    } else if (req.body.tipIzvestaja === "Troškovi štete na vozilu") {
+                        resTot.push(array.filter(item => {
+                            let yr = new Date(array[0].datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
+                        }).reduce(finalType, 0))
+                    } else if (req.body.tipIzvestaja === "Ukupni troškovi") {
+                        resTot.push(array.filter(item => {
+                            let yr = new Date(array[0].datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
+                        }).reduce(finalType, 0))
                     }
-                      return resTot
-                } catch (error) {
-                    for(let i = 0;i<=months;i++){
-                        resTot.push(0)
-                        return resTot
-                    }
-                    console.log(error)
+
                 }
-              }
+                return resTot
+            } catch (error) {
+                for (let i = 0; i <= months; i++) {
+                    resTot.push(0)
+                    return resTot
+                }
+                console.log(error)
+            }
+        }
 
-              function addAr(num) { /////////////////Ovo bi trebalo da može da se odradi sa nizom i indexom
-                let month = "";
-                switch (num) {
-                  case 1:
+        function addAr(num) { /////////////////Ovo bi trebalo da može da se odradi sa nizom i indexom
+            let month = "";
+            switch (num) {
+                case 1:
                     month = "Jan";
                     break;
-                  case 2:
+                case 2:
                     month = "Feb";
                     break;
-                  case 3:
+                case 3:
                     month = "Mart";
                     break;
-                  case 4:
+                case 4:
                     month = "Apr";
                     break;
-                  case 5:
+                case 5:
                     month = "Maj";
                     break;
-                  case 6:
+                case 6:
                     month = "Jun";
                     break;
-                  case 7:
+                case 7:
                     month = "Jul";
                     break;
-                  case 8:
+                case 8:
                     month = "Avg";
                     break;
-                  case 9:
+                case 9:
                     month = "Sept";
                     break;
-                  case 10:
+                case 10:
                     month = "Okt";
                     break;
-                  case 11:
+                case 11:
                     month = "Nov";
                     break;
-                  case 12:
+                case 12:
                     month = "Dec";
                     break;
-                  default:
+                default:
                     month = "Jan";
-                }
-              
-                return month;
-              }
-
-              function editAr (nm, ar, firstMonth){
-
-                let num = firstMonth
-                for (let i = 0; i <= nm; i++) {
-                  if (num > 12) {
-                    num = 1
-                  }
-                  ar.push(addAr(num))
-                  ++num
-                }
-              }
-            
-
-
-
-            for(let b of all){
-                let podaci
-                if(req.body.tipIzvestaja==="Troškovi registracije"){
-                    let result = b.registracijaPolje.filter(item=>new Date(item.datumRegistracije)<=new Date(req.body.menuDateTo) && new Date(item.datumRegistracije)>= new Date(req.body.menuDateFrom))
-                    podaci = totalMonth(result,meseci)}
-                else if(req.body.tipIzvestaja==="Potrošnja goriva"){
-                    let result = b.gorivoPolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip==="Gorivo")
-                    podaci = totalMonth(result,meseci)
-                }else if(req.body.tipIzvestaja==="Troškovi za tag"){
-                    let result = b.gorivoPolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip==="Tag")
-                    podaci = totalMonth(result,meseci)
-                }else if(req.body.tipIzvestaja==="Troškovi za pranje"){
-                    let result = b.gorivoPolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip==="Pranje")
-                    podaci = totalMonth(result,meseci)
-                }else if(req.body.tipIzvestaja==="Troškovi održavanja"){
-                    let result = b.odrzavanjePolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip===req.body.todr)
-                    podaci = totalMonth(result,meseci)
-                }else if(req.body.tipIzvestaja==="Troškovi štete na vozilu"){
-                    let result = b.stetaPolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip===req.body.pokr)
-                    podaci = totalMonth(result,meseci)
-                }else if(req.body.tipIzvestaja==="Ukupni troškovi"){
-                    let result = []
-                    let troskoviRegistracije = b.registracijaPolje.filter(item=>new Date(item.datumRegistracije)<=new Date(req.body.menuDateTo) && new Date(item.datumRegistracije)>= new Date(req.body.menuDateFrom))
-                    for(let a of troskoviRegistracije){
-                        result.push({datum:a.datumRegistracije,cena:a.troskoviRegistracije,tip:"Registracija"})
-                    }
-                    let troskoviGorivo = b.gorivoPolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip==="Gorivo")
-                    for(let a of troskoviGorivo){
-                        result.push({datum:a.datum,cena:a.potrosnja*a.cena,tip:"Gorivo"})
-                    }
-                    let troskoviTag =b.gorivoPolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip==="Tag")
-                    for(let a of troskoviTag){
-                        result.push({datum:a.datum,cena:a.cena,tip:"Tag"})
-                    }
-                    let troskoviPranje = b.gorivoPolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip==="Pranje")
-                    for(let a of troskoviPranje){
-                        result.push({datum:a.datum,cena:a.cena,tip:"Pranje"})
-                    }
-                    let troskoviOdrzavanjeHigijena=b.odrzavanjePolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip==="Higijena")
-                    for(let a of troskoviOdrzavanjeHigijena){
-                        result.push({datum:a.datum,cena:a.cena,tip:"Higijena"})
-                    }
-                    let troskoviOdrzavanjeGume=b.odrzavanjePolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip==="Gume")
-                    for(let a of troskoviOdrzavanjeGume){
-                        result.push({datum:a.datum,cena:a.cena,tip:"Gume"})
-                    }
-                    let troskoviOdrzavanjeRedovno=b.odrzavanjePolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip==="Redovno")
-                    for(let a of troskoviOdrzavanjeRedovno){
-                        result.push({datum:a.datum,cena:a.cena,tip:"Redovno"})
-                    }
-                    let troskoviOdrzavanjeVanredno=b.odrzavanjePolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom)).filter(item=>item.tip==="Vanredno")
-                    for(let a of troskoviOdrzavanjeVanredno){
-                        result.push({datum:a.datum,cena:a.cena,tip:"Vanredno"})
-                    }
-                    let troskoviStete = b.stetaPolje.filter(item=>new Date(item.datum)<=new Date(req.body.menuDateTo) && new Date(item.datum)>= new Date(req.body.menuDateFrom))
-                    for(let a of troskoviStete){
-                        result.push({datum:a.datum,cena:a.cena,tip:"Steta"})
-                    }
-                    
-                    
-                    
-                    podaci = totalMonth(result,meseci)
-                }
-
-                results.push({rb:++num,vozilo:b.markaTip+" - " +b.registracioniBroj, data:podaci})
             }
-        
-            editAr(meseci,headAr,startMonth)
-            let resp = {tableHead:headAr,dataTable:results}
+
+            return month;
+        }
+
+        function editAr(nm, ar, firstMonth) {
+
+            let num = firstMonth
+            for (let i = 0; i <= nm; i++) {
+                if (num > 12) {
+                    num = 1
+                }
+                ar.push(addAr(num))
+                ++num
+            }
+        }
+
+
+
+
+        for (let b of all) {
+            let podaci
+            if (req.body.tipIzvestaja === "Troškovi registracije") {
+                let result = b.registracijaPolje.filter(item => new Date(item.datumRegistracije) <= new Date(req.body.menuDateTo) && new Date(item.datumRegistracije) >= new Date(req.body.menuDateFrom))
+                podaci = totalMonth(result, meseci)
+            }
+            else if (req.body.tipIzvestaja === "Potrošnja goriva") {
+                let result = b.gorivoPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Gorivo")
+                podaci = totalMonth(result, meseci)
+            } else if (req.body.tipIzvestaja === "Troškovi za tag") {
+                let result = b.gorivoPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Tag")
+                podaci = totalMonth(result, meseci)
+            } else if (req.body.tipIzvestaja === "Troškovi za pranje") {
+                let result = b.gorivoPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Pranje")
+                podaci = totalMonth(result, meseci)
+            } else if (req.body.tipIzvestaja === "Troškovi održavanja") {
+                let result = b.odrzavanjePolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === req.body.todr)
+                podaci = totalMonth(result, meseci)
+            } else if (req.body.tipIzvestaja === "Troškovi štete na vozilu") {
+                let result = b.stetaPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === req.body.pokr)
+                podaci = totalMonth(result, meseci)
+            } else if (req.body.tipIzvestaja === "Ukupni troškovi") {
+                let result = []
+                let troskoviRegistracije = b.registracijaPolje.filter(item => new Date(item.datumRegistracije) <= new Date(req.body.menuDateTo) && new Date(item.datumRegistracije) >= new Date(req.body.menuDateFrom))
+                for (let a of troskoviRegistracije) {
+                    result.push({ datum: a.datumRegistracije, cena: a.troskoviRegistracije, tip: "Registracija" })
+                }
+                let troskoviGorivo = b.gorivoPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Gorivo")
+                for (let a of troskoviGorivo) {
+                    result.push({ datum: a.datum, cena: a.potrosnja * a.cena, tip: "Gorivo" })
+                }
+                let troskoviTag = b.gorivoPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Tag")
+                for (let a of troskoviTag) {
+                    result.push({ datum: a.datum, cena: a.cena, tip: "Tag" })
+                }
+                let troskoviPranje = b.gorivoPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Pranje")
+                for (let a of troskoviPranje) {
+                    result.push({ datum: a.datum, cena: a.cena, tip: "Pranje" })
+                }
+                let troskoviOdrzavanjeHigijena = b.odrzavanjePolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Higijena")
+                for (let a of troskoviOdrzavanjeHigijena) {
+                    result.push({ datum: a.datum, cena: a.cena, tip: "Higijena" })
+                }
+                let troskoviOdrzavanjeGume = b.odrzavanjePolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Gume")
+                for (let a of troskoviOdrzavanjeGume) {
+                    result.push({ datum: a.datum, cena: a.cena, tip: "Gume" })
+                }
+                let troskoviOdrzavanjeRedovno = b.odrzavanjePolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Redovno")
+                for (let a of troskoviOdrzavanjeRedovno) {
+                    result.push({ datum: a.datum, cena: a.cena, tip: "Redovno" })
+                }
+                let troskoviOdrzavanjeVanredno = b.odrzavanjePolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Vanredno")
+                for (let a of troskoviOdrzavanjeVanredno) {
+                    result.push({ datum: a.datum, cena: a.cena, tip: "Vanredno" })
+                }
+                let troskoviStete = b.stetaPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom))
+                for (let a of troskoviStete) {
+                    result.push({ datum: a.datum, cena: a.cena, tip: "Steta" })
+                }
+
+
+
+                podaci = totalMonth(result, meseci)
+            }
+
+            results.push({ rb: ++num, vozilo: b.markaTip + " - " + b.registracioniBroj, data: podaci })
+        }
+
+        editAr(meseci, headAr, startMonth)
+        let resp = { tableHead: headAr, dataTable: results }
         res.send(resp)
 
 
@@ -527,4 +551,4 @@ const IzvestajiPost = async(req,res) =>{
 
 }
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit,Vozila,IzvestajiPost }
+module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit, Vozila, IzvestajiPost }
