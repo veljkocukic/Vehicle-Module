@@ -315,6 +315,9 @@ const IzvestajiPost = async (req, res) => {
         } else {
             all = await CarsModel.find({ _id: ar })
         }
+        if (req.body.zaposleniSelect.length > 0) {
+            all = all.filter(item => req.body.zaposleniSelect.some(zaposleni => zaposleni === item.korisnikVoz))
+        }
 
         let results = []
         let num = 0
@@ -356,8 +359,6 @@ const IzvestajiPost = async (req, res) => {
 
         function totalMonth(array, months) {
             let resTot = []
-            console.log(finalType)
-            console.log(req.body.vrstaVrednosti)
             try {
                 for (let i = startMonth; i <= months + startMonth; i++) {
                     if (req.body.tipIzvestaja === "Troškovi registracije") {
@@ -384,12 +385,12 @@ const IzvestajiPost = async (req, res) => {
                     } else if (req.body.tipIzvestaja === "Troškovi održavanja") {
                         resTot.push(array.filter(item => {
                             let yr = new Date(array[0].datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i && item.tip === req.body.todr
                         }).reduce(finalType, 0))
                     } else if (req.body.tipIzvestaja === "Troškovi štete na vozilu") {
                         resTot.push(array.filter(item => {
                             let yr = new Date(array[0].datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i && item.pokriva === req.body.pokr
                         }).reduce(finalType, 0))
                     } else if (req.body.tipIzvestaja === "Ukupni troškovi") {
                         resTot.push(array.filter(item => {
@@ -527,7 +528,7 @@ const IzvestajiPost = async (req, res) => {
                 }
                 let troskoviStete = b.stetaPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom))
                 for (let a of troskoviStete) {
-                    result.push({ datum: a.datum, cena: a.cena, tip: "Steta" })
+                    result.push({ datum: a.datum, cena: a.cena, tip: "Steta", pokriva: a.stetuPokriva })
                 }
 
 

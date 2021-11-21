@@ -54,7 +54,7 @@ export const Serviseri = () => {
         <div className="serviseri-container">
             <div className="page-title">
                 <h1>Serviseri i eksterni saradnici</h1>
-                <button className="car-button car-title" onClick={() => setNewOn(true)} >+ NOVO VOZILO</button>
+                <button className="car-button car-title" onClick={() => setNewOn(true)} >+ NOVA STAVKA</button>
             </div>
 
             <table className="tg servt">
@@ -69,7 +69,7 @@ export const Serviseri = () => {
                         <th>Adresa</th>
                         <th>Br. telefona</th>
                         <th>E-mail</th>
-                        <th colSpan="2" align="left" style={{paddingLeft:"2em"}}> Website</th>
+                        <th colSpan="2" align="left" style={{ paddingLeft: "2em" }}> Website</th>
                     </tr>
                 </thead>
                 <tbody>
