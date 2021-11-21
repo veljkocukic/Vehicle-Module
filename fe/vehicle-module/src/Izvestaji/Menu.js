@@ -95,9 +95,9 @@ export const Menu = ({ sbt }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="vrsta-vrednosti" ref={vrednostRef} className="standard--label">Vrsta vrednosti <span>*</span></label>
+                    <label for="vrsta-vrednosti" className="standard--label">Vrsta vrednosti <span>*</span></label>
                     <p class="under-text">(odaberite jednu vrstu vrednost) </p>
-                    <select onChange={e => setVrstaVrednosti(e.target.value)} className="standard--input" id="vrsta-vrednosti" name="vrsta-vrednosti" >
+                    <select ref={vrednostRef} onChange={e => setVrstaVrednosti(e.target.value)} className="standard--input" id="vrsta-vrednosti" name="vrsta-vrednosti" >
                         <option>Cena (din.)</option>
                         {tipIzvestaja === "Potrošnja goriva" && <option>U litrima</option>}
                         <option>Vreme zaposlenog</option>
@@ -120,7 +120,7 @@ export const Menu = ({ sbt }) => {
                     <label for="pokrice-stete" className="standard--label">Pokriće štete</label>
                     <p class="under-text">(odaberite ko pokriva štetu) </p>
                     <select disabled={tipIzvestaja !== "Troškovi štete na vozilu"} onChange={e => setPokriceStete(e.target.value)} className="standard--input" id="pokrice-stete" name="pokrice-stete" >
-                        <option>Zaoposleni</option>
+                        <option>Zaposleni</option>
                         <option>Firma</option>
                         <option>Drugo lice</option>
                         <option>Osiguranje</option>
@@ -173,7 +173,7 @@ export const Menu = ({ sbt }) => {
             </form>
 
             <div className="input--container__btns">
-                <button className="btn no menu-excell" onClick={() => console.log(vrstaVrednosti)}><i class="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button>
+                <button className="btn no menu-excell" onClick={() => console.log(vrstaVrednosti + " " + vrednostRef.current.value)}><i class="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button>
                 <button className="btn yes menu-create" onClick={handleSubmit} ><i class="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
             </div>
 
