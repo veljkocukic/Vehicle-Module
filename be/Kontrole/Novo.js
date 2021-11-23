@@ -28,10 +28,8 @@ let formatDateEdit = (dt) => { ////////////////////// Vreme za unos
 const NovoRegistracija = async (req, res) => {
     try {
         const registracija = await CarsModel.findById(req.params.carId)
-
-
         let newR = {
-            datumRegistracije: req.body.dateReg,
+            datum: req.body.dateReg,
             dokumentacija: req.body.docReg,
             cena: req.body.troskovi,
             registrovaoZaposleni: req.body.registrovao,

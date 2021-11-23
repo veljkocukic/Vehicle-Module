@@ -12,6 +12,7 @@ export const NovoRegistracija = ({ newC }) => {
     let { carId } = useParams()
 
     const handleSubmit = async () => {
+        console.log(dateReg)
         setSpinerOn(true)
         let verifyDate = verDate(dateReg)
         let verifyDoc = docReg.length > 2

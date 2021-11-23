@@ -60,7 +60,7 @@ export const Profil = () => {
                 setDocume(res.data.car.specifikacijaPolje.dokumentacija)
                 setImagesArray(res.data.car.slike)
 
-
+                console.log(res.data.car.registracijaPolje.datum)
             })
         }
         fetchData().then(() => setSpinerProfile(false)).catch(er => {

@@ -127,7 +127,7 @@ const RegistracijaEdit = async (req, res) => {
     try {
         const registracija = await CarsModel.findById(req.params.carId)
         let reg = registracija.registracijaPolje.find(item => item._id.toString() === req.body.id)
-        reg.datumRegistracije = req.body.dateReg
+        reg.datum = req.body.dateReg
         reg.dokumentacija = req.body.docReg
         reg.cena = req.body.troskovi
         reg.registrovaoZaposleni = req.body.registrovao
@@ -363,8 +363,8 @@ const IzvestajiPost = async (req, res) => {
                 for (let i = startMonth; i <= months + startMonth; i++) {
                     if (req.body.tipIzvestaja === "Troškovi registracije") {
                         resTot.push(array.filter(item => {
-                            let yr = new Date(array[0].datumRegistracije).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                            return ((new Date(item.datumRegistracije).getMonth()) + 1) + (yr * 12) === i
+                            let yr = new Date(array[0].datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
 
                         }).reduce(finalType, 0))
                     } else if (req.body.tipIzvestaja === "Potrošnja goriva") {
@@ -409,6 +409,54 @@ const IzvestajiPost = async (req, res) => {
                 console.log(error)
             }
         }
+
+
+        const totalYear = (dateFrom, dateTo, array) => {
+            let resTot = [];
+            let yearFrom = new Date(dateFrom).getFullYear();
+            let yearTo = new Date(dateTo).getFullYear();
+             
+            for (let i = yearFrom; i <= yearTo; i++) {
+              resTot.push(
+                array
+                  .filter((item) => new Date(item.datum).getFullYear() === i)
+                  .reduce(finalType, 0)
+              );
+              headAr.push(i)
+            }
+            return resTot
+          };
+
+
+          const totalHalfYear = (dateFrom, dateTo, array) => {
+            let resTot = [];
+            let yearFrom = new Date(dateFrom).getFullYear();
+            let yearTo = new Date(dateTo).getFullYear();    
+            let firstYearMissingHalf = new Date(dateFrom).getMonth() + 1 < 6 ? 1 : 0;
+            let secondYearMissingHalf = new Date(dateTo).getMonth() + 1 < 6 ? 1 : 0;
+            let firstHalf = new Date(dateFrom).getMonth() + 1 < 6 ? 1 : 2
+            let halves = (yearTo - yearFrom) * 2 - firstYearMissingHalf - secondYearMissingHalf;
+            
+           
+        
+            for (let i = firstHalf; i <= halves+firstHalf; i++) {
+              resTot.push(array.filter(item=>{  
+                          let year = new Date(dateTo).getFullYear()-new Date(item.datum).getFullYear()
+                          let itemHalf = new Date(item.datum).getMonth()+1
+                          if(itemHalf<6){
+                            itemHalf=1
+                          }else{
+                            itemHalf=2
+                          }
+                          itemHalf=itemHalf+=year*2
+                          return itemHalf === i
+          }).reduce(finalType, 0))
+
+            headAr.push(i)
+            }
+            return resTot.reverse()
+          };
+
 
         function addAr(num) { /////////////////Ovo bi trebalo da može da se odradi sa nizom i indexom
             let month = "";
@@ -456,7 +504,7 @@ const IzvestajiPost = async (req, res) => {
             return month;
         }
 
-        function editAr(nm, ar, firstMonth) {
+        function editArMonths(nm, ar, firstMonth) {
 
             let num = firstMonth
             for (let i = 0; i <= nm; i++) {
@@ -474,8 +522,14 @@ const IzvestajiPost = async (req, res) => {
         for (let b of all) {
             let podaci
             if (req.body.tipIzvestaja === "Troškovi registracije") {
-                let result = b.registracijaPolje.filter(item => new Date(item.datumRegistracije) <= new Date(req.body.menuDateTo) && new Date(item.datumRegistracije) >= new Date(req.body.menuDateFrom))
-                podaci = totalMonth(result, meseci)
+                let result = b.registracijaPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom))
+                if(req.body.rezolucija==="Godina"){
+                    podaci = totalYear(req.body.menuDateFrom,req.body.menuDateTo,result)
+                }else if(req.body.rezolucija==="Mesec"){
+                    podaci = totalMonth(result, meseci)
+                }else if(req.body.rezolucija==="Pola godine"){
+                    podaci = totalHalfYear(req.body.menuDateFrom,req.body.menuDateTo,result)
+                }
             }
             else if (req.body.tipIzvestaja === "Potrošnja goriva") {
                 let result = b.gorivoPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Gorivo")
@@ -533,13 +587,15 @@ const IzvestajiPost = async (req, res) => {
 
 
 
-                podaci = totalMonth(result, meseci)
+               
             }
 
             results.push({ rb: ++num, vozilo: b.markaTip + " - " + b.registracioniBroj, data: podaci })
         }
 
-        editAr(meseci, headAr, startMonth)
+        if(req.body.rezolucija==="Mesec"){
+            editArMonths(meseci, headAr, startMonth)
+        }
         let resp = { tableHead: headAr, dataTable: results }
         res.send(resp)
 

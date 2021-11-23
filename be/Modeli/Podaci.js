@@ -5,7 +5,7 @@ let mongoose = require("mongoose")
 
 const RegistracijaSchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, auto: true },
-    datumRegistracije: { type: Date, required: true },
+    datum: { type: Date, required: true },
     dokumentacija: { type: String, required: true },
     cena: { type: Number, required: true },
     registrovaoZaposleni: { type: String, required: true },
