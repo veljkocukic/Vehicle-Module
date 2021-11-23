@@ -1,67 +1,69 @@
-import React,{useState,useEffect,useRef, useContext} from "react"
+import React, { useState, useEffect, useRef, useContext } from "react"
 import axios from "axios"
+import ExcellentExport from 'excellentexport';
+
 import { DataContext } from "../Context"
 
 
-const Kolone = ({rb,vozilo,data,th}) =>{
+const Kolone = ({ rb, vozilo, data, th }) => {
 
-    const findName = (nm) =>{
+    const findName = (nm) => {
         let ind = data.indexOf(nm)
         return th[ind]
-        }
+    }
 
-    return(
+    return (
         <tr>
             <td>{rb}</td>
             <td>{vozilo}</td>
-            {data.map(item=><td className="click-tab" id={vozilo+"-"+findName(item)}>{item.toLocaleString()}</td>)}
+            {data.map(item => <td className="click-tab" id={vozilo + "-" + findName(item)}>{item.toLocaleString()}</td>)}
         </tr>
     )
 }
 
 
-export const Table = () =>{
+export const Table = () => {
 
-    let {dataTable,tableHead} = useContext(DataContext)
+    let { dataTable, tableHead } = useContext(DataContext)
 
 
     let ar = []
     try {
-        for(let i=0;i<tableHead.length;i++){
+        for (let i = 0; i < tableHead.length; i++) {
             ar.push(0)
         }
-    
+
     } catch (error) {
         console.log(error)
     }
 
-    for(let a of dataTable){
-        a.data.forEach(item=>{
+    for (let a of dataTable) {
+        a.data.forEach(item => {
             let ind = a.data.indexOf(item)
-            ar[ind] = item+ar[ind]
+            ar[ind] = item + ar[ind]
         })
     }
 
 
 
-    return(
-        <table className="tg">
+    return (
+        <table className="tg" id="excel-table">
 
             <thead>
 
                 <tr>
                     <th>Rb</th>
                     <th>Službeno vozilo</th>
-                    {tableHead.map(item=><th>{item}</th>)}
+                    {tableHead.map(item => <th>{item}</th>)}
                 </tr>
             </thead>
             <tbody>
-            {dataTable.map(item=><Kolone rb={item.rb} vozilo={item.vozilo} data={item.data} th={tableHead}/>)} 
-            <tr >
-                <td className="head-table" colSpan="2">Ukupno</td>
-                {ar.map(item=><td className="head-table click-tab">{item}</td>)}
+                {dataTable.map(item => <Kolone rb={item.rb} vozilo={item.vozilo} data={item.data} th={tableHead} />)}
+                <tr >
+                    <td className="head-table" colSpan="2">Ukupno</td>
+                    {ar.map(item => <td className="head-table click-tab">{item}</td>)}
 
-            </tr>
+                </tr>
             </tbody>
         </table>
     )

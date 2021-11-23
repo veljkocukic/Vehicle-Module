@@ -4,6 +4,8 @@ import { DataContext } from "../Context";
 import { Spiner } from "../ProfilPolja/Editi/Spiner"
 import { ZaposleniLista } from "../ProfilPolja/Novo/ZaposleniLista";
 import { VozilaLista } from "../VozilaLista";
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+
 
 export const Menu = ({ sbt }) => {
     const [tipIzvestaja, setTipIzvestaja] = useState("Potrošnja goriva")
@@ -173,7 +175,14 @@ export const Menu = ({ sbt }) => {
             </form>
 
             <div className="input--container__btns">
-                <button className="btn no menu-excell" onClick={() => console.log(vrstaVrednosti + " " + vrednostRef.current.value)}><i class="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button>
+                <ReactHTMLTableToExcel
+                    id="test-table-xls-button"
+                    className="btn no menu-excell"
+                    table="excel-table"
+                    filename="tablexls"
+                    sheet="tablexls"
+                    buttonText="Download as XLS" />
+                {/* <button className="btn no menu-excell" ><i class="far fa-file-excel menu-icon"></i> </button> */}
                 <button className="btn yes menu-create" onClick={handleSubmit} ><i class="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
             </div>
 
