@@ -179,8 +179,7 @@ export const Menu = ({ sbt }) => {
                     table="excel-table"
                     filename="tablexls"
                     sheet="tablexls"
-                    buttonText="Download as XLS" />
-                {/* <button className="btn no menu-excell" ><i className="far fa-file-excel menu-icon"></i> </button> */}
+                    buttonText="EXPORT U EXCELL" />
                 <button className="btn yes menu-create" onClick={handleSubmit} ><i className="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
             </div>
 
