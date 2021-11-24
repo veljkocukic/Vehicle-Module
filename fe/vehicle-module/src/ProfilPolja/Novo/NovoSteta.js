@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom"
 
 
 export const NovoSteta = () => {
-    let { newOn, setNewOn, valid, setValid, spinerOn, setSpinerOn, formatDateEdit, setOpenDmgEdit, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, id } = useContext(DataContext)
+    let { verDate,setNewOn, valid, setValid, spinerOn, setSpinerOn, setOpenDmgEdit, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts } = useContext(DataContext)
 
 
     let { carId } = useParams()
@@ -64,12 +64,12 @@ export const NovoSteta = () => {
             <div className="form">
 
                 <div className="single-input-container">
-                    <label for="opis-steta" className="standard--label">Opis štete <span>*</span> </label>
-                    <input type="text" onChange={(e) => setDesc(e.target.value)} className="standard--input" id="opis-steta" name="opis-steta" />
+                    <label htmlFor="opis-steta" className="standard--label">Opis štete <span>*</span> </label>
+                    <input onBlur={e=>e.target.value.length<5 ? e.target.style.border="1px solid red" : e.target.style.border="none"} type="text" onChange={(e) => setDesc(e.target.value)} className="standard--input" id="opis-steta" name="opis-steta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="steta-pokriva" className="standard--label">Štetu pokriva <span>*</span></label>
+                    <label htmlFor="steta-pokriva" className="standard--label">Štetu pokriva <span>*</span></label>
                     <select onChange={e => setPokriva(e.target.value)} className="standard--input" id="steta-pokriva" name="steta-pokriva" >
                         <option>Zaposleni</option>
                         <option>Fima</option>
@@ -79,28 +79,28 @@ export const NovoSteta = () => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-steta" className="standard--label">Datum <span>*</span></label>
-                    <input type="date" onChange={(e) => setDate(e.target.value)} className="standard--input" id="datum-steta" name="datum-steta" />
+                    <label htmlFor="datum-steta" className="standard--label">Datum <span>*</span></label>
+                    <input onBlur={e=>!verDate(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"}type="date" onChange={(e) => setDate(e.target.value)} className="standard--input" id="datum-steta" name="datum-steta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="delovi-steta" className="standard--label"> Delovi/Usluga <span>*</span></label>
-                    <input onChange={(e) => setParts(e.target.value)} type="text" className="standard--input" id="delovi-steta" name="delovi-steta" />
+                    <label htmlFor="delovi-steta" className="standard--label"> Delovi/Usluga <span>*</span></label>
+                    <input onBlur={e=>e.target.value.length<5 ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={(e) => setParts(e.target.value)} type="text" className="standard--input" id="delovi-steta" name="delovi-steta" />
 
                 </div>
 
                 <div className="single-input-container">
-                    <label for="trosak-steta" className="standard--label">Ukupan trošak <span>*</span></label>
-                    <input onChange={(e) => setTotal(e.target.value)} type="number" className="standard--input" id="trosak-steta" name="trosak-steta" />
+                    <label htmlFor="trosak-steta" className="standard--label">Ukupan trošak <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={(e) => setTotal(e.target.value)} type="number" className="standard--input" id="trosak-steta" name="trosak-steta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="usluga-zaposlenog-steta" className="standard--label">Usluga zaposlenog</label>
+                    <label htmlFor="usluga-zaposlenog-steta" className="standard--label">Usluga zaposlenog</label>
                     <input onChange={(e) => setUsluga(e.target.value)} type="text" className="standard--input" id="usluga-zaposlenog-steta" name="usluga-zaposlenog-steta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="vreme-zaposlenog-steta" className="standard--label">Vreme zaposlenog</label>
+                    <label htmlFor="vreme-zaposlenog-steta" className="standard--label">Vreme zaposlenog</label>
                     <input onChange={(e) => setTime(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog-steta" name="vreme-zaposlenog-steta" />
                 </div>
             </div>

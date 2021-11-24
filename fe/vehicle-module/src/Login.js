@@ -1,6 +1,5 @@
-import React,{useState,useRef,useEffect,useContet} from "react"
-import axios from "axios"
-import { DataContext } from "./Context"
+import React,{useState} from "react"
+
 import "./style/login.css"
 
 export const Login = () =>{

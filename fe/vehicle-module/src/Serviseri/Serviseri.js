@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { DataContext } from "../Context"
 import { EditServis } from "./EditServis"
 import { Spiner } from "../ProfilPolja/Editi/Spiner"
 import { Dialog } from "../ProfilPolja/Editi/Dialog"
-import { useParams } from "react-router"
 import { NovoServiseri } from "../Serviseri/NovoServiseri"
 import "../style/serviseri.css"
 
@@ -12,7 +11,6 @@ export const Serviseri = () => {
     const [serviseriAr, setServiseriAr] = useState([])
     let { setNewOn, newOn, setOpenDialog, openDialog, openServEdit, setOpenServEdit, setId } = useContext(DataContext)
     let [spinerServ, setSpinerServ] = useState(true)
-    let { carId } = useParams()
 
     useEffect(() => {
         const fetchData = async () => {
@@ -56,11 +54,12 @@ export const Serviseri = () => {
         <div className="serviseri-container">
             <div className="page-title">
                 <h1>Serviseri i eksterni saradnici</h1>
+                <button className="car-button car-title" onClick={() => setNewOn(true)} >+ NOVA STAVKA</button>
             </div>
 
-            <table className="tg servt">
                 {spinerServ && <Spiner />}
                 {openServEdit && <EditServis serviseriAr={serviseriAr} />}
+            <table className="tg servt">
                 <thead>
                     <tr>
                         <th>Šifra klijenta</th>
@@ -70,16 +69,15 @@ export const Serviseri = () => {
                         <th>Adresa</th>
                         <th>Br. telefona</th>
                         <th>E-mail</th>
-                        <th>Website</th>
-                        <th className="tg-0pky"><button className="editBtn" onClick={() => setNewOn(true)}><i className="fas fa-plus"></i> Novo</button></th>
+                        <th colSpan="2" align="left" style={{ paddingLeft: "2em" }}> Website</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {newOn && <NovoServiseri />}
-                    {openDialog && <Dialog par="delete" polje="serv" />}
                     {serviseriAr.map((item, key) => <KoloneServiseri id={item._id} sifraKlijenta={item.sifraKlijenta} nazivFirme={item.nazivFirme} tipUsluge={item.tipUsluge} kontakt={item.kontakt} adresa={item.adresa} brTelefona={item.brTelefona} email={item.email} website={item.website} key={key} />)}
                 </tbody>
             </table>
+                    {newOn && <NovoServiseri />}
+                    {openDialog && <Dialog par="delete" polje="serv" />}
         </div>
     )
 }

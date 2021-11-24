@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom"
 
 
 export const NovoRegistracija = ({ newC }) => {
-    let { valid, setValid, newOn, setNewOn, spinerOn, setSpinerOn, setOpenRegEdit, verDate, formatDateEdit, id, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
+    let { valid, setValid, setNewOn, spinerOn, setSpinerOn, verDate,dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
 
 
     let { carId } = useParams()
@@ -48,41 +48,41 @@ export const NovoRegistracija = ({ newC }) => {
     }
 
     return (
-        <div class="input--container">
+        <div className="input--container">
             {spinerOn && <Spiner />}
             <h3 className="input--container__title">Registracija</h3>
             <div className="form">
 
                 <div className="single-input-container">
-                    <label for="datum-registracije" className="standard--label">Datum registracije <span>*</span></label>
-                    <input onChange={e => setDateReg(e.target.value)} type="date" className="standard--input" id="datum-registracije" name="datum-registracije" />
+                    <label htmlFor="datum-registracije" className="standard--label">Datum registracije <span>*</span></label>
+                    <input onBlur={e=>!verDate(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={e => setDateReg(e.target.value)} type="date" className="standard--input" id="datum-registracije" name="datum-registracije" />
                 </div>
 
 
                 <div className="single-input-container">
-                    <label for="troskovi-registracije" className="standard--label">Troškovi registracije <span>*</span></label>
-                    <input type="number" onChange={(e) => setTroskovi(e.target.value)} className="standard--input" id="troskovi-registracije" name="troskovi-registracije" />
+                    <label htmlFor="troskovi-registracije" className="standard--label">Troškovi registracije <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} type="number" onChange={(e) => setTroskovi(e.target.value)} className="standard--input" id="troskovi-registracije" name="troskovi-registracije" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="registrovao-zaposleni" className="standard--label">Registrovao zaposleni <span>*</span></label>
-                    <input onChange={(e) => setRegistrovao(e.target.value)} type="text" className="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni" />
+                    <label htmlFor="registrovao-zaposleni" className="standard--label">Registrovao zaposleni <span>*</span></label>
+                    <input onBlur={e=>e.target.value.length<3 ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={(e) => setRegistrovao(e.target.value)} type="text" className="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni" />
 
                 </div>
 
                 <div className="single-input-container">
-                    <label for="vreme-zaposlenog" className="standard--label">Vreme zaposlenog <span>*</span></label>
-                    <input onChange={(e) => setTimeZaposleni(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog" name="vreme-zaposlenog" />
+                    <label htmlFor="vreme-zaposlenog" className="standard--label">Vreme zaposlenog <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={(e) => setTimeZaposleni(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog" name="vreme-zaposlenog" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="registrovan-do" className="standard--label">Registrovan do <span>*</span></label>
-                    <input onChange={(e) => setRegDo(e.target.value)} type="date" className="standard--input" id="registrovan-do" name="registrovan-do" />
+                    <label htmlFor="registrovan-do" className="standard--label">Registrovan do <span>*</span></label>
+                    <input onBlur={e=>!verDate(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={(e) => setRegDo(e.target.value)} type="date" className="standard--input" id="registrovan-do" name="registrovan-do" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="dokumentacija" className="standard--label">Dokumentacija <span>*</span></label>
-                    <textarea onChange={(e) => setDocReg(e.target.value)} className="standard--input" id="dokumentacije" name="dokumentacija" ></textarea>
+                    <label htmlFor="dokumentacija" className="standard--label">Dokumentacija <span>*</span></label>
+                    <textarea onBlur={e=>e.target.value<5 ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={(e) => setDocReg(e.target.value)} className="standard--input" id="dokumentacije" name="dokumentacija" ></textarea>
                 </div>
 
                 

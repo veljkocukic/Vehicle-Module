@@ -7,7 +7,7 @@ import { NovoGorivo } from "./Novo/NovoGorivo"
 
 
 export const Gorivo = ({ gorivoAr }) => {
-    let { setNewOn, newOn, openDialog, setOpenDialog, formatDate, openFuelEdit, setOpenFuelEdit, setId } = useContext(DataContext)
+    let { minsToTime, setNewOn, newOn, openDialog, setOpenDialog, formatDate, openFuelEdit, setOpenFuelEdit, setId } = useContext(DataContext)
     let { carId } = useParams()
 
 
@@ -32,7 +32,7 @@ export const Gorivo = ({ gorivoAr }) => {
                 <td>{props.pot}</td>
                 <td>{props.cena}</td>
                 <td>{props.usluga || "/"}</td>
-                <td>{props.time || "/"}</td>
+                <td>{minsToTime(props.time) || "/"}</td>
                 <td><button className="btn" onClick={() => handleOpen(props._id)}><i className="fas fa-edit"></i> IZMENI</button> <button className="btn del" onClick={() => handleDelete(props._id)}> <i className="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>)
 
@@ -42,8 +42,9 @@ export const Gorivo = ({ gorivoAr }) => {
         setNewOn(true)
     }
     return (
-        <table className="tg">
+        <div>
             {openFuelEdit && <EditGorivo gorivoAr={gorivoAr} />}
+        <table className="tg">
             <thead>
                 <tr>
                     <th colSpan="8" >Gorivo i tekući troškovi</th>
@@ -60,11 +61,12 @@ export const Gorivo = ({ gorivoAr }) => {
                 </tr>
             </thead>
             <tbody>
-                {newOn && <NovoGorivo />}
-                {openDialog && <Dialog par={carId} polje="fuel" />}
                 {gorivoAr.map((item, key) => <KoloneGorivo _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} pot={item.potrosnja} cena={item.cena.toLocaleString()} usluga={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
+                {newOn && <NovoGorivo />}
+                {openDialog && <Dialog par={carId} polje="fuel" />}
+        </div>
     )
 
 }

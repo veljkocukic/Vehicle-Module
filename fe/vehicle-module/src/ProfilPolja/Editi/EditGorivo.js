@@ -87,7 +87,7 @@ export const EditGorivo = ({ gorivoAr }) => {
             <div className="form">
 
                 <div className="single-input-container">
-                    <label for="tip-gorivo" className="standard--label">Tip <span>*</span></label>
+                    <label htmlFor="tip-gorivo" className="standard--label">Tip <span>*</span></label>
                     <select ref={tipRef} onChange={e => setType(e.target.value)} className="standard--input" id="tip-gorivo" name="tip-gorivo" >
                         <option>Gorivo</option>
                         <option>Tag</option>
@@ -96,33 +96,33 @@ export const EditGorivo = ({ gorivoAr }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-gorivo" className="standard--label">Datum <span>*</span></label>
-                    <input ref={datumRef} type="date" onChange={(e) => setDateFuel(e.target.value)} className="standard--input" id="datum-gorivo" name="datum-gorivo" />
+                    <label htmlFor="datum-gorivo" className="standard--label">Datum <span>*</span></label>
+                    <input onBlur={e=>!verDate(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={datumRef} type="date" onChange={(e) => setDateFuel(e.target.value)} className="standard--input" id="datum-gorivo" name="datum-gorivo" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="kilometraza-gorivo" className="standard--label">Kilometraža <span>*</span></label>
-                    <input ref={kmRef} type="number" onChange={(e) => setKmFuel(e.target.value)} className="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
+                    <label htmlFor="kilometraza-gorivo" className="standard--label">Kilometraža <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={kmRef} type="number" onChange={(e) => setKmFuel(e.target.value)} className="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="potrosnja-gorivo" className="standard--label"> Potrošnja <span color="grey">*</span></label>
-                    <input ref={potrosnjaRef} onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo"/>
+                    <label htmlFor="potrosnja-gorivo" className="standard--label"> Potrošnja <span color="grey">*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={potrosnjaRef} onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo"/>
   
                 </div>
 
                 <div className="single-input-container">
-                    <label for="cena-gorivo" className="standard--label">Cena <span>*</span></label>
-                    <input ref={cenaRef} onChange={(e) => setPriceFuel(e.target.value)} type="number" className="standard--input" id="cena-gorivo" name="cena-gorivo" />
+                    <label htmlFor="cena-gorivo" className="standard--label">Cena <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={cenaRef} onChange={(e) => setPriceFuel(e.target.value)} type="number" className="standard--input" id="cena-gorivo" name="cena-gorivo" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="usluga-zaposlenog-gorivo" className="standard--label">Usluga zaposlenog</label>
+                    <label htmlFor="usluga-zaposlenog-gorivo" className="standard--label">Usluga zaposlenog</label>
                     <input ref={uslugaRef} onChange={(e) => setUslugaFuel(e.target.value)} type="text" className="standard--input" id="usluga-zaposlenog-gorivo" name="usluga-zaposlenog-gorivo" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="vreme-zaposlenog-gorivo" className="standard--label">Vreme zaposlenog</label>
+                    <label htmlFor="vreme-zaposlenog-gorivo" className="standard--label">Vreme zaposlenog</label>
                     <input ref={timeRef} onChange={(e) => setTimeFuel(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog-gorivo" name="vreme-zaposlenog-gorivo" />
                 </div>
             </div>

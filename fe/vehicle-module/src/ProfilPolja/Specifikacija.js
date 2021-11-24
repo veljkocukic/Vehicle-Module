@@ -1,27 +1,45 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect,useState } from "react"
 import { DataContext } from "../Context"
 import { EditSpecifikacija } from "./Editi/EditSpecifikacija"
 
 export const Specifikacija = ({ specifikacijaAr }) => {
 
     let { formatDate, openSpecEdit, setOpenSpecEdit } = useContext(DataContext)
+    let [cena,setCena] = useState(0)
+    useEffect(()=>{
 
+        try {
+        
+        
+        
+            setCena(specifikacijaAr.cenaVozila.toLocaleString())            
+
+            
+        } catch (error) {
+            console.log(error)
+            console.log(specifikacijaAr)
+        }
+
+    },[])
+    let und = specifikacijaAr===undefined
     return (
-        <table className="tg">
+        <div>
             {openSpecEdit && <EditSpecifikacija />}
+        <table className="tg">
             <thead>
                 <tr>
                     <th colSpan="4" >Specifikacija</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td className="specTd" >Br. šasije</td><td>{specifikacijaAr.brSasije}</td><td className="specTd" >Br. motora</td><td>{specifikacijaAr.brMotora}</td></tr>
-                <tr><td className="specTd" >Godište</td><td>{specifikacijaAr.godiste}</td><td className="specTd" >Boja</td><td>{specifikacijaAr.boja}</td></tr>
-                <tr><td className="specTd" >Datum kupovine</td><td >{formatDate(specifikacijaAr.datumKupovine)}</td><td className="specTd">Cena vozila</td><td>{specifikacijaAr.cenaVozila.toLocaleString()}</td></tr>
-                <tr className="docum"><td className="specTd" >Dokumentacija</td><td>{specifikacijaAr.dokumentacija || "/" }</td></tr>
+                <tr><td className="specTd" >Br. šasije</td><td>{und ? "/" : specifikacijaAr.brSasije}</td><td className="specTd" >Br. motora</td><td>{und ? "/" : specifikacijaAr.brMotora}</td></tr>
+                <tr><td className="specTd" >Godište</td><td>{und ? "/" : specifikacijaAr.godiste}</td><td className="specTd" >Boja</td><td>{und ? "/" : specifikacijaAr.boja}</td></tr>
+                <tr><td className="specTd" >Datum kupovine</td><td >{und ? "/" : formatDate(specifikacijaAr.datumKupovine)}</td><td className="specTd">Cena vozila</td><td>{und ? "/" : cena}</td></tr>
+                <tr className="docum"><td className="specTd" >Dokumentacija</td><td>{und ? "/" : specifikacijaAr.dokumentacija || "/" }</td></tr>
                 <tr><td><button className="editBtn spec" onClick={setOpenSpecEdit}><i className="fas fa-edit"></i> IZMENI</button></td></tr>
 
             </tbody>
         </table>
+        </div>
     )
 }

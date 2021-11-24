@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef, useContext } from "react"
-import axios from "axios"
-import { DataContext } from "../Context"
-import { EditIstorija } from "./Editi/EditIstorija"
+import React from "react"
+
 
 export const Istorija = () => {
 

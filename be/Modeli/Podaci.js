@@ -5,12 +5,12 @@ let mongoose = require("mongoose")
 
 const RegistracijaSchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, auto: true },
-    datumRegistracije: { type: Date, required: true },
-    dokumentacija: { type: String, required: true },
-    troskoviRegistracije: { type: Number, required: true },
-    registrovaoZaposleni: { type: String, required: true },
-    vremeZaposlenog: { type: String, required: true },
-    registrovanDo: { type: String, required: true }
+    datum: { type: Date },
+    dokumentacija: { type: String },
+    cena: { type: Number },
+    registrovaoZaposleni: { type: String },
+    vremeZaposlenog: { type: Number },
+    registrovanDo: { type: String }
 })
 
 const SpecifikacijaSchema = new mongoose.Schema({
@@ -31,7 +31,7 @@ const GorivoSchema = new mongoose.Schema({
     potrosnja: { type: Number, default: 0 },
     cena: { type: Number, required: true },
     uslugaZaposlenog: { type: String },
-    vremeZaposlenog: { type: String }
+    vremeZaposlenog: { type: Number }
 })
 
 
@@ -39,11 +39,11 @@ const OdrzavanjeSchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, auto: true },
     tip: { type: String, required: true },
     datum: { type: Date, required: true },
-    ukupanTrosak: { type: Number, required: true },
+    cena: { type: Number, required: true },
     kilometraza: { type: Number, required: true },
     deloviUsluga: { type: String, required: true },
-    uslugaZaposlenog: { type: String},
-    vremeZaposlenog: { type: String}
+    uslugaZaposlenog: { type: String },
+    vremeZaposlenog: { type: Number }
 })
 
 
@@ -53,9 +53,9 @@ const StetaSchema = new mongoose.Schema({
     stetuPokriva: { type: String, required: true },
     datum: { type: Date, required: true },
     deloviUsluga: { type: String, required: true },
-    ukupanTrosak: { type: Number, required: true },
-    uslugaZaposlenog: { type: String},
-    vremeZaposlenog: { type: String}
+    cena: { type: Number, required: true },
+    uslugaZaposlenog: { type: String },
+    vremeZaposlenog: { type: Number }
 })
 
 
@@ -107,10 +107,16 @@ const ZaposleniSchema = new mongoose.Schema({
 })
 
 
+
+
+
 const CarsModel = mongoose.model("Cars", CarsSchema)
 const ServiseriModel = mongoose.model("Serviseri", ServiseriSchema)
 const CommentsModel = mongoose.model("Comments", CommentsSchema)
 const ZaposleniModel = mongoose.model("Zaposleni", CommentsSchema)
+
+
+
 
 module.exports = { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel }
 

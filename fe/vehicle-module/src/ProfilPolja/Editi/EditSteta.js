@@ -5,7 +5,7 @@ import { useParams } from "react-router"
 import { Spiner } from "./Spiner"
 export const EditSteta = ({ stetaAr }) => {
 
-    let { spinerOn,setSpinerOn,formatDateEdit, setOpenDmgEdit, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, id } = useContext(DataContext)
+    let { verDate,spinerOn, setSpinerOn, formatDateEdit, setOpenDmgEdit, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, id } = useContext(DataContext)
     let [valid, setValid] = useState(true)
 
 
@@ -26,7 +26,7 @@ export const EditSteta = ({ stetaAr }) => {
         setPokriva(steta.stetuPokriva)
         setDate(steta.datum)
         setParts(steta.deloviUsluga)
-        setTotal(steta.ukupanTrosak)
+        setTotal(steta.cena)
         setUsluga(steta.uslugaZaposlenog)
         setTime(steta.vremeZaposlenog)
 
@@ -34,7 +34,7 @@ export const EditSteta = ({ stetaAr }) => {
         pokrivaRef.current.value = steta.stetuPokriva
         datumRef.current.value = formatDateEdit(steta.datum)
         deloviRef.current.value = steta.deloviUsluga
-        totalRef.current.value = steta.ukupanTrosak
+        totalRef.current.value = steta.cena
         uslugaRef.current.value = steta.uslugaZaposlenog
         timeRef.current.value = steta.vremeZaposlenog
         setSpinerOn(false)
@@ -82,13 +82,13 @@ export const EditSteta = ({ stetaAr }) => {
             <h3 className="input--container__title">Šteta</h3>
             <div className="form">
 
-            <div className="single-input-container">
-                    <label for="opis-steta" className="standard--label">Opis štete <span>*</span></label>
-                    <input ref={opisRef} type="text" onChange={(e) => setDesc(e.target.value)} className="standard--input" id="opis-steta" name="opis-steta" />
+                <div className="single-input-container">
+                    <label htmlFor="opis-steta" className="standard--label">Opis štete <span>*</span></label>
+                    <input onBlur={e=>e.target.value.length<5 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={opisRef} type="text" onChange={(e) => setDesc(e.target.value)} className="standard--input" id="opis-steta" name="opis-steta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="steta-pokriva" className="standard--label">Štetu pokriva</label>
+                    <label htmlFor="steta-pokriva" className="standard--label">Štetu pokriva</label>
                     <select ref={pokrivaRef} onChange={e => setPokriva(e.target.value)} className="standard--input" id="steta-pokriva" name="steta-pokriva" >
                         <option>Zaposleni</option>
                         <option>Fima</option>
@@ -98,28 +98,28 @@ export const EditSteta = ({ stetaAr }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-steta" className="standard--label">Datum <span>*</span></label>
-                    <input ref={datumRef} type="date" onChange={(e) => setDate(e.target.value)} className="standard--input" id="datum-steta" name="datum-steta" />
+                    <label htmlFor="datum-steta" className="standard--label">Datum <span>*</span></label>
+                    <input onBlur={e=>!verDate(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={datumRef} type="date" onChange={(e) => setDate(e.target.value)} className="standard--input" id="datum-steta" name="datum-steta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="delovi-steta" className="standard--label"> Delovi/Usluga <span>*</span></label>
-                    <input ref={deloviRef} onChange={(e) => setParts(e.target.value)} type="text" className="standard--input" id="delovi-steta" name="delovi-steta"/>
-  
+                    <label htmlFor="delovi-steta" className="standard--label"> Delovi/Usluga <span>*</span></label>
+                    <input onBlur={e=>e.target.value.length<5? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={deloviRef} onChange={(e) => setParts(e.target.value)} type="text" className="standard--input" id="delovi-steta" name="delovi-steta" />
+
                 </div>
 
                 <div className="single-input-container">
-                    <label for="trosak-steta" className="standard--label">Ukupan trošak <span>*</span></label>
-                    <input ref={totalRef} onChange={(e) => setTotal(e.target.value)} type="number" className="standard--input" id="trosak-steta" name="trosak-steta" />
+                    <label htmlFor="trosak-steta" className="standard--label">Ukupan trošak <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={totalRef} onChange={(e) => setTotal(e.target.value)} type="number" className="standard--input" id="trosak-steta" name="trosak-steta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="usluga-zaposlenog-steta" className="standard--label">Usluga zaposlenog</label>
+                    <label htmlFor="usluga-zaposlenog-steta" className="standard--label">Usluga zaposlenog</label>
                     <input ref={uslugaRef} onChange={(e) => setUsluga(e.target.value)} type="text" className="standard--input" id="usluga-zaposlenog-steta" name="usluga-zaposlenog-steta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="vreme-zaposlenog-steta" className="standard--label">Vreme zaposlenog</label>
+                    <label htmlFor="vreme-zaposlenog-steta" className="standard--label">Vreme zaposlenog</label>
                     <input ref={timeRef} onChange={(e) => setTime(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog-steta" name="vreme-zaposlenog-steta" />
                 </div>
             </div>
@@ -131,5 +131,5 @@ export const EditSteta = ({ stetaAr }) => {
 
             {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
         </div>
-        )
+    )
 }

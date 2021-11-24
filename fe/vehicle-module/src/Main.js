@@ -12,8 +12,7 @@ import slikanedostupna from '../src/images/slikanedostupna.png'
 
 
 export const Main = () => {
-    let { zaposleniLista,setZaposleniLista,newOn, setNewOn, spinerOn, setSpinerOn, id, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef, formatDate, verDate } = useContext(DataContext)
-    let [imagesArray,setImagesArray] = useState([])
+    let { zaposleniLista,setZaposleniLista,newOn, setNewOn,setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef,korisnikMn} = useContext(DataContext)
     let [vozila, setVozila] = useState([])
     let zaposleniSelect = useRef(null)
     let [spinerMain, setSpinerMain] = useState(true)
@@ -105,7 +104,6 @@ export const Main = () => {
             </div>
         )
     }
-
     return (
         <div className="all-cars">
             <div className="page-title">

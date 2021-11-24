@@ -26,8 +26,8 @@ export const Profil = () => {
     const [imagesArray, setImagesArray] = useState([])
 
 
-    ///Linija ispod treba da se sredi
-    let {  openSec,setOpenSec,registracijaAr, setRegistracijaAr,specifikacijaAr, setSpecifikacijaAr,gorivoAr, setGorivoAr,odrzavanjeAr, setOdrzavanjeAr,stetaAr, setStetaAr,istorijaAr, setIstorijaAr,setAktivnoDo,aktivnoDo,setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
+
+    let {  openSec,setOpenSec,registracijaAr, setRegistracijaAr,specifikacijaAr, setSpecifikacijaAr,gorivoAr, setGorivoAr,odrzavanjeAr, setOdrzavanjeAr,stetaAr, setStetaAr,setAktivnoDo,aktivnoDo,setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
 
 
@@ -60,7 +60,7 @@ export const Profil = () => {
                 setDocume(res.data.car.specifikacijaPolje.dokumentacija)
                 setImagesArray(res.data.car.slike)
 
-
+               
             })
         }
         fetchData().then(() => setSpinerProfile(false)).catch(er => {
@@ -82,7 +82,7 @@ export const Profil = () => {
         return (
             <div className="img-modal">
 
-                <img src={slikaZaModal} />
+                <img src={slikaZaModal} alt="Slika automobila" />
                 <div className="close-img" onClick={() => setOpenSigleImage(false)}><h1>X</h1></div>
 
             </div>
@@ -153,18 +153,20 @@ export const Profil = () => {
                     <div className="profilInfo">
                         <h3>Informacije o vozilu</h3>
                         <table>
-                            <tr className="detailsTr"><td>Marka i tip </td> <td><strong>{marka}</strong></td></tr>
-                            <tr className="detailsTr"><td>Registrovan do </td> <td><strong>{formatDate(regDo)}</strong></td></tr>
-                            <tr className="detailsTr"><td>Korisnik vozila  </td> <td><strong>{korisnikMn}</strong></td></tr>
-                            <tr className="detailsTr"><td>Aktivno od </td> <td><strong>{formatDate(aktivnoOd)}</strong></td></tr>
-                            <tr className="detailsTr"><td>Do </td> <td><strong>{formatDate(aktivnoDo)}</strong></td></tr>
+                            <tbody>
+                            <tr className="detailsTr"><td>Marka i tip</td><td><strong>{marka}</strong></td></tr>
+                            <tr className="detailsTr"><td>Registrovan do</td><td><strong>{formatDate(regDo)}</strong></td></tr>
+                            <tr className="detailsTr"><td>Korisnik vozila</td><td><strong>{korisnikMn}</strong></td></tr>
+                            <tr className="detailsTr"><td>Aktivno od</td><td><strong>{formatDate(aktivnoOd)}</strong></td></tr>
+                            <tr className="detailsTr"><td>Do</td><td><strong>{formatDate(aktivnoDo)}</strong></td></tr>
+                            </tbody>
 
                         </table>
                     </div>
                     <div className="profilImages">
                         <h3>Slike vozila</h3>
-                        <i class="fas fa-chevron-left" onClick={handleLeft}></i>
-                        <i class="fas fa-chevron-right" onClick={handleRight}></i>
+                        <i className="fas fa-chevron-left" onClick={handleLeft}></i>
+                        <i className="fas fa-chevron-right" onClick={handleRight}></i>
                         <div ref={photoContainer} className="photoContainer">
                             {imagesArray.map((item, key) => <img className="list-img" key={key} onClick={() => handleSlikaOpen(item)} src={item} alt="slika auta" />)}
                         </div>

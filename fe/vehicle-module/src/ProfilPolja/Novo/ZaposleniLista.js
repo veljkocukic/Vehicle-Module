@@ -18,7 +18,7 @@ export const ZaposleniLista = (props) => {
 
     return (
         <select ref={multi} multiple={props.multiple && true} className={props.multiple && "multiple-area"} onChange={(e) => handleC(e)}>
-            {zaposleniLista.map(item => <option value={item.ime}>{item.ime}</option>)}
+            {zaposleniLista.map((item,key) => <option value={item.ime} key={key} >{item.ime}</option>)}
         </select>
     )
 }

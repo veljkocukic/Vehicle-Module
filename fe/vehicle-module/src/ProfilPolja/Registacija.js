@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom"
 import { NovoRegistracija } from "./Novo/NovoRegistracija"
 
 export const Registracija = ({ registracijaAr }) => {
-    let { newOn,setNewOn,setId, formatDate, setOpenRegEdit, openRegEdit, openDialog, setOpenDialog } = useContext(DataContext)
+    let { minsToTime, newOn, setNewOn, setId, formatDate, setOpenRegEdit, openRegEdit, openDialog, setOpenDialog } = useContext(DataContext)
     let [regId, setRegId] = useState("")
     let { carId } = useParams()
 
@@ -30,16 +30,18 @@ export const Registracija = ({ registracijaAr }) => {
                 <td>{props.doc}</td>
                 <td>{props.reg}</td>
                 <td>{props.user}</td>
-                <td>{props.time}</td>
+                <td>{minsToTime(props.time)}</td>
                 <td>{formatDate(props.expire)}</td>
                 <td><button className="btn" onClick={() => handleRegEditOpen(props.kid)}><i className="fas fa-edit"></i> IZMENI</button><button className="btn del" onClick={() => handleDelete(props.kid)}> <i className="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>
         )
     }
+    let cond = registracijaAr.length===1
 
     return (
-        <table className="tg">
+        <div>
             {openRegEdit && <EditRegistracija registracijaAr={registracijaAr} regId={regId} carId={carId} />}
+        <table className="tg">
 
             <thead>
                 <tr>
@@ -52,14 +54,15 @@ export const Registracija = ({ registracijaAr }) => {
                     <th>Registrovao zaposleni</th>
                     <th>Vreme zaposlenog</th>
                     <th>Registrovan do</th>
-                    <th className="tg-0pky"><button className="editBtn" onClick={()=>setNewOn(true)}><i className="fas fa-plus"></i> Novo</button></th>
+                    <th className="tg-0pky"><button className="editBtn" onClick={() => setNewOn(true)}><i className="fas fa-plus"></i>Novo</button></th>
                 </tr>
             </thead>
             <tbody>
-                {newOn && <NovoRegistracija />}
-                {openDialog && <Dialog par={carId} polje="reg" />}
-                {registracijaAr.map((item, key) => <Kolone kid={item._id} date={item.datumRegistracije} doc={item.dokumentacija} reg={item.troskoviRegistracije.toLocaleString()} user={item.registrovaoZaposleni} time={item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
+                {registracijaAr.map((item, key) => <Kolone kid={cond ? "/" : item._id} date={cond ? "/" : item.datum} doc={cond ? "/" : item.dokumentacija} reg={cond ? "/" : item.cena.toLocaleString()} user={cond ? "/" : item.registrovaoZaposleni} time={cond ? "/" : item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
             </tbody>
         </table>
+                {newOn && <NovoRegistracija />}
+                {openDialog && <Dialog par={carId} polje="reg" />}
+        </div>
     )
 }

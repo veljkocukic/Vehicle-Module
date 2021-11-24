@@ -25,7 +25,7 @@ export let MainProvider = (props) => {
   let [korisnikMn, setKorisnikMn] = useState("Ime1")
   let [isticanje, setIsticanje] = useState(0)
   let [aktivnoOd, setAktivnoOd] = useState(0)
-  let [aktivnoDo,setAktivnoDo] = useState(0)
+  let [aktivnoDo, setAktivnoDo] = useState(0)
 
   let [id, setId] = useState("")
   let markaRef = useRef(null)
@@ -36,12 +36,12 @@ export let MainProvider = (props) => {
   let activeFromRef = useRef(null)
   let activeToRef = useRef(null)
 
-    const [registracijaAr, setRegistracijaAr] = useState([])
-    const [specifikacijaAr, setSpecifikacijaAr] = useState({})
-    const [gorivoAr, setGorivoAr] = useState([])
-    const [odrzavanjeAr, setOdrzavanjeAr] = useState([])
-    const [stetaAr, setStetaAr] = useState([])
-    const [istorijaAr, setIstorijaAr] = useState([])
+  const [registracijaAr, setRegistracijaAr] = useState([])
+  const [specifikacijaAr, setSpecifikacijaAr] = useState({})
+  const [gorivoAr, setGorivoAr] = useState([])
+  const [odrzavanjeAr, setOdrzavanjeAr] = useState([])
+  const [stetaAr, setStetaAr] = useState([])
+  const [istorijaAr, setIstorijaAr] = useState([])
 
 
   ///REGISTRACIJA
@@ -102,10 +102,21 @@ export let MainProvider = (props) => {
 
 
   let [openDialog, setOpenDialog] = useState(false)
-  let [vozilaLista,setVozilaLista] = useState([])
-  let [vozilaSelect,setVozilaSelect] = useState([])
-  let [zaposleniSelect,setZaposleniSelect] = useState([])
-  
+  let [vozilaLista, setVozilaLista] = useState([])
+  let [vozilaSelect, setVozilaSelect] = useState([])
+  let [zaposleniSelect, setZaposleniSelect] = useState([])
+
+
+  let [dataTable, setDataTable] = useState([])
+  let [tableHead, setTableHead] = useState([])
+
+
+  const minsToTime = (mins) => {
+
+    let hours = Math.floor(mins / 60)
+    return `${hours}h ${mins - hours * 60}min.`
+
+  }
 
   let formatDateEdit = (dt) => { ////////////////////// Vreme za unos
     let t = new Date(dt)
@@ -126,24 +137,24 @@ export let MainProvider = (props) => {
   }
 
   let verDate = (dt) => {
-    return new Date(dt > 0)
+    return new Date(dt)>0
   }
   let formatDate = (dt) => { ///////////// Vreme za tabele
     //let date = new Date(dt).toLocaleDateString().replaceAll("/", ".")   ///<------------------------------------- Ne prikazuje nas format
     let date = new Date(dt)
-    return  date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear()+"."
+    return date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear() + "."
   }
   let verReg = (inp) => {
     const regex = /[A-Z ŠĐČĆ]{2}-[0-9]{3,5}-[A-Z]{2}/gm;
     try {
-        return inp.match(regex)[0] === inp
+      return inp.match(regex)[0] === inp
     } catch (error) {
-        return false
+      return false
     }
-}
+  }
   return (
     <DataContext.Provider
-      value={{  zaposleniSelect,setZaposleniSelect,vozilaSelect,setVozilaSelect,vozilaLista,setVozilaLista,openSec,setOpenSec,registracijaAr, setRegistracijaAr,specifikacijaAr, setSpecifikacijaAr,gorivoAr, setGorivoAr,odrzavanjeAr, setOdrzavanjeAr,stetaAr, setStetaAr,istorijaAr, setIstorijaAr,zaposleniLista, setZaposleniLista,verReg, adresaS, setAdresaS, newOn, setNewOn, spinerOn, setSpinerOn, openDialog, setOpenDialog, kontaktS, setKontaktS, telS, setTelS, emailS, setEmailS, siteS, setSiteS, sifraS, setSifraS, nazivFirme, setNazivFirme, tipUslugeS, setTipUslugeS, openServEdit, setOpenServEdit, openRegEdit, setOpenRegEdit, openDmgEdit, setOpenDmgEdit, openOdrEdit, setOpenOdrEdit, formatDate, verDate, form, formatDateEdit, openFuelEdit, setOpenFuelEdit, openSpecEdit, setOpenSpecEdit, typeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, uslugaOdr, setUslugaOdr, timeOdr, setTimeOdr, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume, valid, setValid, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo, id, setId, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoOd, setAktivnoOd,aktivnoDo,setAktivnoDo, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef,activeToRef }}
+      value={{ minsToTime, tableHead, setTableHead, dataTable, setDataTable, zaposleniSelect, setZaposleniSelect, vozilaSelect, setVozilaSelect, vozilaLista, setVozilaLista, openSec, setOpenSec, registracijaAr, setRegistracijaAr, specifikacijaAr, setSpecifikacijaAr, gorivoAr, setGorivoAr, odrzavanjeAr, setOdrzavanjeAr, stetaAr, setStetaAr, istorijaAr, setIstorijaAr, zaposleniLista, setZaposleniLista, verReg, adresaS, setAdresaS, newOn, setNewOn, spinerOn, setSpinerOn, openDialog, setOpenDialog, kontaktS, setKontaktS, telS, setTelS, emailS, setEmailS, siteS, setSiteS, sifraS, setSifraS, nazivFirme, setNazivFirme, tipUslugeS, setTipUslugeS, openServEdit, setOpenServEdit, openRegEdit, setOpenRegEdit, openDmgEdit, setOpenDmgEdit, openOdrEdit, setOpenOdrEdit, formatDate, verDate, form, formatDateEdit, openFuelEdit, setOpenFuelEdit, openSpecEdit, setOpenSpecEdit, typeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, uslugaOdr, setUslugaOdr, timeOdr, setTimeOdr, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts, type, setType, dateFuel, setDateFuel, kmFuel, setKmFuel, potrosnja, setPotrosnja, priceFuel, setPriceFuel, uslugaFuel, setUslugaFuel, timeFuel, setTimeFuel, sasija, setSasija, motor, setMotor, godiste, setGodiste, boja, setBoja, dateKup, setDateKup, cenaVoz, setCenaVoz, docume, setDocume, valid, setValid, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo, id, setId, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoOd, setAktivnoOd, aktivnoDo, setAktivnoDo, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef }}
     >
       {props.children}
     </DataContext.Provider>

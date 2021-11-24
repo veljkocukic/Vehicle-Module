@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useContext } from "react"
+import React, { useRef, useEffect, useContext } from "react"
 import axios from "axios"
 import { DataContext } from "../Context"
 import { Spiner } from "../ProfilPolja/Editi/Spiner"
@@ -93,18 +93,18 @@ export const EditServis = ({ serviseriAr }) => {
 
 
                 <div className="single-input-container">
-                    <label for="sifra-klijenta" className="standard--label">Šifra klijenta</label>
+                    <label htmlFor="sifra-klijenta" className="standard--label">Šifra klijenta</label>
                     <input ref={sifraRef} type="text" onChange={(e) => setSifraS(e.target.value)} className="standard--input" id="sifra-klijenta" name="sifra-klijenta" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="naziv-firme" className="standard--label">Naziv firme</label>
+                    <label htmlFor="naziv-firme" className="standard--label">Naziv firme</label>
                     <input ref={nazivRef} type="text" onChange={(e) => setNazivFirme(e.target.value)} className="standard--input" id="naziv-firme" name="naziv-fitme" />
                 </div>
 
 
                 <div className="single-input-container">
-                    <label for="tip-usluge" className="standard--label">Tip usluge</label>
+                    <label htmlFor="tip-usluge" className="standard--label">Tip usluge</label>
                     <select ref={tipRef} onChange={e => setTipUslugeS(e.target.value)} className="standard--input" id="tip-usluge" name="tip-usluge" >
                         <option>Pumpa</option>
                         <option>Delovi</option>
@@ -116,29 +116,29 @@ export const EditServis = ({ serviseriAr }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="kontakt-serviseri" className="standard--label">Kontakt</label>
+                    <label htmlFor="kontakt-serviseri" className="standard--label">Kontakt</label>
                     <input ref={kontaktRef} type="text" onChange={(e) => setKontaktS(e.target.value)} className="standard--input" id="kontakt-serviseri" name="kontakt-serviseri" />
                 </div>
 
 
                 <div className="single-input-container">
-                    <label for="adresa-serviseri" className="standard--label">Adresa</label>
+                    <label htmlFor="adresa-serviseri" className="standard--label">Adresa</label>
                     <input ref={adresaRef} type="text" onChange={(e) => setAdresaS(e.target.value)} className="standard--input" id="adresa-serviseri" name="adresa-serviseri" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="broj-telefona" className="standard--label">Broj telefona</label>
+                    <label htmlFor="broj-telefona" className="standard--label">Broj telefona</label>
                     <input ref={telRef} type="text" onChange={(e) => setTelS(e.target.value)} className="standard--input" id="broj-telefona" name="broj-telefona" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="mail-serviseri" className="standard--label">E-mail</label>
+                    <label htmlFor="mail-serviseri" className="standard--label">E-mail</label>
                     <input ref={emailRef} onChange={(e) => setEmailS(e.target.value)} type="text" className="standard--input" id="mail-serviseri" name="mail-serviseri" />
 
                 </div>
 
                 <div className="single-input-container">
-                    <label for="sajt-servisi" className="standard--label">Website</label>
+                    <label htmlFor="sajt-servisi" className="standard--label">Website</label>
                     <input ref={siteRef} onChange={(e) => setSiteS(e.target.value)} type="text" className="standard--input" id="sajt-servisi" name="sajt-servisi" />
                 </div>
 
