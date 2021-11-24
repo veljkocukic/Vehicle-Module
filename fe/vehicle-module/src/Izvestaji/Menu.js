@@ -20,9 +20,8 @@ export const Menu = ({ sbt }) => {
 
 
 
-    let { setBigTableOn, setZaposleniLista, zaposleniLista, setVozilaLista, vozilaSelect, voz, spinerOn, setSpinerOn, zaposleniSelect, setDataTable, setTableHead } = useContext(DataContext)
+    let { setZaposleniLista, setVozilaLista, vozilaSelect,  spinerOn, setSpinerOn, zaposleniSelect, setDataTable, setTableHead } = useContext(DataContext)
 
-    const multi = useRef(null)
     const vrednostRef = useRef(null)
 
     useEffect(() => {
@@ -55,10 +54,9 @@ export const Menu = ({ sbt }) => {
             let todr = tipIzvestaja === "Troškovi održavanja" ? tipOdrzavanja : null
             await axios.post("http://localhost:5000/api/v1/izvestaji", { tipIzvestaja, vrstaVrednosti, rezolucija, tipTekuceg, menuDateFrom, menuDateTo, vozilaSelect, zaposleniSelect, pokr, todr }).then(res => {
 
+                console.log(res.data.dataTable)
                 setTableHead(res.data.tableHead)
                 setDataTable(res.data.dataTable)
-
-                console.log(res.data)
                 sbt(true)
                 setSpinerOn(false)
                 setValid(true)
@@ -82,8 +80,8 @@ export const Menu = ({ sbt }) => {
             <h2 className="title-menu">Meni za izveštaje</h2>
             <form className="form menuForm">
                 <div className="single-input-container">
-                    <label for="tip-izvestaja" className="standard--label">Tip izveštaja <span>*</span></label>
-                    <p class="under-text">(odaberite jedan tip izveštaja) </p>
+                    <label htmlFor="tip-izvestaja" className="standard--label">Tip izveštaja <span>*</span></label>
+                    <p className="under-text">(odaberite jedan tip izveštaja) </p>
                     <select onChange={e => handleTipIzvestaja(e.target.value)} className="standard--input" id="tip-izvestaja" name="tip-izvestaja" >
                         <option>Potrošnja goriva</option>
                         <option>Troškovi za tag</option>
@@ -97,8 +95,8 @@ export const Menu = ({ sbt }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="vrsta-vrednosti" className="standard--label">Vrsta vrednosti <span>*</span></label>
-                    <p class="under-text">(odaberite jednu vrstu vrednost) </p>
+                    <label htmlFor="vrsta-vrednosti" className="standard--label">Vrsta vrednosti <span>*</span></label>
+                    <p className="under-text">(odaberite jednu vrstu vrednost) </p>
                     <select ref={vrednostRef} onChange={e => setVrstaVrednosti(e.target.value)} className="standard--input" id="vrsta-vrednosti" name="vrsta-vrednosti" >
                         <option>Cena (din.)</option>
                         {tipIzvestaja === "Potrošnja goriva" && <option>U litrima</option>}
@@ -107,8 +105,8 @@ export const Menu = ({ sbt }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="rezolucija" className="standard--label">Rezolucija<span>*</span></label>
-                    <p class="under-text">(odaberite rezoluciju) </p>
+                    <label htmlFor="rezolucija" className="standard--label">Rezolucija<span>*</span></label>
+                    <p className="under-text">(odaberite rezoluciju) </p>
                     <select onChange={e => setRezolucija(e.target.value)} className="standard--input" id="rezolucija" name="rezolucija" >
                         <option>Godina</option>
                         <option>Pola godine</option>
@@ -119,8 +117,8 @@ export const Menu = ({ sbt }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="pokrice-stete" className="standard--label">Pokriće štete</label>
-                    <p class="under-text">(odaberite ko pokriva štetu) </p>
+                    <label htmlFor="pokrice-stete" className="standard--label">Pokriće štete</label>
+                    <p className="under-text">(odaberite ko pokriva štetu) </p>
                     <select disabled={tipIzvestaja !== "Troškovi štete na vozilu"} onChange={e => setPokriceStete(e.target.value)} className="standard--input" id="pokrice-stete" name="pokrice-stete" >
                         <option>Zaposleni</option>
                         <option>Firma</option>
@@ -130,8 +128,8 @@ export const Menu = ({ sbt }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="tekuci-trosak" className="standard--label">Tip tekućeg troška</label>
-                    <p class="under-text">(odaberite tip) </p>
+                    <label htmlFor="tekuci-trosak" className="standard--label">Tip tekućeg troška</label>
+                    <p className="under-text">(odaberite tip) </p>
                     <select disabled onChange={e => setTipTekuceg(e.target.value)} className="standard--input" id="tekuci-trosak" name="tekuci-trosak" >
                         <option>Gorivo</option>
                         <option>Tag</option>
@@ -140,8 +138,8 @@ export const Menu = ({ sbt }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="tip-odrzavanja" className="standard--label">Tip održavanja</label>
-                    <p class="under-text">(odaberite tip) </p>
+                    <label htmlFor="tip-odrzavanja" className="standard--label">Tip održavanja</label>
+                    <p className="under-text">(odaberite tip) </p>
                     <select disabled={tipIzvestaja !== "Troškovi održavanja"} onChange={e => setTipOdrzavanja(e.target.value)} className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
                         <option>Redovno</option>
                         <option>Vanredno</option>
@@ -151,24 +149,24 @@ export const Menu = ({ sbt }) => {
                 </div>
 
                 <div className="single-input-container multiple-select">
-                    <label for="vozila" className="standard--label">Vozila</label>
-                    <p class="under-text">(odaberite jedno ili više vozila) </p>
+                    <label htmlFor="vozila" className="standard--label">Vozila</label>
+                    <p className="under-text">(odaberite jedno ili više vozila) </p>
                     <VozilaLista />
                 </div>
 
                 <div className="single-input-container multiple-select">
-                    <label for="tip-odrzavanja" className="standard--label">Zaposleni</label>
-                    <p class="under-text">(odaberite jednog ili više zaposlenih) </p>
+                    <label htmlFor="tip-odrzavanja" className="standard--label">Zaposleni</label>
+                    <p className="under-text">(odaberite jednog ili više zaposlenih) </p>
                     <ZaposleniLista multiple />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-od" className="standard--label">Datum od<span>*</span></label>
+                    <label htmlFor="datum-od" className="standard--label">Datum od<span>*</span></label>
                     <input onChange={e => setMenuDateFrom(e.target.value)} type="date" className="standard--input" id="datum-od" name="datum-od" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-do" className="standard--label">Datum do<span>*</span></label>
+                    <label htmlFor="datum-do" className="standard--label">Datum do<span>*</span></label>
                     <input onChange={e => setMenuDateTo(e.target.value)} type="date" className="standard--input" id="datum-do" name="datum-do" />
                 </div>
 
@@ -182,8 +180,8 @@ export const Menu = ({ sbt }) => {
                     filename="tablexls"
                     sheet="tablexls"
                     buttonText="Download as XLS" />
-                {/* <button className="btn no menu-excell" ><i class="far fa-file-excel menu-icon"></i> </button> */}
-                <button className="btn yes menu-create" onClick={handleSubmit} ><i class="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
+                {/* <button className="btn no menu-excell" ><i className="far fa-file-excel menu-icon"></i> </button> */}
+                <button className="btn yes menu-create" onClick={handleSubmit} ><i className="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
             </div>
 
 

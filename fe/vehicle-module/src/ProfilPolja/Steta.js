@@ -41,8 +41,9 @@ export const Steta = ({ stetaAr }) => {
 
 
     return (
-        <table className="tg">
+        <div>
             {openDmgEdit && <EditSteta stetaAr={stetaAr} />}
+        <table className="tg">
             <thead>
                 <tr>
                     <th colSpan="8" >Šteta</th>
@@ -59,10 +60,11 @@ export const Steta = ({ stetaAr }) => {
                 </tr>
             </thead>
             <tbody>
-                {newOn && <NovoSteta />}
-                {openDialog && <Dialog par={carId} polje="dmg" />}
                 {stetaAr.map((item, key) => <KoloneSteta _id={item._id} desc={item.opisStete} cover={item.stetuPokriva} date={item.datum} part={item.deloviUsluga} total={item.cena.toLocaleString()} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
+                {newOn && <NovoSteta />}
+                {openDialog && <Dialog par={carId} polje="dmg" />}
+        </div>
     )
 }

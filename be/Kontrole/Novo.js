@@ -157,23 +157,8 @@ const NovoMain = async (req, res) => {
             tipKorisnika: req.body.typeMn,
             activeFrom: req.body.aktivnoOd,
             activeTo: req.body.aktivnoDo,
-            registracijaPolje: {
-                datumRegistracije: req.body.dateReg,
-                dokumentacija: req.body.docReg,
-                cena: req.body.troskovi,
-                registrovaoZaposleni: req.body.registrovao,
-                vremeZaposlenog: req.body.timeZaposleni,
-                registrovanDo: req.body.regDo
-            },
-            specifikacijaPolje:
-            {
-                brSasije: req.body.sasija,
-                brMotora: req.body.motor,
-                godiste: req.body.godiste,
-                boja: req.body.boja,
-                datumKupovine: req.body.dateKup,
-                cenaVozila: req.body.cenaVoz,
-                dokumentacija: req.body.docume
+            registracijaPolje:{
+                registrovanDo:req.body.regDo
             },
             slike: req.body.file
 

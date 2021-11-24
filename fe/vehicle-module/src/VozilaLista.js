@@ -15,7 +15,7 @@ export const VozilaLista = () =>{
 
     return(
     <select ref={multi} multiple className="multiple-area" onChange={(e) => handleC(e)}>
-        {vozilaLista.map(item => <option value={item._id} id={item._id}>{item.name}</option>)}
+        {vozilaLista.map((item,key) => <option value={item._id} id={item._id} key={key} >{item.name}</option>)}
     </select>
 )
 }

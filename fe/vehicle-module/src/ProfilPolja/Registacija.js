@@ -36,10 +36,12 @@ export const Registracija = ({ registracijaAr }) => {
             </tr>
         )
     }
+    let cond = registracijaAr.length===1
 
     return (
-        <table className="tg">
+        <div>
             {openRegEdit && <EditRegistracija registracijaAr={registracijaAr} regId={regId} carId={carId} />}
+        <table className="tg">
 
             <thead>
                 <tr>
@@ -52,14 +54,15 @@ export const Registracija = ({ registracijaAr }) => {
                     <th>Registrovao zaposleni</th>
                     <th>Vreme zaposlenog</th>
                     <th>Registrovan do</th>
-                    <th className="tg-0pky"><button className="editBtn" onClick={() => setNewOn(true)}><i className="fas fa-plus"></i> Novo</button></th>
+                    <th className="tg-0pky"><button className="editBtn" onClick={() => setNewOn(true)}><i className="fas fa-plus"></i>Novo</button></th>
                 </tr>
             </thead>
             <tbody>
-                {newOn && <NovoRegistracija />}
-                {openDialog && <Dialog par={carId} polje="reg" />}
-                {registracijaAr.map((item, key) => <Kolone kid={item._id} date={item.datum} doc={item.dokumentacija} reg={item.cena.toLocaleString()} user={item.registrovaoZaposleni} time={item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
+                {registracijaAr.map((item, key) => <Kolone kid={cond ? "/" : item._id} date={cond ? "/" : item.datum} doc={cond ? "/" : item.dokumentacija} reg={cond ? "/" : item.cena.toLocaleString()} user={cond ? "/" : item.registrovaoZaposleni} time={cond ? "/" : item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
             </tbody>
         </table>
+                {newOn && <NovoRegistracija />}
+                {openDialog && <Dialog par={carId} polje="reg" />}
+        </div>
     )
 }

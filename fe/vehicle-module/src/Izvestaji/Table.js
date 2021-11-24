@@ -1,22 +1,30 @@
-import React, { useState, useEffect, useRef, useContext } from "react"
+import React, { useContext } from "react"
 import axios from "axios"
-import ExcellentExport from 'excellentexport';
-
 import { DataContext } from "../Context"
 
 
-const Kolone = ({ rb, vozilo, data, th }) => {
+const Kolone = ({ rb, vozilo, data, th,regBr }) => {
 
     const findName = (nm) => {
         let ind = data.indexOf(nm)
         return th[ind]
     }
 
+
+    const handleSmallTable = async(date,polje)=>{
+        console.log(regBr)
+        let firstDate = date[0].datum
+        let lastDate = date[date.length-1]
+        await axios.post("http://localhost:5000/api/v1/tabela/",{regBr,firstDate,lastDate,polje}).then(res=>console.log(res))
+
+
+    }
+
     return (
         <tr>
             <td>{rb}</td>
             <td>{vozilo}</td>
-            {data.map(item => <td className="click-tab" id={vozilo + "-" + findName(item)}>{item.toLocaleString()}</td>)}
+            {data.map((item,key) => <td key={key} className="click-tab" onClick={()=>handleSmallTable(item.svi.sort((a,b)=>new Date(a.datum) - new Date(b.datum)),item.polje)} id={vozilo + "-" + findName(item)}>{item.ukupno.toLocaleString()}</td>)}
         </tr>
     )
 }
@@ -40,7 +48,7 @@ export const Table = () => {
     for (let a of dataTable) {
         a.data.forEach(item => {
             let ind = a.data.indexOf(item)
-            ar[ind] = item + ar[ind]
+            ar[ind] = item.ukupno + ar[ind]
         })
     }
 
@@ -58,10 +66,10 @@ export const Table = () => {
                 </tr>
             </thead>
             <tbody>
-                {dataTable.map(item => <Kolone rb={item.rb} vozilo={item.vozilo} data={item.data} th={tableHead} />)}
+                {dataTable.map((item,key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} />)}
                 <tr >
                     <td className="head-table" colSpan="2">Ukupno</td>
-                    {ar.map(item => <td className="head-table click-tab">{item}</td>)}
+                    {ar.map((item,key) => <td key={key} className="head-table click-tab">{item}</td>)}
 
                 </tr>
             </tbody>

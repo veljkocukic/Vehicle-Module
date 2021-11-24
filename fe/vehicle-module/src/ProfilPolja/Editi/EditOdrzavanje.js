@@ -6,7 +6,7 @@ import { Spiner } from "./Spiner"
 
 export const EditOdrzavanje = ({ odrzavanjeAr }) => {
     let [valid, setValid] = useState(true)
-    let { setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, setOpenOdrEdit, typeOdr, uslugaOdr, timeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, setUslugaOdr, setTimeOdr } = useContext(DataContext)
+    let { verDate,setNewOn, spinerOn, setSpinerOn, id, formatDateEdit, setOpenOdrEdit, typeOdr, uslugaOdr, timeOdr, setTypeOdr, dateOdr, setDateOdr, kmOdr, setKmOdr, partsOdr, setPartsOdr, totalOdr, setTotalOdr, setUslugaOdr, setTimeOdr } = useContext(DataContext)
 
     let tipRef = useRef(null)
     let dateRef = useRef(null)
@@ -18,7 +18,6 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
     let { carId } = useParams()
 
     useEffect(() => {
-        console.log(id)
         let odr = odrzavanjeAr.find(item => item._id === id)
 
         setTypeOdr(odr.tip)
@@ -84,7 +83,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
             <div className="form">
 
                 <div className="single-input-container">
-                    <label for="tip-odrzavanje" className="standard--label">Tip <span>*</span></label>
+                    <label htmlFor="tip-odrzavanje" className="standard--label">Tip <span>*</span></label>
                     <select ref={tipRef} onChange={e => setTypeOdr(e.target.value)} className="standard--input" id="tip-odrzavanje" name="tip-odrzavanje" >
                         <option>Redovno</option>
                         <option>Vanredno</option>
@@ -94,33 +93,33 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-odrzavanje" className="standard--label">Datum <span>*</span></label>
-                    <input ref={dateRef} type="date" onChange={(e) => setDateOdr(e.target.value)} className="standard--input" id="datum-odrzavanje" name="datum-odrzavanje" />
+                    <label htmlFor="datum-odrzavanje" className="standard--label">Datum <span>*</span></label>
+                    <input onBlur={e=>!verDate(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={dateRef} type="date" onChange={(e) => setDateOdr(e.target.value)} className="standard--input" id="datum-odrzavanje" name="datum-odrzavanje" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="kilometraza-odrzavanje" className="standard--label">Kilometraža <span>*</span></label>
-                    <input ref={kmRef} type="number" onChange={(e) => setKmOdr(e.target.value)} className="standard--input" id="kilometraza-odrzavanje" name="kilometraza-odrzavanje" />
+                    <label htmlFor="kilometraza-odrzavanje" className="standard--label">Kilometraža <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={kmRef} type="number" onChange={(e) => setKmOdr(e.target.value)} className="standard--input" id="kilometraza-odrzavanje" name="kilometraza-odrzavanje" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="delovi-odrzavanje" className="standard--label"> Delovi/Usluga <span>*</span></label>
-                    <input ref={partsRef} onChange={(e) => setPartsOdr(e.target.value)} type="text" className="standard--input" id="delovi-odrzavanje" name="delovi-odrzavanje" />
+                    <label htmlFor="delovi-odrzavanje" className="standard--label"> Delovi/Usluga <span>*</span></label>
+                    <input onBlur={e=>e.target.value.length<4 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={partsRef} onChange={(e) => setPartsOdr(e.target.value)} type="text" className="standard--input" id="delovi-odrzavanje" name="delovi-odrzavanje" />
 
                 </div>
 
                 <div className="single-input-container">
-                    <label for="trosak-odrzavanje" className="standard--label">Ukupan trošak <span>*</span></label>
-                    <input ref={totalRef} onChange={(e) => setTotalOdr(e.target.value)} type="number" className="standard--input" id="trosak-odrzavanje" name="trosak-odrzavanje" />
+                    <label htmlFor="trosak-odrzavanje" className="standard--label">Ukupan trošak <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={totalRef} onChange={(e) => setTotalOdr(e.target.value)} type="number" className="standard--input" id="trosak-odrzavanje" name="trosak-odrzavanje" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="usluga-zaposlenog-odrzavanje" className="standard--label">Usluga zaposlenog</label>
+                    <label htmlFor="usluga-zaposlenog-odrzavanje" className="standard--label">Usluga zaposlenog</label>
                     <input ref={uslugaRef} onChange={(e) => setUslugaOdr(e.target.value)} type="text" className="standard--input" id="usluga-zaposlenog-gorivo" name="usluga-zaposlenog-gorivo" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="vreme-zaposlenog-odrzavanje" className="standard--label">Vreme zaposlenog</label>
+                    <label htmlFor="vreme-zaposlenog-odrzavanje" className="standard--label">Vreme zaposlenog</label>
                     <input ref={timeRef} onChange={(e) => setTimeOdr(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog-odrzavanje" name="vreme-zaposlenog-odrzavanje" />
                 </div>
             </div>

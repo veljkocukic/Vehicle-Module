@@ -41,8 +41,9 @@ export const Odrzavanje = ({ odrzavanjeAr }) => {
     }
 
     return (
-        <table className="tg">
+        <div>
             {openOdrEdit && <EditOdrzavanje odrzavanjeAr={odrzavanjeAr} />}
+        <table className="tg">
             <thead>
                 <tr>
                     <th colSpan="8" >Održavanje</th>
@@ -59,10 +60,11 @@ export const Odrzavanje = ({ odrzavanjeAr }) => {
                 </tr>
             </thead>
             <tbody>
-                {newOn && <NovoOdrzavanje />}
-                {openDialog && <Dialog par={carId} polje="odr" />}
                 {odrzavanjeAr.map((item, key) => < KoloneOdrz _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} part={item.deloviUsluga} total={item.cena.toLocaleString()} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
+                {newOn && <NovoOdrzavanje />}
+                {openDialog && <Dialog par={carId} polje="odr" />}
+        </div>
     )
 }

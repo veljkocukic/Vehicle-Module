@@ -5,12 +5,12 @@ let mongoose = require("mongoose")
 
 const RegistracijaSchema = new mongoose.Schema({
     _id: { type: mongoose.Types.ObjectId, auto: true },
-    datum: { type: Date, required: true },
-    dokumentacija: { type: String, required: true },
-    cena: { type: Number, required: true },
-    registrovaoZaposleni: { type: String, required: true },
-    vremeZaposlenog: { type: Number, required: true },
-    registrovanDo: { type: String, required: true }
+    datum: { type: Date },
+    dokumentacija: { type: String },
+    cena: { type: Number },
+    registrovaoZaposleni: { type: String },
+    vremeZaposlenog: { type: Number },
+    registrovanDo: { type: String }
 })
 
 const SpecifikacijaSchema = new mongoose.Schema({

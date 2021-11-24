@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useContext } from "react"
+import React, { useState, useEffect, useContext } from "react"
 import axios from "axios"
 import { DataContext } from "../../Context"
 import { Spiner } from "./Spiner"
 import { ZaposleniLista } from "../Novo/ZaposleniLista"
-export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vozila, zaposleniSelect, markaRef, regBrRef, activeFromRef, korVozRef }) => {
+export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniSelect, markaRef, regBrRef, activeFromRef, korVozRef }) => {
 
 
     let { verReg, valid, setValid, setNewOn, id, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd } = useContext(DataContext)
@@ -14,7 +14,6 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
 
     useEffect(() => {
         let vozilo = vozila.find(item => item.id === id)
-        console.log(vozilo)
         setMarka(vozilo.markaTip)
         setRegBr(vozilo.regBroj)
         setTypeMn("Zaposleni")
@@ -31,8 +30,8 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
         } else {
             try {
                 zaposleniSelect.current.value = vozilo.korisnikVozila
-            } catch (er) {
-                console.log(er)
+            }catch(err){
+                
             }
 
         }
@@ -52,7 +51,7 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
             korVozRef.current.value = vozilo.korisnikVozila
 
         } catch (error) {
-            console.log(error)
+            
         }
     }, [zaposleni])
 
@@ -96,6 +95,7 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
             console.log(verifyMarka, verifyReg, verifyKorisnik, verifyActiveFrom, verifyRazlika)
             console.log(aktivnoOd)
             console.log(aktivnoDo)
+            
 
         }
 
@@ -122,18 +122,18 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
             <h3 className="input--container__title">Izmena vozila</h3>
             <form className="form">
                 <div className="single-input-container">
-                    <label for="marka-tip" className="standard--label">Marka i tip <span>*</span></label>
-                    <input ref={markaRef} onChange={e => setMarka(e.target.value)} type="text" className="standard--input" id="marka-tip" name="marka-tip" />
+                    <label htmlFor="marka-tip" className="standard--label">Marka i tip <span>*</span></label>
+                    <input onBlur={e=>e.target.value.length<4 ? e.target.style.border="1px solid red" : e.target.style.border="none"}ref={markaRef} onChange={e => setMarka(e.target.value)} type="text" className="standard--input" id="marka-tip" name="marka-tip" />
                 </div>
 
 
                 <div className="single-input-container">
-                    <label for="registracioni-broj" className="standard--label">Registracioni broj <span>*</span></label>
-                    <input ref={regBrRef} onChange={e => setRegBr(e.target.value)} type="text" className="standard--input" id="registracioni-broj" name="registracioni-broj" />
+                    <label htmlFor="registracioni-broj" className="standard--label">Registracioni broj <span>*</span></label>
+                    <input onBlur={e=>!verReg(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={regBrRef} onChange={e => setRegBr(e.target.value)} type="text" className="standard--input" id="registracioni-broj" name="registracioni-broj" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="tip-korisnika" className="standard--label">Tip korisnika <span>*</span></label>
+                    <label htmlFor="tip-korisnika" className="standard--label">Tip korisnika <span>*</span></label>
                     <select onChange={handleChange} ref={tipKorRef} className="standard--input" id="tip-korisnika" name="tip-korisnika">
                         <option>Zaposleni</option>
                         <option>Druga lica</option>
@@ -141,17 +141,17 @@ export const EditMain = ({ setEditOn, activeToRef, zaposleniLista, tipKorRef, vo
                 </div>
 
                 <div className="single-input-container">
-                    <label for="korisnik-vozila" className="standard--label">Korisnik vozila <span>*</span></label>
+                    <label htmlFor="korisnik-vozila" className="standard--label">Korisnik vozila <span>*</span></label>
                     {zaposleni ? <ZaposleniLista /> : <input type="text" className="standard--input" id="korisnik-vozila" name="korisnik-vozila" onChange={(e) => { setKorisnikMn(e.target.value) }} ref={korVozRef} />}
                 </div>
 
                 <div className="single-input-container">
-                    <label for="aktivno-od" className="standard--label">Vozilo aktivno od <span>*</span></label>
+                    <label htmlFor="aktivno-od" className="standard--label">Vozilo aktivno od <span>*</span></label>
                     <input ref={activeFromRef} onChange={e => setAktivnoOd(e.target.value)} type="date" className="standard--input" id="aktivno-od" name="aktivno-od" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="aktivno-od" className="standard--label">Vozilo aktivno do </label>
+                    <label htmlFor="aktivno-od" className="standard--label">Vozilo aktivno do </label>
                     <input ref={activeToRef} onChange={e => setAktivnoDo(e.target.value)} type="date" className="standard--input" id="aktivno-do" name="aktivno-do" />
                 </div>
 

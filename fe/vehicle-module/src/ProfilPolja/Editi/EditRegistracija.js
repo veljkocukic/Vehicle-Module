@@ -5,7 +5,7 @@ import { Spiner } from "../Editi/Spiner"
 
 export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
     let { spinerOn, setSpinerOn, setOpenRegEdit, verDate, formatDateEdit, id, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
-
+    let cond = registracijaAr.length===1
     let [valid, setValid] = useState(true)
     let regDateRef = useRef(null)
     let regDocRef = useRef(null)
@@ -16,23 +16,23 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
 
     useEffect(() => {
         let reg = registracijaAr.find(item => item._id === regId)
-        setDateReg(reg.datumRegistracije)
-        regDateRef.current.value = formatDateEdit(reg.datumRegistracije)
+        setDateReg(cond ? "" : reg.datum)
+        regDateRef.current.value = cond ? "" : formatDateEdit(reg.datum)
 
-        setDocReg(reg.dokumentacija)
-        regDocRef.current.value = reg.dokumentacija
+        setDocReg(cond ? "" : reg.dokumentacija)
+        regDocRef.current.value = cond ? "" : reg.dokumentacija
 
-        setTroskovi(reg.cena)
-        regTrosRef.current.value = reg.cena
+        setTroskovi(cond ? 0 : reg.cena)
+        regTrosRef.current.value = cond ? 0 : reg.cena
 
-        setRegistrovao(reg.registrovaoZaposleni)
-        regZapRef.current.value = reg.registrovaoZaposleni
+        setRegistrovao(cond ? "" : reg.registrovaoZaposleni)
+        regZapRef.current.value = cond ? "" : reg.registrovaoZaposleni
 
-        setTimeZaposleni(reg.vremeZaposlenog)
-        regTimeRef.current.value = reg.vremeZaposlenog
+        setTimeZaposleni(cond ? 0 : reg.vremeZaposlenog)
+        regTimeRef.current.value = cond ? 0 : reg.vremeZaposlenog
 
-        setRegDo(reg.registrovanDo)
-        regRegDoRef.current.value = formatDateEdit(reg.registrovanDo)
+        setRegDo(cond ? 0 : reg.registrovanDo)
+        regRegDoRef.current.value = cond ? 0 : formatDateEdit(reg.registrovanDo)
 
     }, [])
 
@@ -77,35 +77,35 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
             <div className="form">
 
                 <div className="single-input-container">
-                    <label for="datum-registracije" className="standard--label">Datum registracije <span>*</span></label>
-                    <input ref={regDateRef} onChange={e => setDateReg(e.target.value)} type="date" className="standard--input" id="datum-registracije" name="datum-registracije" />
+                    <label htmlFor="datum-registracije" className="standard--label">Datum registracije <span>*</span></label>
+                    <input onBlur={e=>!verDate(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={regDateRef} onChange={e => setDateReg(e.target.value)} type="date" className="standard--input" id="datum-registracije" name="datum-registracije" />
                 </div>
 
 
                 <div className="single-input-container">
-                    <label for="troskovi-registracije" className="standard--label">Troškovi registracije <span>*</span></label>
-                    <input type="number" ref={regTrosRef} onChange={(e) => setTroskovi(e.target.value)} className="standard--input" id="troskovi-registracije" name="troskovi-registracije" />
+                    <label htmlFor="troskovi-registracije" className="standard--label">Troškovi registracije <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} type="number" ref={regTrosRef} onChange={(e) => setTroskovi(e.target.value)} className="standard--input" id="troskovi-registracije" name="troskovi-registracije" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="registrovao-zaposleni" className="standard--label">Registrovao zaposleni <span>*</span></label>
-                    <input ref={regZapRef} onChange={(e) => setRegistrovao(e.target.value)} type="text" className="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni" />
+                    <label htmlFor="registrovao-zaposleni" className="standard--label">Registrovao zaposleni <span>*</span></label>
+                    <input onBlur={e=>e.target.value.length<3 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={regZapRef} onChange={(e) => setRegistrovao(e.target.value)} type="text" className="standard--input" id="registrovao-zaposleni" name="registrova-zaposleni" />
 
                 </div>
 
                 <div className="single-input-container">
-                    <label for="vreme-zaposlenog" className="standard--label">Vreme zaposlenog <span>*</span></label>
-                    <input ref={regTimeRef} onChange={(e) => setTimeZaposleni(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog" name="vreme-zaposlenog" />
+                    <label htmlFor="vreme-zaposlenog" className="standard--label">Vreme zaposlenog <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={regTimeRef} onChange={(e) => setTimeZaposleni(e.target.value)} type="text" className="standard--input" id="vreme-zaposlenog" name="vreme-zaposlenog" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="registrovan-do" className="standard--label">Registrovan do <span>*</span></label>
-                    <input ref={regRegDoRef} onChange={(e) => setRegDo(e.target.value)} type="date" className="standard--input" id="registrovan-do" name="registrovan-do" />
+                    <label htmlFor="registrovan-do" className="standard--label">Registrovan do <span>*</span></label>
+                    <input onBlur={e=> !verDate(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={regRegDoRef} onChange={(e) => setRegDo(e.target.value)} type="date" className="standard--input" id="registrovan-do" name="registrovan-do" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="dokumentacija" className="standard--label">Dokumentacija <span>*</span></label>
-                    <textarea ref={regDocRef} onChange={(e) => setDocReg(e.target.value)} className="standard--input" id="dokumentacije" name="dokumentacija" ></textarea>
+                    <label htmlFor="dokumentacija" className="standard--label">Dokumentacija <span>*</span></label>
+                    <textarea onBlur={e=>e.target.value.length<3 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={regDocRef} onChange={(e) => setDocReg(e.target.value)} className="standard--input" id="dokumentacije" name="dokumentacija" ></textarea>
                 </div>
             </div>
 

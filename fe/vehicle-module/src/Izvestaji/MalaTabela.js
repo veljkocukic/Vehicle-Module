@@ -1,6 +1,5 @@
-import React,{useState,useEffect,useRef} from "react"
-import axios from "axios"
-import { DataContext } from "../Context"
+import React from "react"
+
 
 export const MalaTabela = ({gorivo,car,period}) =>{
 

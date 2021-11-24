@@ -137,7 +137,7 @@ export let MainProvider = (props) => {
   }
 
   let verDate = (dt) => {
-    return new Date(dt > 0)
+    return new Date(dt)>0
   }
   let formatDate = (dt) => { ///////////// Vreme za tabele
     //let date = new Date(dt).toLocaleDateString().replaceAll("/", ".")   ///<------------------------------------- Ne prikazuje nas format

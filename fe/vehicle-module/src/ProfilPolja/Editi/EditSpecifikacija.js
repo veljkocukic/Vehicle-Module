@@ -71,37 +71,37 @@ export const EditSpecifikacija = () => {
             <div className="form">
 
                 <div className="single-input-container">
-                    <label for="broj-sasije" className="standard--label">Broj šasije <span>*</span></label>
-                    <input ref={sasijaRef} type="text" onChange={(e) => setSasija(e.target.value)} className="standard--input" id="broj-sasije" name="broj-sasije" />
+                    <label htmlFor="broj-sasije" className="standard--label">Broj šasije <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={sasijaRef} type="text" onChange={(e) => setSasija(e.target.value)} className="standard--input" id="broj-sasije" name="broj-sasije" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="broj-motora" className="standard--label">Broj motora <span>*</span></label>
-                    <input ref={brMotRef} type="text" onChange={e => setMotor(e.target.value)} className="standard--input" id="broj-motora" name="broj-motora" />
+                    <label htmlFor="broj-motora" className="standard--label">Broj motora <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={brMotRef} type="text" onChange={e => setMotor(e.target.value)} className="standard--input" id="broj-motora" name="broj-motora" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="godiste" className="standard--label">Godište <span>*</span></label>
-                    <input ref={godisteRef} type="number" onChange={(e) => setGodiste(e.target.value)} className="standard--input" id="godiste" name="godiste" />
+                    <label htmlFor="godiste" className="standard--label">Godište <span>*</span></label>
+                    <input onBlur={e=>e.target.value<1960 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={godisteRef} type="number" onChange={(e) => setGodiste(e.target.value)} className="standard--input" id="godiste" name="godiste" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="boja" className="standard--label">Boja <span>*</span></label>
-                    <input ref={bojaRef} onChange={(e) => setBoja(e.target.value)} type="text" className="standard--input" id="boja" name="boja" />
+                    <label htmlFor="boja" className="standard--label">Boja <span>*</span></label>
+                    <input onBlur={e=>e.target.value.length<3 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={bojaRef} onChange={(e) => setBoja(e.target.value)} type="text" className="standard--input" id="boja" name="boja" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="datum-kupovine" className="standard--label">Datum kupovine <span>*</span></label>
-                    <input ref={datumRef} onChange={(e) => setDateKup(e.target.value)} type="date" className="standard--input" id="datum-kupovine" name="datum-kupovine" />
+                    <label htmlFor="datum-kupovine" className="standard--label">Datum kupovine <span>*</span></label>
+                    <input onBlur={e=>!verDate(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={datumRef} onChange={(e) => setDateKup(e.target.value)} type="date" className="standard--input" id="datum-kupovine" name="datum-kupovine" />
                 </div>
 
                 <div className="single-input-container">
-                    <label for="cena-vozila" className="standard--label">Cena vozila <span>*</span></label>
-                    <input ref={cenaRef} onChange={(e) => setCenaVoz(e.target.value)} type="number" className="standard--input" id="cena-vozila" name="cena-vozila" />
+                    <label htmlFor="cena-vozila" className="standard--label">Cena vozila <span>*</span></label>
+                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={cenaRef} onChange={(e) => setCenaVoz(e.target.value)} type="number" className="standard--input" id="cena-vozila" name="cena-vozila" />
                 </div>
 
                 <div className="single-input-container textarea-specifikacija">
-                    <label for="dokumentacija" className="standard--label">Dokumentacija </label>
+                    <label htmlFor="dokumentacija" className="standard--label">Dokumentacija </label>
                     <textarea ref={documRef} onChange={(e) => setDocume(e.target.value)} className="standard--input" id="dokumentacija" name="dokumentacija" />
                 </div>
             </div>
