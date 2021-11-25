@@ -32,16 +32,16 @@ export const EditSteta = ({ stetaAr }) => {
         setDate(steta.datum)
         setParts(steta.deloviUsluga)
         setTotal(steta.cena)
-        setUsluga(steta.uslugaZaposlenog)
-        setTime(steta.vremeZaposlenog)
+        setUsluga(steta.uslugaZaposlenog || "")
+        setTime(steta.vremeZaposlenog || "")
 
         opisRef.current.value = steta.opisStete
         pokrivaRef.current.value = steta.stetuPokriva
         datumRef.current.value = formatDateEdit(steta.datum)
         deloviRef.current.value = steta.deloviUsluga
         totalRef.current.value = steta.cena
-        uslugaRef.current.value = steta.uslugaZaposlenog
-        timeRef.current.value = steta.vremeZaposlenog
+        uslugaRef.current.value = steta.uslugaZaposlenog || ""
+        timeRef.current.value = steta.vremeZaposlenog || ""
         setSpinerOn(false)
     }, [])
 

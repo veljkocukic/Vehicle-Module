@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext } from "react"
+import React, { useRef, useEffect, useContext, useState } from "react"
 import axios from "axios"
 import { DataContext } from "../Context"
 import { Spiner } from "../ProfilPolja/Editi/Spiner"
@@ -27,8 +27,8 @@ export const EditServis = ({ serviseriAr }) => {
         setKontaktS(serv.kontakt)
         setTelS(serv.brTelefona)
         setKontaktS(serv.kontakt)
-        setEmailS(serv.email)
-        setSiteS(serv.webiste)
+        setEmailS(serv.email || "")
+        setSiteS(serv.webiste || "")
         setAdresaS(serv.adresa)
 
         sifraRef.current.value = serv.sifraKlijenta
@@ -56,16 +56,41 @@ export const EditServis = ({ serviseriAr }) => {
         setValid(true)
     }
 
+    function checkMail(mail) 
+    {
+     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+      {
+        return (true)
+      }
+        return (false)
+    }
+
+    function checkSite(site){
+        var expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+        var regex = new RegExp(expression);
+        if(site.match(regex)){
+            return true
+        }else{
+            return false
+        }
+    }
+
+    let [sifraFalse,setSifraFalse] = useState(false)
+    let [nazivFalse,setNazivFalse] = useState(false)
+    let [mailFalse,setMailFalse] = useState(false)
+    let [siteFalse,setSiteFalse] = useState(false)
 
     const handleSubmit = () => {
         setSpinerOn(true)
         let verifySifra = sifraS.length > 10
         let verifyNaziv = nazivFirme.length > 5
-        let verifyTip = tipUslugeS.length > 1
+        let verifyMail = (emailS.length>=0 ? checkMail(emailS) : true)
+        let verifySite = (siteS.length>=0 ? checkSite(siteS) : true)
 
-        if (verifySifra && verifyNaziv && verifyTip) {
+
+
+        if (verifySifra && verifyNaziv &&verifySite&&verifyMail) {
             axios.patch("http://localhost:5000/api/v1/serviseri", { id, sifraS, adresaS, nazivFirme, tipUslugeS, kontaktS, telS, emailS, siteS }).then(res => {
-                console.log(res.data)
                 setValid(true)
                 setSpinerOn(false)
                 setOpenServEdit(false)
@@ -77,9 +102,14 @@ export const EditServis = ({ serviseriAr }) => {
                 console.log(er)
             })
         } else {
+            !verifySifra ? setSifraFalse(true) : setSifraFalse(false)
+            !verifyNaziv ? setNazivFalse(true) : setNazivFalse(false)
+            !verifyMail ? setMailFalse(true) : setMailFalse(false)
+            !verifySite ? setSiteFalse(true) : setSiteFalse(false)
             setValid(false)
             setSpinerOn(false)
-            console.log(verifySifra, verifyNaziv, verifyTip)
+            console.log(siteS)
+            console.log(verifySifra, verifyNaziv,verifyMail,verifySite)
         }
 
     }
@@ -94,12 +124,14 @@ export const EditServis = ({ serviseriAr }) => {
 
                 <div className="single-input-container">
                     <label htmlFor="sifra-klijenta" className="standard--label">Šifra klijenta</label>
-                    <input onBlur={e=>e.target.value.length<5 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={sifraRef} type="text" onChange={(e) => setSifraS(e.target.value)} className="standard--input" id="sifra-klijenta" name="sifra-klijenta" />
+                    <input style={{border: sifraFalse&&"1px solid red"}} onBlur={e=>e.target.value.length<=10 ? setSifraFalse(true) : setSifraFalse(false)} ref={sifraRef} type="text" onChange={(e) => setSifraS(e.target.value)} className="standard--input" id="sifra-klijenta" name="sifra-klijenta" />
+                    {sifraFalse && <p style={{color:"red",fontSize:"0.8em"}}>Unos mora biti duži od 10 karaktera</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="naziv-firme" className="standard--label">Naziv firme</label>
-                    <input onBlur={e=>e.target.value.length<5 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={nazivRef} type="text" onChange={(e) => setNazivFirme(e.target.value)} className="standard--input" id="naziv-firme" name="naziv-fitme" />
+                    <input style={{border: nazivFalse&&"1px solid red"}} onBlur={e=>e.target.value.length<=5 ? setNazivFalse(true):setNazivFalse(false)} ref={nazivRef} type="text" onChange={(e) => setNazivFirme(e.target.value)} className="standard--input" id="naziv-firme" name="naziv-fitme" />
+                    {nazivFalse && <p style={{color:"red",fontSize:"0.8em"}}>Unos mora biti duži od 5 karaktera</p>}
                 </div>
 
 
@@ -133,13 +165,14 @@ export const EditServis = ({ serviseriAr }) => {
 
                 <div className="single-input-container">
                     <label htmlFor="mail-serviseri" className="standard--label">E-mail</label>
-                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"}ref={emailRef} onChange={(e) => setEmailS(e.target.value)} type="text" className="standard--input" id="mail-serviseri" name="mail-serviseri" />
-
+                    <input style={{border:mailFalse&&"1px solid red"}} onBlur={e=>(e.target.value.length>0 && checkMail(e.target.value)) ? setMailFalse(false) : setMailFalse(true)}ref={emailRef} onChange={(e) => setEmailS(e.target.value)} type="text" className="standard--input" id="mail-serviseri" name="mail-serviseri" />
+                    {(mailFalse) && <p style={{fontSize:"0.8em",color:"red"}}>Neispravan format e-mail adrese</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="sajt-servisi" className="standard--label">Website</label>
-                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={siteRef} onChange={(e) => setSiteS(e.target.value)} type="text" className="standard--input" id="sajt-servisi" name="sajt-servisi" />
+                    <input style={{border:siteFalse&&"1px solid red"}} onBlur={e=>(e.target.value.length>0 && checkSite(e.target.value)) ? setSiteFalse(false) : setSiteFalse(true)} ref={siteRef} onChange={(e) => setSiteS(e.target.value)} type="text" className="standard--input" id="sajt-servisi" name="sajt-servisi" />
+                    {(siteFalse) && <p style={{fontSize:"0.8em",color:"red"}}>Neispravan format sajta</p>}
                 </div>
 
             </div>
@@ -149,7 +182,7 @@ export const EditServis = ({ serviseriAr }) => {
                 <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>
 
-            {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+            {!valid && <h3 className="nonValid">Uneti podaci nisu bili validni</h3>}
         </div>
     )
 }

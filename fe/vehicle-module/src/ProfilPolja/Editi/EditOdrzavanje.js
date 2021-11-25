@@ -30,16 +30,16 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
         setKmOdr(odr.kilometraza)
         setPartsOdr(odr.deloviUsluga)
         setTotalOdr(odr.cena)
-        setUslugaOdr(odr.uslugaZaposlenog)
-        setTimeOdr(odr.vremeZaposlenog)
+        setUslugaOdr(odr.uslugaZaposlenog || "")
+        setTimeOdr(odr.vremeZaposlenog || "")
 
         tipRef.current.value = odr.tip
         dateRef.current.value = formatDateEdit(odr.datum)
         kmRef.current.value = odr.kilometraza
         partsRef.current.value = odr.deloviUsluga
         totalRef.current.value = odr.cena
-        uslugaRef.current.value = odr.uslugaZaposlenog
-        timeRef.current.value = odr.vremeZaposlenog
+        uslugaRef.current.value = odr.uslugaZaposlenog || ""
+        timeRef.current.value = odr.vremeZaposlenog || ""
 
 
     }, [])
