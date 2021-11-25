@@ -94,12 +94,12 @@ export const EditServis = ({ serviseriAr }) => {
 
                 <div className="single-input-container">
                     <label htmlFor="sifra-klijenta" className="standard--label">Šifra klijenta</label>
-                    <input ref={sifraRef} type="text" onChange={(e) => setSifraS(e.target.value)} className="standard--input" id="sifra-klijenta" name="sifra-klijenta" />
+                    <input onBlur={e=>e.target.value.length<5 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={sifraRef} type="text" onChange={(e) => setSifraS(e.target.value)} className="standard--input" id="sifra-klijenta" name="sifra-klijenta" />
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="naziv-firme" className="standard--label">Naziv firme</label>
-                    <input ref={nazivRef} type="text" onChange={(e) => setNazivFirme(e.target.value)} className="standard--input" id="naziv-firme" name="naziv-fitme" />
+                    <input onBlur={e=>e.target.value.length<5 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={nazivRef} type="text" onChange={(e) => setNazivFirme(e.target.value)} className="standard--input" id="naziv-firme" name="naziv-fitme" />
                 </div>
 
 
@@ -117,29 +117,29 @@ export const EditServis = ({ serviseriAr }) => {
 
                 <div className="single-input-container">
                     <label htmlFor="kontakt-serviseri" className="standard--label">Kontakt</label>
-                    <input ref={kontaktRef} type="text" onChange={(e) => setKontaktS(e.target.value)} className="standard--input" id="kontakt-serviseri" name="kontakt-serviseri" />
+                    <input onBlur={e=>e.target.value.length<6 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={kontaktRef} type="text" onChange={(e) => setKontaktS(e.target.value)} className="standard--input" id="kontakt-serviseri" name="kontakt-serviseri" />
                 </div>
 
 
                 <div className="single-input-container">
                     <label htmlFor="adresa-serviseri" className="standard--label">Adresa</label>
-                    <input ref={adresaRef} type="text" onChange={(e) => setAdresaS(e.target.value)} className="standard--input" id="adresa-serviseri" name="adresa-serviseri" />
+                    <input onBlur={e=>e.target.value.length<8 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={adresaRef} type="text" onChange={(e) => setAdresaS(e.target.value)} className="standard--input" id="adresa-serviseri" name="adresa-serviseri" />
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="broj-telefona" className="standard--label">Broj telefona</label>
-                    <input ref={telRef} type="text" onChange={(e) => setTelS(e.target.value)} className="standard--input" id="broj-telefona" name="broj-telefona" />
+                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={telRef} type="text" onChange={(e) => setTelS(e.target.value)} className="standard--input" id="broj-telefona" name="broj-telefona" />
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="mail-serviseri" className="standard--label">E-mail</label>
-                    <input ref={emailRef} onChange={(e) => setEmailS(e.target.value)} type="text" className="standard--input" id="mail-serviseri" name="mail-serviseri" />
+                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"}ref={emailRef} onChange={(e) => setEmailS(e.target.value)} type="text" className="standard--input" id="mail-serviseri" name="mail-serviseri" />
 
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="sajt-servisi" className="standard--label">Website</label>
-                    <input ref={siteRef} onChange={(e) => setSiteS(e.target.value)} type="text" className="standard--input" id="sajt-servisi" name="sajt-servisi" />
+                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={siteRef} onChange={(e) => setSiteS(e.target.value)} type="text" className="standard--input" id="sajt-servisi" name="sajt-servisi" />
                 </div>
 
             </div>

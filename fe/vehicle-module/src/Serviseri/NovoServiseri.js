@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import axios from "axios"
 import { DataContext } from "../Context"
 import { Spiner } from "../ProfilPolja/Editi/Spiner"
@@ -8,7 +8,9 @@ export const NovoServiseri = () => {
     let { valid, setValid, spinerOn, setSpinerOn, setNewOn, setAdresaS, adresaS, id, kontaktS, setKontaktS, telS, setTelS, emailS, setEmailS, siteS, setSiteS, sifraS, setSifraS, nazivFirme, setNazivFirme, tipUslugeS, setTipUslugeS } = useContext(DataContext)
 
 
-
+    let [sifraFalse,setSifraFalse] = useState(false)
+    let [nazivFalse,setNazivFalse] = useState(false)
+    let [tipFalse,setTipFalse] = useState(false)
     const handleSubmit = async () => {
         setSpinerOn(true)
         let verifySifra = sifraS.length > 10
@@ -35,6 +37,9 @@ export const NovoServiseri = () => {
         } else {
             setValid(false)
             setSpinerOn(false)
+            !verifyNaziv ? setNazivFalse(true) : setNazivFalse(false)
+            !verifySifra ? setSifraFalse(true) : setSifraFalse(false)
+            !verifyTip ? setTipFalse(true) : setTipFalse(false)
             console.log(verifySifra, verifyNaziv, verifyTip)
         }
 
@@ -66,12 +71,12 @@ export const NovoServiseri = () => {
 
                 <div className="single-input-container">
                     <label htmlFor="sifra-klijenta" className="standard--label">Šifra klijenta</label>
-                    <input type="text" onChange={(e) => setSifraS(e.target.value)} className="standard--input" id="sifra-klijenta" name="sifra-klijenta" />
+                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"}type="text" onChange={(e) => setSifraS(e.target.value)} className="standard--input" id="sifra-klijenta" name="sifra-klijenta" />
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="naziv-firme" className="standard--label">Naziv firme</label>
-                    <input type="text" onChange={(e) => setNazivFirme(e.target.value)} className="standard--input" id="naziv-firme" name="naziv-fitme" />
+                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"} type="text" onChange={(e) => setNazivFirme(e.target.value)} className="standard--input" id="naziv-firme" name="naziv-fitme" />
                 </div>
 
 
@@ -89,29 +94,29 @@ export const NovoServiseri = () => {
 
                 <div className="single-input-container">
                     <label htmlFor="kontakt-serviseri" className="standard--label">Kontakt</label>
-                    <input type="text" onChange={(e) => setKontaktS(e.target.value)} className="standard--input" id="kontakt-serviseri" name="kontakt-serviseri" />
+                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"} type="text" onChange={(e) => setKontaktS(e.target.value)} className="standard--input" id="kontakt-serviseri" name="kontakt-serviseri" />
                 </div>
 
 
                 <div className="single-input-container">
                     <label htmlFor="adresa-serviseri" className="standard--label">Adresa</label>
-                    <input type="text" onChange={(e) => setAdresaS(e.target.value)} className="standard--input" id="adresa-serviseri" name="adresa-serviseri" />
+                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"} type="text" onChange={(e) => setAdresaS(e.target.value)} className="standard--input" id="adresa-serviseri" name="adresa-serviseri" />
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="broj-telefona" className="standard--label">Broj telefona</label>
-                    <input type="text" onChange={(e) => setTelS(e.target.value)} className="standard--input" id="broj-telefona" name="broj-telefona" />
+                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"} type="text" onChange={(e) => setTelS(e.target.value)} className="standard--input" id="broj-telefona" name="broj-telefona" />
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="mail-serviseri" className="standard--label">E-mail</label>
-                    <input onChange={(e) => setEmailS(e.target.value)} type="text" className="standard--input" id="mail-serviseri" name="mail-serviseri" />
+                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={(e) => setEmailS(e.target.value)} type="text" className="standard--input" id="mail-serviseri" name="mail-serviseri" />
 
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="sajt-servisi" className="standard--label">Website</label>
-                    <input onChange={(e) => setSiteS(e.target.value)} type="text" className="standard--input" id="sajt-servisi" name="sajt-servisi" />
+                    <input onBlur={e=>e.target.value.length<7 ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={(e) => setSiteS(e.target.value)} type="text" className="standard--input" id="sajt-servisi" name="sajt-servisi" />
                 </div>
 
             </div>
