@@ -8,8 +8,8 @@ import { NovoServiseri } from "../Serviseri/NovoServiseri"
 import "../style/serviseri.css"
 
 export const Serviseri = () => {
-    const [serviseriAr, setServiseriAr] = useState([])
-    let { setNewOn, newOn, setOpenDialog, openDialog, openServEdit, setOpenServEdit, setId } = useContext(DataContext)
+    
+    let { serviseriAr,setServiseriAr,setNewOn, newOn, setOpenDialog, openDialog, openServEdit, setOpenServEdit, setId } = useContext(DataContext)
     let [spinerServ, setSpinerServ] = useState(true)
 
     useEffect(() => {

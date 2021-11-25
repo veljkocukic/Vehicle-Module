@@ -4,7 +4,7 @@ import { DataContext } from "../../Context"
 import { Spiner } from "./Spiner"
 export const Dialog = ({ par, polje }) => {
 
-    let { setOpenDialog, id, spinerOn, setSpinerOn, registracijaAr, setRegistracijaAr, setGorivoAr, setOdrzavanjeAr, setStetaAr} = useContext(DataContext)
+    let { setServiseriAr,setOpenDialog, id, spinerOn, setSpinerOn, registracijaAr, setRegistracijaAr, setGorivoAr, setOdrzavanjeAr, setStetaAr} = useContext(DataContext)
     let url = ""
 
     switch (polje) {
@@ -41,6 +41,7 @@ export const Dialog = ({ par, polje }) => {
                 setOdrzavanjeAr(prev=>prev.filter(item=>item._id!==id))
                 setStetaAr(prev=>prev.filter(item=>item._id!==id))
                 setGorivoAr(prev=>prev.filter(item=>item._id!==id))
+                setServiseriAr(prev=>prev.filter(item=>item._id!==id))
                 console.log(registracijaAr)
                 console.log(id)
             }).catch(er => console.log(er))
