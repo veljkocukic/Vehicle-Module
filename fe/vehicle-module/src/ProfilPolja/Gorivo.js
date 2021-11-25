@@ -29,7 +29,7 @@ export const Gorivo = ({ gorivoAr }) => {
                 <td>{props.type}</td>
                 <td>{formatDate(props.date)}</td>
                 <td>{props.km}</td>
-                <td>{props.pot}</td>
+                <td>{props.pot || "/"}</td>
                 <td>{props.cena}</td>
                 <td>{props.usluga || "/"}</td>
                 <td>{minsToTime(props.time) || "/"}</td>

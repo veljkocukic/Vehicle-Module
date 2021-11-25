@@ -96,11 +96,11 @@ export const NovoGorivo = ({ newC }) => {
                     { kmFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
                 </div>
 
-                <div className="single-input-container">
+                {type==="Gorivo" && <div className="single-input-container">
                     <label htmlFor="potrosnja-gorivo" className="standard--label"> Potrošnja <span>*</span></label>
                     <input style={{border:potFalse&&"1px solid red"}} onBlur={e=>e.target.value===""||e.target.value===0 ? setPotFalse(true):setPotFalse(false)} onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo" />
                     { potFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
-                </div>
+                </div>}
 
                 <div className="single-input-container">
                     <label htmlFor="cena-gorivo" className="standard--label">Cena <span>*</span></label>

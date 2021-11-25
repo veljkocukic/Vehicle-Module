@@ -32,18 +32,18 @@ export const EditGorivo = ({ gorivoAr }) => {
         setType(fuel.tip)
         setDateFuel(fuel.datum)
         setKmFuel(fuel.kilometraza)
-        setPotrosnja(fuel.potrosnja)
+        setPotrosnja(fuel.potrosnja || "")
         setPriceFuel(fuel.cena)
-        setUslugaFuel(fuel.uslugaZaposlenog)
-        setTimeFuel(fuel.vremeZaposlenog)
+        setUslugaFuel(fuel.uslugaZaposlenog || "")
+        setTimeFuel(fuel.vremeZaposlenog || "") 
 
         tipRef.current.value = fuel.tip
         datumRef.current.value = formatDateEdit(fuel.datum)
         kmRef.current.value = fuel.kilometraza
-        potrosnjaRef.current.value = fuel.potrosnja
+        potrosnjaRef.current.value = fuel.potrosnja || ""
         cenaRef.current.value = fuel.cena
-        uslugaRef.current.value = fuel.uslugaZaposlenog
-        timeRef.current.value = fuel.vremeZaposlenog
+        uslugaRef.current.value = fuel.uslugaZaposlenog || ""
+        timeRef.current.value = fuel.vremeZaposlenog || ""
 
     }, [])
 
@@ -116,11 +116,11 @@ export const EditGorivo = ({ gorivoAr }) => {
                     { kmFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
                 </div>
 
-                <div className="single-input-container">
+                {type==="Gorivo" && <div className="single-input-container">
                     <label htmlFor="potrosnja-gorivo" className="standard--label"> Potrošnja <span color="grey">*</span></label>
                     <input style={{border:potFalse&&"1px solid red"}} onBlur={e=>e.target.value===""||e.target.value===0 ? setPotFalse(true):setPotFalse(false)} ref={potrosnjaRef} onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo"/>
                     { potFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
-                </div>
+                </div>}
 
                 <div className="single-input-container">
                     <label htmlFor="cena-gorivo" className="standard--label">Cena <span>*</span></label>

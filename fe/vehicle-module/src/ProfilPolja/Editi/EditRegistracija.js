@@ -28,8 +28,8 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
         setDateReg(cond ? "" : reg.datum)
         regDateRef.current.value = cond ? "" : formatDateEdit(reg.datum)
 
-        setDocReg(cond ? "" : reg.dokumentacija)
-        regDocRef.current.value = cond ? "" : reg.dokumentacija
+        setDocReg(cond ? "" : reg.dokumentacija||"")
+        regDocRef.current.value = cond ? "" : reg.dokumentacija||""
 
         setTroskovi(cond ? 0 : reg.cena)
         regTrosRef.current.value = cond ? 0 : reg.cena
