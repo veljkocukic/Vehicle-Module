@@ -10,6 +10,10 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
 
 
     let [zaposleni, setZaposleni] = useState(true)
+    let [markaFalse,setMarkaFalse] = useState(false)
+    let [regFalse,setRegFalse] = useState(false)
+    let [fromFalse,setFromFalse] = useState(false)
+    let [doFalse,setDoFalse] = useState(false)
 
 
     useEffect(() => {
@@ -72,13 +76,12 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
 
     let handleSubmit = async () => {
         setSpinerOn(true)
-        let verifyMarka = marka.length > 2
+        let verifyMarka = marka.length > 4
         let verifyReg = verReg(regBr)
-        let verifyKorisnik = korisnikMn.length > 2
         let verifyActiveFrom = verDate(aktivnoOd)
         //let verifyActiveTo = verDate(aktivnoDo)
         let verifyRazlika = aktivnoDo!==0 ? aktivnoDo > aktivnoOd : true
-        if (verifyMarka && verifyReg && verifyKorisnik && verifyActiveFrom && verifyRazlika) {
+        if (verifyMarka && verifyReg  && verifyActiveFrom && verifyRazlika) {
             await axios.patch("http://localhost:5000/api/v1/main", {
                 id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo
 
@@ -92,11 +95,11 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
         } else {
             setValid(false)
             setSpinerOn(false)
-            console.log(verifyMarka, verifyReg, verifyKorisnik, verifyActiveFrom, verifyRazlika)
-            console.log(aktivnoOd)
-            console.log(aktivnoDo)
+            !verifyMarka ? setMarkaFalse(true) : setMarkaFalse(false)
+            !verifyReg ? setRegFalse(true): setRegFalse(false)
+            !verifyActiveFrom ? setFromFalse(true): setFromFalse(false)
+            console.log(verifyMarka, verifyReg, verifyActiveFrom, verifyRazlika)
             
-
         }
 
 
@@ -110,6 +113,7 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
         setKorisnikMn("")
         setIsticanje(0)
         setAktivnoOd(0)
+        setAktivnoDo(0)
         setEditOn(false)
         setNewOn(false)
         setValid(true)
@@ -123,13 +127,15 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
             <form className="form">
                 <div className="single-input-container">
                     <label htmlFor="marka-tip" className="standard--label">Marka i tip <span>*</span></label>
-                    <input onBlur={e=>e.target.value.length<4 ? e.target.style.border="1px solid red" : e.target.style.border="none"}ref={markaRef} onChange={e => setMarka(e.target.value)} type="text" className="standard--input" id="marka-tip" name="marka-tip" />
+                    <input style={{border:markaFalse&&"1px solid red"}} onBlur={e=>e.target.value.length<=4 ? setMarkaFalse(true): setMarkaFalse(false)}ref={markaRef} onChange={e => setMarka(e.target.value)} type="text" className="standard--input" id="marka-tip" name="marka-tip" />
+                    { markaFalse && <p style={{color:"red",fontSize:".8em"}}>Unos mora biti duži od 4 karaktera</p>}
                 </div>
 
 
                 <div className="single-input-container">
                     <label htmlFor="registracioni-broj" className="standard--label">Registracioni broj <span>*</span></label>
-                    <input onBlur={e=>!verReg(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} ref={regBrRef} onChange={e => setRegBr(e.target.value)} type="text" className="standard--input" id="registracioni-broj" name="registracioni-broj" />
+                    <input style={{border:regFalse&&"1px solid red"}} onBlur={e=>!verReg(e.target.value) ? setRegFalse(true):setRegFalse(false)} ref={regBrRef} onChange={e => setRegBr(e.target.value)} type="text" className="standard--input" id="registracioni-broj" name="registracioni-broj" />
+                    { regFalse && <p style={{color:"red",fontSize:".8em"}}>Format registracije mora biti ispravan</p>}
                 </div>
 
                 <div className="single-input-container">
@@ -142,12 +148,13 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
 
                 <div className="single-input-container">
                     <label htmlFor="korisnik-vozila" className="standard--label">Korisnik vozila <span>*</span></label>
-                    {zaposleni ? <ZaposleniLista /> : <input type="text" className="standard--input" id="korisnik-vozila" name="korisnik-vozila" onChange={(e) => { setKorisnikMn(e.target.value) }} ref={korVozRef} />}
+                    {zaposleni ? <ZaposleniLista rf={korVozRef}/> : <input type="text" className="standard--input" id="korisnik-vozila" name="korisnik-vozila" onChange={(e) => { setKorisnikMn(e.target.value) }} ref={korVozRef} />}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="aktivno-od" className="standard--label">Vozilo aktivno od <span>*</span></label>
-                    <input ref={activeFromRef} onChange={e => setAktivnoOd(e.target.value)} type="date" className="standard--input" id="aktivno-od" name="aktivno-od" />
+                    <input  style={{border:fromFalse&&"1px solid red"}} onBlur={e=>!verDate(e.target.value) ? setFromFalse(true) : setFromFalse(false)} ref={activeFromRef} onChange={e => setAktivnoOd(e.target.value)} type="date" className="standard--input" id="aktivno-od" name="aktivno-od" />
+                    { fromFalse && <p style={{color:"red",fontSize:".8em"}}>Datum mora biti validan</p>}
                 </div>
 
                 <div className="single-input-container">

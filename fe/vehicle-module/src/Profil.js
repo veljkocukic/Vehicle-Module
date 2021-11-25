@@ -27,7 +27,7 @@ export const Profil = () => {
 
 
 
-    let {  openSec,setOpenSec,registracijaAr, setRegistracijaAr,specifikacijaAr, setSpecifikacijaAr,gorivoAr, setGorivoAr,odrzavanjeAr, setOdrzavanjeAr,stetaAr, setStetaAr,setAktivnoDo,aktivnoDo,setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
+    let { setZaposleniLista,openSec,setOpenSec,registracijaAr, setRegistracijaAr,specifikacijaAr, setSpecifikacijaAr,gorivoAr, setGorivoAr,odrzavanjeAr, setOdrzavanjeAr,stetaAr, setStetaAr,setAktivnoDo,aktivnoDo,setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
 
 
@@ -63,10 +63,16 @@ export const Profil = () => {
                
             })
         }
+        const fetchData2 = async () => {
+            await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
+                setZaposleniLista(e.data)
+            })
+        }
         fetchData().then(() => setSpinerProfile(false)).catch(er => {
             console.log(er)
             setSpinerProfile(false)
         })
+        fetchData2()
         setOpenSec(localStorage.getItem("section"))
     }, [])
 

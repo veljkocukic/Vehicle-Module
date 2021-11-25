@@ -1,8 +1,9 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import axios from "axios"
 import { DataContext } from "../../Context"
 import { Spiner } from "../Editi/Spiner"
 import { useParams } from "react-router-dom"
+import { ZaposleniLista } from "./ZaposleniLista"
 
 
 export const NovoGorivo = ({ newC }) => {
@@ -10,13 +11,17 @@ export const NovoGorivo = ({ newC }) => {
 
 
     let { carId } = useParams()
+    let [dateFalse,setDateFalse] = useState(false)
+    let [kmFalse,setKmFalse] = useState(false)
+    let [potFalse,setPotFalse] = useState(false)
+    let [priceFalse,setPriceFalse] = useState(false)
 
     const handleSubmit = async () => {
         setSpinerOn(true)
         let verifyDateFuel = verDate(dateFuel)
         let verifyKmFuel = kmFuel > 0
         let verifyPotrosnja = (type === "Gorivo" && potrosnja > 5) || type !== "Gorivo"
-        let verifyPriceFuel = priceFuel > 100
+        let verifyPriceFuel = priceFuel > 0
 
         if (verifyDateFuel && verifyKmFuel && verifyPotrosnja && verifyPriceFuel) {
             await axios.post("http://localhost:5000/api/v1/gorivo/new/" + carId, { type, dateFuel, kmFuel, potrosnja, priceFuel, uslugaFuel, timeFuel }).then(res => {
@@ -37,6 +42,9 @@ export const NovoGorivo = ({ newC }) => {
         } else {
             setValid(false)
             setSpinerOn(false)
+            !verifyDateFuel ? setDateFalse(true) : setDateFalse(false)
+            !verifyKmFuel ? setKmFalse(true) : setKmFalse(false)
+            !verifyPotrosnja ? setPotFalse(true) : setPotFalse(false)
             console.log(verifyDateFuel, verifyKmFuel, verifyPotrosnja, verifyPriceFuel)
 
         }
@@ -77,28 +85,32 @@ export const NovoGorivo = ({ newC }) => {
 
                 <div className="single-input-container">
                     <label htmlFor="datum-gorivo" className="standard--label">Datum <span>*</span> </label>
-                    <input onBlur={e=>!verDate(e.target.value) ? e.target.style.border="1px solid red" : e.target.style.border="none"} type="date" onChange={(e) => setDateFuel(e.target.value)} className="standard--input" id="datum-gorivo" name="datum-gorivo" />
+                    <input style={{border:dateFalse&&"1px solid red"}} onBlur={e=>!verDate(e.target.value) ? setDateFalse(true):setDateFalse(false)} type="date" onChange={(e) => setDateFuel(e.target.value)} className="standard--input" id="datum-gorivo" name="datum-gorivo" />
+                    { dateFalse && <p style={{color:"red",fontSize:".8em"}}>Datum mora biti validan</p>}
+
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="kilometraza-gorivo" className="standard--label">Kilometraža <span>*</span></label>
-                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} type="number" onChange={(e) => setKmFuel(e.target.value)} className="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
+                    <input style={{border:kmFalse&&"1px solid red"}} onBlur={e=>e.target.value===""||e.target.value===0 ? setKmFalse(true) : setKmFalse(false) } type="number" onChange={(e) => setKmFuel(e.target.value)} className="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
+                    { kmFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="potrosnja-gorivo" className="standard--label"> Potrošnja <span>*</span></label>
-                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo" />
-
+                    <input style={{border:potFalse&&"1px solid red"}} onBlur={e=>e.target.value===""||e.target.value===0 ? setPotFalse(true):setPotFalse(false)} onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo" />
+                    { potFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="cena-gorivo" className="standard--label">Cena <span>*</span></label>
-                    <input onBlur={e=>e.target.value===""||e.target.value===0 ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={(e) => setPriceFuel(e.target.value)} type="number" className="standard--input" id="cena-gorivo" name="cena-gorivo" />
+                    <input style={{border:priceFalse&&"1px solid red"}} onBlur={e=>e.target.value===""||e.target.value===0 ? setPriceFalse(true) :setPriceFalse(false) } onChange={(e) => setPriceFuel(e.target.value)} type="number" className="standard--input" id="cena-gorivo" name="cena-gorivo" />
+                    { priceFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="usluga-zaposlenog-gorivo" className="standard--label">Usluga zaposlenog</label>
-                    <input onChange={(e) => setUslugaFuel(e.target.value)} type="text" className="standard--input" id="usluga-zaposlenog-gorivo" name="usluga-zaposlenog-gorivo" />
+                    <ZaposleniLista type="gor"/>
                 </div>
 
                 <div className="single-input-container">
@@ -112,7 +124,7 @@ export const NovoGorivo = ({ newC }) => {
                 <button className="btn yes" onClick={handleSubmit}><i className="far fa-save"></i> SAČUVAJ</button>
             </div>}
 
-            {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+            {!valid && <h3 className="nonValid">Uneti podaci nisu bili validni</h3>}
         </div>
     )
 

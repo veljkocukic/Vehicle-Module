@@ -1,4 +1,4 @@
-import React, { useState, useContext,useRef } from "react"
+import React, { useState, useContext, useRef } from "react"
 import { DataContext } from "../../Context"
 import axios from "axios"
 import { Spiner } from "../Editi/Spiner"
@@ -6,25 +6,28 @@ import { ZaposleniLista } from "./ZaposleniLista"
 export const NovoMain = ({ setEditOn }) => {
 
 
-    let { verReg,valid, setValid, setNewOn, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd,dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
+    let { verReg, valid, setValid, setNewOn, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
     let [zaposleni, setZaposleni] = useState(true)
     let [file, setFile] = useState([])
 
+    let [markaFalse,setMarkaFalse] = useState(false)
+    let [regFalse,setRegFalse] = useState(false)
+    let [fromFalse,setFromFalse] = useState(false)
+    let [doFalse,setDoFalse] = useState(false)
 
     let handleSubmit = async () => {
         setSpinerOn(true)
-        let verifyMarka = marka.length > 2
+        let verifyMarka = marka.length > 4
         let verifyReg = verReg(regBr)
-        let verifyKorisnik = korisnikMn.length > 2
         let verifyActiveFrom = verDate(aktivnoOd)
         //let verifyActiveTo = verDate(aktivnoDo)
         let verifyDo = verDate(regDo)
 
 
 
-        if (verifyMarka && verifyReg && verifyKorisnik && verifyActiveFrom && verifyDo) {
+        if (verifyMarka && verifyReg && verifyActiveFrom && verifyDo) {
             await axios.post("http://localhost:5000/api/v1/main", {
-            marka,regBr,korisnikMn,aktivnoOd,aktivnoDo,regDo,typeMn
+                marka, regBr, korisnikMn, aktivnoOd, aktivnoDo, regDo, typeMn
             })
                 .then(() => setSpinerOn(false))
                 .catch(er => console.log(er))
@@ -36,8 +39,12 @@ export const NovoMain = ({ setEditOn }) => {
         } else {
             setValid(false)
             setSpinerOn(false)
-            console.log(verifyMarka , verifyReg , verifyKorisnik , verifyActiveFrom , verifyDo)
-            console.log(korisnikMn)
+            !verifyMarka ? setMarkaFalse(true) : setMarkaFalse(false)
+            !verifyReg ? setRegFalse(true): setRegFalse(false)
+            !verifyActiveFrom ? setFromFalse(true): setFromFalse(false)
+            !verifyDo ? setDoFalse(true): setDoFalse(false)
+
+            console.log(verifyMarka, verifyReg, verifyActiveFrom, verifyDo)
         }
 
 
@@ -49,8 +56,9 @@ export const NovoMain = ({ setEditOn }) => {
         setRegBr("")
         setTypeMn("Zaposleni")
         setKorisnikMn("")
-        setIsticanje(0)
+        setRegDo(0)
         setAktivnoOd(0)
+        setAktivnoDo(0)
         setEditOn(false)
         setNewOn(false)
         setValid(true)
@@ -85,12 +93,12 @@ export const NovoMain = ({ setEditOn }) => {
         }
     }
 
-    const handleBlurReg = (e) =>{
+    const handleBlurReg = (e) => {
 
-        if(!verReg(e.target.value)){
-            e.target.style.border="1px solid red"
-        }else{
-            e.target.style.border="none"
+        if (!verReg(e.target.value)) {
+            setRegFalse(true)
+        } else {
+            setRegFalse(false)
 
         }
 
@@ -103,13 +111,15 @@ export const NovoMain = ({ setEditOn }) => {
             <form className="form" encType="multipart/form-data">
                 <div className="single-input-container">
                     <label htmlFor="marka-tip" className="standard--label">Marka i tip <span>*</span></label>
-                    <input onBlur={e=>e.target.value.length<4 ? e.target.style.border="1px solid red" : e.target.style.border="none"} onChange={e => setMarka(e.target.value)} type="text" className="standard--input" id="marka-tip" name="marka-tip" />
+                    <input style={{border: markaFalse&&"1px solid red"}} onBlur={e => e.target.value.length <= 4 ? setMarkaFalse(true) : setMarkaFalse(false)} onChange={e => setMarka(e.target.value)} type="text" className="standard--input" id="marka-tip" name="marka-tip" />
+                    { markaFalse && <p style={{color:"red",fontSize:".8em"}}>Unos mora biti duži od 4 karaktera</p>}
                 </div>
 
 
                 <div className="single-input-container">
                     <label htmlFor="registracioni-broj" className="standard--label">Registracioni broj <span>*</span></label>
-                    <input onBlur={e=>handleBlurReg(e)} onChange={e => setRegBr(e.target.value)} type="text" className="standard--input" id="registracioni-broj" name="registracioni-broj" />
+                    <input style={{border: regFalse&&"1px solid red"}} onBlur={e => handleBlurReg(e)} onChange={e => setRegBr(e.target.value)} type="text" className="standard--input" id="registracioni-broj" name="registracioni-broj" />
+                    { regFalse && <p style={{color:"red",fontSize:".8em"}}>Format registracije mora biti ispravan</p>}
                 </div>
 
                 <div className="single-input-container">
@@ -127,19 +137,22 @@ export const NovoMain = ({ setEditOn }) => {
 
                 <div className="single-input-container">
                     <label htmlFor="registrovan-do" className="standard--label">Registrovano do <span>*</span></label>
-                    <input onBlur={e=>e.target.value === "" ? e.target.style.border = "1px solid red" : e.target.value = "none"  } onChange={e => setRegDo(e.target.value)} type="date" className="standard--input" id="registrovan-do" name="registrovan-do" />
+                    <input style={{border: doFalse&&"1px solid red"}} onBlur={e => e.target.value === "" ? setDoFalse(true):setDoFalse(false)} onChange={e => setRegDo(e.target.value)} type="date" className="standard--input" id="registrovan-do" name="registrovan-do" />
+                    { doFalse && <p style={{color:"red",fontSize:".8em"}}>Datum mora biti validan</p>}
+
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="aktivno-od" className="standard--label">Vozilo aktivno od <span>*</span></label>
-                    <input onBlur={e=>e.target.value === "" ? e.target.style.border = "1px solid red" : e.target.value = "none"  } onChange={e => setAktivnoOd(e.target.value)} type="date" className="standard--input" id="aktivno-od" name="aktivno-od" />
+                    <input style={{border: fromFalse&&"1px solid red"}} onBlur={e => e.target.value === "" ? setFromFalse(true):setFromFalse(false)} onChange={e => setAktivnoOd(e.target.value)} type="date" className="standard--input" id="aktivno-od" name="aktivno-od" />
+                    { fromFalse && <p style={{color:"red",fontSize:".8em"}}>Datum mora biti validan</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="aktivno-do" className="standard--label">Vozilo aktivno do </label>
                     <input onChange={e => setAktivnoDo(e.target.value)} type="date" className="standard--input" id="aktivno-do" name="aktivno-do" />
                 </div>
-                
+
 
                 <div className="single-input-container">
                     <label htmlFor="slike" className="standard--label file-input__label">Slike vozila</label>
@@ -153,7 +166,7 @@ export const NovoMain = ({ setEditOn }) => {
             </div>
 
 
-            {!valid && <h3 className="nonValid">Uneti podaci nisu validni</h3>}
+            {!valid && <h3 className="nonValid">Uneti podaci nisu bili validni</h3>}
         </div>
     )
 }

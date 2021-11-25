@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
 import axios from "axios"
 import { DataContext } from "../Context"
 import { Spiner } from "../ProfilPolja/Editi/Spiner"
@@ -8,7 +8,9 @@ export const NovoServiseri = () => {
     let { valid, setValid, spinerOn, setSpinerOn, setNewOn, setAdresaS, adresaS, id, kontaktS, setKontaktS, telS, setTelS, emailS, setEmailS, siteS, setSiteS, sifraS, setSifraS, nazivFirme, setNazivFirme, tipUslugeS, setTipUslugeS } = useContext(DataContext)
 
 
-
+    let [sifraFalse,setSifraFalse] = useState(false)
+    let [nazivFalse,setNazivFalse] = useState(false)
+    let [tipFalse,setTipFalse] = useState(false)
     const handleSubmit = async () => {
         setSpinerOn(true)
         let verifySifra = sifraS.length > 10
@@ -35,6 +37,9 @@ export const NovoServiseri = () => {
         } else {
             setValid(false)
             setSpinerOn(false)
+            !verifyNaziv ? setNazivFalse(true) : setNazivFalse(false)
+            !verifySifra ? setSifraFalse(true) : setSifraFalse(false)
+            !verifyTip ? setTipFalse(true) : setTipFalse(false)
             console.log(verifySifra, verifyNaziv, verifyTip)
         }
 
