@@ -457,8 +457,8 @@ const IzvestajiPost = async (req, res) => {
             let resTot = []
             let firstYear = new Date(df).getFullYear()
             let lastYear = new Date(dt).getFullYear()
-            let firstHalf = (new Date(df).getMonth()+1 <6) ? 1 : 2
-            let lastYearMissingHalf = (new Date(dt).getMonth()+1) < 6 ? 1 : 0
+            let firstHalf = (new Date(df).getMonth()+1 <=6) ? 1 : 2
+            let lastYearMissingHalf = (new Date(dt).getMonth()+1) <= 6 ? 1 : 0
             let halves = (lastYear-firstYear+1)*2 - lastYearMissingHalf
             let years = []
             
@@ -467,7 +467,7 @@ const IzvestajiPost = async (req, res) => {
                  years.push(i)
                }
             
-            for(let i = firstHalf;i<=halves+firstHalf;i++){
+            for(let i = firstHalf;i<=halves;i++){
               resTot.push({ukupno:array.filter(item=>{      
               let yr = (new Date(item.datum).getFullYear()-firstYear)*2
               let itemI = (new Date(item.datum).getMonth()+1) <= 6 ? 1 : 2
@@ -485,7 +485,7 @@ const IzvestajiPost = async (req, res) => {
                 }else{
                 counter=2
                 }
-                headAr.push((years[i-1] +"-" +counter))
+                headAr.push((years[i-1] +" - " +counter))
             }
               
               return resTot
