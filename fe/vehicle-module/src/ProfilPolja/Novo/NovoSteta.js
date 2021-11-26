@@ -18,7 +18,7 @@ export const NovoSteta = () => {
     const handleSubmit = async () => {
         setSpinerOn(true)
         let verifyDesc = desc.length > 3
-        let verifyDate = date !== 0
+        let verifyDate = verDate(date)
         let verifyParts = parts.length > 3
         let verifyTotal = total > 0
 
@@ -39,7 +39,7 @@ export const NovoSteta = () => {
                 console.log(err)
             })
         } else {
-            !verDate ? setDateFalse(true) : setDateFalse(false)
+            !verifyDate ? setDateFalse(true) : setDateFalse(false)
             !verifyDesc ? setDescFalse(true) : setDescFalse(false)
             !verifyParts ? setPartsFalse(true) : setPartsFalse(false)
             !verifyTotal ? setTotalFalse(true) : setTotalFalse(false)

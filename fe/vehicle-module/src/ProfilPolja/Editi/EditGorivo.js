@@ -69,6 +69,7 @@ export const EditGorivo = ({ gorivoAr }) => {
             !verifyDateFuel ? setDateFalse(true) : setDateFalse(false)
             !verifyKmFuel ? setKmFalse(true) : setKmFalse(false)
             !verifyPotrosnja ? setPotFalse(true) : setPotFalse(false)
+            !verifyPriceFuel ? setPriceFalse(true) : setPriceFalse(false)
         }
     }
 

@@ -66,12 +66,12 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
         } else {
             setValid(false)
             setSpinerOn(false)
-            !verDate ? setDateFalse(true) : setDateFalse(false)
+            !verifyDate ? setDateFalse(true) : setDateFalse(false)
             !verifyDoc ? setDocFalse(true) : setDocFalse(false)
             !verifyTroskovi ? setTrosFalse(true) : setTrosFalse(false)
             !verifyRegistrovao ? setRegFalse(true) : setTrosFalse(false)
             !verifyTime ? setTimeFasle(true) : setTimeFasle(false)
-            !verifyDo ? setDocFalse(true) : setDoFalse(false)
+            !verifyDo ? setDoFalse(true) : setDoFalse(false)
             console.log(verifyDate, verifyDoc, verifyTroskovi, verifyRegistrovao, verifyTime, verifyDo)
         }
     }
@@ -92,7 +92,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
 
                 <div className="single-input-container">
                     <label htmlFor="datum-registracije" className="standard--label">Datum registracije <span>*</span></label>
-                    <input style={{border:dateFalse&&"1px solid red"}} onBlur={e=>!verDate(e.target.value) ? setDateFalse(true) : setDateFalse(false) } ref={regDateRef} onChange={e => setDateReg(e.target.value)} type="date" className="standard--input" id="datum-registracije" name="datum-registracije" />
+                    <input style={{border:dateFalse&&"1px solid red"}} onBlur={e=>verDate(e.target.value) ? setDateFalse(false) : setDateFalse(true) } ref={regDateRef} onChange={e => setDateReg(e.target.value)} type="date" className="standard--input" id="datum-registracije" name="datum-registracije" />
                     { dateFalse && <p style={{color:"red",fontSize:".8em"}}>Datum mora biti validan</p>}
                 </div>
 

@@ -45,6 +45,7 @@ export const NovoGorivo = ({ newC }) => {
             !verifyDateFuel ? setDateFalse(true) : setDateFalse(false)
             !verifyKmFuel ? setKmFalse(true) : setKmFalse(false)
             !verifyPotrosnja ? setPotFalse(true) : setPotFalse(false)
+            !verifyPriceFuel ? setPriceFalse(true) : setPriceFalse(false)
             console.log(verifyDateFuel, verifyKmFuel, verifyPotrosnja, verifyPriceFuel)
 
         }
