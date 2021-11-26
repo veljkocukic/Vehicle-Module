@@ -534,7 +534,7 @@ const IzvestajiPost = async (req, res) => {
           
           let kvartali = (lastYear-firstYear+1)*4-(prviKvartal-1)-(zadnjiKvartal)
           
-            for(let i = prviKvartal;i<=kvartali;i++){
+            for(let i = prviKvartal;i<=kvartali+(prviKvartal-1);i++){
               resTot.push({ukupno:array.filter(item=>{
                 let itemMonth = new Date(item.datum).getMonth()+1
                 let itemKvartal;
