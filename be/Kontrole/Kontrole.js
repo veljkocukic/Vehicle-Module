@@ -56,7 +56,7 @@ const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj str
                 activeToEdit: new Date(a.activeTo).getFullYear() !== 1970 ? formatDateEdit(a.activeTo) : "",
                 isticanje,
                 isticanjeEdit,
-                slike: a.slike
+                slike: a.slike,
             })
         }
         res.json(arr)

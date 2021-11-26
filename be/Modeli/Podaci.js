@@ -14,12 +14,12 @@ const RegistracijaSchema = new mongoose.Schema({
 })
 
 const SpecifikacijaSchema = new mongoose.Schema({
-    brSasije: { type: String, required: true },
-    brMotora: { type: String, required: true },
-    godiste: { type: Number, required: true },
-    boja: { type: String, required: true },
-    datumKupovine: { type: Date, required: true },
-    cenaVozila: { type: Number, required: true },
+    brSasije: { type: String },
+    brMotora: { type: String },
+    godiste: { type: Number },
+    boja: { type: String },
+    datumKupovine: { type: Date },
+    cenaVozila: { type: Number},
     dokumentacija: { type: String }
 })
 

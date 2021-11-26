@@ -160,7 +160,16 @@ const NovoMain = async (req, res) => {
             registracijaPolje:{
                 registrovanDo:req.body.regDo
             },
-            slike: req.body.file
+            slike: req.body.file,
+            specifikacijaPolje:{
+                brSasije : "",
+                brMotora : "",
+                godiste : "",
+                boja : "",
+                datumKupovine : "",
+                cenaVozila : "",
+                dokumentacija : ""
+            }
 
         }
 
