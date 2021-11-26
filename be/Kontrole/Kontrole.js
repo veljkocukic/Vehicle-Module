@@ -453,49 +453,47 @@ const IzvestajiPost = async (req, res) => {
         };
 
 
-        const totalHalfYear = (dateFrom, dateTo, array) => {
-            let resTot = [];
-            let yearFrom = new Date(dateFrom).getFullYear();
-            let yearTo = new Date(dateTo).getFullYear();
-            let firstYearMissingHalf = new Date(dateFrom).getMonth() + 1 < 6 ? 1 : 0;
-            let secondYearMissingHalf = new Date(dateTo).getMonth() + 1 < 6 ? 1 : 0;
-            let firstHalf = new Date(dateFrom).getMonth() + 1 < 6 ? 1 : 2
-            let halves = (yearTo - yearFrom) * 2 - firstYearMissingHalf - secondYearMissingHalf;
-
-
-
-            for (let i = firstHalf; i <= halves + firstHalf; i++) {
-                resTot.push({ukupno:array.filter(item => {
-                    let year = new Date(dateTo).getFullYear() - new Date(item.datum).getFullYear()
-                    let itemHalf = new Date(item.datum).getMonth() + 1
-                    if (itemHalf < 6) {
-                        itemHalf = 1
-                    } else {
-                        itemHalf = 2
-                    }
-                    itemHalf = itemHalf += year * 2
-                    return itemHalf === i
-                }).reduce(finalType, 0),svi:array.filter(item => {
-                    let year = new Date(dateTo).getFullYear() - new Date(item.datum).getFullYear()
-                    let itemHalf = new Date(item.datum).getMonth() + 1
-                    if (itemHalf < 6) {
-                        itemHalf = 1
-                    } else {
-                        itemHalf = 2
-                    }
-                    itemHalf = itemHalf += year * 2
-                    return itemHalf === i
-                }),polje:"e"})
-                let counter
-                if(i%2 !=0){
-                    counter=1
+        const totalHalfYear = (df,dt,array) =>{
+            let resTot = []
+            let firstYear = new Date(df).getFullYear()
+            let lastYear = new Date(dt).getFullYear()
+            let firstHalf = (new Date(df).getMonth()+1 <6) ? 1 : 2
+            let lastYearMissingHalf = (new Date(dt).getMonth()+1) < 6 ? 1 : 0
+            let halves = (lastYear-firstYear+1)*2 - lastYearMissingHalf
+            let years = []
+            
+            for(let i = firstYear;i<=lastYear;i++){
+                 years.push(i)
+                 years.push(i)
+               }
+            
+            for(let i = firstHalf;i<=halves+firstHalf;i++){
+              resTot.push({ukupno:array.filter(item=>{      
+              let yr = (new Date(item.datum).getFullYear()-firstYear)*2
+              let itemI = (new Date(item.datum).getMonth()+1) <= 6 ? 1 : 2
+              itemI += yr
+              return itemI === i
+              }).reduce(finalType,0),svi:array.filter(item=>{      
+              let yr = (new Date(item.datum).getFullYear()-firstYear)*2
+              let itemI = (new Date(item.datum).getMonth()+1) <= 6 ? 1 : 2
+              itemI += yr
+              return itemI === i
+              }),polje:"e"})
+              let counter
+               if(i%2 !=0){
+                counter=1
                 }else{
-                    counter=2
+                counter=2
                 }
-                headAr.push(counter)
+                headAr.push((years[i-1] +"-" +counter))
             }
-            return resTot.reverse()
-        };
+              
+              return resTot
+            
+            
+            
+            
+          }
 
 
         function addAr(num) { /////////////////Ovo bi trebalo da može da se odradi sa nizom i indexom
