@@ -26,11 +26,11 @@ export const Registracija = ({ registracijaAr }) => {
     const Kolone = (props) => {
         return (
             <tr>
-                <td>{formatDate(props.date)}</td>
+                <td>{!props.date==="/" ? formatDate(props.date):"/"}</td>
                 <td>{props.doc}</td>
                 <td>{props.reg}</td>
                 <td>{props.user}</td>
-                <td>{minsToTime(props.time)}</td>
+                <td>{!props.time==="/" ? minsToTime(props.time) : "/"}</td>
                 <td>{formatDate(props.expire)}</td>
                 <td><button className="btn" onClick={() => handleRegEditOpen(props.kid)}><i className="fas fa-edit"></i> IZMENI</button><button className="btn del" onClick={() => handleDelete(props.kid)}> <i className="far fa-trash-alt"></i> OBRIŠI</button></td>
             </tr>

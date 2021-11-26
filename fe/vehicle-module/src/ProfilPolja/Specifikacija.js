@@ -16,8 +16,7 @@ export const Specifikacija = ({ specifikacijaAr }) => {
 
             
         } catch (error) {
-            console.log(error)
-            console.log(specifikacijaAr)
+
         }
 
     },[])

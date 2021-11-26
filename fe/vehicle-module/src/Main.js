@@ -12,7 +12,7 @@ import slikanedostupna from '../src/images/slikanedostupna.png'
 
 
 export const Main = () => {
-    let { zaposleniLista,setZaposleniLista,newOn, setNewOn,setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef,korisnikMn} = useContext(DataContext)
+    let { formatDate,zaposleniLista,setZaposleniLista,newOn, setNewOn,setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef,korisnikMn} = useContext(DataContext)
     let [vozila, setVozila] = useState([])
     let zaposleniSelect = useRef(null)
     let [spinerMain, setSpinerMain] = useState(true)
@@ -82,12 +82,12 @@ export const Main = () => {
 
                                 <div className="info-bottom__item">
                                     <h5>Vozilo aktivno od</h5>
-                                    <p>{props.activeFrom}</p>
+                                    <p>{formatDate(props.activeFrom)}</p>
                                 </div>
 
                                 <div className="info-bottom__item">
                                     <h5>Vozilo aktivno do</h5>
-                                    <p>{props.activeTo || "/" }</p>
+                                    <p>{formatDate(props.activeTo) || "/" }</p>
                                 </div>
 
                             </div>
