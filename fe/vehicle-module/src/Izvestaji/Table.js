@@ -33,7 +33,7 @@ const Kolone = ({ rb, vozilo, data, th,regBr }) => {
 export const Table = () => {
 
     let { dataTable, tableHead } = useContext(DataContext)
-
+    tableHead = [...new Set(tableHead)]
 
     let ar = []
     try {
