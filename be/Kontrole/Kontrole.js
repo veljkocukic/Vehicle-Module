@@ -424,6 +424,7 @@ const IzvestajiPost = async (req, res) => {
                     }
 
                 }
+
                 return resTot
             } catch (error) {
                 for (let i = 0; i <= months; i++) {
@@ -578,7 +579,7 @@ const IzvestajiPost = async (req, res) => {
           
         }
 
-        function addAr(num) { /////////////////Ovo bi trebalo da može da se odradi sa nizom i indexom
+        function addAr(num) {
             let month = "";
             switch (num) {
                 case 1:
