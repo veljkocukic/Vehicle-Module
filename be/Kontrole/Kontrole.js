@@ -493,8 +493,90 @@ const IzvestajiPost = async (req, res) => {
             
             
             
-          }
+        }
 
+        const totalKvartal = (df,dt,array) =>{
+            let resTot=[]
+            let firstYear = new Date(df).getFullYear()
+            let firstMonth = new Date(df).getMonth()+1
+            let lastYear = new Date(dt).getFullYear()
+            let lastMonth = new Date(dt).getMonth()+1
+            let godine = []
+            let prviKvartal;
+            let zadnjiKvartal;
+            if(firstMonth <= 3){
+              prviKvartal = 1
+            }else if(firstMonth >3 && firstMonth<=6){
+              prviKvartal = 2
+            }else if(firstMonth >6 && firstMonth <=9){
+              prviKvartal = 3
+            }else{
+              prviKvartal = 4
+            }
+          
+            if(lastMonth<=3){
+              zadnjiKvartal = 3
+            }else if(lastMonth>3 && lastMonth<=6){
+              zadnjiKvartal = 2
+            }else if(lastMonth>6 && lastMonth <=9){
+              zadnjiKvartal = 1
+            }else{
+              zadnjiKvartal = 0
+            }
+
+            for(let i = firstYear;i<=lastYear;i++){
+                godine.push(i)
+                godine.push(i)
+                godine.push(i)
+                godine.push(i)
+              }
+            
+          
+          let kvartali = (lastYear-firstYear+1)*4-(prviKvartal-1)-(zadnjiKvartal)
+          
+            for(let i = prviKvartal;i<=kvartali;i++){
+              resTot.push({ukupno:array.filter(item=>{
+                let itemMonth = new Date(item.datum).getMonth()+1
+                let itemKvartal;
+                if(itemMonth <= 3){
+                    itemKvartal = 1
+                  }else if(itemMonth >3 && itemMonth<=6){
+                    itemKvartal = 2
+                  }else if(itemMonth >6 && itemMonth <=9){
+                    itemKvartal = 3
+                  }else{
+                    itemKvartal = 4
+                  }
+               let itemYear = new Date(item.datum).getFullYear()
+               return itemKvartal+((itemYear-firstYear)*4 )===i
+               
+                
+              }).reduce(finalType,0),svi:array.filter(item=>{
+                let itemMonth = new Date(item.datum).getMonth()+1
+                let itemKvartal;
+                if(itemMonth <= 3){
+                    itemKvartal = 1
+                  }else if(itemMonth >3 && itemMonth<=6){
+                    itemKvartal = 2
+                  }else if(itemMonth >6 && itemMonth <=9){
+                    itemKvartal = 3
+                  }else{
+                    itemKvartal = 4
+                  }
+
+               let itemYear = new Date(item.datum).getFullYear()
+               return itemKvartal+((itemYear-firstYear)*4 ) === i
+               
+                
+              }),polje:"e"})
+              headAr.push(godine[i-1]+" "+i)
+            }
+          
+          
+            return resTot
+          
+          
+        }
 
         function addAr(num) { /////////////////Ovo bi trebalo da može da se odradi sa nizom i indexom
             let month = "";
@@ -567,6 +649,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                }else{
+                    podaci = totalKvartal(req.body.menuDateFrom, req.body.menuDateTo, result)
                 }
             }
             else if (req.body.tipIzvestaja === "Potrošnja goriva") {
@@ -577,6 +661,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                }else{
+                    podaci = totalKvartal(req.body.menuDateFrom, req.body.menuDateTo, result)
                 }
             } else if (req.body.tipIzvestaja === "Troškovi za tag") {
                 let result = b.gorivoPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Tag")
@@ -586,6 +672,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                }else{
+                    podaci = totalKvartal(req.body.menuDateFrom, req.body.menuDateTo, result)
                 }
             } else if (req.body.tipIzvestaja === "Troškovi za pranje") {
                 let result = b.gorivoPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === "Pranje")
@@ -595,6 +683,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                }else{
+                    podaci = totalKvartal(req.body.menuDateFrom, req.body.menuDateTo, result)
                 }
             } else if (req.body.tipIzvestaja === "Troškovi održavanja") {
                 let result = b.odrzavanjePolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.tip === req.body.todr)
@@ -604,6 +694,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                }else{
+                    podaci = totalKvartal(req.body.menuDateFrom, req.body.menuDateTo, result)
                 }
             } else if (req.body.tipIzvestaja === "Troškovi štete na vozilu") {
                 let result = b.stetaPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom)).filter(item => item.stetuPokriva === req.body.pokr)
@@ -613,6 +705,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                }else{
+                    podaci = totalKvartal(req.body.menuDateFrom, req.body.menuDateTo, result)
                 }
             } else if (req.body.tipIzvestaja === "Ukupni troškovi") {
                 let result = []
@@ -658,8 +752,9 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                }else{
+                    podaci = totalKvartal(req.body.menuDateFrom, req.body.menuDateTo, result)
                 }
-
 
 
             }
