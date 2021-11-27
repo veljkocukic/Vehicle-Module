@@ -3,7 +3,7 @@ import axios from "axios"
 import { DataContext } from "../Context"
 
 
-const Kolone = ({ rb, vozilo, data, th,regBr }) => {
+const Kolone = ({ rb, vozilo, data, th, regBr }) => {
 
     const findName = (nm) => {
         let ind = data.indexOf(nm)
@@ -11,11 +11,11 @@ const Kolone = ({ rb, vozilo, data, th,regBr }) => {
     }
 
 
-    const handleSmallTable = async(date,polje)=>{
+    const handleSmallTable = async (date, polje) => {
         console.log(regBr)
         let firstDate = date[0].datum
-        let lastDate = date[date.length-1]
-        await axios.post("http://localhost:5000/api/v1/tabela/",{regBr,firstDate,lastDate,polje}).then(res=>console.log(res))
+        let lastDate = date[date.length - 1]
+        await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje }).then(res => console.log(res))
 
 
     }
@@ -24,7 +24,7 @@ const Kolone = ({ rb, vozilo, data, th,regBr }) => {
         <tr>
             <td>{rb}</td>
             <td>{vozilo}</td>
-            {data.map((item,key) => <td key={key} className="click-tab" onClick={()=>handleSmallTable(item.svi.sort((a,b)=>new Date(a.datum) - new Date(b.datum)),item.polje)} id={vozilo + "-" + findName(item)}>{item.ukupno.toLocaleString()}</td>)}
+            {data.map((item, key) => <td key={key} className="click-tab" onClick={() => handleSmallTable(item.svi.sort((a, b) => new Date(a.datum) - new Date(b.datum)), item.polje)} id={vozilo + "-" + findName(item)}>{item.ukupno.toLocaleString()}</td>)}
         </tr>
     )
 }
@@ -33,7 +33,6 @@ const Kolone = ({ rb, vozilo, data, th,regBr }) => {
 export const Table = () => {
 
     let { dataTable, tableHead } = useContext(DataContext)
-    tableHead = [...new Set(tableHead)]
 
     let ar = []
     try {
@@ -53,7 +52,7 @@ export const Table = () => {
     }
 
 
-    
+
     return (
         <table className="tg" id="excel-table">
 
@@ -66,10 +65,10 @@ export const Table = () => {
                 </tr>
             </thead>
             <tbody>
-                {dataTable.map((item,key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} />)}
+                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} />)}
                 <tr >
                     <td className="head-table" colSpan="2">Ukupno</td>
-                    {ar.map((item,key) => <td key={key} className="head-table click-tab">{item}</td>)}
+                    {ar.map((item, key) => <td key={key} className="head-table click-tab">{item}</td>)}
 
                 </tr>
             </tbody>
