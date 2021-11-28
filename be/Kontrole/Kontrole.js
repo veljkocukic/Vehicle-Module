@@ -707,6 +707,7 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalKvartal(result)
                 }
             } else if (req.body.tipIzvestaja === "Ukupni troškovi") {
+
                 let result = []
                 let troskoviRegistracije = b.registracijaPolje.filter(item => new Date(item.datum) <= new Date(req.body.menuDateTo) && new Date(item.datum) >= new Date(req.body.menuDateFrom))
                 for (let a of troskoviRegistracije) {
@@ -756,7 +757,7 @@ const IzvestajiPost = async (req, res) => {
 
 
             }
-            results.push({ rb: ++num, vozilo: b.markaTip + " - " + b.registracioniBroj, regBr: b.registracioniBroj, data: podaci })
+            results.push({ rb: ++num, vozilo: b.markaTip + " - " + b.registracioniBroj, regBr: b.registracioniBroj, data: podaci, naziv: req.body.tipIzvestaja, todr: req.body.todr, pokr: req.body.pokr })
         }
 
         if (req.body.rezolucija === "Mesec") {
@@ -810,9 +811,38 @@ const IzvestajiPost = async (req, res) => {
 }
 
 const Tabela = async (req, res) => {
-    console.log(req.body.regBr)
-    let car = await CarsModel.find({ registracioniBroj: req.body.regBr })
-    res.send(car)
+    let car = await CarsModel.findOne({ registracioniBroj: req.body.regBr })
+    console.log(req.body.naziv)
+    let polje
+    switch (req.body.polje) {
+        case "registracijaPolje":
+            polje = car.registracijaPolje
+            break;
+        case "gorivoPolje":
+            polje = car.gorivoPolje
+            break;
+        case "stetaPolje":
+            polje = car.stetaPolje
+            break;
+        case "odrzavanjePolje":
+            polje = car.odrzavanjePolje;
+            break;
+    }
+
+
+
+
+    let fltr = polje.filter(item => new Date(item.datum) <= new Date(req.body.lastDate.datum) && new Date(item.datum) >= new Date(req.body.firstDate))
+    if (req.body.naziv === "Troškovi održavanja") {
+        fltr = fltr.filter(item => item.tip === req.body.todr)
+    } else if (req.body.naziv === "Troškovi štete na vozilu") {
+        fltr = fltr.filter(item => item.stetuPokriva === req.body.pokr)
+    }
+    res.send({
+        name: car.markaTip + " " + req.body.regBr, dateFrom: req.body.firstDate, dateTo: req.body.lastDate, data: fltr.map(item => {
+            return { trosak: item.tip, datum: item.date, potrosnja: item.potrosnja, cena: item.cena, ukupno: item.cena * item.potrosnja }
+        })
+    })
 
 
 

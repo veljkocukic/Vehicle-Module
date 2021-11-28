@@ -3,7 +3,7 @@ import axios from "axios"
 import { DataContext } from "../Context"
 
 
-const Kolone = ({ rb, vozilo, data, th, regBr }) => {
+const Kolone = ({ setDataSmall, setSmallTableOn, rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
 
     const findName = (nm) => {
         let ind = data.indexOf(nm)
@@ -12,10 +12,12 @@ const Kolone = ({ rb, vozilo, data, th, regBr }) => {
 
 
     const handleSmallTable = async (date, polje) => {
-        console.log(regBr)
         let firstDate = date[0].datum
         let lastDate = date[date.length - 1]
-        await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje }).then(res => console.log(res))
+        await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje, naziv, todr, pokr }).then(res => {
+            setDataSmall(res.data)
+            setSmallTableOn(true)
+        })
 
 
     }
@@ -32,7 +34,7 @@ const Kolone = ({ rb, vozilo, data, th, regBr }) => {
 
 export const Table = () => {
 
-    let { dataTable, tableHead } = useContext(DataContext)
+    let { dataTable, tableHead, setDataSmall, setSmallTableOn } = useContext(DataContext)
 
     let ar = []
     try {
@@ -65,7 +67,7 @@ export const Table = () => {
                 </tr>
             </thead>
             <tbody>
-                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} />)}
+                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} setDataSmall={setDataSmall} setSmallTableOn={setSmallTableOn} naziv={item.naziv} todr={item.todr} pokr={item.pokr} />)}
                 <tr >
                     <td className="head-table" colSpan="2">Ukupno</td>
                     {ar.map((item, key) => <td key={key} className="head-table click-tab">{item}</td>)}
