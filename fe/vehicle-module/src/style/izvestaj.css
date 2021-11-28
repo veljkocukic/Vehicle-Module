@@ -86,3 +86,9 @@
     -webkit-box-shadow:none;
     filter:drop-shadow(1px 3px 3px rgb(139, 139, 139))
 }
+
+.grafik-container{
+    min-width:60vw;
+    min-height: 10em;
+    margin: 2em auto;
+}

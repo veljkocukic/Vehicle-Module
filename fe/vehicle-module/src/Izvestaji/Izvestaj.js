@@ -4,6 +4,7 @@ import { Menu } from "./Menu"
 import { Table } from "./Table";
 import { MalaTabela } from "./MalaTabela";
 import { DataContext } from "../Context";
+import { Grafik } from "./Grafik";
 export const Izvestaj = () => {
 
     let { smallTableOn } = useContext(DataContext)
@@ -15,6 +16,7 @@ export const Izvestaj = () => {
             </div>
             <Menu sbt={setBigTableOn} />
             {bigTableOn && <Table />}
+            {smallTableOn && <Grafik />}
             {smallTableOn && <MalaTabela />}
         </div>
     )
