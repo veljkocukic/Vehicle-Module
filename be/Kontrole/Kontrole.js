@@ -840,7 +840,7 @@ const Tabela = async (req, res) => {
     }
     res.send({
         name: car.markaTip + " " + req.body.regBr, dateFrom: req.body.firstDate, dateTo: req.body.lastDate, data: fltr.map(item => {
-            return { trosak: item.tip, datum: item.date, potrosnja: item.potrosnja, cena: item.cena, ukupno: item.cena * item.potrosnja }
+            return { trosak: item.tip, datum: item.datum, potrosnja: item.potrosnja, cena: item.cena, ukupno: item.cena * (item.potrosnja || 1) }
         })
     })
 

@@ -19,7 +19,7 @@ const SpecifikacijaSchema = new mongoose.Schema({
     godiste: { type: Number },
     boja: { type: String },
     datumKupovine: { type: Date },
-    cenaVozila: { type: Number},
+    cenaVozila: { type: Number },
     dokumentacija: { type: String }
 })
 
