@@ -15,7 +15,7 @@ const Kolone = ({ setDataSmall, setSmallTableOn, rb, vozilo, data, th, regBr, na
         let firstDate = date[0].datum
         let lastDate = date[date.length - 1]
         await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje, naziv, todr, pokr }).then(res => {
-            setDataSmall(date)
+            setDataSmall(res.data)
             setSmallTableOn(true)
         })
 

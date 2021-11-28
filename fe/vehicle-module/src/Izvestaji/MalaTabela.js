@@ -1,5 +1,7 @@
 import React, { useContext } from "react"
 import { DataContext } from "../Context"
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+
 
 
 export const MalaTabela = () => {
@@ -12,7 +14,7 @@ export const MalaTabela = () => {
 
     console.log(dataSmall)
     return (
-        <table className="tg mala-tabela">
+        <table className="tg mala-tabela" id="mala-tabela-export">
 
             <thead>
                 <tr>
@@ -26,7 +28,14 @@ export const MalaTabela = () => {
                 <tr><td className="head-table">Trošak</td> <td className="head-table">Datum</td>{gorivo && <td className="head-table">Potrošnja (l) </td>} <td className="head-table">Cena (din.)</td>{gorivo && <td className="head-table">Ukupno (din.)</td>}</tr>
                 {dataSmall.data.map(item => <tr><td>{item.trosak}</td><td>{formatDate(item.datum)}</td>{gorivo && <td>{item.potrosnja}</td>}<td>{item.cena}</td>{gorivo && <td>{item.ukupno.toLocaleString()}</td>}</tr>)}
                 {/* <tr><td className="head-table">Ukupno</td><td className="head-table"></td><td className="head-table">{gorivo ? dataSmall.potrosnjaTotal : dataSmall.cena}</td>{gorivo && <td className="head-table"></td>}{gorivo && <td className="head-table">{dataSmall.total.toLocaleString()}</td>}</tr> */}
-                <tr><td colSpan={span5}><button className="btn no menu-excell" ><i className="far fa-file-excel menu-icon"></i> EXPORT U EXCELL</button></td></tr>
+                <tr><td colSpan={span5}>
+                    <ReactHTMLTableToExcel
+                        id="test-table-xls-button"
+                        className="btn no menu-excell"
+                        table="mala-tabela-export"
+                        filename="tablexls"
+                        sheet="tablexls"
+                        buttonText="EXPORT U EXCELL" /></td></tr>
             </tbody>
         </table>
     )
