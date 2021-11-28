@@ -357,6 +357,38 @@ const IzvestajiPost = async (req, res) => {
                 break;
         }
 
+
+        let polje;
+        switch (req.body.tipIzvestaja) {
+            case "Troškovi registracije":
+                polje = "registracijaPolje"
+                break;
+            case "Troškovi za tag":
+                polje = "gorivoPolje"
+                break;
+            case "Troškovi za pranje":
+                polje = "gorivoPolje"
+                break;
+            case "Potrošnja goriva":
+                polje = "gorivoPolje"
+                break;
+            case "Troškovi održavanja":
+                polje = "odrzavanjePolje"
+                break;
+            case "Troškovi štete na vozilu":
+                polje = "stetaPolje"
+                break;
+            case "Ukupni troškovi":
+                polje = "ukupniTroskovi"
+                break;
+            case "Ukupno vreme zaposlenog":
+                polje = "vremeZaposlenog"
+                break;
+            default:
+                polje = "registracijaPolje"
+        }
+
+
         function razlika(datumOd, datumDo) {
             let t2 = new Date(datumDo)
             let t1 = new Date(datumOd)
@@ -371,82 +403,18 @@ const IzvestajiPost = async (req, res) => {
             resTot = []
             try {
                 for (let i = firstMonth; i <= months + firstMonth; i++) {
-                    if (req.body.tipIzvestaja === "Troškovi registracije") {
-                        resTot.push({
-                            ukupno: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-
-                            }).reduce(finalType, 0), svi: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-
-                            }), polje: "registracijaPolje"
-                        })
-                    } else if (req.body.tipIzvestaja === "Potrošnja goriva") {
-                        resTot.push({
-                            ukupno: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-                            }).reduce(finalType, 0), svi: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-
-                            }), polje: "gorivoPolje"
-                        })
-                    } else if (req.body.tipIzvestaja === "Troškovi za tag") {
-                        resTot.push({
-                            ukupno: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-                            }).reduce(finalType, 0), svi: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-
-                            }), polje: "tag"
-                        })
-                    } else if (req.body.tipIzvestaja === "Troškovi za pranje") {
-                        resTot.push({
-                            ukupno: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-                            }).reduce(finalType, 0), svi: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-
-                            }), polje: "pranje"
-                        })
-                    } else if (req.body.tipIzvestaja === "Troškovi održavanja") {
-                        resTot.push({
-                            ukupno: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i && item.tip === req.body.todr
-                            }).reduce(finalType, 0), svi: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-
-                            }), polje: "odrzavanjePolje"
-                        })
-                    } else if (req.body.tipIzvestaja === "Troškovi štete na vozilu") {
-                        resTot.push({
-                            ukupno: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i && item.stetuPokriva === req.body.pokr
-                            }).reduce(finalType, 0), svi: array.filter(item => {
-                                let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                                return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-
-                            }), polje: "stetaPolje"
-                        })
-                    } else if (req.body.tipIzvestaja === "Ukupni troškovi") {
-                        resTot.push(array.filter(item => {
+                    resTot.push({
+                        ukupno: array.filter(item => {
                             let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
-                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i
-                        }).reduce(finalType, 0))
-                    }
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i && (req.body.tipIzvestaja === "Troškovi održavanja" ? item.tip === req.body.todr : true) && (req.body.tipIzvestaja === "Troškovi štete na vozilu" ? item.stetuPokriva === req.body.pokr : true)
 
+                        }).reduce(finalType, 0), svi: array.filter(item => {
+                            let yr = new Date(item.datum).getFullYear() - new Date(req.body.menuDateFrom).getFullYear()
+                            return ((new Date(item.datum).getMonth()) + 1) + (yr * 12) === i && (req.body.tipIzvestaja === "Troškovi održavanja" ? item.tip === req.body.todr : true) && (req.body.tipIzvestaja === "Troškovi štete na vozilu" ? item.stetuPokriva === req.body.pokr : true)
+
+                        }), polje
+                    })
                 }
-
                 return resTot
             } catch (error) {
                 for (let i = 0; i <= months; i++) {
@@ -467,7 +435,7 @@ const IzvestajiPost = async (req, res) => {
                             .filter((item) => new Date(item.datum).getFullYear() === i)
                             .reduce(finalType, 0)
                         , svi: array
-                            .filter((item) => new Date(item.datum).getFullYear() === i), polje: "s"
+                            .filter((item) => new Date(item.datum).getFullYear() === i), polje
                     })
             }
             return resTot
@@ -492,7 +460,7 @@ const IzvestajiPost = async (req, res) => {
                         let itemI = (new Date(item.datum).getMonth() + 1) <= 6 ? 1 : 2
                         itemI += yr
                         return itemI === i
-                    }), polje: "e"
+                    }), polje
                 })
 
 
@@ -566,7 +534,7 @@ const IzvestajiPost = async (req, res) => {
                         return itemKvartal + ((itemYear - yearFrom) * 4) === i
 
 
-                    }), polje: "e"
+                    }), polje
                 })
             }
 
@@ -811,39 +779,61 @@ const IzvestajiPost = async (req, res) => {
 }
 
 const Tabela = async (req, res) => {
-    let car = await CarsModel.findOne({ registracioniBroj: req.body.regBr })
-    console.log(req.body.naziv)
-    let polje
-    switch (req.body.polje) {
-        case "registracijaPolje":
-            polje = car.registracijaPolje
-            break;
-        case "gorivoPolje":
-            polje = car.gorivoPolje
-            break;
-        case "stetaPolje":
-            polje = car.stetaPolje
-            break;
-        case "odrzavanjePolje":
-            polje = car.odrzavanjePolje;
-            break;
-    }
+    try {
+
+
+        let car = await CarsModel.findOne({ registracioniBroj: req.body.regBr })
+        let polje
+        switch (req.body.polje) {
+            case "registracijaPolje":
+                polje = car.registracijaPolje
+                break;
+            case "gorivoPolje":
+                polje = car.gorivoPolje
+                break;
+            case "stetaPolje":
+                polje = car.stetaPolje
+                break;
+            case "odrzavanjePolje":
+                polje = car.odrzavanjePolje;
+                break;
+        }
+
+        function getTip(item) {
+            let trosak
+            switch (req.body.polje) {
+                case "registracijaPolje":
+                    trosak = "Registracija"
+                    break;
+                case "gorivoPolje":
+                    trosak = item.tip
+                    break;
+                case "stetaPolje":
+                    trosak = "Šteta"
+                    break;
+                case "odrzavanjePolje":
+                    trosak = item.tip
+                    break;
+            }
+            return trosak
+        }
 
 
 
-
-    let fltr = polje.filter(item => new Date(item.datum) <= new Date(req.body.lastDate.datum) && new Date(item.datum) >= new Date(req.body.firstDate))
-    if (req.body.naziv === "Troškovi održavanja") {
-        fltr = fltr.filter(item => item.tip === req.body.todr)
-    } else if (req.body.naziv === "Troškovi štete na vozilu") {
-        fltr = fltr.filter(item => item.stetuPokriva === req.body.pokr)
-    }
-    res.send({
-        name: car.markaTip + " " + req.body.regBr, dateFrom: req.body.firstDate, dateTo: req.body.lastDate, data: fltr.map(item => {
-            return { trosak: item.tip, datum: item.datum, potrosnja: item.potrosnja, cena: item.cena, ukupno: item.cena * (item.potrosnja || 1) }
+        let fltr = polje.filter(item => new Date(item.datum) <= new Date(req.body.lastDate.datum) && new Date(item.datum) >= new Date(req.body.firstDate))
+        if (req.body.naziv === "Troškovi održavanja") {
+            fltr = fltr.filter(item => item.tip === req.body.todr)
+        } else if (req.body.naziv === "Troškovi štete na vozilu") {
+            fltr = fltr.filter(item => item.stetuPokriva === req.body.pokr)
+        }
+        res.send({
+            name: car.markaTip + " " + req.body.regBr, dateFrom: req.body.firstDate, dateTo: req.body.lastDate, data: fltr.map(item => {
+                return { trosak: getTip(item), datum: item.datum, potrosnja: item.potrosnja, cena: item.cena, ukupno: item.cena * (item.potrosnja || 1) }
+            }), naziv: req.body.polje
         })
-    })
-
+    } catch (error) {
+        console.log(err)
+    }
 
 
 

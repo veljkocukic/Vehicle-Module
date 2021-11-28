@@ -15,7 +15,7 @@ export const Izvestaj = () => {
             </div>
             <Menu sbt={setBigTableOn} />
             {bigTableOn && <Table />}
-            {smallTableOn && <MalaTabela gorivo />}
+            {smallTableOn && <MalaTabela />}
         </div>
     )
 }

@@ -2,14 +2,14 @@ import React, { useContext } from "react"
 import { DataContext } from "../Context"
 
 
-export const MalaTabela = ({ gorivo, car, period }) => {
+export const MalaTabela = () => {
 
 
-
+    let { dataSmall, formatDate } = useContext(DataContext)
+    let gorivo = dataSmall.naziv === "gorivoPolje"
     let span5 = gorivo ? 5 : 3
     let span3 = gorivo ? 3 : 1
 
-    let { dataSmall, formatDate } = useContext(DataContext)
     console.log(dataSmall)
     return (
         <table className="tg mala-tabela">
