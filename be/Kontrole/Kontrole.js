@@ -335,6 +335,8 @@ const IzvestajiPost = async (req, res) => {
         let firstHalf
         let lastYearMissingHalf
         let halves
+        let prvaNedelja = Math.floor(dayOfTheYear(new Date(req.body.menuDateFrom))/7)
+        let zadnjaNedelja = Math.floor(dayOfTheYear(new Date(req.body.menuDateTo))/7)
         function cena(a, b) {
             return a + b.cena * (req.body.tipIzvestaja === "Potrošnja goriva " ? b.potrosnja : 1)
         }
@@ -398,7 +400,27 @@ const IzvestajiPost = async (req, res) => {
             let year = t2.getFullYear() - t1.getFullYear()
             return year * 12 + mnt2 - mnt1
         }
+
+        function dayOfTheYear(a){      
+            let currentYear = a.getFullYear();
+            let currentMonth = a.getMonth(); 
+            let currentDay = a.getDate(); 
+            let date365 = 0
+            let monthLength = [31,28,31,30,31,30,31,31,30,31,30,31];
+            
+            let leapYear = new Date(currentYear, 1, 29); 
+            if (leapYear.getDate() == 29) { // If it's a leap year, changes 28 to 29
+                monthLength[1] = 29;
+            }
+            
+            for ( i=0; i < currentMonth; i++ ) { 
+                date365 = date365 + monthLength[i];
+            }
+            date365 = date365 + currentDay; // Done!}
+            }
         /////////////////////////////////////////////////////////////////////////////////KOD ISPOD JE U RADNOJ VERZIJI PA SASMIM TIM NE IZGLEDA NAJBOLJE ALI JE FUNKCIONALAN(koliko-toliko)
+        
+        
         function totalMonth(array, months) {
             resTot = []
             try {
@@ -467,11 +489,27 @@ const IzvestajiPost = async (req, res) => {
             }
 
             return resTot
+        }
 
 
+        const totalWeeks = (array) =>{
+        
+            resTot = []
+            for(let i = prvaNedelja;i<=zadnjaNedelja;i++){
 
+                res.push({ukupno:array.filter(item=>{
+                    let itemNedelja = Math.floor(dayOfTheYear(new Date(item.datum))/7)
+                    return itemNedelja === i
+                }).reduce(finalType, 0),svi:array.filter(item=>{
+                    let itemNedelja = Math.floor(dayOfTheYear(new Date(item.datum))/7)
+                    return itemNedelja === i
+                }),polje})
+            }
+            return resTot
 
         }
+
+
 
         const totalKvartal = (array) => {
             resTot = []
@@ -615,7 +653,9 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
-                } else {
+                } else if(req.body.rezolucija ==="Nedelja"){
+                    podaci = totalWeeks(result)
+                }else {
                     podaci = totalKvartal(result)
                 }
             }
@@ -627,6 +667,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                } else if(req.body.rezolucija ==="Nedelja"){
+                    podaci = totalWeeks(result)
                 } else {
                     podaci = totalKvartal(result)
                 }
@@ -638,6 +680,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                } else if(req.body.rezolucija ==="Nedelja"){
+                    podaci = totalWeeks(result)
                 } else {
                     podaci = totalKvartal(result)
                 }
@@ -649,6 +693,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                } else if(req.body.rezolucija ==="Nedelja"){
+                    podaci = totalWeeks(result)
                 } else {
                     podaci = totalKvartal(result)
                 }
@@ -660,6 +706,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                } else if(req.body.rezolucija ==="Nedelja"){
+                    podaci = totalWeeks(result)
                 } else {
                     podaci = totalKvartal(result)
                 }
@@ -671,6 +719,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                } else if(req.body.rezolucija ==="Nedelja"){
+                    podaci = totalWeeks(result)
                 } else {
                     podaci = totalKvartal(result)
                 }
@@ -768,6 +818,8 @@ const IzvestajiPost = async (req, res) => {
                     podaci = totalMonth(result, meseci)
                 } else if (req.body.rezolucija === "Pola godine") {
                     podaci = totalHalfYear(req.body.menuDateFrom, req.body.menuDateTo, result)
+                } else if(req.body.rezolucija ==="Nedelja"){
+                    podaci = totalWeeks(result)
                 } else {
                     podaci = totalKvartal(result)
                 }
@@ -808,6 +860,10 @@ const IzvestajiPost = async (req, res) => {
             }
             for (let i = prviKvartal; i <= kvartali + (prviKvartal - 1); i++) {
                 headAr.push(godine[i - 1] + " " + i)
+            }
+        } else if(req.body.rezolucija === "Nedelja"){
+            for(let i = prvaNedelja;i<=zadnjaNedelja;i++){
+                headAr.push(i)
             }
         }
 

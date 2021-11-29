@@ -114,7 +114,7 @@ export const Menu = ({ sbt }) => {
                         <option>Pola godine</option>
                         <option>Kvartal</option>
                         <option>Mesec</option>
-                        {/* <option>Nedelja</option> */}
+                        <option>Nedelja</option>
                     </select>
                 </div>
 
