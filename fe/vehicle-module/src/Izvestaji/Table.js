@@ -1,20 +1,23 @@
 import React, { useContext } from "react"
 import axios from "axios"
 import { DataContext } from "../Context"
+import { handleBroj } from "../state/actions"
+import { handleIme } from "../state/actions"
+import { useDispatch } from "react-redux"
+const Kolone = ({ setGrafikIme, setDataSmall, setSmallTableOn, rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
 
-
-const Kolone = ({ setGrafikIme,setGrafikBroj,setDataSmall, setSmallTableOn, rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
-
+    const dispatch = useDispatch()
     const findName = (nm) => {
         let ind = data.indexOf(nm)
         return th[ind]
     }
 
 
+
     const handleSmallTable = async (date, polje) => {
         let firstDate = date[0].datum
         let lastDate = date[date.length - 1]
-        await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje, naziv, todr, pokr,date }).then(res => {
+        await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje, naziv, todr, pokr, date }).then(res => {
             setDataSmall(res.data)
             setSmallTableOn(true)
         })
@@ -22,18 +25,17 @@ const Kolone = ({ setGrafikIme,setGrafikBroj,setDataSmall, setSmallTableOn, rb, 
 
 
 
-    const handleGrafik = () =>{
-
-        setGrafikIme(vozilo)
-        setGrafikBroj(rb)
+    const handleGrafik = () => {
+        dispatch(handleBroj(vozilo))
+        dispatch(handleBroj(rb))
     }
 
 
     return (
         <tr>
             <td>{rb}</td>
-            <td style={{cursor:"pointer",fontWeight:"bold"}} onClick={handleGrafik} >{vozilo}</td>
-            {data.map((item, key) => <td key={key} className="click-tab" onClick={() => item.ukupno>0 && handleSmallTable(item.svi.sort((a, b) => new Date(a.datum) - new Date(b.datum)), item.polje)} id={vozilo + "-" + findName(item)}>{item.ukupno.toLocaleString()}</td>)}
+            <td style={{ cursor: "pointer", fontWeight: "bold" }} onClick={handleGrafik} >{vozilo}</td>
+            {data.map((item, key) => <td key={key} className="click-tab" onClick={() => item.ukupno > 0 && handleSmallTable(item.svi.sort((a, b) => new Date(a.datum) - new Date(b.datum)), item.polje)} id={vozilo + "-" + findName(item)}>{item.ukupno.toLocaleString()}</td>)}
         </tr>
     )
 }
@@ -41,7 +43,7 @@ const Kolone = ({ setGrafikIme,setGrafikBroj,setDataSmall, setSmallTableOn, rb, 
 
 export const Table = () => {
 
-    let { dataTable, tableHead, setDataSmall, setSmallTableOn,setGrafikBroj,setGrafikIme } = useContext(DataContext)
+    let { dataTable, tableHead, setDataSmall, setSmallTableOn, setGrafikBroj, setGrafikIme } = useContext(DataContext)
 
     let ar = []
     try {
@@ -74,7 +76,7 @@ export const Table = () => {
                 </tr>
             </thead>
             <tbody>
-                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} setDataSmall={setDataSmall} setSmallTableOn={setSmallTableOn} naziv={item.naziv} setGrafikBroj = {setGrafikBroj} setGrafikIme={setGrafikIme} todr={item.todr} pokr={item.pokr} />)}
+                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} setDataSmall={setDataSmall} setSmallTableOn={setSmallTableOn} naziv={item.naziv} setGrafikBroj={setGrafikBroj} setGrafikIme={setGrafikIme} todr={item.todr} pokr={item.pokr} />)}
                 <tr >
                     <td className="head-table" colSpan="2">Ukupno</td>
                     {ar.map((item, key) => <td key={key} className="head-table click-tab">{item}</td>)}

@@ -10,14 +10,20 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { DataContext } from "../Context";
+import { useSelector } from "react-redux"
 
 
 
 
 export const Grafik = () => {
 
+    //const grafikIme = useSelector(state=>state.grafikTime)
+    let grafikBroj = useSelector(state => state.grafikBrojReducer)
+    let grafikIme = useSelector(state => state.grafikImeReducer)
 
-    let { tableHead, dataTable,grafikBroj,grafikIme } = useContext(DataContext)
+
+
+    let { tableHead, dataTable } = useContext(DataContext)
 
 
     ChartJS.register(
@@ -44,14 +50,14 @@ export const Grafik = () => {
     };
 
     const labels = [...tableHead];
-    console.log(dataTable)
+    console.log(grafikBroj)
 
     const data = {
         labels,
         datasets: [
             {
                 label: 'Dataset 1',
-                data: dataTable[grafikBroj-1].data.map(item => item.ukupno),
+                data: dataTable[grafikBroj - 1].data.map(item => item.ukupno),
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             }
         ],

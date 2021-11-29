@@ -2,11 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Sadrzaj } from './Sadrzaj';
+import { combineReducers, createStore } from "redux"
+import { allReducers } from './state/reducers';
+import { Provider } from 'react-redux';
+
+const store = createStore(allReducers)
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store} >
     <Sadrzaj />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
