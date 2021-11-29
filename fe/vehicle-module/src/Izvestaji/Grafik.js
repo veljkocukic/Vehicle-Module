@@ -17,7 +17,7 @@ import { DataContext } from "../Context";
 export const Grafik = () => {
 
 
-    let { tableHead, dataTable } = useContext(DataContext)
+    let { tableHead, dataTable,grafikBroj,grafikIme } = useContext(DataContext)
 
 
     ChartJS.register(
@@ -38,7 +38,7 @@ export const Grafik = () => {
             },
             title: {
                 display: true,
-                text: 'Chart.js Bar Chart',
+                text: grafikIme,
             },
         },
     };
@@ -51,7 +51,7 @@ export const Grafik = () => {
         datasets: [
             {
                 label: 'Dataset 1',
-                data: dataTable[0].data.map(item => item.ukupno),
+                data: dataTable[grafikBroj-1].data.map(item => item.ukupno),
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             }
         ],
@@ -60,7 +60,7 @@ export const Grafik = () => {
 
     return (
         <div className="grafik-container">
-            <Bar options={options} data={data} />;
+            <Bar options={options} data={data} />
         </div>
     )
 }

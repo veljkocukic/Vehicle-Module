@@ -3,7 +3,7 @@ import axios from "axios"
 import { DataContext } from "../Context"
 
 
-const Kolone = ({ setDataSmall, setSmallTableOn, rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
+const Kolone = ({ setGrafikIme,setGrafikBroj,setDataSmall, setSmallTableOn, rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
 
     const findName = (nm) => {
         let ind = data.indexOf(nm)
@@ -18,15 +18,22 @@ const Kolone = ({ setDataSmall, setSmallTableOn, rb, vozilo, data, th, regBr, na
             setDataSmall(res.data)
             setSmallTableOn(true)
         })
-
-
     }
+
+
+
+    const handleGrafik = () =>{
+
+        setGrafikIme(vozilo)
+        setGrafikBroj(rb)
+    }
+
 
     return (
         <tr>
             <td>{rb}</td>
-            <td>{vozilo}</td>
-            {data.map((item, key) => <td key={key} className="click-tab" onClick={() => handleSmallTable(item.svi.sort((a, b) => new Date(a.datum) - new Date(b.datum)), item.polje)} id={vozilo + "-" + findName(item)}>{item.ukupno.toLocaleString()}</td>)}
+            <td style={{cursor:"pointer",fontWeight:"bold"}} onClick={handleGrafik} >{vozilo}</td>
+            {data.map((item, key) => <td key={key} className="click-tab" onClick={() => item.ukupno>0 && handleSmallTable(item.svi.sort((a, b) => new Date(a.datum) - new Date(b.datum)), item.polje)} id={vozilo + "-" + findName(item)}>{item.ukupno.toLocaleString()}</td>)}
         </tr>
     )
 }
@@ -34,7 +41,7 @@ const Kolone = ({ setDataSmall, setSmallTableOn, rb, vozilo, data, th, regBr, na
 
 export const Table = () => {
 
-    let { dataTable, tableHead, setDataSmall, setSmallTableOn } = useContext(DataContext)
+    let { dataTable, tableHead, setDataSmall, setSmallTableOn,setGrafikBroj,setGrafikIme } = useContext(DataContext)
 
     let ar = []
     try {
@@ -67,7 +74,7 @@ export const Table = () => {
                 </tr>
             </thead>
             <tbody>
-                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} setDataSmall={setDataSmall} setSmallTableOn={setSmallTableOn} naziv={item.naziv} todr={item.todr} pokr={item.pokr} />)}
+                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} setDataSmall={setDataSmall} setSmallTableOn={setSmallTableOn} naziv={item.naziv} setGrafikBroj = {setGrafikBroj} setGrafikIme={setGrafikIme} todr={item.todr} pokr={item.pokr} />)}
                 <tr >
                     <td className="head-table" colSpan="2">Ukupno</td>
                     {ar.map((item, key) => <td key={key} className="head-table click-tab">{item}</td>)}
