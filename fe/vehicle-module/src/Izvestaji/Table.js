@@ -45,7 +45,7 @@ const Kolone = ({ setDataSmall, rb, vozilo, data, th, regBr, naziv, todr, pokr }
 
 export const Table = () => {
 
-    let { dataTable, tableHead, setDataSmall, setGrafikBroj, setGrafikIme } = useContext(DataContext)
+    let { dataTable, tableHead, setDataSmall } = useContext(DataContext)
 
     let ar = []
     try {
@@ -78,7 +78,7 @@ export const Table = () => {
                 </tr>
             </thead>
             <tbody>
-                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} setDataSmall={setDataSmall} naziv={item.naziv} setGrafikBroj={setGrafikBroj} setGrafikIme={setGrafikIme} todr={item.todr} pokr={item.pokr} />)}
+                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} setDataSmall={setDataSmall} naziv={item.naziv} todr={item.todr} pokr={item.pokr} />)}
                 <tr >
                     <td className="head-table" colSpan="2">Ukupno</td>
                     {ar.map((item, key) => <td key={key} className="head-table click-tab">{item}</td>)}
