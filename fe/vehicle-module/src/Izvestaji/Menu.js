@@ -20,7 +20,7 @@ export const Menu = ({ sbt }) => {
 
 
 
-    let { setZaposleniLista, setVozilaLista, vozilaSelect,  spinerOn, setSpinerOn, zaposleniSelect, setDataTable, setTableHead } = useContext(DataContext)
+    let { vremeTab,setVremeTab,setZaposleniLista, setVozilaLista, vozilaSelect,  spinerOn, setSpinerOn, zaposleniSelect, setDataTable, setTableHead } = useContext(DataContext)
 
     const vrednostRef = useRef(null)
 
@@ -50,6 +50,7 @@ export const Menu = ({ sbt }) => {
     const handleSubmit = async () => {
         if (menuDateFrom !== 0 && menuDateTo !== 0 && menuDateTo > menuDateFrom) {
             setSpinerOn(true)
+            tipIzvestaja === "Ukupno vreme zaposlenog" ? setVremeTab(true) : setVremeTab(false)
             let pokr = tipIzvestaja === "Troškovi štete na vozilu" ? pokriceStete : null
             let todr = tipIzvestaja === "Troškovi održavanja" ? tipOdrzavanja : null
             await axios.post("http://localhost:5000/api/v1/izvestaji", { tipIzvestaja, vrstaVrednosti, rezolucija, tipTekuceg, menuDateFrom, menuDateTo, vozilaSelect, zaposleniSelect, pokr, todr }).then(res => {
@@ -60,6 +61,7 @@ export const Menu = ({ sbt }) => {
                 sbt(true)
                 setSpinerOn(false)
                 setValid(true)
+
             }).catch(er =>
                 console.log("greška: " + er))
         } else {

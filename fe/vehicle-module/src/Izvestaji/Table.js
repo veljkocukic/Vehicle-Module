@@ -14,7 +14,7 @@ const Kolone = ({ setGrafikIme,setGrafikBroj,setDataSmall, setSmallTableOn, rb, 
     const handleSmallTable = async (date, polje) => {
         let firstDate = date[0].datum
         let lastDate = date[date.length - 1]
-        await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje, naziv, todr, pokr }).then(res => {
+        await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje, naziv, todr, pokr,date }).then(res => {
             setDataSmall(res.data)
             setSmallTableOn(true)
         })
