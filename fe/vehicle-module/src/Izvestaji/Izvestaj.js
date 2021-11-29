@@ -1,13 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "../style/izvestaj.css"
 import { Menu } from "./Menu"
 import { Table } from "./Table";
 import { MalaTabela } from "./MalaTabela";
-import { DataContext } from "../Context";
 import { Grafik } from "./Grafik";
+import { useSelector } from "react-redux";
 export const Izvestaj = () => {
 
-    let { smallTableOn } = useContext(DataContext)
+    let smallTableOn = useSelector(state => state.smallTableReducer)
     let [bigTableOn, setBigTableOn] = useState(false)
     return (
         <div className="izvestaj">

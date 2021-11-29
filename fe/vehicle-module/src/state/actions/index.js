@@ -5,3 +5,9 @@ export const handleBroj = (p) => {
 export const handleIme = (ime) => {
     return { payload: ime, type: "IME" }
 }
+
+export const handleSmallTableOn = (arg) => {
+    return {
+        type: arg ? "ON" : "OFF"
+    }
+}
