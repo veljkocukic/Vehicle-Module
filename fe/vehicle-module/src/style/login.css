@@ -5,7 +5,7 @@
     position: absolute;
     top:0;
     left:0;
-    z-index: 8;
+    z-index: 9;
     background-color: rgb(244, 252, 255);
     display: flex;
     justify-content: center;

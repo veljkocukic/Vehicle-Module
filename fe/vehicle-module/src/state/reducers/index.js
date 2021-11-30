@@ -4,10 +4,11 @@ import { smallTableReducer } from "./smallTable"
 import { dataSmallReducer } from "./dataSmall";
 import { dataTableReducer } from "./dataTable";
 import { tableHeadReducer } from "./tableHead";
+import { userNameReducer } from "./userName";
 import { combineReducers } from "redux";
 
 
 
 export const allReducers = combineReducers({
-    grafikImeReducer, grafikBrojReducer, smallTableReducer,dataSmallReducer,dataTableReducer,tableHeadReducer
+    grafikImeReducer, grafikBrojReducer, smallTableReducer,dataSmallReducer,dataTableReducer,tableHeadReducer,userNameReducer
 })

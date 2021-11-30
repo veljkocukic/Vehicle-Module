@@ -3,8 +3,10 @@ import axios from "axios"
 import "./style/login.css"
 import {useHistory} from "react-router-dom"
 import { Spiner } from "./ProfilPolja/Editi/Spiner"
-
+import { useDispatch } from "react-redux"
+import { handleUserName } from "./state/actions"
 export const Login = () =>{
+    let dispatch = useDispatch()
     let [name,setName] = useState("")
     let [pass,setPass] = useState("")
     let [userFalse,setUserFalse] = useState(false)
@@ -50,6 +52,7 @@ export const Login = () =>{
                 console.log(res.data.catch)
             }else{
                 localStorage.setItem("token", res.data.token)
+                dispatch(handleUserName(name))
                 return history.push("/")
             }
             setLoginSpinner(false)

@@ -29,3 +29,9 @@ export const handleTableHead = arg =>{
         type:"TABLEHEAD",payload:arg
     }
 }
+
+export const handleUserName = arg =>{
+    return{
+        type:"LOGINNAME",payload:arg
+    }
+}

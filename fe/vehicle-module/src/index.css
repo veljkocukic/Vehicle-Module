@@ -45,6 +45,59 @@ header ul li{
   
 }
 
+.hamburger{
+  display: inline;
+  width: 4em;
+  height: 4em;
+  position: absolute;
+  border-radius: 5px;
+  background-color: #0079c0;
+  left:3em;
+  top:5em;
+  z-index: 9;
+  transition: .3s ease;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger img{
+  width: 100%;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.sidebar{
+  position: fixed;
+  width: 15vw;
+  left:-15vw;
+  height: 100%;
+  z-index: 7;
+  background-color: #f7f7f7;
+  box-shadow: 5px 19px 15px -12px rgba(0, 0, 0, 0.62);
+  -webkit-box-shadow: 5px 19px 15px -12px rgba(0, 0, 0, 0.62);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 6em;
+  padding-bottom: 8em;
+  align-items: center;
+  transition: .3s ease-in;
+}
+
+.upperDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upperDiv img{
+  margin-bottom: 1em;
+  border-radius: 50%;
+  height: 9em;
+  width: 9em;
+  filter: drop-shadow(5px 19px 15px -12px rgba(0, 0, 0, 0.62));
+}
+
 .linkHeader{
   font-size: 1em;
   color:white;

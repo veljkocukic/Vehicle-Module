@@ -1,18 +1,46 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom"
+import React, { useState,useRef } from "react";
+import { BrowserRouter as Router, Route, Switch, Link} from "react-router-dom"
 import { MainProvider } from "./Context.js";
 import { Izvestaj } from "../src/Izvestaji/Izvestaj";
 import { Login } from "./Login.js";
 import { Main } from "./Main.js"
 import { Profil } from "./Profil.js"
 import { Serviseri } from "./Serviseri/Serviseri";
+import slikanedostupna from '../src/images/slikanedostupna.png'
+import { useDispatch } from "react-redux";
+import { handleUserName } from "./state/actions/index.js";
+import { useSelector } from "react-redux";
 import "./style/input.css"
 
 export const Sadrzaj = () => {
-
+  let loginName = useSelector(state=>state.userNameReducer)
+  let dis = useDispatch()
+  let side = useRef(null)
+  let [menuOn,setMenuOn] = useState(false)
+  const handleMenu = (e)=>{
+    if(!menuOn){
+      e.target.style = "transform:rotate(-90deg)"
+      side.current.style="left:0"
+      setMenuOn(true)
+    }else if(menuOn){
+      e.target.style = "transform:rotate(0)"
+      side.current.style="left:-15vw"
+      setMenuOn(false)
+    }
+  }
+  const handleLogout = () =>{
+    localStorage.clear()
+    dis(handleUserName(""))
+    window.location.replace("/login");
+  }
 
   return (
     <Router>
+
+      <div onClick={handleMenu} className="hamburger">
+        <img src="https://erp.mikroe.com/img/users/avatars/mikroe-symbol-new.png" alt="menu" />
+      </div>
+
       <header>
         <nav>
          <img src="http://cdn.mikroe.com/img/mega-menu/mikroe-timesaving-white.png" alt="logo" />
@@ -23,6 +51,16 @@ export const Sadrzaj = () => {
           </ul>
         </nav>
       </header>
+
+      <div ref={side} className="sidebar">
+
+        <div className="upperDiv">
+          <img src={slikanedostupna} alt="profile-pic"></img>
+          <h3>Korisnik: {loginName}</h3>
+        </div>
+
+        <h3 style={{cursor:"pointer"}} onClick={handleLogout} >Odjavi se <i class="fas fa-sign-out-alt"></i></h3>
+      </div>
 
       <Switch>
         <MainProvider>
