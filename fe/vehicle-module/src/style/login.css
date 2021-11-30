@@ -44,7 +44,12 @@
 }
 
 .login-top{
+    padding-top:2em;
     margin-bottom: 1em;
+}
+
+.login-top img{
+    height: 60%;
 }
 
 .login-btns{

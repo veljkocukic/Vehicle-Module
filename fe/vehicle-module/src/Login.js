@@ -16,11 +16,11 @@ export const Login = () =>{
             <div className="input--container login-container">
 
                 <div className="login-top">
-                      <h1>Modul vozila</h1>
+                <img src="https://cdn.mikroe.com/cms/press-kit/mikroe-logo-dark.png" alt="logo"/>
                 </div>
 
 
-            <h2>Login</h2>
+            <h2>Modul vozila</h2>
                 <form className="login-form">
                 <div className="single-input-container login-single">
                     <label for="korisnicko-ime" className="standard--label">Korisničko ime</label>
