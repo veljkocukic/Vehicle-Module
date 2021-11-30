@@ -17,7 +17,6 @@ const Kolone = ({ rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
 
 
     const handleSmallTable = async (date, polje) => {
-        console.log("r")
         let firstDate = date[0].datum
         let lastDate = date[date.length - 1]
         await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje, naziv, todr, pokr, date }).then(res => {

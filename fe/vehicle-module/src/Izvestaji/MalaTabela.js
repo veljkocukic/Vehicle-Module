@@ -36,7 +36,8 @@ export const MalaTabela = () => {
                         table="mala-tabela-export"
                         filename="tablexls"
                         sheet="tablexls"
-                        buttonText="EXPORT U EXCELL" /></td></tr>
+                        buttonText="EXPORT U EXCELL" />
+                </td></tr>
             </tbody>
         </table>
     )

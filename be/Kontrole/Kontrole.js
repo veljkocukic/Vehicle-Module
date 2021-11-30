@@ -416,8 +416,10 @@ const IzvestajiPost = async (req, res) => {
             for ( i=0; i < currentMonth; i++ ) { 
                 date365 = date365 + monthLength[i];
             }
-            date365 = date365 + currentDay; // Done!}
+            return date365 = date365 + currentDay; // Done!}
             }
+
+
         /////////////////////////////////////////////////////////////////////////////////KOD ISPOD JE U RADNOJ VERZIJI PA SASMIM TIM NE IZGLEDA NAJBOLJE ALI JE FUNKCIONALAN(koliko-toliko)
         
         
@@ -497,7 +499,7 @@ const IzvestajiPost = async (req, res) => {
             resTot = []
             for(let i = prvaNedelja;i<=zadnjaNedelja;i++){
 
-                res.push({ukupno:array.filter(item=>{
+                resTot.push({ukupno:array.filter(item=>{
                     let itemNedelja = Math.floor(dayOfTheYear(new Date(item.datum))/7)
                     return itemNedelja === i
                 }).reduce(finalType, 0),svi:array.filter(item=>{

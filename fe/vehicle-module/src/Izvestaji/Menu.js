@@ -24,7 +24,7 @@ export const Menu = ({ sbt }) => {
 
 
 
-    let { vremeTab,setVremeTab,setZaposleniLista, setVozilaLista, vozilaSelect,  spinerOn, setSpinerOn, zaposleniSelect, setDataTable, setTableHead } = useContext(DataContext)
+    let { setVremeTab,setZaposleniLista, setVozilaLista, vozilaSelect,  spinerOn, setSpinerOn, zaposleniSelect } = useContext(DataContext)
 
     const vrednostRef = useRef(null)
 
