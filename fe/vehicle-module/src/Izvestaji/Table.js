@@ -23,6 +23,7 @@ const Kolone = ({ rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
             dispatch(handleDataSmall(res.data))
             dispatch(handleSmallTableOn(true))
         })
+        window.scrollTo(0,document.body.scrollHeight);
     }
 
 
