@@ -86,11 +86,11 @@ const ServiseriSchema = new mongoose.Schema({
     sifraKlijenta: { type: String, required: true },
     nazivFirme: { type: String, required: true },
     tipUsluge: { type: String, required: true },
-    kontakt: { type: String, required: true  },
-    adresa: { type: String, required: true  },
-    brTelefona: { type: String, required: true  },
-    email: { type: String, required: true  },
-    website: { type: String, required: true  }
+    kontakt: { type: String},
+    adresa: { type: String },
+    brTelefona: { type: String},
+    email: { type: String},
+    website: { type: String }
 })
 
 

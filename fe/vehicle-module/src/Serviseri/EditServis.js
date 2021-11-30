@@ -124,20 +124,20 @@ export const EditServis = ({ serviseriAr }) => {
 
 
                 <div className="single-input-container">
-                    <label htmlFor="sifra-klijenta" className="standard--label">Šifra klijenta</label>
+                    <label htmlFor="sifra-klijenta" className="standard--label">Šifra klijenta <span>*</span></label>
                     <input style={{border: sifraFalse&&"1px solid red"}} onBlur={e=>e.target.value.length<=10 ? setSifraFalse(true) : setSifraFalse(false)} ref={sifraRef} type="text" onChange={(e) => setSifraS(e.target.value)} className="standard--input" id="sifra-klijenta" name="sifra-klijenta" />
                     {sifraFalse && <p style={{color:"red",fontSize:"0.8em"}}>Unos mora biti duži od 10 karaktera</p>}
                 </div>
 
                 <div className="single-input-container">
-                    <label htmlFor="naziv-firme" className="standard--label">Naziv firme</label>
+                    <label htmlFor="naziv-firme" className="standard--label">Naziv firme <span>*</span></label>
                     <input style={{border: nazivFalse&&"1px solid red"}} onBlur={e=>e.target.value.length<=5 ? setNazivFalse(true):setNazivFalse(false)} ref={nazivRef} type="text" onChange={(e) => setNazivFirme(e.target.value)} className="standard--input" id="naziv-firme" name="naziv-fitme" />
                     {nazivFalse && <p style={{color:"red",fontSize:"0.8em"}}>Unos mora biti duži od 5 karaktera</p>}
                 </div>
 
 
                 <div className="single-input-container">
-                    <label htmlFor="tip-usluge" className="standard--label">Tip usluge</label>
+                    <label htmlFor="tip-usluge" className="standard--label">Tip usluge <span>*</span></label>
                     <select ref={tipRef} onChange={e => setTipUslugeS(e.target.value)} className="standard--input" id="tip-usluge" name="tip-usluge" >
                         <option>Pumpa</option>
                         <option>Delovi</option>
