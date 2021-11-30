@@ -3,7 +3,6 @@ import axios from "axios"
 import "./style/login.css"
 import {useHistory} from "react-router-dom"
 import { Spiner } from "./ProfilPolja/Editi/Spiner"
-import { handleUserName } from "./state/actions"
 export const Login = () =>{
     let [name,setName] = useState("")
     let [pass,setPass] = useState("")

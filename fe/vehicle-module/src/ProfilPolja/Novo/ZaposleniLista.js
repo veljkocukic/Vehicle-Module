@@ -3,7 +3,7 @@ import { DataContext } from "../../Context"
 
 export const ZaposleniLista = (props) => {
     let multi = useRef(null)
-    let {setZaposleniLista,zaposleniLista,setKorisnikMn,setZaposleniSelect,setRegistrovao,setUslugaFuel,setUslugaOdr,setUsluga} = useContext(DataContext)
+    let {zaposleniLista,setKorisnikMn,setZaposleniSelect,setRegistrovao,setUslugaFuel,setUslugaOdr,setUsluga} = useContext(DataContext)
     const handleC = (e) => {
 
         if(props.multiple){
@@ -14,7 +14,7 @@ export const ZaposleniLista = (props) => {
             setUslugaFuel(e.target.value)
         }else if(props.type==="odr"){
             setUslugaOdr(e.target.value)
-        }else if(props.type="dmg"){
+        }else if(props.type==="dmg"){
             setUsluga(e.target.value)
         }else{
             setKorisnikMn(e.target.value)

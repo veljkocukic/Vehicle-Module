@@ -12,14 +12,6 @@ export const Izvestaj = () => {
     let smallTableOn = useSelector(state => state.smallTableReducer)
     let [bigTableOn, setBigTableOn] = useState(false)
     let history = useHistory()
-    const checkLogin = async () =>{
-        await axios.post("http://localhost:5000/api/v1/logincheck",{"token": localStorage.getItem("token")}).then(res => {
-           if(res.data!=="success"){
-                history.push("/login")
-               return
-           }
-        })
-    }
     useEffect(()=>{
         const checkLogin = async () =>{
             await axios.post("http://localhost:5000/api/v1/logincheck",{"token": localStorage.getItem("token")}).then(res => {
