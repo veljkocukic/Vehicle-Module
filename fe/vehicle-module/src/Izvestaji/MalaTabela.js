@@ -14,7 +14,17 @@ export const MalaTabela = () => {
     let span5 = gorivo ? 5 : 3
     let span3 = gorivo ? 3 : 1
 
+
+
+
+
+
+
+    let totalPotrosnja = gorivo ? dataSmall.data.reduce((a,b)=>a+b.potrosnja,0) : null
+    let totalUkupno = dataSmall.data.reduce((a,b)=>a+b.ukupno,0) 
+    
     return (
+
         <table className="tg mala-tabela" id="mala-tabela-export">
 
             <thead>
@@ -28,7 +38,7 @@ export const MalaTabela = () => {
                 <tr><td colSpan="2" >{formatDate(dataSmall.dateFrom)}</td> <td colSpan={span3}>{formatDate(dataSmall.dateTo.datum)}</td> </tr>
                 <tr><td className="head-table">Trošak</td> <td className="head-table">Datum</td>{gorivo && <td className="head-table">Potrošnja (l) </td>} <td className="head-table">{vremeTab ? "Vreme zaposlenog" : "Cena (din.)"}</td>{gorivo && <td className="head-table">Ukupno (din.)</td>}</tr>
                 {dataSmall.data.map((item,key) => <tr key={key}><td>{item.trosak}</td><td>{formatDate(item.datum)}</td>{gorivo && <td>{item.potrosnja}</td>}<td>{vremeTab ? minsToTime(item.vreme) : item.cena}</td>{gorivo && <td>{item.ukupno.toLocaleString() }</td>}</tr>)}
-                {/* <tr><td className="head-table">Ukupno</td><td className="head-table"></td><td className="head-table">{gorivo ? dataSmall.potrosnjaTotal : dataSmall.cena}</td>{gorivo && <td className="head-table"></td>}{gorivo && <td className="head-table">{dataSmall.total.toLocaleString()}</td>}</tr> */}
+                <tr><td className="head-table">Ukupno</td><td className="head-table"></td>{gorivo&&<td className="head-table">{totalPotrosnja}</td>}{gorivo && <td className="head-table"></td>}{gorivo && <td className="head-table">{totalUkupno.toLocaleString()}</td>}</tr>
                 <tr><td colSpan={span5}>
                     <ReactHTMLTableToExcel
                         id="test-table-xls-button"
