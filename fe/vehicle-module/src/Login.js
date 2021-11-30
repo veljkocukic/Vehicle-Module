@@ -89,7 +89,7 @@ export const Login = () =>{
                 </div>
 
                 <div className="input--container__btns login-btns">
-                    <button className="btn yes login-btn" onClick={handleSubmit}><i class="fas fa-sign-in-alt"></i>    LOGIN</button>
+                    <button className="btn yes login-btn" onClick={handleSubmit}><i className="fas fa-sign-in-alt"></i>    LOGIN</button>
                     <p>Zaboravljena lozinka?</p>
                 </div>
                 </form>
