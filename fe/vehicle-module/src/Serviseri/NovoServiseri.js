@@ -77,6 +77,7 @@ export const NovoServiseri = () => {
         setEmailS("")
         setSiteS("")
         setAdresaS("")
+        setSiteS("")
         setNewOn(false)
         setValid(true)
     }

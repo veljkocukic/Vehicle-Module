@@ -263,22 +263,19 @@ const Serviseri = async (req, res) => {
 }
 
 const ServiseriEdit = async (req, res) => {
-
     try {
         const serv = await ServiseriModel.findById(req.body.id)
-
-
-        serv.sifraKlijenta = req.body.sifraS
+        serv.sifraKlijenta = req.body.sifraS 
         serv.nazivFirme = req.body.nazivFirme
         serv.tipUsluge = req.body.tipUslugeS
-        serv.kontakt = req.body.kontaktS
-        serv.adresa = req.body.adresaS
-        serv.brTelefona = req.body.telS
-        serv.email = req.body.mailS
-        serv.website = req.body.siteS
-
+        serv.kontakt = req.body.kontaktS || ""
+        serv.adresa = req.body.adresaS|| ""
+        serv.brTelefona = req.body.telS || ""
+        serv.email = req.body.emailS || ""
+        serv.website = req.body.siteS || ""
         serv.save()
         res.send("success")
+
 
 
 

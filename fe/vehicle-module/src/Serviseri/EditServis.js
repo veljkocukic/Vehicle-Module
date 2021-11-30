@@ -26,9 +26,8 @@ export const EditServis = ({ serviseriAr }) => {
         setTipUslugeS(serv.tipUsluge)
         setKontaktS(serv.kontakt)
         setTelS(serv.brTelefona)
-        setKontaktS(serv.kontakt)
         setEmailS(serv.email || "")
-        setSiteS(serv.webiste || "")
+        setSiteS(serv.website || "")
         setAdresaS(serv.adresa)
 
         sifraRef.current.value = serv.sifraKlijenta
@@ -90,6 +89,7 @@ export const EditServis = ({ serviseriAr }) => {
 
 
         if (verifySifra && verifyNaziv &&verifySite&&verifyMail) {
+            console.log("Site: "+siteS + "\n mail: "+emailS)
             axios.patch("http://localhost:5000/api/v1/serviseri", { id, sifraS, adresaS, nazivFirme, tipUslugeS, kontaktS, telS, emailS, siteS }).then(res => {
                 setValid(true)
                 setSpinerOn(false)
@@ -108,6 +108,7 @@ export const EditServis = ({ serviseriAr }) => {
             !verifySite ? setSiteFalse(true) : setSiteFalse(false)
             setValid(false)
             setSpinerOn(false)
+            console.log("Site: "+siteS + "\n mail: "+emailS)
             console.log(siteS)
             console.log(verifySifra, verifyNaziv,verifyMail,verifySite)
         }
