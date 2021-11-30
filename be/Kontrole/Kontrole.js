@@ -1,5 +1,7 @@
-let { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel } = require("../Modeli/Podaci")
+let { CarsModel, ServiseriModel, ZaposleniModel,KorisniciModel } = require("../Modeli/Podaci")
 let mongoose = require("mongoose")
+let jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 
 
@@ -27,6 +29,35 @@ let formatDateEdit = (dt) => { ////////////////////// Vreme za unos
     return `${t.getFullYear()}-${month}-${day}`
 }
 
+const Login = async (req, res) => {
+    try {
+        const user = await KorisniciModel.findOne({ username: req.body.name })
+        if (!user) {
+            return res.json({ "error": "user" })
+        } else if (user && user.password === req.body.pass) {
+            const token = jwt.sign({ _id: user._id }, process.env.SECRET)
+            res.json({ "login": "yes", token })
+        } else {
+            return res.json({ "error": "pass" })
+        }
+    } catch (error) {
+        res.json({catch:error})
+        console.log(error)
+    }
+}
+
+const CheckLogin = async(req,res) =>{
+    try {
+            if(!req.body.token){ 
+                return res.json({"access":"denied"})
+            }
+            const verified = jwt.verify(req.body.token,process.env.SECRET)
+            res.send("success")
+
+    }catch (error) {
+        res.send("error")
+    }
+}
 
 const Main = async (req, res) => { ////Podaci za listu automobila na glavnoj strani
     try {
@@ -962,4 +993,4 @@ const Tabela = async (req, res) => {
 
 }
 
-module.exports = { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit, Vozila, IzvestajiPost, Tabela }
+module.exports = { CheckLogin,Login,Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit, Vozila, IzvestajiPost, Tabela }

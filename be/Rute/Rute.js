@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit, Vozila,IzvestajiPost, Tabela } = require("../Kontrole/Kontrole")
+const { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit, Vozila,IzvestajiPost, Tabela,Login,CheckLogin } = require("../Kontrole/Kontrole")
 const { RegistracijaDelete, SpecifikacijaDelete, GorivoDelete, OdrzavanjeDelete, StetaDelete, ServiseriDelete } = require("../Kontrole/Delete")
 const { NovoRegistracija, NovoGorivo, NovoOdrzavanje, NovoSteta, NovoServiseri,NovoMain } = require("../Kontrole/Novo")
 
+router.route("/login").post(Login)
+router.route("/logincheck").post(CheckLogin)
 router.route("/main").get(Main).post(NovoMain).patch(EditCars)
 router.route("/vozila").get(Vozila)
 router.route("/zaposleni").get(Zaposleni)

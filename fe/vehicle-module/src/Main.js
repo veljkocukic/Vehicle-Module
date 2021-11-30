@@ -7,6 +7,7 @@ import "../src/style/main.css"
 import { EditMain } from "./ProfilPolja/Editi/EditMain";
 import { NovoMain } from "./ProfilPolja/Novo/NovoMain";
 import slikanedostupna from '../src/images/slikanedostupna.png'
+import { useHistory } from "react-router";
 
 
 
@@ -16,9 +17,19 @@ export const Main = () => {
     let [vozila, setVozila] = useState([])
     let zaposleniSelect = useRef(null)
     let [spinerMain, setSpinerMain] = useState(true)
+    let history = useHistory()
 
 
     useEffect(() => {
+        setSpinerMain(true)
+        const checkLogin = async () =>{
+            await axios.post("http://localhost:5000/api/v1/logincheck",{"token": localStorage.getItem("token")}).then(res => {
+               if(res.data!=="success"){
+                    history.push("/login")
+                   return
+               }
+            })
+        }
         const fetchData1 = async () => {
             await axios.get("http://localhost:5000/api/v1/main").then(e => {
                 setVozila(e.data)
@@ -31,6 +42,7 @@ export const Main = () => {
                 setZaposleniLista(e.data)
             })
         }
+        checkLogin()
         fetchData1()
         fetchData2()
     }, [])

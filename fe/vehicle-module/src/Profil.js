@@ -11,6 +11,7 @@ import { Steta } from "./ProfilPolja/Steta"
 import { Istorija } from "./ProfilPolja/Istorija"
 import { Spiner } from "./ProfilPolja/Editi/Spiner"
 import slikanedostupna from '../src/images/slikanedostupna.png'
+import { useHistory } from "react-router"
 
 
 
@@ -18,7 +19,7 @@ export const Profil = () => {
 
 
     const photoContainer = useRef(null)
-    
+    const history = useHistory()
     const [openSingleImage, setOpenSigleImage] = useState(false)
     const [spinerProfile, setSpinerProfile] = useState(true)
     const [slikaZaModal, setSlikaZaModal] = useState("")
@@ -34,6 +35,14 @@ export const Profil = () => {
     const [marka, setMarka] = useState()
     let { carId } = useParams()
     useEffect(() => {
+        const checkLogin = async () =>{
+            await axios.post("http://localhost:5000/api/v1/logincheck",{"token": localStorage.getItem("token")}).then(res => {
+               if(res.data!=="success"){
+                    history.push("/login")
+                   return
+               }
+            })
+        }
 
         const fetchData = async () => {
             await axios.get("http://localhost:5000/api/v1/profil/" + carId).then(res => {
@@ -68,6 +77,7 @@ export const Profil = () => {
                 setZaposleniLista(e.data)
             })
         }
+        checkLogin()
         fetchData().then(() => setSpinerProfile(false)).catch(er => {
             console.log(er)
             setSpinerProfile(false)

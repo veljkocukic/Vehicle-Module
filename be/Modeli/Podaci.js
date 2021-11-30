@@ -106,6 +106,11 @@ const ZaposleniSchema = new mongoose.Schema({
     ime: { type: String, required: true }
 })
 
+const KorisniciSchema = new mongoose.Schema({
+    username:{type:String,required:true},
+    password: {type:String,required:true}
+})
+
 
 
 
@@ -114,9 +119,10 @@ const CarsModel = mongoose.model("Cars", CarsSchema)
 const ServiseriModel = mongoose.model("Serviseri", ServiseriSchema)
 const CommentsModel = mongoose.model("Comments", CommentsSchema)
 const ZaposleniModel = mongoose.model("Zaposleni", CommentsSchema)
+const KorisniciModel = mongoose.model("Korisnici",KorisniciSchema)
 
 
 
 
-module.exports = { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel }
+module.exports = { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel,KorisniciModel }
 
