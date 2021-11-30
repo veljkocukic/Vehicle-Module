@@ -11,3 +11,21 @@ export const handleSmallTableOn = (arg) => {
         type: arg ? "ON" : "OFF"
     }
 }
+
+export const handleDataSmall = arg =>{
+    return{
+        type:"DATASMALL",payload:arg
+    }
+}
+
+export const handleDataTable = arg =>{
+    return{
+        type:"DATATABLE",payload:arg
+    }
+}
+
+export const handleTableHead = arg =>{
+    return{
+        type:"TABLEHEAD",payload:arg
+    }
+}

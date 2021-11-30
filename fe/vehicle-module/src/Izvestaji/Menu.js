@@ -5,9 +5,13 @@ import { Spiner } from "../ProfilPolja/Editi/Spiner"
 import { ZaposleniLista } from "../ProfilPolja/Novo/ZaposleniLista";
 import { VozilaLista } from "../VozilaLista";
 import ReactHTMLTableToExcel from 'react-html-table-to-excel';
+import { useDispatch } from "react-redux";
+import { handleDataTable } from "../state/actions";
+import { handleTableHead } from "../state/actions";
 
 
 export const Menu = ({ sbt }) => {
+    let dispatch = useDispatch()
     const [tipIzvestaja, setTipIzvestaja] = useState("Potrošnja goriva")
     const [vrstaVrednosti, setVrstaVrednosti] = useState("Cena (din.)")
     const [rezolucija, setRezolucija] = useState("Godina")
@@ -54,10 +58,8 @@ export const Menu = ({ sbt }) => {
             let pokr = tipIzvestaja === "Troškovi štete na vozilu" ? pokriceStete : null
             let todr = tipIzvestaja === "Troškovi održavanja" ? tipOdrzavanja : null
             await axios.post("http://localhost:5000/api/v1/izvestaji", { tipIzvestaja, vrstaVrednosti, rezolucija, tipTekuceg, menuDateFrom, menuDateTo, vozilaSelect, zaposleniSelect, pokr, todr }).then(res => {
-
-                console.log(res.data.dataTable)
-                setTableHead(res.data.tableHead)
-                setDataTable(res.data.dataTable)
+                dispatch(handleTableHead(res.data.tableHead))
+                dispatch(handleDataTable(res.data.dataTable))
                 sbt(true)
                 setSpinerOn(false)
                 setValid(true)

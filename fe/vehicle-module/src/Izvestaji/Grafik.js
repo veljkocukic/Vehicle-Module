@@ -23,7 +23,8 @@ export const Grafik = () => {
 
 
 
-    let { tableHead, dataTable } = useContext(DataContext)
+    let tableHead = useSelector(state=>state.tableHeadReducer)
+    let dataTable = useSelector(state=>state.dataTableReducer)
 
 
     ChartJS.register(
@@ -50,14 +51,13 @@ export const Grafik = () => {
     };
 
     const labels = [...tableHead];
-    console.log(grafikBroj)
 
     const data = {
         labels,
         datasets: [
             {
                 label: 'Dataset 1',
-                data: dataTable[grafikBroj - 1].data.map(item => item.ukupno),
+                data: dataTable[grafikBroj-1].data.map(item => item.ukupno),
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             }
         ],

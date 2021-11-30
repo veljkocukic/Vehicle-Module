@@ -1,26 +1,27 @@
-import React, { useContext } from "react"
+import React from "react"
 import axios from "axios"
-import { DataContext } from "../Context"
 import { handleBroj } from "../state/actions"
 import { handleIme } from "../state/actions"
 import { handleSmallTableOn } from "../state/actions"
-import { useDispatch } from "react-redux"
-const Kolone = ({ setDataSmall, rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
+import { handleDataSmall } from "../state/actions"
+import { useDispatch, useSelector } from "react-redux"
+const Kolone = ({ rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
 
     const dispatch = useDispatch()
     const findName = (nm) => {
         let ind = data.indexOf(nm)
         return th[ind]
     }
+    dispatch(handleIme(vozilo))
 
 
 
     const handleSmallTable = async (date, polje) => {
-
+        console.log("r")
         let firstDate = date[0].datum
         let lastDate = date[date.length - 1]
         await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje, naziv, todr, pokr, date }).then(res => {
-            setDataSmall(res.data)
+            dispatch(handleDataSmall(res.data))
             dispatch(handleSmallTableOn(true))
         })
     }
@@ -45,7 +46,8 @@ const Kolone = ({ setDataSmall, rb, vozilo, data, th, regBr, naziv, todr, pokr }
 
 export const Table = () => {
 
-    let { dataTable, tableHead, setDataSmall } = useContext(DataContext)
+    let tableHead = useSelector(state=>state.tableHeadReducer)
+    let dataTable = useSelector(state=>state.dataTableReducer)
 
     let ar = []
     try {
@@ -78,7 +80,7 @@ export const Table = () => {
                 </tr>
             </thead>
             <tbody>
-                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} setDataSmall={setDataSmall} naziv={item.naziv} todr={item.todr} pokr={item.pokr} />)}
+                {dataTable.map((item, key) => <Kolone key={key} rb={item.rb} regBr={item.regBr} vozilo={item.vozilo} data={item.data} th={tableHead} naziv={item.naziv} todr={item.todr} pokr={item.pokr} />)}
                 <tr >
                     <td className="head-table" colSpan="2">Ukupno</td>
                     {ar.map((item, key) => <td key={key} className="head-table click-tab">{item}</td>)}
