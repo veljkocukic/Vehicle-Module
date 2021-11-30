@@ -6,15 +6,10 @@ import { Login } from "./Login.js";
 import { Main } from "./Main.js"
 import { Profil } from "./Profil.js"
 import { Serviseri } from "./Serviseri/Serviseri";
-import slikanedostupna from '../src/images/slikanedostupna.png'
-import { useDispatch } from "react-redux";
-import { handleUserName } from "./state/actions/index.js";
-import { useSelector } from "react-redux";
 import "./style/input.css"
 
 export const Sadrzaj = () => {
-  let loginName = useSelector(state=>state.userNameReducer)
-  let dis = useDispatch()
+  let loginName = localStorage.getItem("username")
   let side = useRef(null)
   let [menuOn,setMenuOn] = useState(false)
   const handleMenu = (e)=>{
@@ -30,7 +25,7 @@ export const Sadrzaj = () => {
   }
   const handleLogout = () =>{
     localStorage.clear()
-    dis(handleUserName(""))
+    localStorage.setItem("username","")
     window.location.replace("/login");
   }
 
@@ -55,7 +50,7 @@ export const Sadrzaj = () => {
       <div ref={side} className="sidebar">
 
         <div className="upperDiv">
-          <img src={slikanedostupna} alt="profile-pic"></img>
+          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="profile-pic"></img>
           <h3>Korisnik: {loginName}</h3>
         </div>
 

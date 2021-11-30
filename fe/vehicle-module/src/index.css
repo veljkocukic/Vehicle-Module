@@ -81,7 +81,7 @@ header ul li{
   padding-top: 6em;
   padding-bottom: 8em;
   align-items: center;
-  transition: .3s ease-in;
+  transition: .3s ease-out;
 }
 
 .upperDiv{
