@@ -54,7 +54,7 @@ export const Sadrzaj = () => {
           <h3>Korisnik: {loginName}</h3>
         </div>
 
-        <h3 style={{cursor:"pointer"}} onClick={handleLogout} >Odjavi se <i class="fas fa-sign-out-alt"></i></h3>
+        <h3 style={{cursor:"pointer"}} onClick={handleLogout} >Odjavi se <i className="fas fa-sign-out-alt"></i></h3>
       </div>
 
       <Switch>
