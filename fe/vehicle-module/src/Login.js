@@ -57,7 +57,7 @@ export const Login = () =>{
         }).catch(error=>alert(error))
         }else{
             !verifyName ? setUserFalse(true) : setUserFalse(false)
-            !verifyName ? setPassFalse(true) : setUserFalse(false)
+            !verifyPass ? setPassFalse(true) : setUserFalse(false)
             setLoginSpinner(false)
         }
 

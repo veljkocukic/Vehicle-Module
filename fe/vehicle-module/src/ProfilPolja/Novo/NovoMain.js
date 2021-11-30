@@ -6,7 +6,7 @@ import { ZaposleniLista } from "./ZaposleniLista"
 export const NovoMain = ({ setEditOn }) => {
 
 
-    let { verReg, valid, setValid, setNewOn, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd, dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
+    let { verReg, valid, setValid, setNewOn, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd,regDo, setRegDo } = useContext(DataContext)
     let [zaposleni, setZaposleni] = useState(true)
     let [file, setFile] = useState([])
 
