@@ -8,16 +8,11 @@ export const Paginacija = (props) =>{
         setCurrent(n)
         props.setSliceAr(props.arr.slice(n*5-5,n*5))
     }
-    let handleMinus = ()=>{
-        if(current>1){
+    let handleChev = (n)=>{
+        let op = n===1 ? (parseInt(current)+1): (parseInt(current)-1)
         setCurrent(prev=>parseInt(prev)-1)
-        props.setSliceAr(props.arr.slice((parseInt(current)-1)*5-5,(parseInt(current)-1)*5))}
-    }
-    let handlePlus = ()=>{
-        if(current < Math.ceil(total/5))
-{        setCurrent(prev=>parseInt(prev)+1)
-        props.setSliceAr(props.arr.slice((parseInt(current)+1)*5-5,(parseInt(current)+1)*5))}
-    }
+        props.setSliceAr(props.arr.slice(op*5-5,op*5))
+      }
     const rednderBtns = () =>{
         let currentNotLast = current !== Math.ceil(total/5)
         let cond = n =>currentNotLast && n < Math.ceil(total/5)
@@ -39,14 +34,14 @@ export const Paginacija = (props) =>{
         return (
           <div className="pagination">
       
-            <div onClick={(e)=>current>1&&handleMinus()} className="pag-item prev">{"<"}</div>
+            <div onClick={(e)=>current>1&&handleChev(0)} className="pag-item prev">{"<"}</div>
       
       
             {current > 1 && <div onClick={e=>setSl(e.target.innerText)} className="pag-item">1</div>}
             {rednderBtns()}
       
       
-            <div onClick={(e)=>handlePlus()} className="pag-item next">{">"}</div>
+            <div onClick={(e)=>current < Math.ceil(total/5) && handleChev(1)} className="pag-item next">{">"}</div>
       
           </div>
         );
