@@ -10,7 +10,7 @@ export const Paginacija = (props) =>{
     }
     let handleChev = (n)=>{
         let op = n===1 ? (parseInt(current)+1): (parseInt(current)-1)
-        setCurrent(prev=>parseInt(prev)-1)
+        setCurrent(prev=>parseInt(prev=>n===1?parseInt(prev)+1 : parseInt(prev)-1))
         props.setSliceAr(props.arr.slice(op*5-5,op*5))
       }
     const rednderBtns = () =>{
