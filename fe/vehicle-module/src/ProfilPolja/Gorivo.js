@@ -12,6 +12,10 @@ export const Gorivo = ({ gorivoAr }) => {
     let [sliceAr,setSliceAr] = useState(gorivoAr.slice(0,5))
     let { carId } = useParams()
 
+    useEffect(()=>{
+        setSliceAr(gorivoAr.slice(0,5))
+    },[gorivoAr])
+
 
 
     const KoloneGorivo = (props) => {
@@ -26,9 +30,6 @@ export const Gorivo = ({ gorivoAr }) => {
             setId(kid)
         }
 
-        useEffect(()=>{
-            setSliceAr(gorivoAr.slice(0,5))
-        },[gorivoAr])
 
         return (
             <tr>
