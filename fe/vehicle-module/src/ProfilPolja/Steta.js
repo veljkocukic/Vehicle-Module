@@ -1,9 +1,10 @@
-import React, { useContext } from "react"
+import React, { useContext,useState,useEffect } from "react"
 import { DataContext } from "../Context"
 import { EditSteta } from "./Editi/EditSteta"
 import { Dialog } from "./Editi/Dialog"
 import { useParams } from "react-router"
 import { NovoSteta } from "./Novo/NovoSteta"
+import { Paginacija } from "../Paginacija"
 
 
 
@@ -11,6 +12,12 @@ export const Steta = ({ stetaAr }) => {
 
     let { minsToTime, newOn, setNewOn, openDialog, setOpenDialog, openDmgEdit, setOpenDmgEdit, setId, formatDate } = useContext(DataContext)
     let { carId } = useParams()
+    let [sliceAr,setSliceAr] = useState(stetaAr.slice(0,5))
+
+
+    useEffect(()=>{
+        setSliceAr(stetaAr.slice(0,5))
+    },[stetaAr])
 
 
     const KoloneSteta = (props) => {
@@ -60,11 +67,12 @@ export const Steta = ({ stetaAr }) => {
                 </tr>
             </thead>
             <tbody>
-                {stetaAr.map((item, key) => <KoloneSteta _id={item._id} desc={item.opisStete} cover={item.stetuPokriva} date={item.datum} part={item.deloviUsluga} total={item.cena.toLocaleString()} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
+                {sliceAr.map((item, key) => <KoloneSteta _id={item._id} desc={item.opisStete} cover={item.stetuPokriva} date={item.datum} part={item.deloviUsluga} total={item.cena.toLocaleString()} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
                 {newOn && <NovoSteta />}
                 {openDialog && <Dialog par={carId} polje="dmg" />}
+                <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={stetaAr}/>
         </div>
     )
 }

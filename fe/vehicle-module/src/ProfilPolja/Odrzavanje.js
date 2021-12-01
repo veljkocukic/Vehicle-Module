@@ -1,15 +1,21 @@
-import React, { useContext } from "react"
+import React, { useContext,useState,useEffect } from "react"
 import { DataContext } from "../Context"
 import { EditOdrzavanje } from "./Editi/EditOdrzavanje"
 import { Dialog } from "./Editi/Dialog"
 import { useParams } from "react-router"
 import { NovoOdrzavanje } from "./Novo/NovoOdrzavanje"
+import { Paginacija } from "../Paginacija"
 
 
 export const Odrzavanje = ({ odrzavanjeAr }) => {
 
     let { minsToTime, newOn, setNewOn, openDialog, setOpenDialog, openOdrEdit, setOpenOdrEdit, formatDate, setId } = useContext(DataContext)
     let { carId } = useParams()
+    let [sliceAr,setSliceAr] = useState(odrzavanjeAr.slice(0,5))
+
+    useEffect(()=>{
+        setSliceAr(odrzavanjeAr.slice(0,5))
+    },[odrzavanjeAr])
 
     const KoloneOdrz = (props) => {
 
@@ -60,11 +66,12 @@ export const Odrzavanje = ({ odrzavanjeAr }) => {
                 </tr>
             </thead>
             <tbody>
-                {odrzavanjeAr.map((item, key) => < KoloneOdrz _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} part={item.deloviUsluga} total={item.cena.toLocaleString()} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
+                {sliceAr.map((item, key) => < KoloneOdrz _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} part={item.deloviUsluga} total={item.cena.toLocaleString()} user={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
                 {newOn && <NovoOdrzavanje />}
                 {openDialog && <Dialog par={carId} polje="odr" />}
+                <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={odrzavanjeAr}/>
         </div>
     )
 }

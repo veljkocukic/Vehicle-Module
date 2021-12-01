@@ -1,15 +1,21 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import { EditRegistracija } from "./Editi/EditRegistracija"
 import { DataContext } from "../Context"
 import { Dialog } from "./Editi/Dialog.js"
 import { useParams } from "react-router-dom"
 import { NovoRegistracija } from "./Novo/NovoRegistracija"
+import { Paginacija } from "../Paginacija"
 
 export const Registracija = ({ registracijaAr }) => {
     let { verDate,minsToTime, newOn, setNewOn, setId, formatDate, setOpenRegEdit, openRegEdit, openDialog, setOpenDialog } = useContext(DataContext)
+    let [sliceAr,setSliceAr] = useState(registracijaAr.slice(0,5))
     let [regId, setRegId] = useState("")
     let { carId } = useParams()
 
+
+    useEffect(()=>{
+        setSliceAr(registracijaAr.slice(0,5))
+    },[registracijaAr])
 
     const handleRegEditOpen = (_id) => {
         setRegId(_id)
@@ -59,11 +65,12 @@ export const Registracija = ({ registracijaAr }) => {
                 </tr>
             </thead>
             <tbody>
-                {registracijaAr.map((item, key) => <Kolone kid={cond ? "/" : item._id} date={cond ? "/" : item.datum} doc={cond ? "/" : item.dokumentacija} reg={cond ? "/" : item.cena.toLocaleString()} user={cond ? "/" : item.registrovaoZaposleni} time={cond ? "/" : item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
+                {sliceAr.map((item, key) => <Kolone kid={cond ? "/" : item._id} date={cond ? "/" : item.datum} doc={cond ? "/" : item.dokumentacija} reg={cond ? "/" : item.cena.toLocaleString()} user={cond ? "/" : item.registrovaoZaposleni} time={cond ? "/" : item.vremeZaposlenog} expire={item.registrovanDo} key={key} />)}
             </tbody>
         </table>
                 {newOn && <NovoRegistracija />}
                 {openDialog && <Dialog par={carId} polje="reg" />}
+                <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={registracijaAr}/>
         </div>
     )
 }

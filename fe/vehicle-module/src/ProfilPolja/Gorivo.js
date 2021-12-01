@@ -1,13 +1,15 @@
-import React, { useContext } from "react"
+import React, { useContext,useState,useEffect } from "react"
 import { DataContext } from "../Context"
 import { EditGorivo } from "./Editi/EditGorivo"
 import { useParams } from "react-router"
 import { Dialog } from "./Editi/Dialog"
 import { NovoGorivo } from "./Novo/NovoGorivo"
+import { Paginacija } from "../Paginacija"
 
 
 export const Gorivo = ({ gorivoAr }) => {
     let { minsToTime, setNewOn, newOn, openDialog, setOpenDialog, formatDate, openFuelEdit, setOpenFuelEdit, setId } = useContext(DataContext)
+    let [sliceAr,setSliceAr] = useState(gorivoAr.slice(0,5))
     let { carId } = useParams()
 
 
@@ -23,6 +25,10 @@ export const Gorivo = ({ gorivoAr }) => {
             setOpenDialog(true)
             setId(kid)
         }
+
+        useEffect(()=>{
+            setSliceAr(gorivoAr.slice(0,5))
+        },[gorivoAr])
 
         return (
             <tr>
@@ -61,11 +67,13 @@ export const Gorivo = ({ gorivoAr }) => {
                 </tr>
             </thead>
             <tbody>
-                {gorivoAr.map((item, key) => <KoloneGorivo _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} pot={item.potrosnja} cena={item.cena.toLocaleString()} usluga={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
+                {sliceAr.map((item, key) => <KoloneGorivo _id={item._id} type={item.tip} date={item.datum} km={item.kilometraza} pot={item.potrosnja} cena={item.cena.toLocaleString()} usluga={item.uslugaZaposlenog} time={item.vremeZaposlenog} key={key} />)}
             </tbody>
         </table>
                 {newOn && <NovoGorivo />}
                 {openDialog && <Dialog par={carId} polje="fuel" />}
+                <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={gorivoAr}/>
+
         </div>
     )
 

@@ -136,7 +136,7 @@ export const Profil = () => {
 
         switch (openSec) {
             case "reg":
-                return <Registracija registracijaAr={registracijaAr} carId={carId} />
+                return <Registracija registracijaAr={registracijaAr} s={registracijaAr.slice(0,5)} carId={carId} />
             case "spec":
                 return <Specifikacija specifikacijaAr={specifikacijaAr} />
             case "fuel":
