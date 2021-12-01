@@ -49,7 +49,7 @@ header ul li{
   display: inline;
   width: 4em;
   height: 4em;
-  position: absolute;
+  position: fixed;
   border-radius: 5px;
   background-color: #0079c0;
   left:3em;
@@ -69,6 +69,7 @@ header ul li{
 .sidebar{
   position: fixed;
   width: 15vw;
+  top:0;
   left:-15vw;
   height: 100%;
   z-index: 7;
@@ -78,8 +79,8 @@ header ul li{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 6em;
-  padding-bottom: 8em;
+  padding-top: 10em;
+  padding-bottom: 5em;
   align-items: center;
   transition: .3s ease-out;
 }
