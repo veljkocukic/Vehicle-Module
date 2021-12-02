@@ -11,7 +11,7 @@ export const Paginacija = (props) => {
 
 
   let handleChev = (n) => {
-    let fn = n > 0 ? current + 1 : current - 1
+    let fn = n > 0 ? parseInt(current) + 1 : parseInt(current) - 1
     setCurrent(fn)
     props.setSliceAr(props.arr.slice(fn * 5 - 5, fn * 5))
   }
