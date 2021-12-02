@@ -23,7 +23,7 @@ export const Main = () => {
     useEffect(() => {
         setSpinerMain(true)
         const checkLogin = async () => {
-            await axios.post("http://localhost:5000/api/v1/logincheck", { "token": localStorage.getItem("token") }).then(res => {
+            await axios.post("https://vehicle-module.herokuapp.com/api/v1/logincheck", { "token": localStorage.getItem("token") }).then(res => {
                 if (res.data !== "success") {
                     history.push("/login")
                     return
@@ -31,14 +31,14 @@ export const Main = () => {
             })
         }
         const fetchData1 = async () => {
-            await axios.get("http://localhost:5000/api/v1/main").then(e => {
+            await axios.get("https://vehicle-module.herokuapp.com/api/v1/main").then(e => {
                 setVozila(e.data)
 
             })
         }
 
         const fetchData2 = async () => {
-            await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
+            await axios.get("https://vehicle-module.herokuapp.com/api/v1/zaposleni").then(e => {
                 setZaposleniLista(e.data)
             })
         }

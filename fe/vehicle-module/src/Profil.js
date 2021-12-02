@@ -36,7 +36,7 @@ export const Profil = () => {
     let { carId } = useParams()
     useEffect(() => {
         const checkLogin = async () => {
-            await axios.post("http://localhost:5000/api/v1/logincheck", { "token": localStorage.getItem("token") }).then(res => {
+            await axios.post("https://vehicle-module.herokuapp.com/api/v1/logincheck", { "token": localStorage.getItem("token") }).then(res => {
                 if (res.data !== "success") {
                     history.push("/login")
                     return
@@ -45,7 +45,7 @@ export const Profil = () => {
         }
 
         const fetchData = async () => {
-            await axios.get("http://localhost:5000/api/v1/profil/" + carId).then(res => {
+            await axios.get("https://vehicle-module.herokuapp.com/api/v1/profil/" + carId).then(res => {
 
                 let regPo = res.data.car.registracijaPolje
                 setRegistracijaAr(regPo)
@@ -73,7 +73,7 @@ export const Profil = () => {
             })
         }
         const fetchData2 = async () => {
-            await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
+            await axios.get("https://vehicle-module.herokuapp.com/api/v1/zaposleni").then(e => {
                 setZaposleniLista(e.data)
             })
         }

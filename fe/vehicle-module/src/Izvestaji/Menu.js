@@ -24,19 +24,19 @@ export const Menu = ({ sbt }) => {
 
 
 
-    let { setVremeTab,setZaposleniLista, setVozilaLista, vozilaSelect,  spinerOn, setSpinerOn, zaposleniSelect } = useContext(DataContext)
+    let { setVremeTab, setZaposleniLista, setVozilaLista, vozilaSelect, spinerOn, setSpinerOn, zaposleniSelect } = useContext(DataContext)
 
     const vrednostRef = useRef(null)
 
     useEffect(() => {
         setSpinerOn(true)
         const fetchData1 = async () => {
-            await axios.get("http://localhost:5000/api/v1/zaposleni").then(e => {
+            await axios.get("https://vehicle-module.herokuapp.com/api/v1/zaposleni").then(e => {
                 setZaposleniLista(e.data)
             })
         }
         const fetchData2 = async () => {
-            await axios.get("http://localhost:5000/api/v1/vozila").then(e => {
+            await axios.get("https://vehicle-module.herokuapp.com/api/v1/vozila").then(e => {
                 setVozilaLista(e.data)
                 setSpinerOn(false)
             })
@@ -57,7 +57,7 @@ export const Menu = ({ sbt }) => {
             tipIzvestaja === "Ukupno vreme zaposlenog" ? setVremeTab(true) : setVremeTab(false)
             let pokr = tipIzvestaja === "Troškovi štete na vozilu" ? pokriceStete : null
             let todr = tipIzvestaja === "Troškovi održavanja" ? tipOdrzavanja : null
-            await axios.post("http://localhost:5000/api/v1/izvestaji", { tipIzvestaja, vrstaVrednosti, rezolucija, tipTekuceg, menuDateFrom, menuDateTo, vozilaSelect, zaposleniSelect, pokr, todr }).then(res => {
+            await axios.post("https://vehicle-module.herokuapp.com/api/v1/izvestaji", { tipIzvestaja, vrstaVrednosti, rezolucija, tipTekuceg, menuDateFrom, menuDateTo, vozilaSelect, zaposleniSelect, pokr, todr }).then(res => {
                 dispatch(handleTableHead(res.data.tableHead))
                 dispatch(handleDataTable(res.data.dataTable))
                 sbt(true)

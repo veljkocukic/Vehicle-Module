@@ -11,10 +11,10 @@ export const NovoGorivo = ({ newC }) => {
 
 
     let { carId } = useParams()
-    let [dateFalse,setDateFalse] = useState(false)
-    let [kmFalse,setKmFalse] = useState(false)
-    let [potFalse,setPotFalse] = useState(false)
-    let [priceFalse,setPriceFalse] = useState(false)
+    let [dateFalse, setDateFalse] = useState(false)
+    let [kmFalse, setKmFalse] = useState(false)
+    let [potFalse, setPotFalse] = useState(false)
+    let [priceFalse, setPriceFalse] = useState(false)
 
     const handleSubmit = async () => {
         setSpinerOn(true)
@@ -24,7 +24,7 @@ export const NovoGorivo = ({ newC }) => {
         let verifyPriceFuel = priceFuel > 0
 
         if (verifyDateFuel && verifyKmFuel && verifyPotrosnja && verifyPriceFuel) {
-            await axios.post("http://localhost:5000/api/v1/gorivo/new/" + carId, { type, dateFuel, kmFuel, potrosnja, priceFuel, uslugaFuel, timeFuel }).then(res => {
+            await axios.post("https://vehicle-module.herokuapp.com/api/v1/gorivo/new/" + carId, { type, dateFuel, kmFuel, potrosnja, priceFuel, uslugaFuel, timeFuel }).then(res => {
                 if (res.data !== "success") {
                     alert("error")
                     console.log(res.data)
@@ -86,32 +86,32 @@ export const NovoGorivo = ({ newC }) => {
 
                 <div className="single-input-container">
                     <label htmlFor="datum-gorivo" className="standard--label">Datum <span>*</span> </label>
-                    <input style={{border:dateFalse&&"1px solid red"}} onBlur={e=>!verDate(e.target.value) ? setDateFalse(true):setDateFalse(false)} type="date" onChange={(e) => setDateFuel(e.target.value)} className="standard--input" id="datum-gorivo" name="datum-gorivo" />
-                    { dateFalse && <p style={{color:"red",fontSize:".8em"}}>Datum mora biti validan</p>}
+                    <input style={{ border: dateFalse && "1px solid red" }} onBlur={e => !verDate(e.target.value) ? setDateFalse(true) : setDateFalse(false)} type="date" onChange={(e) => setDateFuel(e.target.value)} className="standard--input" id="datum-gorivo" name="datum-gorivo" />
+                    {dateFalse && <p style={{ color: "red", fontSize: ".8em" }}>Datum mora biti validan</p>}
 
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="kilometraza-gorivo" className="standard--label">Kilometraža <span>*</span></label>
-                    <input style={{border:kmFalse&&"1px solid red"}} onBlur={e=>e.target.value===""||e.target.value===0 ? setKmFalse(true) : setKmFalse(false) } type="number" onChange={(e) => setKmFuel(e.target.value)} className="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
-                    { kmFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
+                    <input style={{ border: kmFalse && "1px solid red" }} onBlur={e => e.target.value === "" || e.target.value === 0 ? setKmFalse(true) : setKmFalse(false)} type="number" onChange={(e) => setKmFuel(e.target.value)} className="standard--input" id="kilometraza-gorivo" name="kilometraza-gorivo" />
+                    {kmFalse && <p style={{ color: "red", fontSize: ".8em" }}>Broj mora biti veći od 0</p>}
                 </div>
 
-                {type==="Gorivo" && <div className="single-input-container">
+                {type === "Gorivo" && <div className="single-input-container">
                     <label htmlFor="potrosnja-gorivo" className="standard--label"> Potrošnja <span>*</span></label>
-                    <input style={{border:potFalse&&"1px solid red"}} onBlur={e=>e.target.value===""||e.target.value===0 ? setPotFalse(true):setPotFalse(false)} onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo" />
-                    { potFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
+                    <input style={{ border: potFalse && "1px solid red" }} onBlur={e => e.target.value === "" || e.target.value === 0 ? setPotFalse(true) : setPotFalse(false)} onChange={(e) => setPotrosnja(e.target.value)} type="number" className="standard--input" id="potrosnja-gorivo" name="potrosnja-gorivo" />
+                    {potFalse && <p style={{ color: "red", fontSize: ".8em" }}>Broj mora biti veći od 0</p>}
                 </div>}
 
                 <div className="single-input-container">
                     <label htmlFor="cena-gorivo" className="standard--label">Cena <span>*</span></label>
-                    <input style={{border:priceFalse&&"1px solid red"}} onBlur={e=>e.target.value===""||e.target.value===0 ? setPriceFalse(true) :setPriceFalse(false) } onChange={(e) => setPriceFuel(e.target.value)} type="number" className="standard--input" id="cena-gorivo" name="cena-gorivo" />
-                    { priceFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
+                    <input style={{ border: priceFalse && "1px solid red" }} onBlur={e => e.target.value === "" || e.target.value === 0 ? setPriceFalse(true) : setPriceFalse(false)} onChange={(e) => setPriceFuel(e.target.value)} type="number" className="standard--input" id="cena-gorivo" name="cena-gorivo" />
+                    {priceFalse && <p style={{ color: "red", fontSize: ".8em" }}>Broj mora biti veći od 0</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="usluga-zaposlenog-gorivo" className="standard--label">Usluga zaposlenog</label>
-                    <ZaposleniLista type="gor"/>
+                    <ZaposleniLista type="gor" />
                 </div>
 
                 <div className="single-input-container">

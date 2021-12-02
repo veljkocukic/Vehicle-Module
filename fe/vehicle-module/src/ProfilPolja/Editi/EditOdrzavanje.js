@@ -52,7 +52,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
         let verifyTotalOdr = totalOdr > 0
 
         if (verifyDateOdr && verifyKmOdr && verifyPartsOdr && verifyTotalOdr) {
-            axios.patch("http://localhost:5000/api/v1/odrzavanje/" + carId, { id, typeOdr, dateOdr, kmOdr, partsOdr, totalOdr, uslugaOdr, timeOdr }).then(res => {
+            axios.patch("https://vehicle-module.herokuapp.com/api/v1/odrzavanje/" + carId, { id, typeOdr, dateOdr, kmOdr, partsOdr, totalOdr, uslugaOdr, timeOdr }).then(res => {
                 setValid(true)
                 setSpinerOn(false)
                 setOpenOdrEdit(false)

@@ -26,7 +26,7 @@ export const NovoMain = ({ setEditOn }) => {
 
 
         if (verifyMarka && verifyReg && verifyActiveFrom && verifyDo) {
-            await axios.post("http://localhost:5000/api/v1/main", {
+            await axios.post("https://vehicle-module.herokuapp.com/api/v1/main", {
                 marka, regBr, korisnikMn, aktivnoOd, aktivnoDo, regDo, typeMn, file
             })
                 .then(() => setSpinerOn(false))

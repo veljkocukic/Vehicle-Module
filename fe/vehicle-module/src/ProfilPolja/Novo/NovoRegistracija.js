@@ -27,7 +27,7 @@ export const NovoRegistracija = ({ newC }) => {
         let verifyTime = timeZaposleni>0
         let verifyDo = verDate(regDo)
         if (verifyDate && verifyDoc && verifyTroskovi && verifyRegistrovao && verifyTime && verifyDo) {
-            await axios.post("http://localhost:5000/api/v1/registracija/new/" + carId, { dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
+            await axios.post("https://vehicle-module.herokuapp.com/api/v1/registracija/new/" + carId, { dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
                 if (res.data !== "success") {
                     alert("error")
                     console.log(res.data)

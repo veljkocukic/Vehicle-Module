@@ -12,17 +12,17 @@ export const Izvestaj = () => {
     let smallTableOn = useSelector(state => state.smallTableReducer)
     let [bigTableOn, setBigTableOn] = useState(false)
     let history = useHistory()
-    useEffect(()=>{
-        const checkLogin = async () =>{
-            await axios.post("http://localhost:5000/api/v1/logincheck",{"token": localStorage.getItem("token")}).then(res => {
-               if(res.data!=="success"){
+    useEffect(() => {
+        const checkLogin = async () => {
+            await axios.post("https://vehicle-module.herokuapp.com/api/v1/logincheck", { "token": localStorage.getItem("token") }).then(res => {
+                if (res.data !== "success") {
                     history.push("/login")
-                   return
-               }
+                    return
+                }
             })
         }
         checkLogin()
-    },[])
+    }, [])
     return (
         <div className="izvestaj">
             <div className="page-title">

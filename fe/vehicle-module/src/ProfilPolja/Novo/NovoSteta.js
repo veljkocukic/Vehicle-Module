@@ -6,14 +6,14 @@ import { useParams } from "react-router-dom"
 import { ZaposleniLista } from "./ZaposleniLista"
 
 export const NovoSteta = () => {
-    let { verDate,setNewOn, valid, setValid, spinerOn, setSpinerOn, setOpenDmgEdit, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts } = useContext(DataContext)
+    let { verDate, setNewOn, valid, setValid, spinerOn, setSpinerOn, setOpenDmgEdit, desc, setDesc, pokriva, setPokriva, date, setDate, total, setTotal, usluga, setUsluga, time, setTime, parts, setParts } = useContext(DataContext)
 
 
     let { carId } = useParams()
-    let [descFalse,setDescFalse] = useState(false)
-    let [dateFalse,setDateFalse] = useState(false)
-    let [partsFalse,setPartsFalse] = useState(false)
-    let [totalFalse,setTotalFalse] = useState(false)
+    let [descFalse, setDescFalse] = useState(false)
+    let [dateFalse, setDateFalse] = useState(false)
+    let [partsFalse, setPartsFalse] = useState(false)
+    let [totalFalse, setTotalFalse] = useState(false)
 
     const handleSubmit = async () => {
         setSpinerOn(true)
@@ -23,7 +23,7 @@ export const NovoSteta = () => {
         let verifyTotal = total > 0
 
         if (verifyDesc && verifyDate && verifyParts && verifyTotal) {
-            await axios.post("http://localhost:5000/api/v1/steta/new/" + carId, { desc, pokriva, date, parts, total, usluga, time }).then(res => {
+            await axios.post("https://vehicle-module.herokuapp.com/api/v1/steta/new/" + carId, { desc, pokriva, date, parts, total, usluga, time }).then(res => {
                 if (res.data !== "success") {
                     alert("error")
                     console.log(res.data)
@@ -73,8 +73,8 @@ export const NovoSteta = () => {
 
                 <div className="single-input-container">
                     <label htmlFor="opis-steta" className="standard--label">Opis štete <span>*</span> </label>
-                    <input style={{border:descFalse&&"1px solid red"}} onBlur={e=>e.target.value.length<=4 ? setDescFalse(true) : setDescFalse(false)} type="text" onChange={(e) => setDesc(e.target.value)} className="standard--input" id="opis-steta" name="opis-steta" />
-                    { descFalse && <p style={{color:"red",fontSize:".8em"}}>Unos mora biti veći od 3 karaktera</p>}
+                    <input style={{ border: descFalse && "1px solid red" }} onBlur={e => e.target.value.length <= 4 ? setDescFalse(true) : setDescFalse(false)} type="text" onChange={(e) => setDesc(e.target.value)} className="standard--input" id="opis-steta" name="opis-steta" />
+                    {descFalse && <p style={{ color: "red", fontSize: ".8em" }}>Unos mora biti veći od 3 karaktera</p>}
                 </div>
 
                 <div className="single-input-container">
@@ -89,20 +89,20 @@ export const NovoSteta = () => {
 
                 <div className="single-input-container">
                     <label htmlFor="datum-steta" className="standard--label">Datum <span>*</span></label>
-                    <input style={{border:dateFalse&&"1px solid red"}} onBlur={e=>!verDate(e.target.value) ? setDateFalse(true) : setDateFalse(false )} type="date" onChange={(e) => setDate(e.target.value)} className="standard--input" id="datum-steta" name="datum-steta" />
-                    { dateFalse && <p style={{color:"red",fontSize:".8em"}}>Datum mora biti validan</p>}
+                    <input style={{ border: dateFalse && "1px solid red" }} onBlur={e => !verDate(e.target.value) ? setDateFalse(true) : setDateFalse(false)} type="date" onChange={(e) => setDate(e.target.value)} className="standard--input" id="datum-steta" name="datum-steta" />
+                    {dateFalse && <p style={{ color: "red", fontSize: ".8em" }}>Datum mora biti validan</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="delovi-steta" className="standard--label"> Delovi/Usluga <span>*</span></label>
-                    <input style={{border:partsFalse&&"1px solid red"}} onBlur={e=>e.target.value.length<=3 ? setPartsFalse(true) : setPartsFalse(false)} onChange={(e) => setParts(e.target.value)} type="text" className="standard--input" id="delovi-steta" name="delovi-steta" />
-                    { partsFalse && <p style={{color:"red",fontSize:".8em"}}>Unos mora biti veći od 3 karaktera</p>}
+                    <input style={{ border: partsFalse && "1px solid red" }} onBlur={e => e.target.value.length <= 3 ? setPartsFalse(true) : setPartsFalse(false)} onChange={(e) => setParts(e.target.value)} type="text" className="standard--input" id="delovi-steta" name="delovi-steta" />
+                    {partsFalse && <p style={{ color: "red", fontSize: ".8em" }}>Unos mora biti veći od 3 karaktera</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="trosak-steta" className="standard--label">Ukupan trošak <span>*</span></label>
-                    <input style={{border:totalFalse&&"1px solid red"}} onBlur={e=>e.target.value===""||e.target.value<=0 ? setTotalFalse(true) : setTotalFalse(false) } onChange={(e) => setTotal(e.target.value)} type="number" className="standard--input" id="trosak-steta" name="trosak-steta" />
-                    {totalFalse && <p style={{color:"red",fontSize:".8em"}}>Broj mora biti veći od 0</p>}
+                    <input style={{ border: totalFalse && "1px solid red" }} onBlur={e => e.target.value === "" || e.target.value <= 0 ? setTotalFalse(true) : setTotalFalse(false)} onChange={(e) => setTotal(e.target.value)} type="number" className="standard--input" id="trosak-steta" name="trosak-steta" />
+                    {totalFalse && <p style={{ color: "red", fontSize: ".8em" }}>Broj mora biti veći od 0</p>}
                 </div>
 
                 <div className="single-input-container">

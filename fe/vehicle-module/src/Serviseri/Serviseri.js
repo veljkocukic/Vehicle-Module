@@ -8,8 +8,8 @@ import { NovoServiseri } from "../Serviseri/NovoServiseri"
 import "../style/serviseri.css"
 
 export const Serviseri = () => {
-    
-    let { serviseriAr,setServiseriAr,setNewOn, newOn, setOpenDialog, openDialog, openServEdit, setOpenServEdit, setId } = useContext(DataContext)
+
+    let { serviseriAr, setServiseriAr, setNewOn, newOn, setOpenDialog, openDialog, openServEdit, setOpenServEdit, setId } = useContext(DataContext)
     let [spinerServ, setSpinerServ] = useState(true)
 
     useEffect(() => {
@@ -57,8 +57,8 @@ export const Serviseri = () => {
                 <button className="car-button car-title" onClick={() => setNewOn(true)} >+ NOVA STAVKA</button>
             </div>
 
-                {spinerServ && <Spiner />}
-                {openServEdit && <EditServis serviseriAr={serviseriAr} />}
+            {spinerServ && <Spiner />}
+            {openServEdit && <EditServis serviseriAr={serviseriAr} />}
             <table className="tg servt">
                 <thead>
                     <tr>
@@ -76,8 +76,8 @@ export const Serviseri = () => {
                     {serviseriAr.map((item, key) => <KoloneServiseri id={item._id} sifraKlijenta={item.sifraKlijenta} nazivFirme={item.nazivFirme} tipUsluge={item.tipUsluge} kontakt={item.kontakt} adresa={item.adresa} brTelefona={item.brTelefona} email={item.email} website={item.website} key={key} />)}
                 </tbody>
             </table>
-                    {newOn && <NovoServiseri />}
-                    {openDialog && <Dialog par="delete" polje="serv" />}
+            {newOn && <NovoServiseri />}
+            {openDialog && <Dialog par="delete" polje="serv" />}
         </div>
     )
 }

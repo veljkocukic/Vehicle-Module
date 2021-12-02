@@ -19,11 +19,11 @@ const Kolone = ({ rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
     const handleSmallTable = async (date, polje) => {
         let firstDate = date[0].datum
         let lastDate = date[date.length - 1]
-        await axios.post("http://localhost:5000/api/v1/tabela/", { regBr, firstDate, lastDate, polje, naziv, todr, pokr, date }).then(res => {
+        await axios.post("https://vehicle-module.herokuapp.com/api/v1/tabela/", { regBr, firstDate, lastDate, polje, naziv, todr, pokr, date }).then(res => {
             dispatch(handleDataSmall(res.data))
             dispatch(handleSmallTableOn(true))
         })
-        window.scrollTo(0,document.body.scrollHeight);
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
 
@@ -46,8 +46,8 @@ const Kolone = ({ rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
 
 export const Table = () => {
 
-    let tableHead = useSelector(state=>state.tableHeadReducer)
-    let dataTable = useSelector(state=>state.dataTableReducer)
+    let tableHead = useSelector(state => state.tableHeadReducer)
+    let dataTable = useSelector(state => state.dataTableReducer)
 
     let ar = []
     try {

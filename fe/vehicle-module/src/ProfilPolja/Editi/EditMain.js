@@ -82,7 +82,7 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
         //let verifyActiveTo = verDate(aktivnoDo)
         let verifyRazlika = aktivnoDo!==0 ? aktivnoDo > aktivnoOd : true
         if (verifyMarka && verifyReg  && verifyActiveFrom && verifyRazlika) {
-            await axios.patch("http://localhost:5000/api/v1/main", {
+            await axios.patch("https://vehicle-module.herokuapp.com/api/v1/main", {
                 id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo
 
             })

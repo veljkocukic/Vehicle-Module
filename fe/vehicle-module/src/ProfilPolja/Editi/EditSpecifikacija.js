@@ -31,12 +31,12 @@ export const EditSpecifikacija = () => {
 
 
 
-    let [sasijaFalse,setSasijaFalse] = useState(false)
-    let [motorFalse,setMotorFalse] = useState(false)
-    let [godisteFalse,setGodisteFalse] = useState(false)
-    let [bojaFalse,setBojaFalse] = useState(false)
-    let [dateFalse,setDateFalse] = useState(false)
-    let [cenaFalse,setCenaFalse] = useState(false)
+    let [sasijaFalse, setSasijaFalse] = useState(false)
+    let [motorFalse, setMotorFalse] = useState(false)
+    let [godisteFalse, setGodisteFalse] = useState(false)
+    let [bojaFalse, setBojaFalse] = useState(false)
+    let [dateFalse, setDateFalse] = useState(false)
+    let [cenaFalse, setCenaFalse] = useState(false)
 
     let handleSubmit = () => {
         setSpinerOn(true)
@@ -48,7 +48,7 @@ export const EditSpecifikacija = () => {
         let verifyCenaVoz = cenaVoz > 0
         //let verifyDocume = docume.length > 5
         if (verifySasija && verifyMotor && verifyGodiste && verifyBoja && verifyDateKup && verifyCenaVoz) {
-            axios.patch("http://localhost:5000/api/v1/specifikacija/" + carId, { sasija, motor, godiste, boja, dateKup, cenaVoz, docume }).then(res => {
+            axios.patch("https://vehicle-module.herokuapp.com/api/v1/specifikacija/" + carId, { sasija, motor, godiste, boja, dateKup, cenaVoz, docume }).then(res => {
                 console.log(res)
                 setValid(true)
                 setSpinerOn(false)
@@ -85,40 +85,40 @@ export const EditSpecifikacija = () => {
 
                 <div className="single-input-container">
                     <label htmlFor="broj-sasije" className="standard--label">Broj šasije <span>*</span></label>
-                    <input style={{border:sasijaFalse&&"1px solid red"}} onBlur={e=>e.target.value.length <=10 ? setSasijaFalse(true):setSasijaFalse(false)} ref={sasijaRef} type="text" onChange={(e) => setSasija(e.target.value)} className="standard--input" id="broj-sasije" name="broj-sasije" />
-                    { sasijaFalse && <p style={{color:"red",fontSize:".8em"}}>Broj šasija mora biti duži od 10 karaktera</p>}
+                    <input style={{ border: sasijaFalse && "1px solid red" }} onBlur={e => e.target.value.length <= 10 ? setSasijaFalse(true) : setSasijaFalse(false)} ref={sasijaRef} type="text" onChange={(e) => setSasija(e.target.value)} className="standard--input" id="broj-sasije" name="broj-sasije" />
+                    {sasijaFalse && <p style={{ color: "red", fontSize: ".8em" }}>Broj šasija mora biti duži od 10 karaktera</p>}
 
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="broj-motora" className="standard--label">Broj motora <span>*</span></label>
-                    <input style={{border:motorFalse&&"1px solid red"}} onBlur={e=>e.target.value<=5 ? setMotorFalse(true):setMotorFalse(false)} ref={brMotRef} type="text" onChange={e => setMotor(e.target.value)} className="standard--input" id="broj-motora" name="broj-motora" />
-                    { motorFalse && <p style={{color:"red",fontSize:".8em"}}>Broj motora mora biti duži od 5 karaktera</p>}
+                    <input style={{ border: motorFalse && "1px solid red" }} onBlur={e => e.target.value <= 5 ? setMotorFalse(true) : setMotorFalse(false)} ref={brMotRef} type="text" onChange={e => setMotor(e.target.value)} className="standard--input" id="broj-motora" name="broj-motora" />
+                    {motorFalse && <p style={{ color: "red", fontSize: ".8em" }}>Broj motora mora biti duži od 5 karaktera</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="godiste" className="standard--label">Godište <span>*</span></label>
-                    <input  style={{border:godisteFalse&&"1px solid red"}} onBlur={e=>e.target.value<=1980 ? setGodisteFalse(true):setGodisteFalse(false)} ref={godisteRef} type="number" onChange={(e) => setGodiste(e.target.value)} className="standard--input" id="godiste" name="godiste" />
-                    { godisteFalse && <p style={{color:"red",fontSize:".8em"}}>Godište mora biti veće od 1980</p>}
+                    <input style={{ border: godisteFalse && "1px solid red" }} onBlur={e => e.target.value <= 1980 ? setGodisteFalse(true) : setGodisteFalse(false)} ref={godisteRef} type="number" onChange={(e) => setGodiste(e.target.value)} className="standard--input" id="godiste" name="godiste" />
+                    {godisteFalse && <p style={{ color: "red", fontSize: ".8em" }}>Godište mora biti veće od 1980</p>}
 
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="boja" className="standard--label">Boja <span>*</span></label>
-                    <input style={{border:bojaFalse&&"1px solid red"}} onBlur={e=>e.target.value.length<=2 ? setBojaFalse(true):setBojaFalse(false)} ref={bojaRef} onChange={(e) => setBoja(e.target.value)} type="text" className="standard--input" id="boja" name="boja" />
-                    { bojaFalse && <p style={{color:"red",fontSize:".8em"}}>Naziv boje mora biti duži od 2 karaktera</p>}
+                    <input style={{ border: bojaFalse && "1px solid red" }} onBlur={e => e.target.value.length <= 2 ? setBojaFalse(true) : setBojaFalse(false)} ref={bojaRef} onChange={(e) => setBoja(e.target.value)} type="text" className="standard--input" id="boja" name="boja" />
+                    {bojaFalse && <p style={{ color: "red", fontSize: ".8em" }}>Naziv boje mora biti duži od 2 karaktera</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="datum-kupovine" className="standard--label">Datum kupovine <span>*</span></label>
-                    <input style={{border:dateFalse&&"1px solid red"}} onBlur={e=>!verDate(e.target.value) ? setDateFalse(true) : setDateFalse(false)} ref={datumRef} onChange={(e) => setDateKup(e.target.value)} type="date" className="standard--input" id="datum-kupovine" name="datum-kupovine" />
-                    { dateFalse && <p style={{color:"red",fontSize:".8em"}}>Datum mora biti validan</p>}
+                    <input style={{ border: dateFalse && "1px solid red" }} onBlur={e => !verDate(e.target.value) ? setDateFalse(true) : setDateFalse(false)} ref={datumRef} onChange={(e) => setDateKup(e.target.value)} type="date" className="standard--input" id="datum-kupovine" name="datum-kupovine" />
+                    {dateFalse && <p style={{ color: "red", fontSize: ".8em" }}>Datum mora biti validan</p>}
                 </div>
 
                 <div className="single-input-container">
                     <label htmlFor="cena-vozila" className="standard--label">Cena vozila <span>*</span></label>
-                    <input style={{border:cenaFalse&&"1px solid red"}} onBlur={e=>e.target.value<=0 ? setCenaFalse(true):setCenaFalse(false)} ref={cenaRef} onChange={(e) => setCenaVoz(e.target.value)} type="number" className="standard--input" id="cena-vozila" name="cena-vozila" />
-                    { cenaFalse && <p style={{color:"red",fontSize:".8em"}}>Cena vozila mora biti veća od 0</p>}
+                    <input style={{ border: cenaFalse && "1px solid red" }} onBlur={e => e.target.value <= 0 ? setCenaFalse(true) : setCenaFalse(false)} ref={cenaRef} onChange={(e) => setCenaVoz(e.target.value)} type="number" className="standard--input" id="cena-vozila" name="cena-vozila" />
+                    {cenaFalse && <p style={{ color: "red", fontSize: ".8em" }}>Cena vozila mora biti veća od 0</p>}
                 </div>
 
                 <div className="single-input-container textarea-specifikacija">

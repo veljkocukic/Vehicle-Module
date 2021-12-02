@@ -4,7 +4,7 @@ import { DataContext } from "../../Context"
 import { Spiner } from "./Spiner"
 export const Dialog = ({ par, polje }) => {
 
-    let { setServiseriAr,setOpenDialog, id, spinerOn, setSpinerOn, registracijaAr, setRegistracijaAr, setGorivoAr, setOdrzavanjeAr, setStetaAr} = useContext(DataContext)
+    let { setServiseriAr, setOpenDialog, id, spinerOn, setSpinerOn, registracijaAr, setRegistracijaAr, setGorivoAr, setOdrzavanjeAr, setStetaAr } = useContext(DataContext)
     let url = ""
 
     switch (polje) {
@@ -30,18 +30,18 @@ export const Dialog = ({ par, polje }) => {
             url = ""
     }
 
-    const handleDelete = async() => {
+    const handleDelete = async () => {
 
         setSpinerOn(true)
-        await axios.post("http://localhost:5000/api/v1/" + url + par, { id }).then(
+        await axios.post("https://vehicle-module.herokuapp.com/api/v1/" + url + par, { id }).then(
             () => {
                 setSpinerOn(false)
                 setOpenDialog(false)
-                setRegistracijaAr(prev=>prev.filter(item=>item._id!==id))
-                setOdrzavanjeAr(prev=>prev.filter(item=>item._id!==id))
-                setStetaAr(prev=>prev.filter(item=>item._id!==id))
-                setGorivoAr(prev=>prev.filter(item=>item._id!==id))
-                setServiseriAr(prev=>prev.filter(item=>item._id!==id))
+                setRegistracijaAr(prev => prev.filter(item => item._id !== id))
+                setOdrzavanjeAr(prev => prev.filter(item => item._id !== id))
+                setStetaAr(prev => prev.filter(item => item._id !== id))
+                setGorivoAr(prev => prev.filter(item => item._id !== id))
+                setServiseriAr(prev => prev.filter(item => item._id !== id))
                 console.log(registracijaAr)
                 console.log(id)
             }).catch(er => console.log(er))

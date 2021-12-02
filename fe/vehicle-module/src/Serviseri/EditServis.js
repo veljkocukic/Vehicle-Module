@@ -90,7 +90,7 @@ export const EditServis = ({ serviseriAr }) => {
 
         if (verifySifra && verifyNaziv &&verifySite&&verifyMail) {
             console.log("Site: "+siteS + "\n mail: "+emailS)
-            axios.patch("http://localhost:5000/api/v1/serviseri", { id, sifraS, adresaS, nazivFirme, tipUslugeS, kontaktS, telS, emailS, siteS }).then(res => {
+            axios.patch("https://vehicle-module.herokuapp.com/api/v1/serviseri", { id, sifraS, adresaS, nazivFirme, tipUslugeS, kontaktS, telS, emailS, siteS }).then(res => {
                 setValid(true)
                 setSpinerOn(false)
                 setOpenServEdit(false)

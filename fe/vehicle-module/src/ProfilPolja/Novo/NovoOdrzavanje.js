@@ -24,7 +24,7 @@ export const NovoOdrzavanje = ({ newC }) => {
         let verifyTotalOdr = totalOdr > 0
 
         if (verifyDateOdr && verifyKmOdr && verifyPartsOdr && verifyTotalOdr) {
-            await axios.post("http://localhost:5000/api/v1/odrzavanje/new/" + carId, { typeOdr, dateOdr, kmOdr, partsOdr, totalOdr, uslugaOdr, timeOdr }).then(res => {
+            await axios.post("https://vehicle-module.herokuapp.com/api/v1/odrzavanje/new/" + carId, { typeOdr, dateOdr, kmOdr, partsOdr, totalOdr, uslugaOdr, timeOdr }).then(res => {
                 if (res.data !== "success") {
                     alert("error")
                     console.log(res.data)
