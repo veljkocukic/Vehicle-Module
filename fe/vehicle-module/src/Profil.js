@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react"
 import { DataContext } from "./Context"
 import axios from "axios"
-import "./Profil.css"
+import "./style/Profil.css"
 import { useParams } from "react-router"
 import { Registracija } from "./ProfilPolja/Registacija"
 import { Specifikacija } from "./ProfilPolja/Specifikacija"
@@ -28,19 +28,19 @@ export const Profil = () => {
 
 
 
-    let { setZaposleniLista,openSec,setOpenSec,registracijaAr, setRegistracijaAr,specifikacijaAr, setSpecifikacijaAr,gorivoAr, setGorivoAr,odrzavanjeAr, setOdrzavanjeAr,stetaAr, setStetaAr,setAktivnoDo,aktivnoDo,setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
+    let { setZaposleniLista, openSec, setOpenSec, registracijaAr, setRegistracijaAr, specifikacijaAr, setSpecifikacijaAr, gorivoAr, setGorivoAr, odrzavanjeAr, setOdrzavanjeAr, stetaAr, setStetaAr, setAktivnoDo, aktivnoDo, setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
 
 
     const [marka, setMarka] = useState()
     let { carId } = useParams()
     useEffect(() => {
-        const checkLogin = async () =>{
-            await axios.post("http://localhost:5000/api/v1/logincheck",{"token": localStorage.getItem("token")}).then(res => {
-               if(res.data!=="success"){
+        const checkLogin = async () => {
+            await axios.post("http://localhost:5000/api/v1/logincheck", { "token": localStorage.getItem("token") }).then(res => {
+                if (res.data !== "success") {
                     history.push("/login")
-                   return
-               }
+                    return
+                }
             })
         }
 
@@ -69,7 +69,7 @@ export const Profil = () => {
                 setDocume(res.data.car.specifikacijaPolje.dokumentacija)
                 setImagesArray(res.data.car.slike)
 
-               
+
             })
         }
         const fetchData2 = async () => {
@@ -115,7 +115,7 @@ export const Profil = () => {
     }
 
     const handleRight = () => {
-        if ((imageLeft-imageLeft-imageLeft) !== num - 150) {
+        if ((imageLeft - imageLeft - imageLeft) !== num - 150) {
             setImageLeft(prev => prev - 150)
         }
     }
@@ -123,20 +123,20 @@ export const Profil = () => {
     useEffect(() => setNewOn(false), [openSec])
     useEffect(() => photoContainer.current.style.left = imageLeft + "px", [imageLeft])
 
-    const handleSec=(sec)=>{
+    const handleSec = (sec) => {
 
         setOpenSec(sec)
-        localStorage.setItem("section",sec)
+        localStorage.setItem("section", sec)
 
     }
 
 
-    
+
     const sectionCheck = () => {
 
         switch (openSec) {
             case "reg":
-                return <Registracija registracijaAr={registracijaAr} s={registracijaAr.slice(0,5)} carId={carId} />
+                return <Registracija registracijaAr={registracijaAr} carId={carId} />
             case "spec":
                 return <Specifikacija specifikacijaAr={specifikacijaAr} />
             case "fuel":
@@ -164,17 +164,17 @@ export const Profil = () => {
             {spinerProfile && <Spiner />}
             {openSingleImage && <JednaSlika />}
             <div className="profilMain">
-                <img className="main-pic" src={imagesArray.length>0 ? imagesArray[0] : slikanedostupna} alt="slika auta" />
+                <img className="main-pic" src={imagesArray.length > 0 ? imagesArray[0] : slikanedostupna} alt="slika auta" />
                 <div className="profilDetails">
                     <div className="profilInfo">
                         <h3>Informacije o vozilu</h3>
                         <table>
                             <tbody>
-                            <tr className="detailsTr"><td>Marka i tip</td><td><strong>{marka}</strong></td></tr>
-                            <tr className="detailsTr"><td>Registrovan do</td><td><strong>{formatDate(regDo)}</strong></td></tr>
-                            <tr className="detailsTr"><td>Korisnik vozila</td><td><strong>{korisnikMn}</strong></td></tr>
-                            <tr className="detailsTr"><td>Aktivno od</td><td><strong>{formatDate(aktivnoOd)}</strong></td></tr>
-                            <tr className="detailsTr"><td>Do</td><td><strong>{formatDate(aktivnoDo)}</strong></td></tr>
+                                <tr className="detailsTr"><td>Marka i tip</td><td><strong>{marka}</strong></td></tr>
+                                <tr className="detailsTr"><td>Registrovan do</td><td><strong>{formatDate(regDo)}</strong></td></tr>
+                                <tr className="detailsTr"><td>Korisnik vozila</td><td><strong>{korisnikMn}</strong></td></tr>
+                                <tr className="detailsTr"><td>Aktivno od</td><td><strong>{formatDate(aktivnoOd)}</strong></td></tr>
+                                <tr className="detailsTr"><td>Do</td><td><strong>{formatDate(aktivnoDo)}</strong></td></tr>
                             </tbody>
 
                         </table>
