@@ -5,8 +5,8 @@ export const Paginacija = (props) => {
   let [current, setCurrent] = useState(1)
   let total = props.arr.length
   let setSl = n => {
-    setCurrent(n)
-    props.setSliceAr(props.arr.slice(n * 5 - 5, n * 5))
+    setCurrent(parseInt(n))
+    props.setSliceAr(props.arr.slice(parseInt(n) * 5 - 5, parseInt(n) * 5))
   }
 
 
