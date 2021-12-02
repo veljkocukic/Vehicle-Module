@@ -13,7 +13,7 @@ import { useHistory } from "react-router";
 
 
 export const Main = () => {
-    let { formatDate,zaposleniLista,setZaposleniLista,newOn, setNewOn,setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef,korisnikMn} = useContext(DataContext)
+    let { formatDate, zaposleniLista, setZaposleniLista, newOn, setNewOn, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef, korisnikMn } = useContext(DataContext)
     let [vozila, setVozila] = useState([])
     let zaposleniSelect = useRef(null)
     let [spinerMain, setSpinerMain] = useState(true)
@@ -22,18 +22,18 @@ export const Main = () => {
 
     useEffect(() => {
         setSpinerMain(true)
-        const checkLogin = async () =>{
-            await axios.post("http://localhost:5000/api/v1/logincheck",{"token": localStorage.getItem("token")}).then(res => {
-               if(res.data!=="success"){
+        const checkLogin = async () => {
+            await axios.post("http://localhost:5000/api/v1/logincheck", { "token": localStorage.getItem("token") }).then(res => {
+                if (res.data !== "success") {
                     history.push("/login")
-                   return
-               }
+                    return
+                }
             })
         }
         const fetchData1 = async () => {
             await axios.get("http://localhost:5000/api/v1/main").then(e => {
                 setVozila(e.data)
-               
+
             })
         }
 
@@ -62,7 +62,7 @@ export const Main = () => {
 
     const Kolona = (props) => {
 
-        useEffect(()=>setSpinerMain(false),[])
+        useEffect(() => setSpinerMain(false), [])
 
         return (
             <div className="single-car-container">
@@ -99,7 +99,7 @@ export const Main = () => {
 
                                 <div className="info-bottom__item">
                                     <h5>Vozilo aktivno do</h5>
-                                    <p>{formatDate(props.activeTo) || "/" }</p>
+                                    <p>{props.activeTo ? formatDate(props.activeTo) : "/"}</p>
                                 </div>
 
                             </div>
