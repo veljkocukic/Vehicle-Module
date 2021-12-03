@@ -5,13 +5,14 @@ import { EditServis } from "./EditServis"
 import { Spiner } from "../ProfilPolja/Editi/Spiner"
 import { Dialog } from "../ProfilPolja/Editi/Dialog"
 import { NovoServiseri } from "../Serviseri/NovoServiseri"
+import { useHistory } from "react-router";
 import "../style/serviseri.css"
 
 export const Serviseri = () => {
     
     let { serviseriAr,setServiseriAr,setNewOn, newOn, setOpenDialog, openDialog, openServEdit, setOpenServEdit, setId } = useContext(DataContext)
     let [spinerServ, setSpinerServ] = useState(true)
-
+    let history = useHistory()
     useEffect(() => {
         const checkLogin = async () => {
             await axios.post("http://localhost:5000/api/v1/logincheck", { "token": localStorage.getItem("token") }).then(res => {
