@@ -13,9 +13,18 @@ export const Serviseri = () => {
     let [spinerServ, setSpinerServ] = useState(true)
 
     useEffect(() => {
+        const checkLogin = async () => {
+            await axios.post("http://localhost:5000/api/v1/logincheck", { "token": localStorage.getItem("token") }).then(res => {
+                if (res.data !== "success") {
+                    history.push("/login")
+                    return
+                }
+            })
+        }
         const fetchData = async () => {
             await axios.get("http://localhost:5000/api/v1/serviseri").then(res => setServiseriAr(res.data)).catch(err => console.log(err))
         }
+        checkLogin()
         fetchData().then(() => setSpinerServ(false)).catch(er => {
             console.log(er)
             setSpinerServ(false)
