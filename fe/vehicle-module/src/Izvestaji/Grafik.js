@@ -62,7 +62,7 @@ export const Grafik = () => {
         ],
     };
 
-
+    console.log()
     return (
         <div className="grafik-container">
             <Bar options={options} data={data} />

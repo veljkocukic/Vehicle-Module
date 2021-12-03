@@ -72,7 +72,7 @@ export const Steta = ({ stetaAr }) => {
         </table>
                 {newOn && <NovoSteta />}
                 {openDialog && <Dialog par={carId} polje="dmg" />}
-                <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={stetaAr}/>
+                {stetaAr.length>5 && <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={stetaAr}/>}
         </div>
     )
 }

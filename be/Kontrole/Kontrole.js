@@ -192,8 +192,6 @@ const SpecifikacijaEdit = async (req, res) => {
         specifikacija.save()
         res.send("success")
 
-
-
     } catch (error) {
         console.log(error)
         res.send(error)

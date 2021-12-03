@@ -72,7 +72,7 @@ export const Registracija = ({ registracijaAr }) => {
         </table>
                 {newOn && <NovoRegistracija />}
                 {openDialog && <Dialog par={carId} polje="reg" />}
-                <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={registracijaAr}/>
+                {registracijaAr.length>5 && <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={registracijaAr}/>}
         </div>
     )
 }

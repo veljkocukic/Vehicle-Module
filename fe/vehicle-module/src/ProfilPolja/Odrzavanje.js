@@ -46,6 +46,8 @@ export const Odrzavanje = ({ odrzavanjeAr }) => {
 
     }
 
+
+
     return (
         <div>
             {openOdrEdit && <EditOdrzavanje odrzavanjeAr={odrzavanjeAr} />}
@@ -71,7 +73,7 @@ export const Odrzavanje = ({ odrzavanjeAr }) => {
         </table>
                 {newOn && <NovoOdrzavanje />}
                 {openDialog && <Dialog par={carId} polje="odr" />}
-                <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={odrzavanjeAr}/>
+                {odrzavanjeAr.length>5 && <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={odrzavanjeAr}/>}
         </div>
     )
 }

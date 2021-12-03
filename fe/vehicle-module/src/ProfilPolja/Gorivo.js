@@ -73,7 +73,7 @@ export const Gorivo = ({ gorivoAr }) => {
         </table>
                 {newOn && <NovoGorivo />}
                 {openDialog && <Dialog par={carId} polje="fuel" />}
-                <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={gorivoAr}/>
+                {gorivoAr.length>5 &&  <Paginacija sliceAr={sliceAr} setSliceAr={setSliceAr} arr={gorivoAr}/>}
 
         </div>
     )
