@@ -27,7 +27,7 @@ export const EditSpecifikacija = () => {
         cenaRef.current.value = cenaVoz
         documRef.current.value = docume
 
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 
 

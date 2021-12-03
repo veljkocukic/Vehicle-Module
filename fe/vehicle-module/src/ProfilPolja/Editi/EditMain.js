@@ -47,7 +47,7 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
             console.log(error)
             return
         }
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {    ////Sprečava grešku jer se padajući meni za zaposlene i unos drugih lica uslovno prikazuju
         let vozilo = vozila.find(item => item.id === id)
@@ -57,7 +57,7 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
         } catch (error) {
             
         }
-    }, [zaposleni])
+    }, [zaposleni]) // eslint-disable-line react-hooks/exhaustive-deps
 
 
 

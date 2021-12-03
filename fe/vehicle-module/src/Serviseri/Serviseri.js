@@ -30,7 +30,7 @@ export const Serviseri = () => {
             console.log(er)
             setSpinerServ(false)
         })
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const KoloneServiseri = (props) => {
 

@@ -44,8 +44,8 @@ export const EditGorivo = ({ gorivoAr }) => {
         cenaRef.current.value = fuel.cena
         uslugaRef.current.value = fuel.uslugaZaposlenog || ""
         timeRef.current.value = fuel.vremeZaposlenog || ""
-
-    }, [])
+ 
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleSubmit = () => {
         setSpinerOn(true)

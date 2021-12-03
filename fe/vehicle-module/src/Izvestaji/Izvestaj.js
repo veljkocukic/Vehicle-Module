@@ -22,7 +22,7 @@ export const Izvestaj = () => {
             })
         }
         checkLogin()
-    },[])
+    },[]) // eslint-disable-line react-hooks/exhaustive-deps
     return (
         <div className="izvestaj">
             <div className="page-title">

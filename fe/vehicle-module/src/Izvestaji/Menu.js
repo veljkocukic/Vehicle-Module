@@ -43,7 +43,7 @@ export const Menu = ({ sbt }) => {
         }
         fetchData1()
         fetchData2()
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleTipIzvestaja = (value) => {
         setTipIzvestaja(value)

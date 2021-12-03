@@ -44,8 +44,8 @@ export const Main = () => {
         }
         checkLogin()
         fetchData1()
-        fetchData2()
-    }, [])
+        fetchData2() 
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 
 

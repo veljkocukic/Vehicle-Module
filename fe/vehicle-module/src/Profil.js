@@ -84,7 +84,7 @@ export const Profil = () => {
         })
         fetchData2()
         setOpenSec(localStorage.getItem("section"))
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 
 
@@ -120,8 +120,8 @@ export const Profil = () => {
         }
     }
 
-    useEffect(() => setNewOn(false), [openSec])
-    useEffect(() => photoContainer.current.style.left = imageLeft + "px", [imageLeft])
+    useEffect(() => setNewOn(false), [openSec]) // eslint-disable-line react-hooks/exhaustive-deps
+    useEffect(() => photoContainer.current.style.left = imageLeft + "px", [imageLeft]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleSec = (sec) => {
 

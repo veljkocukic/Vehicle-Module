@@ -24,7 +24,7 @@ export const Login = () =>{
             })
         }
         checkLogin()
-    },[])
+    },[]) // eslint-disable-line react-hooks/exhaustive-deps
 
 
 

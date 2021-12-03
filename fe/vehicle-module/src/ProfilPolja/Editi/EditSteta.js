@@ -43,7 +43,7 @@ export const EditSteta = ({ stetaAr }) => {
         uslugaRef.current.value = steta.uslugaZaposlenog || ""
         timeRef.current.value = steta.vremeZaposlenog || ""
         setSpinerOn(false)
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleSubmit = () => {
         setSpinerOn(true)

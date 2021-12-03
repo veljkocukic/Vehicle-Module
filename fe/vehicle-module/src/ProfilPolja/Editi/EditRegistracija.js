@@ -43,7 +43,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
         setRegDo(cond ? 0 : reg.registrovanDo)
         regRegDoRef.current.value = cond ? 0 : formatDateEdit(reg.registrovanDo)
 
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleSubmit = () => {
         setSpinerOn(true)

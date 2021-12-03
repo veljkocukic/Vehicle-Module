@@ -39,7 +39,7 @@ export const EditServis = ({ serviseriAr }) => {
         siteRef.current.value = serv.website || "" 
         adresaRef.current.value = serv.adresa || ""
 
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 
     const handleCancel = () => {

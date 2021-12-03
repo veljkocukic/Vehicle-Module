@@ -19,7 +19,7 @@ export const Specifikacija = ({ specifikacijaAr }) => {
 
         }
 
-    },[])
+    },[]) // eslint-disable-line react-hooks/exhaustive-deps
     let und = specifikacijaAr===undefined
     return (
         <div>

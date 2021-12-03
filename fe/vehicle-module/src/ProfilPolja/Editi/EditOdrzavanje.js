@@ -42,7 +42,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
         timeRef.current.value = odr.vremeZaposlenog || ""
 
 
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleSubmit = () => {
         setSpinerOn(true)
