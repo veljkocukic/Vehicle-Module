@@ -32,8 +32,8 @@ export const Serviseri = () => {
         })
     }, []) 
     
-    
 
+  
     const KoloneServiseri = (props) => {
 
         const handleOpen = (i) => {
