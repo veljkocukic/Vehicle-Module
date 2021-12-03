@@ -32,6 +32,7 @@ export const Serviseri = () => {
         })
     }, []) 
     
+    
 
     const KoloneServiseri = (props) => {
 
