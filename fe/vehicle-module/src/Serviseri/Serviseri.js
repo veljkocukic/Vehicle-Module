@@ -30,7 +30,8 @@ export const Serviseri = () => {
             console.log(er)
             setSpinerServ(false)
         })
-    }, [])
+    }, []) 
+    
 
     const KoloneServiseri = (props) => {
 
