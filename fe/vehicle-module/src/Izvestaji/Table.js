@@ -12,7 +12,6 @@ const Kolone = ({ rb, vozilo, data, th, regBr, naziv, todr, pokr }) => {
         let ind = data.indexOf(nm)
         return th[ind]
     }
-    dispatch(handleIme(vozilo))
 
 
 
@@ -48,6 +47,8 @@ export const Table = () => {
 
     let tableHead = useSelector(state=>state.tableHeadReducer)
     let dataTable = useSelector(state=>state.dataTableReducer)
+    const dispatch = useDispatch()
+
 
     let ar = []
     try {
@@ -67,7 +68,7 @@ export const Table = () => {
     }
 
 
-
+    dispatch(handleIme(dataTable[0].vozilo))
     return (
         <table className="tg" id="excel-table">
 
