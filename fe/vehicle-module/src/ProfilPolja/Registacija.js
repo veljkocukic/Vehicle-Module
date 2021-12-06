@@ -15,8 +15,6 @@ export const Registracija = ({ registracijaAr }) => {
 
     useEffect(()=>{
         setSliceAr(registracijaAr.slice(0,5))
-        console.log(2)
-
     },[registracijaAr])
 
     const handleRegEditOpen = (_id) => {

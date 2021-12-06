@@ -26,6 +26,7 @@ export const Profil = () => {
     const [imageLeft, setImageLeft] = useState(0)
     const [imagesArray, setImagesArray] = useState([])
     const [istorijaAr,setIstorijaAr] = useState([])
+    const [doneLoad,setDoneLoad] = useState(false)
 
 
     let { setZaposleniLista, openSec, setOpenSec, registracijaAr, setRegistracijaAr, specifikacijaAr, setSpecifikacijaAr, gorivoAr, setGorivoAr, odrzavanjeAr, setOdrzavanjeAr, stetaAr, setStetaAr, setAktivnoDo, aktivnoDo, setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
@@ -79,7 +80,10 @@ export const Profil = () => {
             })
         }
         checkLogin()
-        fetchData().then(() => setSpinerProfile(false)).catch(er => {
+        fetchData().then(() => {
+            setDoneLoad(true)
+            setSpinerProfile(false)
+        }).catch(er => {
             console.log(er)
             setSpinerProfile(false)
         })
@@ -191,7 +195,7 @@ export const Profil = () => {
                 </div>
             </div>
 
-            <div className="profilTable">
+            {doneLoad && <div className="profilTable">
 
                 <ul>
                     <li onClick={() => handleSec("reg")}>Registracija</li>
@@ -202,9 +206,8 @@ export const Profil = () => {
                     <li onClick={() => handleSec("ist")}>Istorija promena</li>
                 </ul>
                 {sectionCheck()}
-
-
-            </div>
+                
+            </div>}
         </div>
     )
 }
