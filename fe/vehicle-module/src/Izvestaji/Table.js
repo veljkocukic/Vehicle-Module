@@ -77,7 +77,7 @@ export const Table = () => {
                 <tr>
                     <th>Rb</th>
                     <th>Službeno vozilo</th>
-                    {tableHead.map(item => <th>{item}</th>)}
+                    {tableHead.map((item,key) => <th key={key}>{item}</th>)}
                 </tr>
             </thead>
             <tbody>
