@@ -121,6 +121,7 @@
   justify-content: space-between;
   width: 85vw;
   margin-bottom:2em;
+  margin-top: 1em;
   border-bottom: 1px solid #0079c0;
   position: relative;
 }
