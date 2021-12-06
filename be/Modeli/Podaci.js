@@ -120,9 +120,10 @@ const ServiseriModel = mongoose.model("Serviseri", ServiseriSchema)
 const CommentsModel = mongoose.model("Comments", CommentsSchema)
 const ZaposleniModel = mongoose.model("Zaposleni", CommentsSchema)
 const KorisniciModel = mongoose.model("Korisnici",KorisniciSchema)
+const IstorijaModel = mongoose.model("Istorija",IstorijaSchema)
 
 
 
 
-module.exports = { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel,KorisniciModel }
+module.exports = { CarsModel, ServiseriModel, CommentsModel, ZaposleniModel,KorisniciModel,IstorijaModel }
 

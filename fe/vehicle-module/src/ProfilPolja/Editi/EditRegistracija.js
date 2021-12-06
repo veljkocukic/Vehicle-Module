@@ -15,7 +15,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
     let regTimeRef = useRef(null)
     let regRegDoRef = useRef(null)
 
-
+    let username = localStorage.getItem("username")
     let [dateFalse,setDateFalse] = useState(false)
     let [docFalse,setDocFalse] = useState(false)
     let [trosFalse,setTrosFalse] = useState(false)
@@ -53,7 +53,7 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
         let verifyTime = timeZaposleni > 0
         let verifyDo = verDate(regDo)
         if (verifyDate && verifyDoc && verifyTroskovi && verifyRegistrovao && verifyTime && verifyDo) {
-            axios.patch("http://localhost:5000/api/v1/registracija/" + carId, { id, dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
+            axios.patch("http://localhost:5000/api/v1/registracija/" + carId, { username,id, dateReg, docReg, troskovi, registrovao, timeZaposleni, regDo }).then(res => {
                 setSpinerOn(false)
                 setValid(true)
                 setOpenRegEdit(false)

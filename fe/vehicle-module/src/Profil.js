@@ -25,7 +25,7 @@ export const Profil = () => {
     const [slikaZaModal, setSlikaZaModal] = useState("")
     const [imageLeft, setImageLeft] = useState(0)
     const [imagesArray, setImagesArray] = useState([])
-
+    const [istorijaAr,setIstorijaAr] = useState([])
 
 
     let { setZaposleniLista, openSec, setOpenSec, registracijaAr, setRegistracijaAr, specifikacijaAr, setSpecifikacijaAr, gorivoAr, setGorivoAr, odrzavanjeAr, setOdrzavanjeAr, stetaAr, setStetaAr, setAktivnoDo, aktivnoDo, setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
@@ -53,6 +53,7 @@ export const Profil = () => {
                 setGorivoAr(res.data.car.gorivoPolje)
                 setOdrzavanjeAr(res.data.car.odrzavanjePolje)
                 setStetaAr(res.data.car.stetaPolje)
+                setIstorijaAr(res.data.car.istorijaPolje)
 
                 setMarka(res.data.car.markaTip)
                 setKorisnikMn(res.data.car.korisnikVoz)
@@ -146,7 +147,7 @@ export const Profil = () => {
             case "dmg":
                 return <Steta stetaAr={stetaAr} />
             case "ist":
-                return <Istorija />
+                return <Istorija istorijaAr={istorijaAr} />
             default:
                 return <Registracija registracijaAr={registracijaAr} carId={carId} />
         }

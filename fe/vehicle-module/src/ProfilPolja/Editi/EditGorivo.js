@@ -23,6 +23,7 @@ export const EditGorivo = ({ gorivoAr }) => {
     let [kmFalse,setKmFalse] = useState(false)
     let [potFalse,setPotFalse] = useState(false)
     let [priceFalse,setPriceFalse] = useState(false)
+    let username = localStorage.getItem("username")
 
 
 
@@ -55,7 +56,7 @@ export const EditGorivo = ({ gorivoAr }) => {
         let verifyPriceFuel = priceFuel > 0
 
         if (verifyDateFuel && verifyKmFuel && verifyPotrosnja && verifyPriceFuel) {
-            axios.patch("http://localhost:5000/api/v1/gorivo/" + carId, { id, type, dateReg, kmFuel, potrosnja, priceFuel, uslugaFuel, timeFuel }).then(res => {
+            axios.patch("http://localhost:5000/api/v1/gorivo/" + carId, { username,id, type, dateReg, kmFuel, potrosnja, priceFuel, uslugaFuel, timeFuel }).then(res => {
                 setValid(true)
                 setSpinerOn(false)
                 setOpenFuelEdit(false)

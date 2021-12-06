@@ -16,6 +16,7 @@ export const EditSpecifikacija = () => {
     let cenaRef = useRef(null)
     let documRef = useRef(null)
     let { carId } = useParams()
+    let username = localStorage.getItem("username")
 
     useEffect(() => {
 
@@ -48,7 +49,7 @@ export const EditSpecifikacija = () => {
         let verifyCenaVoz = cenaVoz > 0
         //let verifyDocume = docume.length > 5
         if (verifySasija && verifyMotor && verifyGodiste && verifyBoja && verifyDateKup && verifyCenaVoz) {
-            axios.patch("http://localhost:5000/api/v1/specifikacija/" + carId, { sasija, motor, godiste, boja, dateKup, cenaVoz, docume }).then(res => {
+            axios.patch("http://localhost:5000/api/v1/specifikacija/" + carId, { username,sasija, motor, godiste, boja, dateKup, cenaVoz, docume }).then(res => {
                 console.log(res)
                 setValid(true)
                 setSpinerOn(false)

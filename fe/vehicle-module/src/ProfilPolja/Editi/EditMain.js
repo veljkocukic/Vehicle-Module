@@ -13,6 +13,8 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
     let [markaFalse,setMarkaFalse] = useState(false)
     let [regFalse,setRegFalse] = useState(false)
     let [fromFalse,setFromFalse] = useState(false)
+    let username = localStorage.getItem("username")
+
 
 
     useEffect(() => {
@@ -82,7 +84,7 @@ export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniS
         let verifyRazlika = aktivnoDo!==0 ? aktivnoDo > aktivnoOd : true
         if (verifyMarka && verifyReg  && verifyActiveFrom && verifyRazlika) {
             await axios.patch("http://localhost:5000/api/v1/main", {
-                id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo
+                id, marka, regBr, typeMn, korisnikMn, isticanje, aktivnoOd, aktivnoDo,username
 
             })
                 .then(() => setSpinerOn(false))

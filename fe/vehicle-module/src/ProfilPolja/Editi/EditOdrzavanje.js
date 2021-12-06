@@ -21,6 +21,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
     let [kmFalse,setKmFalse] = useState(false)
     let [partsFalse,setPartsFalse] = useState(false)
     let [totalFalse,setTotalFalse] = useState(false)
+    let username = localStorage.getItem("username")
 
     useEffect(() => {
         let odr = odrzavanjeAr.find(item => item._id === id)
@@ -52,7 +53,7 @@ export const EditOdrzavanje = ({ odrzavanjeAr }) => {
         let verifyTotalOdr = totalOdr > 0
 
         if (verifyDateOdr && verifyKmOdr && verifyPartsOdr && verifyTotalOdr) {
-            axios.patch("http://localhost:5000/api/v1/odrzavanje/" + carId, { id, typeOdr, dateOdr, kmOdr, partsOdr, totalOdr, uslugaOdr, timeOdr }).then(res => {
+            axios.patch("http://localhost:5000/api/v1/odrzavanje/" + carId, { id, typeOdr, dateOdr, kmOdr, partsOdr, totalOdr, uslugaOdr, timeOdr,username }).then(res => {
                 setValid(true)
                 setSpinerOn(false)
                 setOpenOdrEdit(false)

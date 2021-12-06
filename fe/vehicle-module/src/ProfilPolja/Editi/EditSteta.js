@@ -22,6 +22,8 @@ export const EditSteta = ({ stetaAr }) => {
     let [dateFalse,setDateFalse] = useState(false)
     let [partsFalse,setPartsFalse] = useState(false)
     let [totalFalse,setTotalFalse] = useState(false)
+    let username = localStorage.getItem("username")
+
 
 
     useEffect(() => {
@@ -53,7 +55,7 @@ export const EditSteta = ({ stetaAr }) => {
         let verifyTotal = total > 1
 
         if (verifyDesc && verifyDate && verifyParts && verifyTotal) {
-            axios.patch("http://localhost:5000/api/v1/steta/" + carId, { id, desc, pokriva, date, parts, total, usluga, time }).then(res => {
+            axios.patch("http://localhost:5000/api/v1/steta/" + carId, { username,id, desc, pokriva, date, parts, total, usluga, time }).then(res => {
                 setOpenDmgEdit(false)
                 setValid(true)
                 setSpinerOn(false)

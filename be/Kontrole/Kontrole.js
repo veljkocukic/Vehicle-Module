@@ -1,4 +1,4 @@
-let { CarsModel, ServiseriModel, ZaposleniModel,KorisniciModel } = require("../Modeli/Podaci")
+let { CarsModel, ServiseriModel, ZaposleniModel,KorisniciModel,IstorijaModel } = require("../Modeli/Podaci")
 let mongoose = require("mongoose")
 let jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -115,17 +115,33 @@ const Zaposleni = async (req, res) => { //////////////////Lista svih zaposlenih 
 
 const EditCars = async (req, res) => {
     try {
-
         const car = await CarsModel.findById(req.body.id)
+        let changeMarka = req.body.marka && car.markaTip !== req.body.marka ? {operater:req.body.username,izmena:"Promena marke iz "+car.markaTip+" u "+req.body.marka,promenaKreirana:new Date()} : false
+        let changeRegBr = req.body.regBr && req.body.regBr !== car.registracioniBroj ? {operater:req.body.username,izmena:"Promena registracionog broja iz "+car.registracioniBroj+" u "+req.body.regBr,promenaKreirana:new Date()} : false
+        let changeTipKor = req.body.typeMn && req.body.typeMn !== car.tipKorisnika ? {operater:req.body.username,izmena:"Promena tipa korisnika iz "+car.tipKorisnika+" u "+req.body.typeMn,promenaKreirana:new Date()} : false
+        let changeKoris = req.body.korisnikMn && req.body.korisnikMn !== car.korisnikVoz ? {operater:req.body.username,izmena:"Promena korisnika vozika iz "+car.korisnikVoz+" u "+req.body.korisnikMn,promenaKreirana:new Date()} : false
+        let changeActiveF = req.body.aktivnoOd && new Date(req.body.aktivnoOd).getTime() !== new Date(car.activeFrom).getTime() ? {operater:req.body.username,izmena:"Promena polja \"aktivno od\" iz "+formatDate(car.activeFrom)+" u "+formatDate(req.body.aktivnoOd),promenaKreirana:new Date()} : false
+        let changeActiveT = req.body.aktivnoDo && new Date(req.body.aktivnoDo).getTime() !== new Date(car.activeTo).getTime() ? {operater:req.body.username,izmena:"Promena polja \"aktivno od\" iz "+formatDate(car.activeTo)+" u "+formatDate(req.body.aktivnoDo),promenaKreirana:new Date()} : false
+
         car.markaTip = req.body.marka
         car.registracioniBroj = req.body.regBr
         car.tipKorisnika = req.body.typeMn
         car.korisnikVoz = req.body.korisnikMn
-        car.registrovanDo = req.body.isticanje
         car.activeFrom = req.body.aktivnoOd
         car.activeTo = req.body.aktivnoDo
+        changeMarka && car.istorijaPolje.push(changeMarka)
+        changeRegBr && car.istorijaPolje.push(changeRegBr)
+        changeTipKor && car.istorijaPolje.push(changeTipKor)
+        changeKoris && car.istorijaPolje.push(changeKoris)
+        changeActiveT && car.istorijaPolje.push(changeActiveT)
+        changeActiveF && car.istorijaPolje.push(changeActiveF)
+
+
+
+
         car.save()
         res.send("success")
+
 
 
     } catch (error) {
@@ -158,12 +174,27 @@ const RegistracijaEdit = async (req, res) => {
     try {
         const registracija = await CarsModel.findById(req.params.carId)
         let reg = registracija.registracijaPolje.find(item => item._id.toString() === req.body.id)
+
+        let datumChange = req.body.dateReg && new Date(reg.datum).getTime() !== new Date(req.body.dateReg).getTime() ? {operater:req.body.username,izmena:"Promena datuma registracije iz "+formatDate(reg.datum)+" u "+formatDate(req.body.dateReg),promenaKreirana:new Date()} : false
+        let dokumentacijaChange = req.body.docReg && req.body.docReg !== reg.dokumentacija ? {operater:req.body.username,izmena:"Promena dokumentacije registracije iz "+reg.dokumentacija+" u "+req.body.docReg,promenaKreirana:new Date()} : false
+        let cenaChange = req.body.troskovi && req.body.troskovi !== reg.cena ? {operater:req.body.username,izmena:"Promena cene registracije iz "+reg.cena+" u "+req.body.troskovi,promenaKreirana:new Date()} : false
+        let regZapChange = req.body.registrovao && req.body.registrovao !== reg.registrovaoZaposleni ?  {operater:req.body.username,izmena:"Promena u polju \"Registrovao zaposleni\" iz "+reg.registrovaoZaposleni+" u "+req.body.registrovao,promenaKreirana:new Date()} : false
+        let timeChange = req.body.timeZaposleni && req.body.timeZaposleni !== reg.vremeZaposlenog ? {operater:req.body.username,izmena:"Promena vremena zaposlenog pri registraciji iz "+reg.vremeZaposlenog+" u "+req.body.timeZaposleni,promenaKreirana:new Date()} : false
+        let doChange = req.body.regDo && req.body.regDo !== reg.registrovanDo ? {operater:req.body.username,izmena:"Promena datuma isticanja registracije iz "+formatDate(reg.registrovanDo)+" u "+formatDate(req.body.regDo),promenaKreirana:new Date()} : false
+        
         reg.datum = req.body.dateReg
         reg.dokumentacija = req.body.docReg
         reg.cena = req.body.troskovi
         reg.registrovaoZaposleni = req.body.registrovao
         reg.vremeZaposlenog = req.body.timeZaposleni
         reg.registrovanDo = req.body.regDo
+
+        datumChange && registracija.istorijaPolje.push(datumChange)
+        dokumentacijaChange && registracija.istorijaPolje.push(dokumentacijaChange)
+        cenaChange && registracija.istorijaPolje.push(cenaChange)
+        regZapChange && registracija.istorijaPolje.push(regZapChange)
+        timeChange && registracija.istorijaPolje.push(timeChange)
+        doChange && registracija.istorijaPolje.push(doChange)
 
         registracija.save()
         res.send("success")
@@ -180,6 +211,13 @@ const RegistracijaEdit = async (req, res) => {
 const SpecifikacijaEdit = async (req, res) => {
     try {
         const specifikacija = await CarsModel.findById(req.params.carId)
+        let sasijaChange = req.body.sasija && req.body.sasija !== specifikacija.specifikacijaPolje.brSasije ? {operater:req.body.username,izmena:"Promena broja šasije iz "+specifikacija.specifikacijaPolje.brSasije+" u "+req.body.sasija,promenaKreirana:new Date()} : false
+        let brMotChange = req.body.motor && req.body.motor !== specifikacija.specifikacijaPolje.brMotora ? {operater:req.body.username,izmena:"Promena broja motora iz "+specifikacija.specifikacijaPolje.brMotora+" u "+req.body.motor,promenaKreirana:new Date()} : false
+        let godisteChange = req.body.godiste && req.body.godiste !== specifikacija.specifikacijaPolje.godiste ? {operater:req.body.username,izmena:"Promena godišta iz "+specifikacija.specifikacijaPolje.godiste+" u "+req.body.godiste,promenaKreirana:new Date()} : false
+        let bojaChange = req.body.boja && req.body.bojaChange !== specifikacija.specifikacijaPolje.boja ? {operater:req.body.username,izmena:"Promena boje iz "+specifikacija.specifikacijaPolje.boja+" u "+req.body.boja,promenaKreirana:new Date()} : false
+        let datumKupChange = req.body.dateKup && new Date(req.body.dateKup).getTime() !== new Date(specifikacija.specifikacijaPolje.datumKupovine).getTime() ? {operater:req.body.username,izmena:"Promena datuma kupovine iz "+formatDate(specifikacija.specifikacijaPolje.datumKupovine)+" u "+formatDate(req.body.dateKup),promenaKreirana:new Date()} : false
+        let cenaChange = req.body.cenaVoz && req.body.cenaVoz !== specifikacija.specifikacijaPolje.cenaVozila ? {operater:req.body.username,izmena:"Promena cene vozila iz "+specifikacija.specifikacijaPolje.cenaVozila+" u "+req.body.cenaVoz,promenaKreirana:new Date()} : false
+        let docChange = req.body.docume && req.body.docume !== specifikacija.specifikacijaPolje.dokumentacija ? {operater:req.body.username,izmena:"Promena dokumentacija vozila iz "+specifikacija.specifikacijaPolje.dokumentacija+" u "+req.body.docume,promenaKreirana:new Date()} : false
 
         specifikacija.specifikacijaPolje.brSasije = req.body.sasija
         specifikacija.specifikacijaPolje.brMotora = req.body.motor
@@ -188,6 +226,15 @@ const SpecifikacijaEdit = async (req, res) => {
         specifikacija.specifikacijaPolje.datumKupovine = req.body.dateKup
         specifikacija.specifikacijaPolje.cenaVozila = req.body.cenaVoz
         specifikacija.specifikacijaPolje.dokumentacija = req.body.docume
+
+        sasijaChange && specifikacija.istorijaAr.push(sasijaChange)
+        brMotChange && specifikacija.istorijaAr.push(brMotChange)
+        godisteChange && specifikacija.istorijaAr.push(godisteChange)
+        bojaChange && specifikacija.istorijaAr.push(bojaChange)
+        datumKupChange && specifikacija.istorijaAr.push(datumKupChange)
+        cenaChange && specifikacija.istorijaAr.push(cenaChange)
+        docChange && specifikacija.istorijaAr.push(docChange)
+
 
         specifikacija.save()
         res.send("success")
@@ -206,6 +253,14 @@ const GorivoEdit = async (req, res) => {
         const gorivo = await CarsModel.findById(req.params.carId)
         let gor = gorivo.gorivoPolje.find(item => item._id.toString() === req.body.id)
 
+        let tipChange = req.body.type && req.body.type !== gor.tip ? {operater:req.body.username,izmena:"Promena tipa tekućeg troška iz "+gor.tip+" u "+req.body.type,promenaKreirana:new Date()} : false
+        let datumChange = req.body.dateFuel && new Date(req.body.dateFuel).getTime() !== new Date(gor.datum).getTime() ? {operater:req.body.username,izmena:"Promena datuma (Gorivo i t.t.) iz "+formatDate(gor.datum)+" u "+formatDate(req.body.dateFule),promenaKreirana:new Date()} : false
+        let kmChange = req.body.kmFuel && req.body.kmFuel !== gor.kilometraza ? {operater:req.body.username,izmena:"Promena kilometraže (Gorivo i t.t.) iz "+gor.kilometraza+" u "+req.body.kmFuel,promenaKreirana:new Date()} : false
+        let potChange = req.body.potrosnja && req.body.potrosnja !== gor.potrosnja ? {operater:req.body.username,izmena:"Promena potrošnje (Gorivo i t.t.) iz "+gor.potrošnja+" u "+req.body.potrošnja,promenaKreirana:new Date()} : false
+        let cenaChange = req.body.priceFuel && req.body.priceFuel !== gor.cena ? {operater:req.body.username,izmena:"Promena cene (Gorivo i t.t.) iz "+gor.potrošnja+" u "+req.body.potrošnja,promenaKreirana:new Date()} : false
+        let uslugaChange = req.body.uslugaFuel && req.body.uslugaFuel !== gor.uslugaZaposlenog ? {operater:req.body.username,izmena:"Promena usluge zaposlenog (Gorivo i t.t.) iz "+gor.uslugaZaposlenog+" u "+req.body.uslugaFuel,promenaKreirana:new Date()} : false
+        let vremeChange  = req.body.timeFuel && req.body.timeFuel !== gor.vremeZaposlenog ? {operater:req.body.username,izmena:"Promena vremena zaposlenog (Gorivo i t.t.) iz "+gor.uslugaZaposlenog+" u "+req.body.uslugaFuel,promenaKreirana:new Date()} : false
+
         gor.tip = req.body.type
         gor.datum = req.body.dateFuel
         gor.kilometraza = req.body.kmFuel
@@ -213,6 +268,16 @@ const GorivoEdit = async (req, res) => {
         gor.cena = req.body.priceFuel
         gor.uslugaZaposlenog = req.body.uslugaFuel
         gor.vremeZaposlenog = req.body.timeFuel
+
+        tipChange && gorivo.istorijaPolje.push(tipChange)
+        datumChange && gorivo.istorijaPolje.push(datumChange)
+        kmChange && gorivo.istorijaPolje.push(kmChange)
+        potChange && gorivo.istorijaPolje.push(potChange)
+        cenaChange && gorivo.istorijaPolje.push(cenaChange)
+        uslugaChange && gorivo.istorijaPolje.push(uslugaChange)
+        vremeChange && gorivo.istorijaPolje.push(vremeChange)
+
+
         gorivo.save()
         res.send("success")
 
@@ -232,6 +297,15 @@ const OdrzavanjeEdit = async (req, res) => {
         let odrzavanje = await CarsModel.findById(req.params.carId)
         let odr = odrzavanje.odrzavanjePolje.find(item => item._id.toString() === req.body.id)
 
+
+        let tipChange = req.body.typeOdr && req.body.typeOdr !== odr.tip ? {operater:req.body.username,izmena:"Promena tipa održavanja iz "+odr.tip+" u "+req.body.typeOdr,promenaKreirana:new Date()} : false
+        let datumChange = req.body.dateOdr && new Date(req.body.dateOdr).getTime() !== new date(odr.datum).getTime() ? {operater:req.body.username,izmena:"Promena datuma održavanja iz "+formatDate(odr.datum)+" u "+formatDate(req.body.dateOdr),promenaKreirana:new Date()} : false
+        let kmChange = req.body.kmOdr && req.body.kmOdr !== odr.kilometraza ? {operater:req.body.username,izmena:"Promena kilometraže u polju održavanja iz "+odr.kilometraza+" u "+req.body.kmOdr,promenaKreirana:new Date()} : false
+        let deloviChange = req.body.partsOdr && req.body.partsOdr !== odr.deloviUsluga ? {operater:req.body.username,izmena:"Promena delova/usluge u polju održavanja iz "+odr.deloviUsluga+" u "+req.body.partsOdr,promenaKreirana:new Date()} : false
+        let cenaChange = req.body.totalOdr && req.body.totalOdr !== odr.cena ? {operater:req.body.username,izmena:"Promena cene u polju održavanja iz "+odr.cena+" u "+req.body.totalOdr,promenaKreirana:new Date()} : false
+        let uslugChange = req.body.uslugaOdr && req.body.uslugaOdr !== odr.uslugaZaposlenog ? {operater:req.body.username,izmena:"Promena usluge zaposlenog u polju održavanja iz "+odr.uslugaZaposlenog+" u "+req.body.uslugaOdr,promenaKreirana:new Date()} : false
+        let vremeChange = req.body.timeODr && req.body.timeOdr !== odr.vremeZaposlenog ? {operater:req.body.username,izmena:"Promena vremena zaposlenog u polju održavanja iz "+odr.vremeZaposlenog+" u "+req.body.timeOdr,promenaKreirana:new Date()} : false
+
         odr.tip = req.body.typeOdr
         odr.datum = req.body.dateOdr
         odr.kilometraza = req.body.kmOdr
@@ -239,6 +313,14 @@ const OdrzavanjeEdit = async (req, res) => {
         odr.cena = req.body.totalOdr
         odr.uslugaZaposlenog = req.body.uslugaOdr
         odr.vremeZaposlenog = req.body.timeOdr
+
+        tipChange && odrzavanje.istorijaPolje.push(tipChange)
+        datumChange && odrzavanje.istorijaPolje.push(datumChange)
+        kmChange && odrzavanje.istorijaPolje.push(kmChange)
+        deloviChange && odrzavanje.istorijaPolje.push(deloviChange)
+        cenaChange && odrzavanje.istorijaPolje.push(cenaChange)
+        uslugChange && odrzavanje.istorijaPolje.push(uslugChange)
+        vremeChange && odrzavanje.istorijaPolje.push(vremeChange)
 
         odrzavanje.save()
         res.send("success")
@@ -259,6 +341,14 @@ const StetaEdit = async (req, res) => {
 
         let steta = await CarsModel.findById(req.params.carId)
         let ste = steta.stetaPolje.find(item => item._id.toString() === req.body.id)
+        
+        let opisChange = req.body.desc && req.body.desc !==ste.opisStete ? {operater:req.body.username,izmena:"Promena opisa štete iz  "+ste.opisStete+" u "+req.body.desc,promenaKreirana:new Date()} : false
+        let pokrivaChange = req.body.pokriva && req.body.pokriva !==ste.stetuPokriva ? {operater:req.body.username,izmena:"Promena u polju \"Štetu pokriva\" iz  "+ste.stetuPokriva+" u "+req.body.pokriva,promenaKreirana:new Date()} : false 
+        let dateChange = req.body.date && new Date(req.body.date).getTime() !== new Date(ste.datum).getTime() ? {operater:req.body.username,izmena:"Promena datuma štete iz  "+formatDate(ste.datum)+" u "+formatDate(req.body.date),promenaKreirana:new Date()} : false
+        let deloviChange = req.body.parts && req.body.parts !== ste.deloviUsluga ? {operater:req.body.username,izmena:"Promena delova/usluge u polju štete iz "+ste.deloviUsluga+" u "+req.body.parts,promenaKreirana:new Date()} : false
+        let cenaChange= req.body.total && req.body.total !== ste.cena ? {operater:req.body.username,izmena:"Promena cene štete iz "+ste.cena+" u "+req.body.total,promenaKreirana:new Date()} : false
+        let uslugaChange = req.body.usluga && req.body.usluga !== ste.uslugaZaposlenog ? {operater:req.body.username,izmena:"Promena usluge zaposlenog u polju štete iz "+ste.uslugaZaposlenog+" u "+req.body.usluga,promenaKreirana:new Date()} : false
+        let vremeChange = req.body.time && req.body.time !== ste.vremeZaposlenog ? {operater:req.body.username,izmena:"Promena vremena zaposlenog u polju štete iz "+ste.vremeZaposlenog+" u "+req.body.time,promenaKreirana:new Date()} : false
 
         ste.opisStete = req.body.desc
         ste.stetuPokriva = req.body.pokriva
@@ -267,6 +357,14 @@ const StetaEdit = async (req, res) => {
         ste.cena = req.body.total
         ste.uslugaZaposlenog = req.body.usluga
         ste.vremeZaposlenog = req.body.time
+
+        opisChange && steta.istorijaPolje.push(opisChange)
+        pokrivaChange && steta.istorijaPolje.push(pokrivaChange)
+        dateChange && steta.istorijaPolje.push(dateChange)
+        deloviChange && steta.istorijaPolje.push(deloviChange)
+        cenaChange && steta.istorijaPolje.push(cenaChange)
+        uslugaChange && steta.istorijaPolje.push(uslugaChange)
+        vremeChange && steta.istorijaPolje.push(vremeChange)
 
         steta.save()
         res.send(req.body)
