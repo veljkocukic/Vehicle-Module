@@ -417,7 +417,7 @@ const Vozila = async (req, res) => {
         const vozila = await CarsModel.find({})
         let newAr = []
         for (a of vozila) {
-            newAr.push({ name: a.markaTip, _id: a._id })
+            newAr.push({ name: a.markaTip+" - "+a.registracioniBroj, _id: a._id })
         }
         res.send(newAr)
 
