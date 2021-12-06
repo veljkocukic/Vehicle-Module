@@ -6,14 +6,13 @@ import { ZaposleniLista } from "../Novo/ZaposleniLista"
 export const EditMain = ({ setEditOn, activeToRef, tipKorRef, vozila, zaposleniSelect, markaRef, regBrRef, activeFromRef, korVozRef }) => {
 
 
-    let { formatDate,verReg, valid, setValid, setNewOn, id, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd } = useContext(DataContext)
+    let {verReg, valid, setValid, setNewOn, id, spinerOn, setSpinerOn, verDate, marka, setMarka, regBr, setRegBr, typeMn, setTypeMn, korisnikMn, setKorisnikMn, isticanje, setIsticanje, aktivnoDo, setAktivnoDo, aktivnoOd, setAktivnoOd } = useContext(DataContext)
 
 
     let [zaposleni, setZaposleni] = useState(true)
     let [markaFalse,setMarkaFalse] = useState(false)
     let [regFalse,setRegFalse] = useState(false)
     let [fromFalse,setFromFalse] = useState(false)
-    let [doFalse,setDoFalse] = useState(false)
 
 
     useEffect(() => {

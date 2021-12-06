@@ -19,7 +19,6 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
     let [dateFalse,setDateFalse] = useState(false)
     let [docFalse,setDocFalse] = useState(false)
     let [trosFalse,setTrosFalse] = useState(false)
-    let [regFalse,setRegFalse] = useState(false)
     let [timeFalse,setTimeFasle] = useState(false)
     let [doFalse,setDoFalse]  = useState(false)
 
@@ -69,7 +68,6 @@ export const EditRegistracija = ({ registracijaAr, regId, carId }) => {
             !verifyDate ? setDateFalse(true) : setDateFalse(false)
             !verifyDoc ? setDocFalse(true) : setDocFalse(false)
             !verifyTroskovi ? setTrosFalse(true) : setTrosFalse(false)
-            !verifyRegistrovao ? setRegFalse(true) : setTrosFalse(false)
             !verifyTime ? setTimeFasle(true) : setTimeFasle(false)
             !verifyDo ? setDoFalse(true) : setDoFalse(false)
             console.log(verifyDate, verifyDoc, verifyTroskovi, verifyRegistrovao, verifyTime, verifyDo)

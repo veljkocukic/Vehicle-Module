@@ -13,7 +13,7 @@ import { useHistory } from "react-router";
 
 
 export const Main = () => {
-    let { formatDate, zaposleniLista, setZaposleniLista, newOn, setNewOn, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef, korisnikMn } = useContext(DataContext)
+    let { formatDate, zaposleniLista, setZaposleniLista, newOn, setNewOn, setId, markaRef, regBrRef, tipKorRef, korVozRef, isticRef, activeFromRef, activeToRef } = useContext(DataContext)
     let [vozila, setVozila] = useState([])
     let zaposleniSelect = useRef(null)
     let [spinerMain, setSpinerMain] = useState(true)

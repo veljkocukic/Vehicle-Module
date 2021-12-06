@@ -6,14 +6,13 @@ import { useParams } from "react-router-dom"
 import { ZaposleniLista } from "./ZaposleniLista"
 
 export const NovoRegistracija = ({ newC }) => {
-    let { valid, setValid, setNewOn, spinerOn, setSpinerOn, verDate,dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, setRegistrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
+    let { valid, setValid, setNewOn, spinerOn, setSpinerOn, verDate,dateReg, setDateReg, docReg, setDocReg, troskovi, setTroskovi, registrovao, timeZaposleni, setTimeZaposleni, regDo, setRegDo } = useContext(DataContext)
 
 
     let { carId } = useParams()
     let [dateFalse,setDateFalse] = useState(false)
     let [docFalse,setDocFalse] = useState(false)
     let [trosFalse,setTrosFalse] = useState(false)
-    let [regFalse,setRegFalse] = useState(false)
     let [timeFalse,setTimeFasle] = useState(false)
     let [doFalse,setDoFalse]  = useState(false)
 
@@ -47,11 +46,10 @@ export const NovoRegistracija = ({ newC }) => {
             !verifyDate ? setDateFalse(true) : setDateFalse(false)
             !verifyDoc ? setDocFalse(true) : setDocFalse(false)
             !verifyTroskovi ? setTrosFalse(true) : setTrosFalse(false)
-            !verifyRegistrovao ? setRegFalse(true) : setTrosFalse(false)
             !verifyTime ? setTimeFasle(true) : setTimeFasle(false)
             !verifyDo ? setDoFalse(true) : setDoFalse(false)
 
-            console.log(verifyDate, verifyDoc, verifyTroskovi, verifyRegistrovao, verifyTime, verifyDo)
+            console.log(verifyDate, verifyDoc, verifyTroskovi, verifyTime, verifyDo)
         }
     }
 
