@@ -10,7 +10,7 @@ import { handleDataTable } from "../state/actions";
 import { handleTableHead } from "../state/actions";
 
 
-export const Menu = ({ sbt }) => {
+export const Menu = ({ sbt,bt }) => {
     let dispatch = useDispatch()
     const [tipIzvestaja, setTipIzvestaja] = useState("Potrošnja goriva")
     const [vrstaVrednosti, setVrstaVrednosti] = useState("Cena (din.)")
@@ -109,6 +109,34 @@ export const Menu = ({ sbt }) => {
                 </div>
 
                 <div className="single-input-container">
+                    <label htmlFor="datum-od" className="standard--label">Datum od<span>*</span></label>
+                    <input onChange={e => setMenuDateFrom(e.target.value)} type="date" className="standard--input" id="datum-od" name="datum-od" />
+                </div>
+
+                <div className="single-input-container">
+                    <label htmlFor="datum-do" className="standard--label">Datum do<span>*</span></label>
+                    <input onChange={e => setMenuDateTo(e.target.value)} type="date" className="standard--input" id="datum-do" name="datum-do" />
+                </div>
+
+                <div className="single-input-container">
+                    <label htmlFor="tip-odrzavanja" className="standard--label">Tip održavanja</label>
+                    <p className="under-text">(odaberite tip) </p>
+                    <select disabled={tipIzvestaja !== "Troškovi održavanja"} onChange={e => setTipOdrzavanja(e.target.value)} className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
+                        <option>Redovno</option>
+                        <option>Vanredno</option>
+                        <option>Higijena</option>
+                        <option>Gume</option>
+                    </select>
+                </div>
+
+                <div className="single-input-container multiple-select">
+                    <label htmlFor="vozila" className="standard--label">Vozila</label>
+                    <p className="under-text">(odaberite jedno ili više vozila) </p>
+                    <VozilaLista />
+                </div>
+
+                
+                <div className="single-input-container">
                     <label htmlFor="rezolucija" className="standard--label">Rezolucija<span>*</span></label>
                     <p className="under-text">(odaberite rezoluciju) </p>
                     <select onChange={e => setRezolucija(e.target.value)} className="standard--input" id="rezolucija" name="rezolucija" >
@@ -131,32 +159,6 @@ export const Menu = ({ sbt }) => {
                     </select>
                 </div>
 
-                <div className="single-input-container">
-                    <label htmlFor="tekuci-trosak" className="standard--label">Tip tekućeg troška</label>
-                    <p className="under-text">(odaberite tip) </p>
-                    <select disabled onChange={e => setTipTekuceg(e.target.value)} className="standard--input" id="tekuci-trosak" name="tekuci-trosak" >
-                        <option>Gorivo</option>
-                        <option>Tag</option>
-                        <option>Pranje</option>
-                    </select>
-                </div>
-
-                <div className="single-input-container">
-                    <label htmlFor="tip-odrzavanja" className="standard--label">Tip održavanja</label>
-                    <p className="under-text">(odaberite tip) </p>
-                    <select disabled={tipIzvestaja !== "Troškovi održavanja"} onChange={e => setTipOdrzavanja(e.target.value)} className="standard--input" id="tip-odrzavanja" name="tip-odrzavanja" >
-                        <option>Redovno</option>
-                        <option>Vanredno</option>
-                        <option>Higijena</option>
-                        <option>Gume</option>
-                    </select>
-                </div>
-
-                <div className="single-input-container multiple-select">
-                    <label htmlFor="vozila" className="standard--label">Vozila</label>
-                    <p className="under-text">(odaberite jedno ili više vozila) </p>
-                    <VozilaLista />
-                </div>
 
                 <div className="single-input-container multiple-select">
                     <label htmlFor="tip-odrzavanja" className="standard--label">Zaposleni</label>
@@ -164,26 +166,17 @@ export const Menu = ({ sbt }) => {
                     <ZaposleniLista multiple />
                 </div>
 
-                <div className="single-input-container">
-                    <label htmlFor="datum-od" className="standard--label">Datum od<span>*</span></label>
-                    <input onChange={e => setMenuDateFrom(e.target.value)} type="date" className="standard--input" id="datum-od" name="datum-od" />
-                </div>
-
-                <div className="single-input-container">
-                    <label htmlFor="datum-do" className="standard--label">Datum do<span>*</span></label>
-                    <input onChange={e => setMenuDateTo(e.target.value)} type="date" className="standard--input" id="datum-do" name="datum-do" />
-                </div>
 
             </form>
 
             <div className="input--container__btns">
-                <ReactHTMLTableToExcel
+                { bt && <ReactHTMLTableToExcel
                     id="test-table-xls-button"
                     className="btn no menu-excell"
                     table="excel-table"
                     filename="tablexls"
                     sheet="tablexls"
-                    buttonText="EXPORT U EXCELL" />
+                    buttonText="EXPORT U EXCELL" />}
                 <button className="btn yes menu-create" onClick={handleSubmit} ><i className="far fa-file-alt menu-icon"></i> KREIRAJ IZVEŠTAJ</button>
             </div>
 

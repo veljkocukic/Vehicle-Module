@@ -28,7 +28,7 @@ export const Izvestaj = () => {
             <div className="page-title">
                 <h1>Izveštaji</h1>
             </div>
-            <Menu sbt={setBigTableOn} />
+            <Menu sbt={setBigTableOn} bt={bigTableOn} />
             {bigTableOn && <Table />}
             {bigTableOn && <Grafik />}
             {smallTableOn && <MalaTabela />}
