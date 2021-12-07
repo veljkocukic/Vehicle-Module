@@ -44,7 +44,7 @@
 .file-input__label::after{
 height: 2.5em;
 background-color: #0079c0;
-content:"BIRANJE SLIKA";
+content:"DODAVANJE SLIKA";
 font-weight: bold;
 color:white;
 width: auto;

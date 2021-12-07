@@ -15,6 +15,7 @@ import { useHistory } from "react-router"
 
 
 
+
 export const Profil = () => {
 
 
@@ -27,9 +28,11 @@ export const Profil = () => {
     const [imagesArray, setImagesArray] = useState([])
     const [istorijaAr,setIstorijaAr] = useState([])
     const [doneLoad,setDoneLoad] = useState(false)
+    const [imgs,setImgs] = useState([])
+    const [uploadDone,setUploadDone] = useState(false)
 
 
-    let { setZaposleniLista, openSec, setOpenSec, registracijaAr, setRegistracijaAr, specifikacijaAr, setSpecifikacijaAr, gorivoAr, setGorivoAr, odrzavanjeAr, setOdrzavanjeAr, stetaAr, setStetaAr, setAktivnoDo, aktivnoDo, setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
+    let {setZaposleniLista, openSec, setOpenSec, registracijaAr, setRegistracijaAr, specifikacijaAr, setSpecifikacijaAr, gorivoAr, setGorivoAr, odrzavanjeAr, setOdrzavanjeAr, stetaAr, setStetaAr, setAktivnoDo, aktivnoDo, setNewOn, setRegDo, formatDate, korisnikMn, setKorisnikMn, aktivnoOd, setAktivnoOd, setSasija, setMotor, setGodiste, setBoja, setDateKup, setCenaVoz, setDocume, regDo } = useContext(DataContext)
 
 
 
@@ -157,6 +160,47 @@ export const Profil = () => {
         }
     }
 
+    const deleteImage = (imgId) =>{
+        setSpinerProfile(true)
+         axios.post("http://localhost:5000/api/v1/imagedel",{carId,imgId}).then(res=>{
+            
+            setTimeout(()=>{
+                setSpinerProfile(false)
+                window.location.reload()
+            },1000)
+            
+        }
+        )
+    }
+
+    function getBase64(file) {         ///////////PRIVREMENO REŠENJE
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+
+
+    const handleImgs = (img) => {
+        for (let a of img) {
+            getBase64(a).then(data => {
+                setImgs(prev=>[...prev,data])
+            })
+        }
+        setUploadDone(true)
+    }
+
+    const submitImages = () =>{
+        setSpinerProfile(true)
+        axios.post("http://localhost:5000/api/v1/imageadd",{carId,imgs}).then(()=>{
+            setTimeout(()=>{
+                window.location.reload()
+            },1000)
+        })
+    }
 
     return (
         <div className="profilPage">
@@ -169,7 +213,7 @@ export const Profil = () => {
             {spinerProfile && <Spiner />}
             {openSingleImage && <JednaSlika />}
             <div className="profilMain">
-                <img className="main-pic" src={imagesArray.length > 0 ? imagesArray[0] : slikanedostupna} alt="slika auta" />
+                <img className="main-pic" src={imagesArray.length > 0 ? imagesArray[0].slika : slikanedostupna} alt="slika auta" />
                 <div className="profilDetails">
                     <div className="profilInfo">
                         <h3>Informacije o vozilu</h3>
@@ -189,8 +233,16 @@ export const Profil = () => {
                         <i className="fas fa-chevron-left" onClick={handleLeft}></i>
                         <i className="fas fa-chevron-right" onClick={handleRight}></i>
                         <div ref={photoContainer} className="photoContainer">
-                            {imagesArray.map((item, key) => <img className="list-img" key={key} onClick={() => handleSlikaOpen(item)} src={item} alt="slika auta" />)}
+                            {imagesArray.map((item, key) => <div style={{position:"relative"}}><img className="list-img" key={key} onClick={() => handleSlikaOpen(item.slika)} id={item._id} src={item.slika} alt="slika auta"/>
+                                <div className="delete-pic" onClick={()=>deleteImage(item._id)} >
+                                    <i className="fas fa-trash"></i>
+                                </div>
+                            </div>)}
                         </div>
+                        {/* <button className="btn add-imgs" ><i className="fas fa-file-image"></i> Dodaj slike</button> */}
+                        <label htmlFor="slike" className="standard--label file-input__label add-imgs btn"></label>
+                        <input type="file" className="file-input" id="slike" accept="image/*" multiple onChange={(e) => handleImgs(e.target.files)} />
+                        {uploadDone && <div onClick={submitImages}className="send-images"><i className="far fa-check-circle"></i></div>}
                     </div>
                 </div>
             </div>

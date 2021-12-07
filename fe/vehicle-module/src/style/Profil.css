@@ -219,3 +219,58 @@
 span{
   color:crimson;
 }
+
+.delete-pic{
+  color:crimson;
+  background-color: white;
+  font-size: 1.2em;
+  width: 1.4em;
+  height: 1.4em;
+  position: absolute;
+  top: 0.3em;
+  right: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: .3s ease;
+}
+
+.delete-pic:hover{
+  color:white;
+  background-color: crimson;
+}
+
+.add-imgs{
+  position: absolute;
+  bottom:0em;
+  height: 2.8em;
+  width: 10em !important;
+  right: 50%;
+  transform: translateX(50%);
+  z-index: 98;
+}
+
+.send-images{
+  position: absolute;
+  bottom:0em;
+  height: 2em;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: crimson;
+  width: 3em !important;
+  right: 25%;
+  z-index: 98;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.send-images:hover{
+  color:crimson;
+  background-color: white;
+  border: 2px solid crimson;
+}

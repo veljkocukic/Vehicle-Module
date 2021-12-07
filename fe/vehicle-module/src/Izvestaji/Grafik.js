@@ -44,25 +44,26 @@ export const Grafik = () => {
             },
             title: {
                 display: true,
-                text: grafikIme,
+                text: "Grafički prikaz",
             },
         },
     };
 
     const labels = [...tableHead];
 
+
     const data = {
         labels,
-        datasets: [
-            {
-                label: 'Dataset 1',
-                data: dataTable[grafikBroj-1].data.map(item => item.ukupno),
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        datasets:dataTable.map(item=>{
+            let random = Math.floor(Math.random()*200)
+            return {
+                label:item.vozilo,
+                data:item.data.map(item=>item.ukupno),
+                backgroundColor: "rgba("+random+", 99,285, 0.5)"
             }
-        ],
+        })
     };
 
-    console.log()
     return (
         <div className="grafik-container">
             <Bar options={options} data={data} />

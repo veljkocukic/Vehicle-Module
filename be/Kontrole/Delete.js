@@ -87,5 +87,17 @@ const ServiseriDelete = async(req,res)=>{
 
 }
 
+const DeleteImage = async(req,res) =>{
 
-module.exports = { RegistracijaDelete, SpecifikacijaDelete, GorivoDelete, OdrzavanjeDelete, StetaDelete,ServiseriDelete }
+    try {
+        const car = await CarsModel.findById(req.body.carId)
+        car.slike = car.slike.filter(img=>img._id.toString() !== req.body.imgId)
+        car.save()
+        res.send("success")
+
+    } catch (error) {
+        console.log(error)
+    }
+
+}
+module.exports = { RegistracijaDelete, SpecifikacijaDelete, GorivoDelete, OdrzavanjeDelete, StetaDelete,ServiseriDelete,DeleteImage }

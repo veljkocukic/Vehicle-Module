@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const { Main, Zaposleni, EditCars, SingleCar, RegistracijaEdit, SpecifikacijaEdit, GorivoEdit, OdrzavanjeEdit, StetaEdit, Serviseri, ServiseriEdit, Vozila,IzvestajiPost, Tabela,Login,CheckLogin } = require("../Kontrole/Kontrole")
-const { RegistracijaDelete, SpecifikacijaDelete, GorivoDelete, OdrzavanjeDelete, StetaDelete, ServiseriDelete } = require("../Kontrole/Delete")
-const { NovoRegistracija, NovoGorivo, NovoOdrzavanje, NovoSteta, NovoServiseri,NovoMain } = require("../Kontrole/Novo")
+const { RegistracijaDelete, SpecifikacijaDelete, GorivoDelete, OdrzavanjeDelete, StetaDelete, ServiseriDelete,DeleteImage } = require("../Kontrole/Delete")
+const { NovoRegistracija, NovoGorivo, NovoOdrzavanje, NovoSteta, NovoServiseri,NovoMain,AddImage } = require("../Kontrole/Novo")
 
 router.route("/login").post(Login)
 router.route("/logincheck").post(CheckLogin)
@@ -23,7 +23,8 @@ router.route("/serviseri").get(Serviseri).patch(ServiseriEdit).post(NovoServiser
 router.route("/serviseri/delete").post(ServiseriDelete)
 router.route("/izvestaji").post(IzvestajiPost)
 router.route("/tabela").post(Tabela)
-
+router.route("/imagedel").post(DeleteImage)
+router.route("/imageadd").post(AddImage)
 
 
 module.exports = { router }

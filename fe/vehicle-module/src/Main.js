@@ -63,11 +63,10 @@ export const Main = () => {
     const Kolona = (props) => {
 
         useEffect(() => setSpinerMain(false), [])
-
         return (
             <div className="single-car-container">
 
-                <img src={props.img || slikanedostupna} className="single-car-container__image" alt="slika auta" />
+                <img src={props.img.length !== undefined ? props.img : slikanedostupna} className="single-car-container__image" alt="slika auta" />
 
                 <div className="single-car-container__info">
 
@@ -125,7 +124,7 @@ export const Main = () => {
             {spinerMain && <Spiner />}
             {editOn && <EditMain setEditOn={setEditOn} vozila={vozila} zaposleniSelect={zaposleniSelect} markaRef={markaRef} regBrRef={regBrRef} isticRef={isticRef} tipKorRef={tipKorRef} activeToRef={activeToRef} activeFromRef={activeFromRef} zaposleniLista={zaposleniLista} korVozRef={korVozRef} />}
             {newOn && <NovoMain zaposleniLista={zaposleniLista} setEditOn={setEditOn} />}
-            {vozila.map((item) => <Kolona key={item.id} img={item.slike[0]} id={item.id} name={item.markaTip} reg={item.regBroj} utype={item.tipKorisnika} uname={item.korisnikVozila} expire={item.isticanje} activeTo={item.activeTo} activeFrom={item.activeFrom} />)}
+            {vozila.map((item) => <Kolona key={item.id} img={item.slike[0] ? item.slike[0].slika : slikanedostupna} id={item.id} name={item.markaTip} reg={item.regBroj} utype={item.tipKorisnika} uname={item.korisnikVozila} expire={item.isticanje} activeTo={item.activeTo} activeFrom={item.activeFrom} />)}
 
         </div>
     )

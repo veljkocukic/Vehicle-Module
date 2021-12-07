@@ -160,7 +160,9 @@ const NovoMain = async (req, res) => {
             registracijaPolje:{
                 registrovanDo:req.body.regDo
             },
-            slike: req.body.file,
+            slike: req.body.file.map(item=>{
+                return {slika:item}
+            }),
             specifikacijaPolje:{
                 brSasije : "",
                 brMotora : "",
@@ -181,5 +183,19 @@ const NovoMain = async (req, res) => {
     }
 }
 
+const AddImage = async(req,res)=>{
+    try {
+        const car = await CarsModel.findById(req.body.carId)
+        let newAr = req.body.imgs.map(item=>{
+            return {slika:item}
+        })
+        car.slike = car.slike.concat(newAr)
+        car.save()
+        res.send("success")
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-module.exports = { NovoRegistracija, NovoGorivo, NovoOdrzavanje, NovoSteta, NovoServiseri, NovoMain }
+
+module.exports = { NovoRegistracija, NovoGorivo, NovoOdrzavanje, NovoSteta, NovoServiseri, NovoMain,AddImage }

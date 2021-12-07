@@ -65,6 +65,11 @@ const IstorijaSchema = new mongoose.Schema({
     promenaKreirana: { type: Date }
 })
 
+const SlikeSchema = new mongoose.Schema({
+    _id: { type: mongoose.Types.ObjectId, auto: true },
+    slika:{type:String}
+})
+
 
 const CarsSchema = new mongoose.Schema({
     markaTip: { type: String, required: true },
@@ -79,7 +84,7 @@ const CarsSchema = new mongoose.Schema({
     odrzavanjePolje: [OdrzavanjeSchema],
     stetaPolje: [StetaSchema],
     istorijaPolje: [IstorijaSchema],
-    slike: []
+    slike: [SlikeSchema]
 })
 
 const ServiseriSchema = new mongoose.Schema({
