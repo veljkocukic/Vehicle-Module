@@ -16,7 +16,6 @@ export const Menu = ({ sbt,bt }) => {
     const [vrstaVrednosti, setVrstaVrednosti] = useState("Cena (din.)")
     const [rezolucija, setRezolucija] = useState("Godina")
     const [pokriceStete, setPokriceStete] = useState("Zaposleni")
-    const [tipTekuceg, setTipTekuceg] = useState("")
     const [tipOdrzavanja, setTipOdrzavanja] = useState("Redovno")
     const [menuDateFrom, setMenuDateFrom] = useState(0)
     const [menuDateTo, setMenuDateTo] = useState(0)
@@ -57,7 +56,7 @@ export const Menu = ({ sbt,bt }) => {
             tipIzvestaja === "Ukupno vreme zaposlenog" ? setVremeTab(true) : setVremeTab(false)
             let pokr = tipIzvestaja === "Troškovi štete na vozilu" ? pokriceStete : null
             let todr = tipIzvestaja === "Troškovi održavanja" ? tipOdrzavanja : null
-            await axios.post("http://localhost:5000/api/v1/izvestaji", { tipIzvestaja, vrstaVrednosti, rezolucija, tipTekuceg, menuDateFrom, menuDateTo, vozilaSelect, zaposleniSelect, pokr, todr }).then(res => {
+            await axios.post("http://localhost:5000/api/v1/izvestaji", { tipIzvestaja, vrstaVrednosti, rezolucija, menuDateFrom, menuDateTo, vozilaSelect, zaposleniSelect, pokr, todr }).then(res => {
                 dispatch(handleTableHead(res.data.tableHead))
                 dispatch(handleDataTable(res.data.dataTable))
                 sbt(true)
