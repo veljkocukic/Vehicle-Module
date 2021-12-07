@@ -56,7 +56,7 @@ export const Login = () =>{
         }).catch(error=>alert(error))
         }else{
             !verifyName ? setUserFalse(true) : setUserFalse(false)
-            !verifyPass ? setPassFalse(true) : setUserFalse(false)
+            !verifyPass ? setPassFalse(true) : setPassFalse(false)
             setLoginSpinner(false)
         }
 
@@ -89,7 +89,7 @@ export const Login = () =>{
 
                 <div className="input--container__btns login-btns">
                     <button className="btn yes login-btn" onClick={handleSubmit}><i className="fas fa-sign-in-alt"></i>    LOGIN</button>
-                    <p>Zaboravljena lozinka?</p>
+                    {/* <p>Zaboravljena lozinka?</p> */}
                 </div>
                 </form>
 
