@@ -16,12 +16,6 @@ import { useSelector } from "react-redux"
 
 export const Grafik = () => {
 
-    //const grafikIme = useSelector(state=>state.grafikTime)
-    let grafikBroj = useSelector(state => state.grafikBrojReducer)
-    let grafikIme = useSelector(state => state.grafikImeReducer)
-
-
-
     let tableHead = useSelector(state=>state.tableHeadReducer)
     let dataTable = useSelector(state=>state.dataTableReducer)
 
@@ -51,15 +45,19 @@ export const Grafik = () => {
 
     const labels = [...tableHead];
 
+    function random_rgba() {
+        var o = Math.round, r = Math.random, s = 255;
+        return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',0.7)';
+    }
+
 
     const data = {
         labels,
         datasets:dataTable.map(item=>{
-            let random = Math.floor(Math.random()*200)
             return {
                 label:item.vozilo,
                 data:item.data.map(item=>item.ukupno),
-                backgroundColor: "rgba("+random+", 99,285, 0.5)"
+                backgroundColor: random_rgba()
             }
         })
     };
